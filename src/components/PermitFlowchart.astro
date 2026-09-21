@@ -5,7 +5,7 @@
 //
 // casing: entrópica writes lowercase, and the brand stylesheet enforces
 // text-transform: lowercase globally. institutional siglas (RLA, RDP, PDC,
-// DOYC, MIVIOT…) and the B/. currency are opted out via text-transform:none
+// DOYC, MIVIOT…) and the USD currency are opted out via text-transform:none
 // in the styles so they render as authored.
 import type { Locale } from '../i18n/strings';
 import { localized } from '../i18n/utils';
@@ -16,7 +16,7 @@ interface Props {
 }
 const { locale } = Astro.props;
 
-const DEFAULT_COST_M2 = 1000; // B/. per m², matches the site's stated median
+const DEFAULT_COST_M2 = 1000; // USD per m², matches the site's stated median
 const DEFAULT_AREA = 250; // m²
 
 // entry scenarios: key + icon are language-neutral; labels come from S.
@@ -111,11 +111,11 @@ const STRINGS = {
       eot: { title: 'esquema de ordenamiento territorial (EOT)', inst: 'MIVIOT', note: 'resolución ministerial · MIVIOT', tip: 'el plan maestro para polígonos de más de 10 hectáreas (más de 300 ha exige un PPOT por ordenanza municipal). MIVIOT evalúa uso de suelo, densidad y capacidad ambiental, con revisión de SINAPROC y MIAMBIENTE, y consulta pública si hay alta densidad o vivienda social. termina en una resolución ministerial que habilita la lotificación.' },
       ante_urb: { title: 'anteproyecto de urbanización', inst: 'MIVIOT · ventanilla única', note: 'nota de anteproyecto · validez 2 años', tip: 'la lotificación preliminar, revisada por la ventanilla única de MIVIOT (MIVIOT, MOP, IDAAN, MINSA, MIAMBIENTE y ATTT). da derecho a preventa y a la promesa de compraventa, con validez de 2 años. no autoriza movimiento de tierra ni construcción.' },
       planos_urb: { title: 'planos de urbanización (+ EIA)', inst: 'MIVIOT · ventanilla única', note: 'incluye EIA de MIAMBIENTE', tip: 'los planos de infraestructura ya diseñados: vialidad (MOP y ATTT), drenaje pluvial (MOP), agua potable y sanitario (IDAAN y MINSA), más la resolución de impacto ambiental (EIA) de MIAMBIENTE. al sellarse, MIVIOT emite la nota de apto, que permite segregar las fincas individuales en el registro público.' },
-      anteproyecto: { title: 'anteproyecto (RLA)', inst: 'MUPA · DOYC', note: `+ B/. ${perSheet} por lámina`, tip: 'aprobación urbana del concepto: uso de suelo, altura, retiros y densidad. 100% en línea por el portal RLA de alcaldía digital, lo presenta un arquitecto idóneo. no autoriza construir, pero da derecho a preventa. validez 3 años, prorrogable 1 más.' },
-      demolicion: { title: 'permiso de demolición', inst: 'DOYC', note: 'impuesto de demolición · MITRADEL si supera B/. 1,000,000', tip: 'requiere un plan de demolición firmado por ingeniero idóneo, con la secuencia de retiro de elementos para evitar el colapso progresivo. DOYC inspecciona el sitio, calcula el impuesto de demolición y emite el permiso en máximo 5 días hábiles tras el pago.' },
+      anteproyecto: { title: 'anteproyecto (RLA)', inst: 'MUPA · DOYC', note: `+ USD ${perSheet} por lámina`, tip: 'aprobación urbana del concepto: uso de suelo, altura, retiros y densidad. 100% en línea por el portal RLA de alcaldía digital, lo presenta un arquitecto idóneo. no autoriza construir, pero da derecho a preventa. validez 3 años, prorrogable 1 más.' },
+      demolicion: { title: 'permiso de demolición', inst: 'DOYC', note: 'impuesto de demolición · MITRADEL si supera USD 1,000,000', tip: 'requiere un plan de demolición firmado por ingeniero idóneo, con la secuencia de retiro de elementos para evitar el colapso progresivo. DOYC inspecciona el sitio, calcula el impuesto de demolición y emite el permiso en máximo 5 días hábiles tras el pago.' },
       terraceria: { title: 'movimiento de tierra (ATC)', inst: 'DOYC', note: 'autorización transitoria · ATC', tip: 'la autorización transitoria de construcción (ATC) permite arrancar la terracería, el movimiento de tierra y las fundaciones tempranas mientras la ventanilla única termina de revisar los planos. no lleva un impuesto aparte: el de construcción se paga en el PDC.' },
-      rdp: { title: 'planos constructivos (RDP)', inst: 'ventanilla única', note: `+ B/. ${perSheet} por lámina + tarifas DINASEPI`, tip: 'revisión técnica multidisciplinaria, en simultáneo, por todas las instituciones de la ventanilla única. requiere un anteproyecto aprobado, e incluye las memorias de cálculo firmadas por los ingenieros estructural y electromecánico. al aprobar, los planos se firman por el director de DOYC y se registran con un número CONS. validez 5 años.' },
-      rdpm: { title: 'planos misceláneos (RDPM)', inst: 'ventanilla única', note: `+ B/. ${perSheet} por lámina + tarifas DINASEPI`, tip: 'la vía para obras que no alteran el uso de suelo, la densidad ni la zonificación. exenta del anteproyecto, pero pasa por la misma revisión de la ventanilla única que un RDP, con las memorias de los ingenieros estructural y electromecánico.' },
+      rdp: { title: 'planos constructivos (RDP)', inst: 'ventanilla única', note: `+ USD ${perSheet} por lámina + tarifas DINASEPI`, tip: 'revisión técnica multidisciplinaria, en simultáneo, por todas las instituciones de la ventanilla única. requiere un anteproyecto aprobado, e incluye las memorias de cálculo firmadas por los ingenieros estructural y electromecánico. al aprobar, los planos se firman por el director de DOYC y se registran con un número CONS. validez 5 años.' },
+      rdpm: { title: 'planos misceláneos (RDPM)', inst: 'ventanilla única', note: `+ USD ${perSheet} por lámina + tarifas DINASEPI`, tip: 'la vía para obras que no alteran el uso de suelo, la densidad ni la zonificación. exenta del anteproyecto, pero pasa por la misma revisión de la ventanilla única que un RDP, con las memorias de los ingenieros estructural y electromecánico.' },
       pdc: { title: 'permiso de construcción (PDC)', inst: 'DOYC', note: 'impuesto de construcción · acuerdo 73-17', tip: 'autoriza la construcción física, y el permiso queda asignado al contratista. DOYC revisa el presupuesto y fija el avalúo en 10 días hábiles, y emite el permiso 5 días hábiles después del pago. el impuesto de construcción es progresivo sobre el valor de la obra.' },
       traspaso: { title: 'traspaso de infraestructura', inst: 'DOYC · MOP · IDAAN', note: 'actas de aceptación + escritura de traspaso', tip: 'antes de ocupar, el desarrollador entrega al municipio las calles, parques, áreas verdes y servidumbres, con actas de aceptación de MOP e IDAAN y una escritura pública de traspaso (ley 63 de 2015). sin este paso no se emite la ocupación de la urbanización.' },
       ocupacion: { title: 'permiso de ocupación (PDO)', inst: 'DOYC', note: 'impuesto de ocupación', tip: 'la inspección final (PDO, también procesada como SPOC). si no hay objeciones técnicas, DOYC calcula el impuesto de ocupación y, tras el pago, emite el permiso con firma digital y código QR. es el documento que legaliza el uso del edificio.' },
@@ -169,11 +169,11 @@ const STRINGS = {
       eot: { title: 'territorial planning scheme (EOT)', inst: 'MIVIOT', note: 'ministerial resolution · MIVIOT', tip: 'the master plan for polygons over 10 hectares (over 300 ha also needs a PPOT by municipal ordinance). MIVIOT evaluates land use, density and environmental capacity, with SINAPROC and MIAMBIENTE review, and a public consultation for high density or social housing. it ends in a ministerial resolution that unlocks the lotification.' },
       ante_urb: { title: 'urbanization preliminary (anteproyecto)', inst: 'MIVIOT · single window', note: 'anteproyecto note · valid 2 years', tip: 'the preliminary lotification, reviewed by MIVIOT\'s single window (MIVIOT, MOP, IDAAN, MINSA, MIAMBIENTE and ATTT). it grants pre-sale and promise-of-sale rights, valid for 2 years. it does not authorize earthworks or construction.' },
       planos_urb: { title: 'urbanization plans (+ EIA)', inst: 'MIVIOT · single window', note: 'includes MIAMBIENTE EIA', tip: 'the infrastructure plans, fully engineered: roads (MOP and ATTT), stormwater (MOP), potable water and sanitary networks (IDAAN and MINSA), plus the environmental impact assessment (EIA) from MIAMBIENTE. once stamped, MIVIOT issues the nota de apto, which lets the individual parcels (fincas) be segregated in the public registry.' },
-      anteproyecto: { title: 'preliminary design (RLA)', inst: 'MUPA · DOYC', note: `+ B/. ${perSheet} per sheet`, tip: 'urban approval of the concept: land use, height, setbacks and density. filed 100% online through the RLA portal of alcaldía digital, by a licensed architect. it does not authorize building, but it grants pre-sale rights. valid 3 years, extendable once.' },
-      demolicion: { title: 'demolition permit', inst: 'DOYC', note: 'demolition tax · MITRADEL above B/. 1,000,000', tip: 'requires a demolition plan signed by a licensed engineer, with the sequence of element removal to prevent progressive collapse. DOYC inspects the site, assesses the demolition tax and issues the permit within 5 business days of payment.' },
+      anteproyecto: { title: 'preliminary design (RLA)', inst: 'MUPA · DOYC', note: `+ USD ${perSheet} per sheet`, tip: 'urban approval of the concept: land use, height, setbacks and density. filed 100% online through the RLA portal of alcaldía digital, by a licensed architect. it does not authorize building, but it grants pre-sale rights. valid 3 years, extendable once.' },
+      demolicion: { title: 'demolition permit', inst: 'DOYC', note: 'demolition tax · MITRADEL above USD 1,000,000', tip: 'requires a demolition plan signed by a licensed engineer, with the sequence of element removal to prevent progressive collapse. DOYC inspects the site, assesses the demolition tax and issues the permit within 5 business days of payment.' },
       terraceria: { title: 'earthworks (ATC)', inst: 'DOYC', note: 'transitional authorization · ATC', tip: 'the transitional construction authorization (ATC) lets earthworks, grading and early foundations start while the single window finishes reviewing the plans. it carries no separate tax: the construction tax is paid at the PDC.' },
-      rdp: { title: 'construction drawings (RDP)', inst: 'single window', note: `+ B/. ${perSheet} per sheet + DINASEPI fees`, tip: 'the multidisciplinary technical review, all at once, by every institution in the single window. it requires an approved preliminary design, and includes the calculation memories signed by the structural and electromechanical engineers. once approved, the drawings are signed by the DOYC director and registered with a CONS number. valid 5 years.' },
-      rdpm: { title: 'miscellaneous plans (RDPM)', inst: 'single window', note: `+ B/. ${perSheet} per sheet + DINASEPI fees`, tip: 'the route for works that do not change land use, density or zoning. exempt from the preliminary design, but it goes through the same single-window review as an RDP, with the structural and electromechanical engineers\' memories.' },
+      rdp: { title: 'construction drawings (RDP)', inst: 'single window', note: `+ USD ${perSheet} per sheet + DINASEPI fees`, tip: 'the multidisciplinary technical review, all at once, by every institution in the single window. it requires an approved preliminary design, and includes the calculation memories signed by the structural and electromechanical engineers. once approved, the drawings are signed by the DOYC director and registered with a CONS number. valid 5 years.' },
+      rdpm: { title: 'miscellaneous plans (RDPM)', inst: 'single window', note: `+ USD ${perSheet} per sheet + DINASEPI fees`, tip: 'the route for works that do not change land use, density or zoning. exempt from the preliminary design, but it goes through the same single-window review as an RDP, with the structural and electromechanical engineers\' memories.' },
       pdc: { title: 'construction permit (PDC)', inst: 'DOYC', note: 'construction tax · acuerdo 73-17', tip: 'authorizes physical construction, and the permit is assigned to the contractor. DOYC reviews the budget and sets the appraisal in 10 business days, and issues the permit 5 business days after payment. the construction tax is progressive on the value of the works.' },
       traspaso: { title: 'infrastructure handover', inst: 'DOYC · MOP · IDAAN', note: 'acceptance acts + handover deed', tip: 'before occupation, the developer hands the streets, parks, green areas and easements over to the municipality, with acceptance acts from MOP and IDAAN and a public handover deed (ley 63 de 2015). without this step the urbanization\'s occupancy permit is not issued.' },
       ocupacion: { title: 'occupancy permit (PDO)', inst: 'DOYC', note: 'occupancy tax', tip: 'the final inspection (PDO, also processed as SPOC). with no technical objections, DOYC assesses the occupancy tax and, after payment, issues the permit with a digital signature and QR code. it is the document that legalizes the building\'s use.' },
@@ -267,8 +267,8 @@ const defaultNum = new Map(defaultOrder.map((s, i) => [s.key, String(i + 1).padS
   <div class="pmap-estimator">
     <div class="est-figure">
       <div class="est-k">{STRINGS.estK} <span class="est-star">*</span></div>
-      <div class="est-v" id="pm-tax-head">B/. 2,495</div>
-      <div class="est-sub">{STRINGS.estSub} <b id="pm-project-value">B/. 250,000</b></div>
+      <div class="est-v" id="pm-tax-head">USD 2,495</div>
+      <div class="est-sub">{STRINGS.estSub} <b id="pm-project-value">USD 250,000</b></div>
     </div>
     <div class="est-controls">
       <div class="pin-field">
@@ -276,7 +276,7 @@ const defaultNum = new Map(defaultOrder.map((s, i) => [s.key, String(i + 1).padS
         <input type="range" id="pm-area" min="30" max="10000" step="10" value={DEFAULT_AREA} />
       </div>
       <div class="pin-field">
-        <label for="pm-cost">{STRINGS.costLabel} <span class="pin-val" id="pm-cost-val">B/. 1,000</span></label>
+        <label for="pm-cost">{STRINGS.costLabel} <span class="pin-val" id="pm-cost-val">USD 1,000</span></label>
         <input type="range" id="pm-cost" min="300" max="4000" step="50" value={DEFAULT_COST_M2} />
       </div>
     </div>
@@ -292,7 +292,7 @@ const defaultNum = new Map(defaultOrder.map((s, i) => [s.key, String(i + 1).padS
 <style>
   .pmap { padding: 8px 0 24px; }
 
-  /* opt acronyms + B/. currency out of the brand's global lowercase transform */
+  /* opt acronyms + USD currency out of the brand's global lowercase transform */
   .pstep-title, .pstep-tip, .pstep-fee, .pnest-chip, .pnest-tip,
   .pmap-notes li, .est-v, .est-sub, .pin-val, .est-note, .pmap-foot {
     text-transform: none;
@@ -386,7 +386,7 @@ const defaultNum = new Map(defaultOrder.map((s, i) => [s.key, String(i + 1).padS
     const locale = root.dataset.locale === 'en' ? 'en' : 'es';
     const assessedText = root.dataset.assessed ?? 'se calcula en inspección';
     const money = new Intl.NumberFormat(locale === 'en' ? 'en-US' : 'es-PA', { maximumFractionDigits: 0 });
-    const b = (n: number) => `B/. ${money.format(Math.round(n))}`;
+    const b = (n: number) => `USD ${money.format(Math.round(n))}`;
     const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
     const areaEl = document.getElementById('pm-area') as HTMLInputElement;

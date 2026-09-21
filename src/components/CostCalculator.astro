@@ -30,13 +30,13 @@ const RETURN_URL = (locale === 'en' ? '/en/tools/cost-calculator' : '/tools/cost
 
 // central-value formatters for the assumptions table (server-rendered)
 const c = (x: Range) => Math.round((x.low + x.high) / 2);
-const money = (x: Range) => `$${c(x).toLocaleString('en-US')}`;
-const money2 = (x: Range) => `$${((x.low + x.high) / 2).toFixed(2)}`;
-// full low–high band, server-rendered so the $/m² figures are crawlable text.
+const money = (x: Range) => `USD ${c(x).toLocaleString('en-US')}`;
+const money2 = (x: Range) => `USD ${((x.low + x.high) / 2).toFixed(2)}`;
+// full low–high band, server-rendered so the USD/m² figures are crawlable text.
 // the results block above is javascript-only, so this table is the only cost
 // data a search engine can actually read on this page.
 const band = (x: Range) =>
-  `$${Math.round(x.low).toLocaleString('en-US')}–${Math.round(x.high).toLocaleString('en-US')}`;
+  `USD ${Math.round(x.low).toLocaleString('en-US')}–${Math.round(x.high).toLocaleString('en-US')}`;
 
 const S = {
   es: {
@@ -88,7 +88,7 @@ const S = {
     paybackNone: 'sin ahorro',
     softNote: 'el total incluye ~15 % de costos indirectos: diseño, permisos municipales y legal.',
     excludesNote: 'no incluye terreno, mobiliario ni el itbms (7 %) sobre servicios profesionales.',
-    perM2: '$/m² de construcción',
+    perM2: 'USD/m² de construcción',
     // energy
     energyEb: '// costo de energía',
     energyH: 'electricidad mensual, lado a lado.',
@@ -143,7 +143,7 @@ const S = {
     aOccUnit: 'pers./100 m²',
     aOccCap: 'máx. 6 por hogar',
     aMaint: 'mantenimiento',
-    aMaintUnit: '$/m²·mes',
+    aMaintUnit: 'USD/m²·mes',
     sourcesEb: '// fuentes',
     sourcesH: 'de dónde salen los números.',
     srcCapex: 'costos de construcción (capex)',
@@ -211,7 +211,7 @@ const S = {
     paybackNone: 'no savings',
     softNote: 'total includes ~15 % indirect costs: design, municipal permits, and legal.',
     excludesNote: 'excludes land, furniture/FF&E, and the 7 % ITBMS on professional services.',
-    perM2: '$/m² of construction',
+    perM2: 'USD/m² of construction',
     energyEb: '// energy cost',
     energyH: 'monthly electricity, side by side.',
     resGloss: 'res v.2 · reglamento de edificación sostenible, panama’s energy-efficiency building code.',
@@ -262,7 +262,7 @@ const S = {
     aOccUnit: 'ppl/100 m²',
     aOccCap: 'max 6 per household',
     aMaint: 'maintenance',
-    aMaintUnit: '$/m²·mo',
+    aMaintUnit: 'USD/m²·mo',
     sourcesEb: '// sources',
     sourcesH: 'where the numbers come from.',
     srcCapex: 'construction costs (capex)',

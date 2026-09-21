@@ -18,15 +18,15 @@ renovation in the republic of panamá has an information problem: almost nobody 
 what it costs. the municipality of panamá does publish a table, and most of the market
 quotes it from memory, but that table does not say what people think it says. those are
 the minimum taxable values the dirección de obras y construcciones (doyc) uses to assess
-the construction tax, and they exist so that nobody declares a B/. 200,000 job as though
-it cost B/. 20,000. they are a tax floor. the market lives well above it.
+the construction tax, and they exist so that nobody declares a USD 200,000 job as though
+it cost USD 20,000. they are a tax floor. the market lives well above it.
 
 ## what the municipality publishes
 
 mupa keeps a per-m² reference table that sets the minimum taxable base of any renovation,
 whatever your contract happens to say.
 
-| project class | mupa reference (B/. / m²) |
+| project class | mupa reference (USD / m²) |
 | --- | --- |
 | single-family home · low tier | 250 |
 | single-family home · medium tier | 350 |
@@ -48,14 +48,14 @@ for minor renovations the municipal tax is **1.00% of the combined value of mate
 labour**. for larger work, the progressive schedule of acuerdo n.º 73-17 applies, computed
 in brackets across the total valuation:
 
-| project value bracket (B/.) | rate |
+| project value bracket (USD) | rate |
 | --- | --- |
 | up to 500.00 | exempt |
 | 500.01 to 500,000.00 | 1.00% |
 | excess from 500,000.01 to 1,000,000.00 | 1.26% |
 | excess from 1,000,000.01 upward | 0.50% |
 
-projects up to B/. 500.00 are exempt from the tax, and still have to file drawings and
+projects up to USD 500.00 are exempt from the tax, and still have to file drawings and
 pull a permit before starting. the administrative clock is fixed by law: the doyc has
 **10 business days** to compute the valuation, and **5 business days** to issue the permit
 once the tax is paid. the permit is good for **5 years**, with a single 5-year extension
@@ -89,8 +89,8 @@ discovered.
 there are two relief valves. if the renovation lets you reuse previous structural
 calculations and drawings without modifying them, the minimum drops to **50%** of the
 rate. and before committing to a full design contract, exploratory and feasibility work
-can be paid hourly: **B/. 50.00** for a professional with 0 to 5 years of experience,
-**B/. 120.00** for one with more than 10. any later change, structural addition or
+can be paid hourly: **USD 50.00** for a professional with 0 to 5 years of experience,
+**USD 120.00** for one with more than 10. any later change, structural addition or
 irregular geometry voids the 50% discount and forces a recalculation.
 
 ## labour, and the price of working at night
@@ -98,7 +98,7 @@ irregular geometry voids the 50% discount and forces a recalculation.
 construction wages come from the collective agreement between capac and suntracs. the
 standard crews estimators use for interior renovation price out like this:
 
-| crew | B/. / hour | B/. / day |
+| crew | USD / hour | USD / day |
 | --- | --- | --- |
 | 1:1 skilled mason + labourer | 9.64 | 77.12 |
 | 1:1 skilled mason + apprentice | 10.16 | 81.28 |
@@ -111,15 +111,15 @@ antiguo almost always pushes work outside the day shift, for noise, dust and saf
 agreement prices that: a **25%** premium on daytime overtime, **50%** at night, and
 **75%** on the extension of a night shift.
 
-in numbers, that same 1:1 crew at B/. 9.64 an hour becomes **B/. 14.46** on a night shift
-and **B/. 16.87** when the work runs on as a night-shift extension. that is a 75% direct
+in numbers, that same 1:1 crew at USD 9.64 an hour becomes **USD 14.46** on a night shift
+and **USD 16.87** when the work runs on as a night-shift extension. that is a 75% direct
 labour premium for the same wall. the agreement also requires paying for rain stoppages,
 which in panamá are not an exceptional event.
 
 ## so what is the real range?
 
 taking the mupa floor as the base and the audited market valuation as the ceiling, these
-are the ranges we estimate with, in B/. per m²:
+are the ranges we estimate with, in USD per m²:
 
 | building type | basic | standard | premium |
 | --- | --- | --- | --- |

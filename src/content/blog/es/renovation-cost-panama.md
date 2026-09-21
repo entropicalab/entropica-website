@@ -18,15 +18,15 @@ remodelar en panamá tiene un problema de información: casi nadie publica lo qu
 el municipio de panamá sí publica una tabla, y es la que casi todo el mercado cita de
 memoria, pero esa tabla no dice lo que tú crees que dice. son los valores mínimos
 imponibles que usa la dirección de obras y construcciones (doyc) para calcular el
-impuesto, y existen para que nadie declare una obra de B/. 200,000 como si costara
-B/. 20,000. son un piso fiscal. el mercado vive bastante más arriba.
+impuesto, y existen para que nadie declare una obra de USD 200,000 como si costara
+USD 20,000. son un piso fiscal. el mercado vive bastante más arriba.
 
 ## lo que publica el municipio
 
 mupa mantiene una tabla de referencia por m² que fija la base imponible mínima de
 cualquier remodelación, sin importar lo que diga tu contrato.
 
-| clase de proyecto | referencia mupa (B/. / m²) |
+| clase de proyecto | referencia mupa (USD / m²) |
 | --- | --- |
 | vivienda unifamiliar · nivel bajo | 250 |
 | vivienda unifamiliar · nivel medio | 350 |
@@ -48,14 +48,14 @@ para remodelaciones menores el impuesto municipal es **1.00% del valor combinado
 materiales y mano de obra**. para obras mayores aplica el esquema progresivo del acuerdo
 n.º 73-17, calculado por tramos sobre la valoración total:
 
-| tramo del valor de obra (B/.) | tasa |
+| tramo del valor de obra (USD) | tasa |
 | --- | --- |
 | hasta 500.00 | exento |
 | de 500.01 a 500,000.00 | 1.00% |
 | excedente de 500,000.01 a 1,000,000.00 | 1.26% |
 | excedente de 1,000,000.01 en adelante | 0.50% |
 
-los proyectos de hasta B/. 500.00 están exentos del impuesto, y aun así tienen que
+los proyectos de hasta USD 500.00 están exentos del impuesto, y aun así tienen que
 tramitar planos y permiso antes de empezar. el reloj administrativo está definido por
 ley: la doyc tiene **10 días hábiles** para calcular la valoración, y **5 días hábiles**
 para emitir el permiso una vez pagado el impuesto. el permiso vive **5 años**, con una
@@ -90,7 +90,7 @@ descubrir.
 hay dos válvulas de escape. si la remodelación permite reutilizar cálculos y planos
 estructurales previos sin modificarlos, el mínimo baja al **50%** de la tarifa. y antes de
 firmar un contrato de diseño completo, el trabajo de exploración y factibilidad se puede
-pagar por hora: **B/. 50.00** para un profesional de 0 a 5 años de experiencia, **B/.
+pagar por hora: **USD 50.00** para un profesional de 0 a 5 años de experiencia, **USD
 120.00** para uno con más de 10. cualquier modificación posterior, adición estructural o
 geometría irregular anula el descuento del 50% y obliga a recalcular.
 
@@ -99,7 +99,7 @@ geometría irregular anula el descuento del 50% y obliga a recalcular.
 los salarios de construcción salen de la convención colectiva entre capac y suntracs. las
 cuadrillas estándar que usan los estimadores para remodelación interior se cotizan así:
 
-| cuadrilla | B/. / hora | B/. / día |
+| cuadrilla | USD / hora | USD / día |
 | --- | --- | --- |
 | 1:1 albañil calificado + peón | 9.64 | 77.12 |
 | 1:1 albañil calificado + principiante | 10.16 | 81.28 |
@@ -112,15 +112,15 @@ casi siempre empuja el trabajo fuera del turno diurno, por ruido, polvo y seguri
 convención cobra eso: **25%** de recargo en horas extras diurnas, **50%** en nocturnas y
 **75%** en la prolongación de un turno de noche.
 
-en números, esa misma cuadrilla 1:1 de B/. 9.64 la hora pasa a **B/. 14.46** en turno
-nocturno y a **B/. 16.87** si el trabajo se extiende como prolongación de noche. es un 75%
+en números, esa misma cuadrilla 1:1 de USD 9.64 la hora pasa a **USD 14.46** en turno
+nocturno y a **USD 16.87** si el trabajo se extiende como prolongación de noche. es un 75%
 de sobrecosto directo en mano de obra por la misma pared. la convención además obliga a
 pagar las paradas por lluvia, que en panamá no son un evento excepcional.
 
 ## entonces, ¿cuál es el rango real?
 
 tomando el piso de mupa como base y la valoración auditada de mercado como techo, estos
-son los rangos que usamos para estimar, en B/. por m²:
+son los rangos que usamos para estimar, en USD por m²:
 
 | tipología | básico | estándar | premium |
 | --- | --- | --- | --- |
