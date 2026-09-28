@@ -22,7 +22,7 @@ const {
   title,
   description = 'entrópica is an energy-led tropical architecture studio in panamá. we use climate science and building physics to design cool buildings in hot places.',
   locale = detectedLocale,
-  ogImage = '/entropica-og-1200x630.jpg',
+  ogImage = '/entropica-og-gradient.jpg',
   noindex = false,
 } = Astro.props;
 
@@ -32,10 +32,10 @@ const canonical = new URL(pathname, Astro.site).toString();
 // 1200×630 branded card; the dimensions below let whatsapp, facebook and
 // linkedin render the card without re-fetching.
 const ogImageUrl = new URL(ogImage, Astro.site).toString();
-// the width/height/type hints are only correct for the branded card; blog and
-// project pages pass their own hero image (variable size, sometimes png), so
-// emit the dimension hints only for the default.
-const isDefaultOg = ogImage === '/entropica-og-1200x630.jpg';
+// the width/height/type hints are only correct for the default 1200×630
+// gradient; blog and project pages pass their own hero image (variable size,
+// sometimes png), so emit the dimension hints only for the default.
+const isDefaultOg = ogImage === '/entropica-og-gradient.jpg';
 
 const lastmod = lastmodForPath(pathname);
 const lastmodIso = lastmod.toISOString();
