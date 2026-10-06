@@ -127,6 +127,42 @@ const articleSchema = {
 
   .post-body { max-width: 64ch; }
 
+  /* preserve authored case: the prose is written lowercase (brand voice), but
+     siglas, units and currency (ECI, EUI, CFD, UNP, ETFE, USD, kWh, CO₂e…) are
+     authored uppercase and must stay that way. opt the body text out of the
+     brand's global lowercase. h3 keeps its own uppercase sub-eyebrow below. */
+  .post-body :global(p),
+  .post-body :global(li),
+  .post-body :global(h2),
+  .post-body :global(td) { text-transform: none; }
+
+  /* inline figures / charts, blended onto the paper background */
+  .post-body :global(img) {
+    display: block; max-width: 100%; height: auto; margin: 36px 0;
+    background: var(--paper-2); border: 1px solid var(--line-on-paper-2);
+  }
+  .post-body :global(p:has(> img)) { margin: 0; }
+
+  /* data tables */
+  .post-body :global(table) {
+    width: 100%; border-collapse: collapse; margin: 24px 0 28px;
+    font-size: 14px; line-height: 1.5; display: block; overflow-x: auto;
+  }
+  .post-body :global(th), .post-body :global(td) {
+    text-align: left; vertical-align: top; padding: 10px 14px 10px 0;
+    border-bottom: 1px solid var(--line-on-paper-2);
+  }
+  .post-body :global(thead th) {
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--mute-on-paper-2); font-weight: 500; white-space: nowrap;
+    border-bottom: 1px solid var(--line-on-paper);
+  }
+  .post-body :global(tbody td) { color: var(--ink-on-paper); font-weight: 400; }
+  @media (max-width: 640px) {
+    .post-body :global(table) { font-size: 12.5px; }
+    .post-body :global(th), .post-body :global(td) { padding: 8px 10px 8px 0; }
+  }
+
   /* h2 as chapter divider with // prefix */
   .post-body :global(h2) {
     font-size: 24px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.25;
