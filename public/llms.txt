@@ -12,7 +12,7 @@ services: conceptual design, full architectural documentation, building permits 
 
 office: ph plaza mar, paitilla, ciudad de panamá, panamá
 email: info@entropica-lab.com
-phone: +507 6944-4740
+phone: +507 6200-6909
 coordinates: 8.974904602770444, -79.51278964689152
 
 ## the work
