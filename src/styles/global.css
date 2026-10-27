@@ -461,6 +461,22 @@ form.contact-form .actions {
   display: flex;
   justify-content: flex-end;
 }
+form.contact-form[hidden] {
+  display: none;
+}
+form.contact-form .form-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--ink-on-paper);
+  border-left: 2px solid var(--amber);
+  padding-left: 12px;
+}
+form.contact-form .form-error[hidden] {
+  display: none;
+}
 form.contact-form .honeypot {
   position: absolute;
   left: -10000px;

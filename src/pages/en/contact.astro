@@ -1,13 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { tr } from '../../i18n/utils';
+import { localized, tr } from '../../i18n/utils';
 
 const locale = 'en' as const;
 const t = tr(locale);
 
-// formspree endpoint, user must replace this id with their own after
-// signing up at https://formspree.io and configuring info@entropica-lab.com
-// as the destination. swap `xkoerobb` for the real form id (e.g. "xqkrweol").
+// formspree form id for info@entropica-lab.com (same endpoint as /contact).
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkoerobb';
 
 const typologies = [
@@ -18,8 +16,6 @@ const typologies = [
   { v: 'mixed-use', l: t('typology.mixedUse') },
   { v: 'other', l: 'other' },
 ];
-
-const sent = Astro.url.searchParams.get('sent') === '1';
 ---
 
 <BaseLayout
@@ -44,65 +40,66 @@ const sent = Astro.url.searchParams.get('sent') === '1';
     <div class="site-wrap">
       <div class="contact-grid">
         <div class="form-col">
-          {sent ? (
-            <div class="sent">
-              <div class="eyebrow amber">// message received</div>
-              <h2>{t('form.sent.title')}</h2>
-              <p>{t('form.sent.body')}</p>
-              <a class="btn" href="/">← home</a>
+          <div class="sent" id="contact-sent" hidden tabindex="-1">
+            <div class="eyebrow amber">// message received</div>
+            <h2>{t('form.sent.title')}</h2>
+            <p>{t('form.sent.body')}</p>
+            <a class="btn" href={localized('/', locale)}>← home</a>
+          </div>
+
+          <form class="contact-form" action={FORMSPREE_ENDPOINT} method="POST" data-ajax data-sent="contact-sent" data-lead-type="architecture">
+            <div class="field">
+              <label for="name">{t('form.name')}</label>
+              <input id="name" name="name" type="text" required autocomplete="name" />
             </div>
-          ) : (
-            <form class="contact-form" action={FORMSPREE_ENDPOINT} method="POST">
-              <div class="field">
-                <label for="name">{t('form.name')}</label>
-                <input id="name" name="name" type="text" required autocomplete="name" />
-              </div>
 
-              <div class="field">
-                <label for="email">{t('form.email')}</label>
-                <input id="email" name="email" type="email" required autocomplete="email" />
-              </div>
+            <div class="field">
+              <label for="email">{t('form.email')}</label>
+              <input id="email" name="email" type="email" required autocomplete="email" />
+            </div>
 
-              <div class="field">
-                <label for="company">{t('form.company')}</label>
-                <input id="company" name="company" type="text" autocomplete="organization" />
-              </div>
+            <div class="field">
+              <label for="company">{t('form.company')}</label>
+              <input id="company" name="company" type="text" autocomplete="organization" />
+            </div>
 
-              <div class="field">
-                <label for="location">{t('form.location')}</label>
-                <input id="location" name="location" type="text" placeholder="city, country" />
-              </div>
+            <div class="field">
+              <label for="location">{t('form.location')}</label>
+              <input id="location" name="location" type="text" placeholder="city, country" />
+            </div>
 
-              <div class="field full">
-                <label for="typology">{t('form.typology')}</label>
-                <select id="typology" name="typology">
-                  {typologies.map((tp) => (
-                    <option value={tp.v} disabled={tp.v === ''}>{tp.l}</option>
-                  ))}
-                </select>
-              </div>
+            <div class="field full">
+              <label for="typology">{t('form.typology')}</label>
+              <select id="typology" name="typology">
+                {typologies.map((tp) => (
+                  <option value={tp.v} disabled={tp.v === ''} selected={tp.v === ''}>{tp.l}</option>
+                ))}
+              </select>
+            </div>
 
-              <div class="field full">
-                <label for="brief">{t('form.brief')}</label>
-                <textarea id="brief" name="brief" rows="6" required></textarea>
-              </div>
+            <div class="field full">
+              <label for="brief">{t('form.brief')}</label>
+              <textarea id="brief" name="brief" rows="6" required></textarea>
+            </div>
 
-              <input type="hidden" name="_subject" value="entropica-lab.com · new contact form submission" />
-              <input type="hidden" name="_next" value="/contact?sent=1" />
+            <input type="hidden" name="_subject" value="entropica-lab.com · new contact form submission" />
 
-              <div class="honeypot" aria-hidden="true">
-                <label>do not fill this field</label>
-                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
-              </div>
+            <div class="honeypot" aria-hidden="true">
+              <label>do not fill this field</label>
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+            </div>
 
-              <div class="actions">
-                <button type="submit" class="btn amber">
-                  {t('form.send')}
-                  <span class="arrow-tail" aria-hidden="true"></span>
-                </button>
-              </div>
-            </form>
-          )}
+            <p class="form-error" data-form-error hidden role="alert">
+              {t('form.error')} <a class="info-link" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a>.
+            </p>
+
+            <div class="actions">
+              <button type="submit" class="btn amber">
+                {t('form.send')}
+                <span class="arrow-tail" aria-hidden="true"></span>
+              </button>
+            </div>
+          </form>
         </div>
 
         <aside class="info-col">
@@ -128,8 +125,8 @@ const sent = Astro.url.searchParams.get('sent') === '1';
           <div class="info-block">
             <div class="eyebrow">// office hours</div>
             <p class="muted">
-              monday, friday<br />
-              09:00, 18:00 est (utc -5)
+              monday to friday<br />
+              09:00 to 18:00 est (utc -5)
             </p>
           </div>
 
@@ -145,6 +142,10 @@ const sent = Astro.url.searchParams.get('sent') === '1';
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  import '../../scripts/ajax-form';
+</script>
 
 <style>
   .contact-hero { padding: 96px 0 56px; }
