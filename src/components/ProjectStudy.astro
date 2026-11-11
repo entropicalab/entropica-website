@@ -16,7 +16,7 @@ const { study, locale } = Astro.props;
 const L = {
   en: {
     keyEb: '// key numbers',
-    keyH: 'the study in five numbers.',
+    keyH: (n: number) => `the study in ${['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'][n] ?? n} numbers.`,
     colValue: 'value',
     colMeans: 'what it means',
     studyEb: '// the study',
@@ -26,7 +26,7 @@ const L = {
   },
   es: {
     keyEb: '// cifras clave',
-    keyH: 'el estudio en cinco cifras.',
+    keyH: (n: number) => `el estudio en ${['', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve'][n] ?? n} cifras.`,
     colValue: 'valor',
     colMeans: 'qué significa',
     studyEb: '// el estudio',
@@ -46,7 +46,7 @@ const fileName = (path: string) => path.split('/').pop();
       <div class={`key-grid ${study.figure ? 'with-fig' : ''}`}>
         <div class="key-main">
           <div class="eyebrow">{L.keyEb}</div>
-          <h2 class="st-h">{L.keyH}</h2>
+          <h2 class="st-h">{L.keyH(study.keyNumbers.length)}</h2>
           <table class="key-table">
             <thead>
               <tr><th scope="col">{L.colValue}</th><th scope="col">{L.colMeans}</th></tr>
