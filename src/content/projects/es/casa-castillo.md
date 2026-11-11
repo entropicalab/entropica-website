@@ -12,8 +12,8 @@ roleNote: "cliente privado"
 featured: false
 order: 13.5
 heroImage: /projects/casa-castillo/01.jpg
-heroCaption: "// radiación solar anual sobre cada superficie, con el parasol levantado. gráfico completo abajo."
-heroAlt: "isométrico explotado de casa castillo coloreado por radiación solar anual: el parasol, levantado sobre la casa, recibe el sol en rojo oscuro y el techo principal debajo queda pálido"
+heroCaption: "// ilustración con ia, basada en el modelo del estudio de 2020"
+heroAlt: "ilustración con ia de casa castillo, basada en el modelo del estudio de 2020: una casa larga y baja sobre pilotes bajo un techo plano delgado, con paneles de celosía, en una ladera con pasto entre palmas y árboles"
 metric:
   value: '+450'
   unit: 'h'

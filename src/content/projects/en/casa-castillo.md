@@ -12,8 +12,8 @@ roleNote: "private client"
 featured: false
 order: 13.5
 heroImage: /projects/casa-castillo/01.jpg
-heroCaption: "// yearly sun on every surface, parasol lifted. full chart below."
-heroAlt: "exploded isometric of casa castillo colored by yearly sun: the parasol, lifted above the house, takes the sun in dark red while the main roof under it stays pale"
+heroCaption: "// ai illustration, based on the 2020 study model"
+heroAlt: "ai illustration of casa castillo, based on the 2020 study model: a long, low house on stilts under a thin flat roof, with louvered panels, on a grassy hillside among palms and trees"
 metric:
   value: '+450'
   unit: 'h'
