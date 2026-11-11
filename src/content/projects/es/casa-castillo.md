@@ -7,8 +7,9 @@ lede: "un parasol sobre la casa. un segundo techo 0.30 m sobre una casa de campo
 location: "los santos, panamá"
 year: 2020
 typology: residential
-role: "estudio de diseño bioclimático + simulación de desempeño"
-roleNote: "cliente privado"
+role: "simulaciones + validación de estrategias"
+roleNote: "diseño: labhaus studio"
+roleNoteUrl: "https://www.instagram.com/labhausstudio/"
 featured: false
 order: 13.5
 heroImage: /projects/casa-castillo/01.jpg
@@ -18,11 +19,11 @@ metric:
   value: '+450'
   unit: 'h'
   label: "más horas en confort al año, sin aire acondicionado"
-  note: "casa principal, confort adaptativo (ashrae 55), aire quieto, clima tmyx de santiago de veraguas. estudio y simulación por entrópica."
+  note: "casa principal, confort adaptativo (ashrae 55), aire quieto, clima tmyx de santiago de veraguas. simulación por entrópica, diseño de labhaus studio."
 brief: |
-  casa castillo es una casa de campo familiar en el arco seco de panamá, en los santos. tan cerca del ecuador el sol pasa casi por encima, así que pusimos un segundo techo 0.30 m sobre el primero: un parasol.
+  casa castillo es una casa de campo familiar en el arco seco de panamá, en los santos, diseñada por labhaus studio. entrópica hizo las simulaciones y validó las estrategias del diseño, en una colaboración entre ambos estudios.
 
-  probamos la casa con y sin él, y las 64 maneras de configurar los paneles corredizos de su patio.
+  tan cerca del ecuador el sol pasa casi por encima, así que el diseño pone un segundo techo 0.30 m sobre el primero: un parasol. probamos la casa con y sin él, y las 64 maneras de configurar los paneles corredizos de su patio.
 approach: |
   el parasol le quita al techo principal 99% de la radiación solar anual, la superficie del techo deja de quemar y la casa gana 450 horas en confort al año.
 
@@ -117,5 +118,5 @@ study:
     - "radiación solar sobre superficies y sobre el patio: cielo acumulado (parches de tregenza, sol directo agrupado por parche, difusa isotrópica, reflectancia del suelo de 0.2) y trazado de rayos en mallas de 0.5 m. patio a 0.9 m, de 07 a 18 h."
     - "dibujos: líneas make2d de rhino del modelo de 2020; colores calculados sobre la misma geometría y vista."
     - "verificación: en 2026 volvimos a correr los modelos archivados de energyplus de 2020 (9.1) para recuperar los resultados horarios que se muestran aquí."
-  credits: "estudio y gráficos: entrópica. herramientas: energyplus, ladybug tools (honeybee, ladybug), rhino, python."
+  credits: "diseño: labhaus studio. estudio y gráficos: entrópica. herramientas: energyplus, ladybug tools (honeybee, ladybug), rhino, python."
 ---

@@ -27,6 +27,7 @@ const projects = defineCollection({
     typology: z.enum(['residential', 'commercial', 'institutional', 'mixed-use']),
     role: z.string().optional(),
     roleNote: z.string().optional(),
+    roleNoteUrl: z.string().url().optional(), // links the role note, e.g. a design collaborator
     status: z.string().optional(),
     // hero metric (single number that earned the project) — optional;
     // omit entirely for projects where there's no defensible proof to show.

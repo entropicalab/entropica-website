@@ -7,8 +7,9 @@ lede: "a parasol over the house. a second roof 0.30 m above a family country hou
 location: "los santos, panamá"
 year: 2020
 typology: residential
-role: "bioclimatic design study + building performance simulation"
-roleNote: "private client"
+role: "simulations + strategy validation"
+roleNote: "design: labhaus studio"
+roleNoteUrl: "https://www.instagram.com/labhausstudio/"
 featured: false
 order: 13.5
 heroImage: /projects/casa-castillo/01.jpg
@@ -18,11 +19,11 @@ metric:
   value: '+450'
   unit: 'h'
   label: "more comfortable hours a year, with no air-conditioning"
-  note: "main house, adaptive comfort (ashrae 55), still air, santiago de veraguas tmyx weather. study and simulation by entrópica."
+  note: "main house, adaptive comfort (ashrae 55), still air, santiago de veraguas tmyx weather. simulation by entrópica, design by labhaus studio."
 brief: |
-  casa castillo is a family country house in panamá's dry arc, in los santos. this close to the equator the sun passes almost overhead, so we put a second roof 0.30 m above the first: a parasol.
+  casa castillo is a family country house in panamá's dry arc, in los santos, designed by labhaus studio. entrópica ran the simulations and validated the design's strategies: a collaboration between the two studios.
 
-  we tested the house with and without it, and all 64 ways to set the sliding panels of its patio.
+  this close to the equator the sun passes almost overhead, so the design puts a second roof 0.30 m above the first: a parasol. we tested the house with and without it, and all 64 ways to set the sliding panels of its patio.
 approach: |
   the parasol takes 99% of the yearly sun off the main roof, the roof surface stops burning, and the house gains 450 comfortable hours a year.
 
@@ -117,5 +118,5 @@ study:
     - "sun on surfaces and on the patio: cumulative sky (tregenza patches, direct sun binned per patch, isotropic diffuse, 0.2 ground reflectance) and ray casting on 0.5 m grids. patio at 0.9 m, 07–18 h."
     - "drawings: rhino make2d lines of the 2020 model; colors computed on the same geometry and view."
     - "check: in 2026 we reran the archived 2020 energyplus models (9.1) to recover the hourly results shown here."
-  credits: "study and graphics: entrópica. tools: energyplus, ladybug tools (honeybee, ladybug), rhino, python."
+  credits: "design: labhaus studio. study and graphics: entrópica. tools: energyplus, ladybug tools (honeybee, ladybug), rhino, python."
 ---

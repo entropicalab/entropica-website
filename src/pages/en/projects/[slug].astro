@@ -83,7 +83,11 @@ const projectSchema = {
             <div>
               <div class="k">{t('meta.role')}</div>
               <div class="v">{data.role}</div>
-              {data.roleNote && <div class="v-note">{data.roleNote}</div>}
+              {data.roleNote && (
+                <div class="v-note">
+                  {data.roleNoteUrl ? <a href={data.roleNoteUrl} target="_blank" rel="noopener">{data.roleNote}</a> : data.roleNote}
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -302,6 +306,8 @@ const projectSchema = {
   .cs-meta .k { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute-on-paper-2); margin-bottom: 6px; font-weight: 400; }
   .cs-meta .v { font-size: 13px; font-weight: 400; }
   .cs-meta .v-note { font-size: 11px; color: var(--mute-on-paper); font-weight: 300; margin-top: 3px; }
+  .cs-meta .v-note a { color: inherit; border-bottom: 1px solid var(--line-on-paper-2); }
+  .cs-meta .v-note a:hover { color: var(--amber); border-bottom-color: var(--amber); }
   @media (max-width: 900px) { .cs-meta { grid-template-columns: 1fr 1fr; gap: 16px; } }
 
   .cs-proof { padding: 72px 0; }
