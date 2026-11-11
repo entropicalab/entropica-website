@@ -71,7 +71,7 @@ const projects = defineCollection({
     closingQuote: z.string().optional(),
     // simulation study, rendered by ProjectStudy.astro: key-numbers table,
     // one section per annotated graphic, method notes. graphics carry their
-    // own legends, so they are shown whole (never cropped) with a download.
+    // own legends, so they are shown whole (never cropped).
     study: z
       .object({
         keyNumbers: z.array(z.object({ value: z.string(), label: z.string() })).optional(),
@@ -81,7 +81,6 @@ const projects = defineCollection({
           z.object({
             headline: z.string(),
             image: z.string(), // web file (webp)
-            download: z.string().optional(), // full-quality file (png)
             width: z.number(),
             height: z.number(),
             alt: z.string(),

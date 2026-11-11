@@ -1,8 +1,7 @@
 ---
 // simulation study block for project pages: key numbers, one section per
 // annotated graphic, method notes. the graphics carry their own legends and
-// footnotes, so they're shown whole (contain, never cropped), with the
-// full-quality file as a download. text is authored lowercase with real
+// footnotes, so they're shown whole (contain, never cropped). text is authored lowercase with real
 // units (°C), so text-transform is switched off here to keep them intact.
 import type { CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n/strings';
@@ -20,7 +19,6 @@ const L = {
     colValue: 'value',
     colMeans: 'what it means',
     studyEb: '// the study',
-    download: 'download full size',
     methodEb: '// method and data',
     methodH: 'how we got the numbers.',
   },
@@ -30,14 +28,12 @@ const L = {
     colValue: 'valor',
     colMeans: 'qué significa',
     studyEb: '// el estudio',
-    download: 'descargar en tamaño completo',
     methodEb: '// método y datos',
     methodH: 'cómo llegamos a las cifras.',
   },
 }[locale];
 
 const fmt = (value: string, unit?: string) => (!unit ? value : unit === '%' ? `${value}${unit}` : `${value} ${unit}`);
-const fileName = (path: string) => path.split('/').pop();
 ---
 
 {study.keyNumbers && study.keyNumbers.length > 0 && (
@@ -97,11 +93,6 @@ const fileName = (path: string) => path.split('/').pop();
                 <li><b>{fmt(n.value, n.unit)}</b> {n.label}</li>
               ))}
             </ul>
-          )}
-          {p.download && (
-            <a class="panel-dl" href={p.download} download>
-              {L.download} · {fileName(p.download)}
-            </a>
           )}
         </div>
       </article>
@@ -239,13 +230,6 @@ const fileName = (path: string) => path.split('/').pop();
     color: var(--mute-on-paper);
   }
   .panel-nums b { color: var(--ink-on-paper); font-weight: 500; margin-right: 6px; font-feature-settings: 'tnum' 1; }
-  .panel-dl {
-    font-size: 13px;
-    color: var(--ink-on-paper);
-    border-bottom: 1px solid var(--ink-on-paper);
-    padding-bottom: 2px;
-  }
-  .panel-dl:hover { color: var(--amber); border-bottom-color: var(--amber); }
 
   /* method */
   .method-grid { display: grid; grid-template-columns: 220px 1fr; gap: 64px; }

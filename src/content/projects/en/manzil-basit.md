@@ -49,7 +49,6 @@ study:
   panels:
     - headline: the air is hot, but it is dry
       image: /projects/manzil-basit/manzil-basit_01_climate.webp
-      download: /projects/manzil-basit/manzil-basit_01_climate.png
       width: 2160
       height: 2200
       alt: 'two hour-by-hour charts of the abu dhabi year. top: felt temperature in the shade (utci), with heat stress on 50% of hours, strongest from may to september in the afternoon. bottom: cooling available from evaporating water, up to 25 °C at midday.'
@@ -59,7 +58,6 @@ study:
         - { value: '50', unit: '%', label: 'of the year with heat stress outdoors, in the shade' }
     - headline: six moves, ranked
       image: /projects/manzil-basit/manzil-basit_02_ladder.webp
-      download: /projects/manzil-basit/manzil-basit_02_ladder.png
       width: 2160
       height: 2200
       alt: 'step chart of comfortable hours, from 19.72% (base room) to 66.67% (final room). steps: orientation +1.04, window shading +6.38, double roof +8.73, air exchange +2.30, felt air movement +11.03, evaporative cooling +17.47 percentage points. air and water steps are amber (64% of the gain); sun-blocking steps are sand (32%).'
@@ -73,7 +71,6 @@ study:
         - { value: '+1.04', unit: 'pts', label: 'orientation' }
     - headline: every hour of the year, before and after
       image: /projects/manzil-basit/manzil-basit_03_year.webp
-      download: /projects/manzil-basit/manzil-basit_03_year.png
       width: 2160
       height: 2200
       alt: 'two hour-by-hour charts of degrees from the comfort target. base room: dark red (too hot) most afternoons from march to november, 1,721 comfortable hours. final room: mostly sand (comfortable), light red on summer afternoons, blue (too cold) on winter mornings, 5,819 comfortable hours.'
@@ -83,7 +80,6 @@ study:
         - { value: '5,819', unit: 'h', label: 'comfortable hours a year, final room' }
     - headline: a bigger roof shade beats a bigger air gap
       image: /projects/manzil-basit/manzil-basit_04_roof.webp
-      download: /projects/manzil-basit/manzil-basit_04_roof.png
       width: 2160
       height: 2200
       alt: 'line chart of comfortable hours against roof shade size (1:1, 1.25:1, 1.5:1) for air gaps of 0.30, 0.45 and 0.60 m. all lines rise with shade size, from about 33% to 36%. the chosen case, 1.5:1 with a 0.30 m gap, gives 35.87%.'
@@ -94,7 +90,6 @@ study:
         - { value: '35.87', unit: '%', label: 'chosen roof' }
     - headline: with the room ventilated, more glass buys nothing
       image: /projects/manzil-basit/manzil-basit_05_window.webp
-      download: /projects/manzil-basit/manzil-basit_05_window.png
       width: 2160
       height: 2200
       alt: 'line chart of comfortable hours against window-to-wall ratio: 49.2% at 30%, 47.8% at 45%, 47.5% at 50%, 47.1% at 65% and 46.1% at 80%. the line is almost flat.'

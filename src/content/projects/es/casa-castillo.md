@@ -38,7 +38,6 @@ study:
   panels:
     - headline: "el sol se para sobre la casa"
       image: /projects/casa-castillo/casa-castillo_01_sunpath.webp
-      download: /projects/casa-castillo/casa-castillo_01_sunpath.png
       width: 2160
       height: 2200
       alt: "diagrama de trayectoria solar en planta, con el norte arriba. las posiciones horarias del sol forman lazos en forma de ocho en el cielo, la mayoría dentro del anillo de 45°. los puntos van coloreados por temperatura del aire de 20 a 36 °C; las horas más cálidas son a inicios de la tarde, altas y hacia el oeste."
@@ -47,7 +46,6 @@ study:
         - { value: "74", unit: "%", label: "de la radiación solar directa sobre un techo plano llega desde más de 45° de altura" }
     - headline: "un segundo techo, 0.30 m arriba"
       image: /projects/casa-castillo/casa-castillo_02_section.webp
-      download: /projects/casa-castillo/casa-castillo_02_section.png
       width: 2160
       height: 2200
       alt: "corte este-oeste por la casa principal y el patio, con los elementos cortados achurados y el plénum ventilado bajo el piso. un detalle del borde oeste muestra la losa de techo, el parasol 0.30 m encima, el alero de 1.00 m y un rayo de sol a 16.7°, el sol más bajo que puede llegar al techo sobre los cuartos."
@@ -57,7 +55,6 @@ study:
         - { value: "16.7", unit: "°", label: "el sol más bajo que llega al techo sobre los cuartos" }
     - headline: "el sol cae en el parasol"
       image: /projects/casa-castillo/casa-castillo_03_isometrics.webp
-      download: /projects/casa-castillo/casa-castillo_03_isometrics.png
       width: 2160
       height: 2200
       alt: "isométrico explotado de la casa coloreado por radiación solar anual, de pálido a rojo oscuro. el parasol, levantado sobre la casa, está en rojo oscuro (1,900 kWh/m²); el techo principal debajo está pálido (16 kWh/m²). los muros y el patio quedan en medio."
@@ -67,7 +64,6 @@ study:
         - { value: "16", unit: "kWh/m²·yr", label: "techo principal, bajo el parasol" }
     - headline: "el techo deja de quemar"
       image: /projects/casa-castillo/casa-castillo_04_roof.webp
-      download: /projects/casa-castillo/casa-castillo_04_roof.png
       width: 2160
       height: 2200
       alt: "dos gráficos hora por hora de la temperatura superficial del techo. casa original: bandas rojo oscuro cada mediodía todo el año, máximo de 60.4 °C. bajo el parasol: solo colores claros, máximo de 35.2 °C."
@@ -77,7 +73,6 @@ study:
         - { value: "35.2", unit: "°C", label: "máximo del techo, bajo el parasol" }
     - headline: "el cielorraso deja de irradiar"
       image: /projects/casa-castillo/casa-castillo_05_inside.webp
-      download: /projects/casa-castillo/casa-castillo_05_inside.png
       width: 2160
       height: 2200
       alt: "dos gráficos de líneas de temperatura superficial interior en un día promedio. cielorraso: la casa original llega cerca de 37 °C a media tarde, con el parasol cerca de 32 °C. piso: la casa original cerca de 34 °C, con el parasol cerca de 31 °C. las líneas se juntan de noche."
@@ -87,7 +82,6 @@ study:
         - { value: "−2.2", unit: "°C", label: "piso a las 2 pm" }
     - headline: "y la casa gana 450 horas en confort"
       image: /projects/casa-castillo/casa-castillo_06_comfort.webp
-      download: /projects/casa-castillo/casa-castillo_06_comfort.png
       width: 2160
       height: 2200
       alt: "dos gráficos hora por hora de grados respecto al objetivo de confort en la casa principal. ambos muestran tardes cálidas (rojo) y noches frescas (azul); con el parasol el rojo de la tarde es más claro y más delgado. 3,441 horas en confort en la casa original, 3,891 con el parasol."
@@ -97,7 +91,6 @@ study:
         - { value: "3,891", unit: "h", label: "horas en confort al año, con el parasol" }
     - headline: "un patio que se puede reconfigurar"
       image: /projects/casa-castillo/casa-castillo_07_elements.webp
-      download: /projects/casa-castillo/casa-castillo_07_elements.png
       width: 2160
       height: 2200
       alt: "dibujo isométrico de la casa y la estructura del patio con seis paneles numerados. los paneles rellenos muestran la posición 0, contra la casa; los contornos punteados muestran la posición 1, en la mitad exterior del patio."
@@ -107,7 +100,6 @@ study:
         - { value: "64", unit: "configuraciones", label: "2 posiciones por panel" }
     - headline: "las 64 configuraciones, ordenadas por sol"
       image: /projects/casa-castillo/casa-castillo_08_configurations.webp
-      download: /projects/casa-castillo/casa-castillo_08_configurations.png
       width: 2160
       height: 2200
       alt: "cuadrícula de 64 pequeñas plantas del patio, ocho por ocho, ordenadas de menos a más sol. cada planta va coloreada de pálido a rojo oscuro según la radiación solar diurna sobre el piso, con los muros corredizos como líneas y los paneles de techo punteados. los valores van de 418 a 644 kWh/m²; la configuración de 2020, 479, está enmarcada."

@@ -38,7 +38,6 @@ study:
   panels:
     - headline: "the sun stands over the house"
       image: /projects/casa-castillo/casa-castillo_01_sunpath.webp
-      download: /projects/casa-castillo/casa-castillo_01_sunpath.png
       width: 2160
       height: 2200
       alt: "sun path diagram, plan view with north up. hourly sun positions form figure-eight loops across the sky, most of them inside the 45° ring. dots are colored by air temperature from 20 to 36 °C; the warmest hours are in the early afternoon, high and to the west."
@@ -47,7 +46,6 @@ study:
         - { value: "74", unit: "%", label: "of the direct sun on a flat roof comes from higher than 45°" }
     - headline: "a second roof, 0.30 m up"
       image: /projects/casa-castillo/casa-castillo_02_section.webp
-      download: /projects/casa-castillo/casa-castillo_02_section.png
       width: 2160
       height: 2200
       alt: "east-west section through the main house and the patio, cut elements hatched, with the ventilated plenum under the floor. a detail of the west edge shows the slab roof, the parasol 0.30 m above it, the 1.00 m overhang, and a sun ray at 16.7°, the lowest sun that can reach the roof over the rooms."
@@ -57,7 +55,6 @@ study:
         - { value: "16.7", unit: "°", label: "lowest sun that reaches the roof over the rooms" }
     - headline: "the sun lands on the parasol instead"
       image: /projects/casa-castillo/casa-castillo_03_isometrics.webp
-      download: /projects/casa-castillo/casa-castillo_03_isometrics.png
       width: 2160
       height: 2200
       alt: "exploded isometric of the house colored by yearly sun, from pale to dark red. the parasol, lifted above the house, is dark red (1,900 kWh/m²); the main roof under it is pale (16 kWh/m²). walls and patio are in between."
@@ -67,7 +64,6 @@ study:
         - { value: "16", unit: "kWh/m²·yr", label: "main roof, under the parasol" }
     - headline: "the roof stops burning"
       image: /projects/casa-castillo/casa-castillo_04_roof.webp
-      download: /projects/casa-castillo/casa-castillo_04_roof.png
       width: 2160
       height: 2200
       alt: "two hour-by-hour charts of the roof surface temperature. as built: dark red bands every midday all year, peak 60.4 °C. under the parasol: light colors only, peak 35.2 °C."
@@ -77,7 +73,6 @@ study:
         - { value: "35.2", unit: "°C", label: "roof peak, under the parasol" }
     - headline: "the ceiling stops radiating"
       image: /projects/casa-castillo/casa-castillo_05_inside.webp
-      download: /projects/casa-castillo/casa-castillo_05_inside.png
       width: 2160
       height: 2200
       alt: "two line charts of inside surface temperature over an average day. ceiling: as built peaks near 37 °C in mid-afternoon, with the parasol near 32 °C. floor: as built near 34 °C, with the parasol near 31 °C. the lines meet at night."
@@ -87,7 +82,6 @@ study:
         - { value: "−2.2", unit: "°C", label: "floor at 2 pm" }
     - headline: "and the house gains 450 comfortable hours"
       image: /projects/casa-castillo/casa-castillo_06_comfort.webp
-      download: /projects/casa-castillo/casa-castillo_06_comfort.png
       width: 2160
       height: 2200
       alt: "two hour-by-hour charts of degrees from the comfort target in the main house. both show warm afternoons (red) and cool nights (blue); with the parasol the afternoon red is lighter and thinner. 3,441 comfortable hours as built, 3,891 with the parasol."
@@ -97,7 +91,6 @@ study:
         - { value: "3,891", unit: "h", label: "comfortable hours a year, with the parasol" }
     - headline: "a patio that can be reset"
       image: /projects/casa-castillo/casa-castillo_07_elements.webp
-      download: /projects/casa-castillo/casa-castillo_07_elements.png
       width: 2160
       height: 2200
       alt: "isometric drawing of the house and patio frame with six numbered panels. filled panels show position 0, against the house; dashed outlines show position 1, in the outer half of the patio."
@@ -107,7 +100,6 @@ study:
         - { value: "64", unit: "settings", label: "2 positions per panel" }
     - headline: "all 64 settings, ranked by sun"
       image: /projects/casa-castillo/casa-castillo_08_configurations.webp
-      download: /projects/casa-castillo/casa-castillo_08_configurations.png
       width: 2160
       height: 2200
       alt: "grid of 64 small patio plans, eight by eight, ranked from least to most sun. each plan is colored from pale to dark red by daytime sun on the floor, with sliding walls as lines and roof panels dashed. values run from 418 to 644 kWh/m²; the 2020 setting, 479, is framed."
