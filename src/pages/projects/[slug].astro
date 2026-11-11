@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { localized, tr } from '../../i18n/utils';
+import ProjectStudy from '../../components/ProjectStudy.astro';
 
 const locale = 'es' as const;
 const t = tr(locale);
@@ -21,7 +22,7 @@ const hasNarrative = briefParas.length > 0 || approachParas.length > 0;
 const phaseValues = new Set(['concepto', 'concept', 'en obra', 'in progress', 'construido', 'built']);
 const hasProof = !!(data.award || (data.metric && !phaseValues.has(String(data.metric.value))));
 
-const heroAlt = `${data.title}, arquitectura tropical en ${data.location}`;
+const heroAlt = data.heroAlt ?? `${data.title}, arquitectura tropical en ${data.location}`;
 
 const projectSchema = {
   '@context': 'https://schema.org',
@@ -131,6 +132,9 @@ const projectSchema = {
         </div>
       </section>
     )}
+
+    <!-- simulation study (key numbers, annotated graphics, method) -->
+    {data.study && <ProjectStudy study={data.study} locale={locale} />}
 
     {data.gallery && data.gallery.length > 0 && (
       <section class="cs-gallery">

@@ -1,0 +1,277 @@
+---
+// simulation study block for project pages: key numbers, one section per
+// annotated graphic, method notes. the graphics carry their own legends and
+// footnotes, so they're shown whole (contain, never cropped), with the
+// full-quality file as a download. text is authored lowercase with real
+// units (°C), so text-transform is switched off here to keep them intact.
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../i18n/strings';
+
+interface Props {
+  study: NonNullable<CollectionEntry<'projects'>['data']['study']>;
+  locale: Locale;
+}
+const { study, locale } = Astro.props;
+
+const L = {
+  en: {
+    keyEb: '// key numbers',
+    keyH: 'the study in five numbers.',
+    colValue: 'value',
+    colMeans: 'what it means',
+    studyEb: '// the study',
+    download: 'download full size',
+    methodEb: '// method and data',
+    methodH: 'how we got the numbers.',
+  },
+  es: {
+    keyEb: '// cifras clave',
+    keyH: 'el estudio en cinco cifras.',
+    colValue: 'valor',
+    colMeans: 'qué significa',
+    studyEb: '// el estudio',
+    download: 'descargar en tamaño completo',
+    methodEb: '// método y datos',
+    methodH: 'cómo llegamos a las cifras.',
+  },
+}[locale];
+
+const fmt = (value: string, unit?: string) => (!unit ? value : unit === '%' ? `${value}${unit}` : `${value} ${unit}`);
+const fileName = (path: string) => path.split('/').pop();
+---
+
+{study.keyNumbers && study.keyNumbers.length > 0 && (
+  <section class="st-key">
+    <div class="site-wrap">
+      <div class={`key-grid ${study.figure ? 'with-fig' : ''}`}>
+        <div class="key-main">
+          <div class="eyebrow">{L.keyEb}</div>
+          <h2 class="st-h">{L.keyH}</h2>
+          <table class="key-table">
+            <thead>
+              <tr><th scope="col">{L.colValue}</th><th scope="col">{L.colMeans}</th></tr>
+            </thead>
+            <tbody>
+              {study.keyNumbers.map((k) => (
+                <tr><td class="key-val">{k.value}</td><td>{k.label}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {study.figure && (
+          <figure class="key-fig" data-tag={study.figure.tag ?? ''}>
+            <img src={study.figure.src} alt={study.figure.alt} loading="lazy" class="lb-trigger" />
+            {study.figure.tag && <figcaption>{study.figure.tag}</figcaption>}
+          </figure>
+        )}
+      </div>
+    </div>
+  </section>
+)}
+
+<section class="st-panels">
+  <div class="site-wrap">
+    <div class="eyebrow st-panels-eb">{L.studyEb}</div>
+    {study.panels.map((p, i) => (
+      <article class="panel">
+        <div class="panel-head">
+          <div class="panel-ix">{String(i + 1).padStart(2, '0')}</div>
+          <h2 class="st-h">{p.headline}</h2>
+        </div>
+        <figure class="panel-img">
+          <img
+            src={p.image}
+            alt={p.alt}
+            width={p.width}
+            height={p.height}
+            loading="lazy"
+            decoding="async"
+            class="lb-trigger"
+          />
+        </figure>
+        <div class="panel-text">
+          <p class="panel-cap">{p.caption}</p>
+          {p.numbers && p.numbers.length > 0 && (
+            <ul class="panel-nums">
+              {p.numbers.map((n) => (
+                <li><b>{fmt(n.value, n.unit)}</b> {n.label}</li>
+              ))}
+            </ul>
+          )}
+          {p.download && (
+            <a class="panel-dl" href={p.download} download>
+              {L.download} · {fileName(p.download)}
+            </a>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+{((study.method && study.method.length > 0) || study.credits) && (
+  <section class="st-method">
+    <div class="site-wrap">
+      <div class="method-grid">
+        <div class="method-side">
+          <div class="eyebrow">{L.methodEb}</div>
+          <h2 class="st-h">{L.methodH}</h2>
+        </div>
+        <div class="method-body">
+          {study.method && (
+            <ul class="method-list">
+              {study.method.map((m) => <li>{m}</li>)}
+            </ul>
+          )}
+          {study.credits && <p class="credits">{study.credits}</p>}
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .st-key, .st-panels, .st-method {
+    border-top: 1px solid var(--line-on-paper);
+    padding: 56px 0;
+  }
+  .st-key :global(p), .st-key li, .st-key td, .st-key h2,
+  .st-panels p, .st-panels li, .st-panels h2, .st-panels a,
+  .st-method li, .st-method p, .st-method h2 {
+    text-transform: none;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+  .st-h {
+    font-size: clamp(20px, 2.2vw, 26px);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    margin: 0 0 20px;
+    font-weight: 400;
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+
+  /* key numbers */
+  .key-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
+  .key-grid.with-fig { grid-template-columns: 1.4fr 1fr; align-items: start; }
+  .key-table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.5; }
+  .key-table th {
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mute-on-paper-2);
+    font-weight: 400;
+    padding: 0 16px 10px 0;
+    border-bottom: 1px solid var(--line-on-paper);
+  }
+  .key-table td {
+    padding: 14px 16px 14px 0;
+    border-bottom: 1px solid var(--line-on-paper-2);
+    vertical-align: baseline;
+    font-weight: 400;
+  }
+  .key-table td.key-val {
+    white-space: nowrap;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    font-feature-settings: 'tnum' 1;
+    color: var(--ink-on-paper);
+  }
+  .key-fig { margin: 0; position: relative; }
+  .key-fig img { display: block; width: 100%; height: auto; cursor: zoom-in; border: 1px solid var(--line-on-paper); }
+  .key-fig figcaption {
+    margin-top: 8px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mute-on-paper-2);
+  }
+
+  /* panels */
+  .st-panels-eb { margin-bottom: 8px; }
+  /* desktop: graphic left across both rows, headline + text right.
+     mobile: headline, graphic, text, in reading order. */
+  .panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    /* outer 1fr rows only take leftover height, centering the text block
+       beside the graphic without stretching the panel */
+    grid-template-rows: 1fr auto auto 1fr;
+    column-gap: 56px;
+    padding: 40px 0;
+  }
+  .panel + .panel { border-top: 1px solid var(--line-on-paper-2); }
+  .panel-head { grid-column: 2; grid-row: 2; }
+  .panel-text { grid-column: 2; grid-row: 3; }
+  .panel-img { margin: 0; grid-column: 1; grid-row: 1 / 5; align-self: center; }
+  .panel-img img {
+    display: block;
+    width: 100%;
+    max-width: 1080px;
+    height: auto;
+    cursor: zoom-in;
+  }
+  .panel-text { max-width: 70ch; }
+  .panel-ix {
+    font-size: 14px;
+    color: var(--mute-on-paper-2);
+    font-feature-settings: 'tnum' 1;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .panel-cap { font-size: 16px; line-height: 1.5; margin: 0 0 20px; font-weight: 400; }
+  .panel-nums {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--mute-on-paper);
+  }
+  .panel-nums b { color: var(--ink-on-paper); font-weight: 500; margin-right: 6px; font-feature-settings: 'tnum' 1; }
+  .panel-dl {
+    font-size: 13px;
+    color: var(--ink-on-paper);
+    border-bottom: 1px solid var(--ink-on-paper);
+    padding-bottom: 2px;
+  }
+  .panel-dl:hover { color: var(--amber); border-bottom-color: var(--amber); }
+
+  /* method */
+  .method-grid { display: grid; grid-template-columns: 220px 1fr; gap: 64px; }
+  .method-list {
+    margin: 0 0 20px;
+    padding-left: 18px;
+    max-width: 70ch;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .method-list li::marker { color: var(--amber); }
+  .credits { font-size: 14px; color: var(--mute-on-paper); margin: 0; max-width: 70ch; line-height: 1.5; }
+
+  @media (max-width: 600px) {
+    .key-table thead { display: none; }
+    .key-table tr { display: block; padding: 14px 0; border-bottom: 1px solid var(--line-on-paper-2); }
+    .key-table td { display: block; padding: 0; border: 0; }
+    .key-table td.key-val { margin-bottom: 4px; }
+  }
+  @media (max-width: 900px) {
+    .key-grid.with-fig { grid-template-columns: 1fr; }
+    .panel { display: flex; flex-direction: column; gap: 20px; padding: 32px 0; }
+    .panel-head .st-h { margin-bottom: 0; }
+    .method-grid { grid-template-columns: 1fr; gap: 16px; }
+  }
+</style>

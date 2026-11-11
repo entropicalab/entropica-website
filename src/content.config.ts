@@ -40,6 +40,8 @@ const projects = defineCollection({
       .optional(),
     // photo handling
     heroImage: z.string().optional(),
+    // overrides the default "<title>, tropical architecture in <location>" alt
+    heroAlt: z.string().optional(),
     gallery: z.array(z.object({ src: z.string(), tag: z.string().optional() })).optional(),
     // award badge (image path + caption) — appears next to the metric block
     award: z
@@ -65,6 +67,32 @@ const projects = defineCollection({
     resultLabel: z.string().optional(),
     resultDelta: z.string().optional(),
     closingQuote: z.string().optional(),
+    // simulation study, rendered by ProjectStudy.astro: key-numbers table,
+    // one section per annotated graphic, method notes. graphics carry their
+    // own legends, so they are shown whole (never cropped) with a download.
+    study: z
+      .object({
+        keyNumbers: z.array(z.object({ value: z.string(), label: z.string() })).optional(),
+        // optional image beside the key numbers (e.g. a visualization)
+        figure: z.object({ src: z.string(), alt: z.string(), tag: z.string().optional() }).optional(),
+        panels: z.array(
+          z.object({
+            headline: z.string(),
+            image: z.string(), // web file (webp)
+            download: z.string().optional(), // full-quality file (png)
+            width: z.number(),
+            height: z.number(),
+            alt: z.string(),
+            caption: z.string(),
+            numbers: z
+              .array(z.object({ value: z.string(), unit: z.string().optional(), label: z.string() }))
+              .optional(),
+          })
+        ),
+        method: z.array(z.string()).optional(),
+        credits: z.string().optional(),
+      })
+      .optional(),
     featured: z.boolean().default(false),
     comingSoon: z.boolean().default(false),
     hidden: z.boolean().default(false), // temporarily pull a project from the site
