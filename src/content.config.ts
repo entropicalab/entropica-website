@@ -42,6 +42,8 @@ const projects = defineCollection({
     heroImage: z.string().optional(),
     // overrides the default "<title>, tropical architecture in <location>" alt
     heroAlt: z.string().optional(),
+    // short visible line under the hero, e.g. to flag a render as an ai visualization
+    heroCaption: z.string().optional(),
     gallery: z.array(z.object({ src: z.string(), tag: z.string().optional() })).optional(),
     // award badge (image path + caption) — appears next to the metric block
     award: z

@@ -11,14 +11,15 @@ role: passive strategy study + building performance simulation
 roleNote: private client
 status: concept
 featured: false
-order: 1.5
+order: 13
 heroImage: /projects/manzil-basit/01.jpg
-heroAlt: 'visualization of manzil basit, abu dhabi: two volumes under floating roof shades, with perforated screens over the glass'
+heroCaption: '// ai visualization, based on the client''s conceptual design'
+heroAlt: 'ai visualization of manzil basit, abu dhabi, based on the client''s conceptual design: two volumes under floating roof shades, with perforated screens over the glass'
 metric:
   value: '3.4'
   unit: '×'
   label: more comfortable hours a year, same room, no air-conditioning
-  note: 'adaptive comfort (ashrae 55), free-running room, abu dhabi iwec weather. study and simulation by entrópica. images of the house are visualizations.'
+  note: 'adaptive comfort (ashrae 55), free-running room, abu dhabi iwec weather. study and simulation by entrópica. images of the house are ai visualizations based on the client''s conceptual design.'
 brief: |
   manzil basit, "simple house" in arabic, is a private house in abu dhabi, in a hot desert
   climate where half of the year carries heat stress outdoors, even in the shade.
@@ -43,12 +44,12 @@ study:
     - { value: '14 °C', label: 'median cooling available from evaporating water in the hours above 35 °C' }
   figure:
     src: /projects/manzil-basit/02.jpg
-    alt: 'visualization of manzil basit: a corner of the house with perforated screens over the glass, deep roof shades and a stone-clad entry volume'
-    tag: '// visualization'
+    alt: 'ai visualization of manzil basit, based on the client''s conceptual design: a corner of the house with perforated screens over the glass, deep roof shades and a stone-clad entry volume'
+    tag: '// ai visualization, based on the client''s conceptual design'
   panels:
     - headline: the air is hot, but it is dry
-      image: /projects/manzil-basit/mb_01_climate.webp
-      download: /projects/manzil-basit/mb_01_climate.png
+      image: /projects/manzil-basit/manzil-basit_01_climate.webp
+      download: /projects/manzil-basit/manzil-basit_01_climate.png
       width: 2160
       height: 2200
       alt: 'two hour-by-hour charts of the abu dhabi year. top: felt temperature in the shade (utci), with heat stress on 50% of hours, strongest from may to september in the afternoon. bottom: cooling available from evaporating water, up to 25 °C at midday.'
@@ -57,8 +58,8 @@ study:
         - { value: '14', unit: '°C', label: 'median wet-bulb depression in the hours above 35 °C' }
         - { value: '50', unit: '%', label: 'of the year with heat stress outdoors, in the shade' }
     - headline: six moves, ranked
-      image: /projects/manzil-basit/mb_02_ladder.webp
-      download: /projects/manzil-basit/mb_02_ladder.png
+      image: /projects/manzil-basit/manzil-basit_02_ladder.webp
+      download: /projects/manzil-basit/manzil-basit_02_ladder.png
       width: 2160
       height: 2200
       alt: 'step chart of comfortable hours, from 19.72% (base room) to 66.67% (final room). steps: orientation +1.04, window shading +6.38, double roof +8.73, air exchange +2.30, felt air movement +11.03, evaporative cooling +17.47 percentage points. air and water steps are amber (64% of the gain); sun-blocking steps are sand (32%).'
@@ -71,8 +72,8 @@ study:
         - { value: '+2.30', unit: 'pts', label: 'air exchange' }
         - { value: '+1.04', unit: 'pts', label: 'orientation' }
     - headline: every hour of the year, before and after
-      image: /projects/manzil-basit/mb_03_year.webp
-      download: /projects/manzil-basit/mb_03_year.png
+      image: /projects/manzil-basit/manzil-basit_03_year.webp
+      download: /projects/manzil-basit/manzil-basit_03_year.png
       width: 2160
       height: 2200
       alt: 'two hour-by-hour charts of degrees from the comfort target. base room: dark red (too hot) most afternoons from march to november, 1,721 comfortable hours. final room: mostly sand (comfortable), light red on summer afternoons, blue (too cold) on winter mornings, 5,819 comfortable hours.'
@@ -81,8 +82,8 @@ study:
         - { value: '1,721', unit: 'h', label: 'comfortable hours a year, base room' }
         - { value: '5,819', unit: 'h', label: 'comfortable hours a year, final room' }
     - headline: a bigger roof shade beats a bigger air gap
-      image: /projects/manzil-basit/mb_04_roof.webp
-      download: /projects/manzil-basit/mb_04_roof.png
+      image: /projects/manzil-basit/manzil-basit_04_roof.webp
+      download: /projects/manzil-basit/manzil-basit_04_roof.png
       width: 2160
       height: 2200
       alt: 'line chart of comfortable hours against roof shade size (1:1, 1.25:1, 1.5:1) for air gaps of 0.30, 0.45 and 0.60 m. all lines rise with shade size, from about 33% to 36%. the chosen case, 1.5:1 with a 0.30 m gap, gives 35.87%.'
@@ -92,8 +93,8 @@ study:
         - { value: '0.81', unit: 'pts', label: 'most the air gap adds' }
         - { value: '35.87', unit: '%', label: 'chosen roof' }
     - headline: with the room ventilated, more glass buys nothing
-      image: /projects/manzil-basit/mb_05_window.webp
-      download: /projects/manzil-basit/mb_05_window.png
+      image: /projects/manzil-basit/manzil-basit_05_window.webp
+      download: /projects/manzil-basit/manzil-basit_05_window.png
       width: 2160
       height: 2200
       alt: 'line chart of comfortable hours against window-to-wall ratio: 49.2% at 30%, 47.8% at 45%, 47.5% at 50%, 47.1% at 65% and 46.1% at 80%. the line is almost flat.'

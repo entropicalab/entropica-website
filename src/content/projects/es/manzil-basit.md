@@ -11,14 +11,15 @@ role: estudio de estrategias pasivas + simulación de desempeño
 roleNote: cliente privado
 status: concepto
 featured: false
-order: 1.5
+order: 13
 heroImage: /projects/manzil-basit/01.jpg
-heroAlt: 'visualización de manzil basit, abu dabi: dos volúmenes bajo sombras de techo flotantes, con celosías perforadas sobre el vidrio'
+heroCaption: '// visualización con ia, basada en el diseño conceptual del cliente'
+heroAlt: 'visualización con ia de manzil basit, abu dabi, basada en el diseño conceptual del cliente: dos volúmenes bajo sombras de techo flotantes, con celosías perforadas sobre el vidrio'
 metric:
   value: '3.4'
   unit: '×'
   label: más horas en confort al año, misma habitación, sin aire acondicionado
-  note: 'confort adaptativo (ashrae 55), habitación sin climatización, clima iwec de abu dabi. estudio y simulación por entrópica. las imágenes de la casa son visualizaciones.'
+  note: 'confort adaptativo (ashrae 55), habitación sin climatización, clima iwec de abu dabi. estudio y simulación por entrópica. las imágenes de la casa son visualizaciones con ia basadas en el diseño conceptual del cliente.'
 brief: |
   manzil basit, "casa simple" en árabe, es una casa privada en abu dabi, en un clima
   desértico cálido donde la mitad del año hay estrés térmico afuera, incluso a la sombra.
@@ -43,12 +44,12 @@ study:
     - { value: '14 °C', label: 'de enfriamiento mediano disponible al evaporar agua en las horas sobre 35 °C' }
   figure:
     src: /projects/manzil-basit/02.jpg
-    alt: 'visualización de manzil basit: una esquina de la casa con celosías perforadas sobre el vidrio, sombras de techo profundas y un volumen de entrada revestido en piedra'
-    tag: '// visualización'
+    alt: 'visualización con ia de manzil basit, basada en el diseño conceptual del cliente: una esquina de la casa con celosías perforadas sobre el vidrio, sombras de techo profundas y un volumen de entrada revestido en piedra'
+    tag: '// visualización con ia, basada en el diseño conceptual del cliente'
   panels:
     - headline: el aire es caliente, pero seco
-      image: /projects/manzil-basit/mb_01_climate.webp
-      download: /projects/manzil-basit/mb_01_climate.png
+      image: /projects/manzil-basit/manzil-basit_01_climate.webp
+      download: /projects/manzil-basit/manzil-basit_01_climate.png
       width: 2160
       height: 2200
       alt: 'dos gráficos hora por hora del año en abu dabi. arriba: temperatura percibida a la sombra (utci), con estrés térmico en 50% de las horas, más fuerte de mayo a septiembre por la tarde. abajo: enfriamiento disponible al evaporar agua, hasta 25 °C al mediodía.'
@@ -57,8 +58,8 @@ study:
         - { value: '14', unit: '°C', label: 'depresión de bulbo húmedo mediana en las horas sobre 35 °C' }
         - { value: '50', unit: '%', label: 'del año con estrés térmico afuera, a la sombra' }
     - headline: seis estrategias, en orden
-      image: /projects/manzil-basit/mb_02_ladder.webp
-      download: /projects/manzil-basit/mb_02_ladder.png
+      image: /projects/manzil-basit/manzil-basit_02_ladder.webp
+      download: /projects/manzil-basit/manzil-basit_02_ladder.png
       width: 2160
       height: 2200
       alt: 'gráfico escalonado de horas en confort, de 19.72% (habitación base) a 66.67% (habitación final). pasos: orientación +1.04, sombra en ventanas +6.38, doble techo +8.73, intercambio de aire +2.30, movimiento de aire percibido +11.03, enfriamiento evaporativo +17.47 puntos porcentuales. los pasos de aire y agua van en ámbar (64% de la ganancia); los que bloquean el sol, en arena (32%).'
@@ -71,8 +72,8 @@ study:
         - { value: '+2.30', unit: 'pts', label: 'intercambio de aire' }
         - { value: '+1.04', unit: 'pts', label: 'orientación' }
     - headline: cada hora del año, antes y después
-      image: /projects/manzil-basit/mb_03_year.webp
-      download: /projects/manzil-basit/mb_03_year.png
+      image: /projects/manzil-basit/manzil-basit_03_year.webp
+      download: /projects/manzil-basit/manzil-basit_03_year.png
       width: 2160
       height: 2200
       alt: 'dos gráficos hora por hora de grados respecto al objetivo de confort. habitación base: rojo oscuro (demasiado calor) casi todas las tardes de marzo a noviembre, 1,721 horas en confort. habitación final: casi todo en arena (confort), rojo claro en las tardes de verano, azul (demasiado frío) en las mañanas de invierno, 5,819 horas en confort.'
@@ -81,8 +82,8 @@ study:
         - { value: '1,721', unit: 'h', label: 'horas en confort al año, habitación base' }
         - { value: '5,819', unit: 'h', label: 'horas en confort al año, habitación final' }
     - headline: una sombra de techo más grande le gana a una cámara de aire más grande
-      image: /projects/manzil-basit/mb_04_roof.webp
-      download: /projects/manzil-basit/mb_04_roof.png
+      image: /projects/manzil-basit/manzil-basit_04_roof.webp
+      download: /projects/manzil-basit/manzil-basit_04_roof.png
       width: 2160
       height: 2200
       alt: 'gráfico de líneas de horas en confort según el tamaño de la sombra de techo (1:1, 1.25:1, 1.5:1) para cámaras de aire de 0.30, 0.45 y 0.60 m. todas las líneas suben con el tamaño de la sombra, de cerca de 33% a 36%. el caso elegido, 1.5:1 con una cámara de 0.30 m, da 35.87%.'
@@ -92,8 +93,8 @@ study:
         - { value: '0.81', unit: 'pts', label: 'lo máximo que suma la cámara de aire' }
         - { value: '35.87', unit: '%', label: 'techo elegido' }
     - headline: con la habitación ventilada, más vidrio no aporta nada
-      image: /projects/manzil-basit/mb_05_window.webp
-      download: /projects/manzil-basit/mb_05_window.png
+      image: /projects/manzil-basit/manzil-basit_05_window.webp
+      download: /projects/manzil-basit/manzil-basit_05_window.png
       width: 2160
       height: 2200
       alt: 'gráfico de líneas de horas en confort según la proporción de ventana en muro: 49.2% con 30%, 47.8% con 45%, 47.5% con 50%, 47.1% con 65% y 46.1% con 80%. la línea es casi plana.'
