@@ -49,6 +49,7 @@ study:
   panels:
     - headline: the air is hot, but it is dry
       image: /projects/manzil-basit/manzil-basit_01_climate.webp
+      interactive: { type: climate-heatmap, data: /projects/manzil-basit/data/room-hourly.json }
       width: 2160
       height: 2200
       alt: 'two hour-by-hour charts of the abu dhabi year. top: felt temperature in the shade (utci), with heat stress on 50% of hours, strongest from may to september in the afternoon. bottom: cooling available from evaporating water, up to 25 °C at midday.'
@@ -71,6 +72,7 @@ study:
         - { value: '+1.04', unit: 'pts', label: 'orientation' }
     - headline: every hour of the year, before and after
       image: /projects/manzil-basit/manzil-basit_03_year.webp
+      interactive: { type: comfort-heatmap, data: /projects/manzil-basit/data/room-hourly.json, cases: ["base room", "final room"] }
       width: 2160
       height: 2200
       alt: 'two hour-by-hour charts of degrees from the comfort target. base room: dark red (too hot) most afternoons from march to november, 1,721 comfortable hours. final room: mostly sand (comfortable), light red on summer afternoons, blue (too cold) on winter mornings, 5,819 comfortable hours.'
@@ -90,6 +92,7 @@ study:
         - { value: '35.87', unit: '%', label: 'chosen roof' }
     - headline: with the room ventilated, more glass buys nothing
       image: /projects/manzil-basit/manzil-basit_05_window.webp
+      interactive: { type: lines, series: [{ label: "", points: [[30, 49.20], [45, 47.83], [50, 47.48], [65, 47.08], [80, 46.13]] }], xLabel: "window-to-wall ratio", yLabel: "comfortable hours a year", xUnit: "%", yUnit: "%", chosen: [30, 49.20] }
       width: 2160
       height: 2200
       alt: 'line chart of comfortable hours against window-to-wall ratio: 49.2% at 30%, 47.8% at 45%, 47.5% at 50%, 47.1% at 65% and 46.1% at 80%. the line is almost flat.'

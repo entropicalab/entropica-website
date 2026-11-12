@@ -49,6 +49,7 @@ study:
   panels:
     - headline: el aire es caliente, pero seco
       image: /projects/manzil-basit/manzil-basit_01_climate.webp
+      interactive: { type: climate-heatmap, data: /projects/manzil-basit/data/room-hourly.json }
       width: 2160
       height: 2200
       alt: 'dos gráficos hora por hora del año en abu dabi. arriba: temperatura percibida a la sombra (utci), con estrés térmico en 50% de las horas, más fuerte de mayo a septiembre por la tarde. abajo: enfriamiento disponible al evaporar agua, hasta 25 °C al mediodía.'
@@ -71,6 +72,7 @@ study:
         - { value: '+1.04', unit: 'pts', label: 'orientación' }
     - headline: cada hora del año, antes y después
       image: /projects/manzil-basit/manzil-basit_03_year.webp
+      interactive: { type: comfort-heatmap, data: /projects/manzil-basit/data/room-hourly.json, cases: ["habitación base", "habitación final"] }
       width: 2160
       height: 2200
       alt: 'dos gráficos hora por hora de grados respecto al objetivo de confort. habitación base: rojo oscuro (demasiado calor) casi todas las tardes de marzo a noviembre, 1,721 horas en confort. habitación final: casi todo en arena (confort), rojo claro en las tardes de verano, azul (demasiado frío) en las mañanas de invierno, 5,819 horas en confort.'
@@ -90,6 +92,7 @@ study:
         - { value: '35.87', unit: '%', label: 'techo elegido' }
     - headline: con la habitación ventilada, más vidrio no aporta nada
       image: /projects/manzil-basit/manzil-basit_05_window.webp
+      interactive: { type: lines, series: [{ label: "", points: [[30, 49.20], [45, 47.83], [50, 47.48], [65, 47.08], [80, 46.13]] }], xLabel: "proporción de ventana en muro", yLabel: "horas en confort al año", xUnit: "%", yUnit: "%", chosen: [30, 49.20] }
       width: 2160
       height: 2200
       alt: 'gráfico de líneas de horas en confort según la proporción de ventana en muro: 49.2% con 30%, 47.8% con 45%, 47.5% con 50%, 47.1% con 65% y 46.1% con 80%. la línea es casi plana.'

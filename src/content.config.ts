@@ -96,7 +96,8 @@ const projects = defineCollection({
                 // comfort-heatmap / surface-heatmap: StudyHeatmap.astro
                 // average-day: StudyAverageDay.astro · patio: StudyPatio.astro · sunpath: StudySunpath.astro
                 // hotspots: StudyHotspots.astro (clickable regions over the drawing itself)
-                type: z.enum(['comfort-heatmap', 'surface-heatmap', 'average-day', 'patio', 'sunpath', 'hotspots']),
+                // climate-heatmap: StudyHeatmap.astro (weather only) · lines: StudyLines.astro (points in this file)
+                type: z.enum(['comfort-heatmap', 'surface-heatmap', 'climate-heatmap', 'average-day', 'patio', 'sunpath', 'hotspots', 'lines']),
                 data: z.string().optional(), // json under public/ (all types but hotspots)
                 cases: z.tuple([z.string(), z.string()]).optional(), // labels for the two cases (heatmaps, average-day)
                 field: z.string().optional(), // surface-heatmap: which series, e.g. 'roof'
@@ -111,6 +112,12 @@ const projects = defineCollection({
                     })
                   )
                   .optional(), // hotspots
+                series: z.array(z.object({ label: z.string(), points: z.array(z.tuple([z.number(), z.number()])) })).optional(), // lines
+                xLabel: z.string().optional(),
+                yLabel: z.string().optional(),
+                xUnit: z.string().optional(),
+                yUnit: z.string().optional(),
+                chosen: z.tuple([z.number(), z.number()]).optional(), // lines: the point to mark
               })
               .optional(),
           })
