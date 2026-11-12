@@ -5,6 +5,7 @@
 // units (°C), so text-transform is switched off here to keep them intact.
 import type { CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n/strings';
+import ComfortHeatmap from './ComfortHeatmap.astro';
 
 interface Props {
   study: NonNullable<CollectionEntry<'projects'>['data']['study']>;
@@ -69,6 +70,20 @@ const fmt = (value: string, unit?: string) => (!unit ? value : unit === '%' ? `$
   <div class="site-wrap">
     <div class="eyebrow st-panels-eb">{L.studyEb}</div>
     {study.panels.map((p, i) => (
+      p.interactive ? (
+      <article class="panel wide">
+        <div class="panel-head">
+          <div class="panel-ix">{String(i + 1).padStart(2, '0')}</div>
+          <h2 class="st-h">{p.headline}</h2>
+        </div>
+        <div class="panel-text">
+          <p class="panel-cap">{p.caption}</p>
+        </div>
+        <div class="panel-live">
+          <ComfortHeatmap src={p.interactive.data} cases={p.interactive.cases} alt={p.alt} fallback={p.image} locale={locale} />
+        </div>
+      </article>
+      ) : (
       <article class="panel">
         <div class="panel-head">
           <div class="panel-ix">{String(i + 1).padStart(2, '0')}</div>
@@ -96,6 +111,7 @@ const fmt = (value: string, unit?: string) => (!unit ? value : unit === '%' ? `$
           )}
         </div>
       </article>
+      )
     ))}
   </div>
 </section>
@@ -199,6 +215,11 @@ const fmt = (value: string, unit?: string) => (!unit ? value : unit === '%' ? `$
     padding: 40px 0;
   }
   .panel + .panel { border-top: 1px solid var(--line-on-paper-2); }
+  /* live chart: headline + caption side by side, chart full width below */
+  .panel.wide { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); grid-template-rows: auto auto; row-gap: 28px; }
+  .panel.wide .panel-head { grid-column: 1; grid-row: 1; }
+  .panel.wide .panel-text { grid-column: 2; grid-row: 1; }
+  .panel.wide .panel-live { grid-column: 1 / -1; grid-row: 2; }
   .panel-head { grid-column: 2; grid-row: 2; }
   .panel-text { grid-column: 2; grid-row: 3; }
   .panel-img { margin: 0; grid-column: 1; grid-row: 1 / 5; align-self: center; }

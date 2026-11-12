@@ -89,6 +89,15 @@ const projects = defineCollection({
             numbers: z
               .array(z.object({ value: z.string(), unit: z.string().optional(), label: z.string() }))
               .optional(),
+            // optional live chart drawn from the study's hourly data; the image
+            // above stays as the no-js fallback (and the instagram poster)
+            interactive: z
+              .object({
+                type: z.literal('comfort-heatmap'),
+                data: z.string(), // json under public/, see ComfortHeatmap.astro
+                cases: z.tuple([z.string(), z.string()]), // labels for the two cases
+              })
+              .optional(),
           })
         ),
         method: z.array(z.string()).optional(),

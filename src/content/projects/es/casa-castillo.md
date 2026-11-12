@@ -83,6 +83,7 @@ study:
         - { value: "−2.2", unit: "°C", label: "piso a las 2 pm" }
     - headline: "y la casa gana 450 horas en confort"
       image: /projects/casa-castillo/casa-castillo_06_comfort.webp
+      interactive: { type: comfort-heatmap, data: /projects/casa-castillo/data/comfort-main-house.json, cases: ["casa original", "con el parasol"] }
       width: 2160
       height: 2200
       alt: "dos gráficos hora por hora de grados respecto al objetivo de confort en la casa principal. ambos muestran tardes cálidas (rojo) y noches frescas (azul); con el parasol el rojo de la tarde es más claro y más delgado. 3,441 horas en confort en la casa original, 3,891 con el parasol."
