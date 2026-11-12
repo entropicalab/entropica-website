@@ -9,6 +9,7 @@ import StudyHeatmap from './StudyHeatmap.astro';
 import StudyAverageDay from './StudyAverageDay.astro';
 import StudyPatio from './StudyPatio.astro';
 import StudySunpath from './StudySunpath.astro';
+import StudyHotspots from './StudyHotspots.astro';
 
 interface Props {
   study: NonNullable<CollectionEntry<'projects'>['data']['study']>;
@@ -83,17 +84,19 @@ const fmt = (value: string, unit?: string) => (!unit ? value : unit === '%' ? `$
           <p class="panel-cap">{p.caption}</p>
         </div>
         <div class="panel-live">
-          {p.interactive.type === 'sunpath' ? (
-            <StudySunpath src={p.interactive.data} alt={p.alt} fallback={p.image} locale={locale} />
+          {p.interactive.type === 'hotspots' ? (
+            <StudyHotspots image={p.image} width={p.width} height={p.height} alt={p.alt} spots={p.interactive.spots ?? []} locale={locale} />
+          ) : p.interactive.type === 'sunpath' ? (
+            <StudySunpath src={p.interactive.data ?? ''} alt={p.alt} fallback={p.image} locale={locale} />
           ) : p.interactive.type === 'patio' ? (
-            <StudyPatio src={p.interactive.data} alt={p.alt} fallback={p.image} locale={locale} />
+            <StudyPatio src={p.interactive.data ?? ''} alt={p.alt} fallback={p.image} locale={locale} />
           ) : p.interactive.type === 'average-day' ? (
-            <StudyAverageDay src={p.interactive.data} cases={p.interactive.cases ?? ['a', 'b']} surfaces={p.interactive.surfaces ?? []} alt={p.alt} fallback={p.image} locale={locale} />
+            <StudyAverageDay src={p.interactive.data ?? ''} cases={p.interactive.cases ?? ['a', 'b']} surfaces={p.interactive.surfaces ?? []} alt={p.alt} fallback={p.image} locale={locale} />
           ) : (
             <StudyHeatmap
               kind={p.interactive.type === 'surface-heatmap' ? 'surface' : 'comfort'}
               field={p.interactive.field}
-              src={p.interactive.data}
+              src={p.interactive.data ?? ''}
               cases={p.interactive.cases ?? ['a', 'b']}
               alt={p.alt}
               fallback={p.image}

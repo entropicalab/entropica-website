@@ -48,6 +48,34 @@ study:
         - { value: "74", unit: "%", label: "of the direct sun on a flat roof comes from higher than 45°" }
     - headline: "a second roof, 0.30 m up"
       image: /projects/casa-castillo/casa-castillo_02_section.webp
+      interactive:
+        type: hotspots
+        spots:
+          - label: "parasol"
+            shapes: [[[16, 35.3], [55, 35.3], [55, 37.4], [16, 37.4]]]
+            body: "a second roof 0.30 m above the slab, 8.1 × 19.3 m: 1 m wider than the house on the east and west sides. it takes the 1,900 kWh/m² of sun a year that would otherwise land on the roof, and air moves through the gap."
+            model: "an opaque shading surface, with no mass of its own."
+          - label: "slab roof"
+            shapes: [[[16, 37.7], [55, 37.7], [55, 39.6], [16, 39.6]]]
+            body: "under the parasol the slab gets 16 kWh/m² of sun a year instead of 1,900. its outside face peaks at 35.2 °C instead of 60.4 °C, and never passes 45 °C: without the parasol it does for 1,248 hours a year."
+            model: "100 mm lightweight concrete, an air gap and a 19 mm acoustic tile ceiling: a generic energyplus roof, the same in both cases."
+          - label: "main house"
+            shapes: [[[29, 39.7], [48.6, 39.7], [48.6, 51.8], [29, 51.8]]]
+            body: "6.1 × 19.1 m, free-running with natural ventilation: no air-conditioning in the model. with the parasol and the plenum it gains 450 comfortable hours a year, from 3,441 to 3,891."
+          - label: "walls"
+            shapes: [[[27.6, 39.2], [29.2, 39.2], [29.2, 52.1], [27.6, 52.1]], [[48.6, 39.2], [50.2, 39.2], [50.2, 52.1], [48.6, 52.1]]]
+            body: "the same walls in both cases: the study changes the roof and the floor, not the façades."
+            model: "100 mm brick, 200 mm heavyweight concrete, 50 mm insulation board, an air gap and 19 mm gypsum board: a generic energyplus wall."
+          - label: "ventilated plenum"
+            shapes: [[[20.7, 52.1], [50.2, 52.1], [50.2, 54.3], [20.7, 54.3]]]
+            body: "the design case also lifts the floor over a ventilated plenum. on an average day the floor's inside face runs 2.2 °C cooler at 2 pm. that gain comes from the plenum and the parasol together: the study did not run them apart."
+            model: "a ventilated air space under the floor slab, in the design case only."
+          - label: "patio"
+            shapes: [[[50.4, 40.4], [88, 40.4], [88, 51.8], [50.4, 51.8]]]
+            body: "8.00 × 19.10 m under a frame with six sliding panels: four walls and two roof panels. try every setting further down, in 08."
+          - label: "the lowest sun"
+            shapes: [[[15, 66], [30, 66], [62, 80], [62, 84], [45, 82.5], [15, 73]]]
+            body: "only sun lower than 16.7° above the horizon can slip under the parasol's 1 m overhang and reach the roof over the rooms: early morning and late afternoon light."
       width: 2160
       height: 2200
       alt: "east-west section through the main house and the patio, cut elements hatched, with the ventilated plenum under the floor. a detail of the west edge shows the slab roof, the parasol 0.30 m above it, the 1.00 m overhang, and a sun ray at 16.7°, the lowest sun that can reach the roof over the rooms."
@@ -57,6 +85,22 @@ study:
         - { value: "16.7", unit: "°", label: "lowest sun that reaches the roof over the rooms" }
     - headline: "the sun lands on the parasol instead"
       image: /projects/casa-castillo/casa-castillo_03_isometrics.webp
+      interactive:
+        type: hotspots
+        spots:
+          - label: "main roof"
+            shapes: [[[16, 58.2], [30.5, 66.8], [70, 45.4], [55.5, 36.8]]]
+            body: "16 kWh/m² of sun a year under the parasol, down from 1,900 without it: 99% less."
+          - label: "parasol"
+            shapes: [[[16, 49.1], [54.3, 27.8], [70.3, 36.8], [32, 58.4]]]
+            body: "lifted 3.5 m in this drawing to show the roof under it. it takes 1,900 kWh/m² of sun a year."
+            model: "an opaque shading surface, with no mass of its own."
+          - label: "walls"
+            shapes: [[[18, 58.9], [46.2, 75.6], [46.2, 81.5], [18, 65.3]]]
+            body: "the walls and the patio take the sun the parasol leaves. each surface is colored by its yearly total, from pale (under 200 kWh/m²) to dark (over 1,600)."
+          - label: "patio and pool house"
+            shapes: [[[58.5, 47.2], [84, 53.8], [84, 60.1], [71, 67.6], [58.5, 73.2]]]
+            body: "the patio's frame and sliding panels, and the pool house. the patio's own sun map, setting by setting, is further down, in 08."
       width: 2160
       height: 2200
       alt: "exploded isometric of the house colored by yearly sun, from pale to dark red. the parasol, lifted above the house, is dark red (1,900 kWh/m²); the main roof under it is pale (16 kWh/m²). walls and patio are in between."
@@ -96,6 +140,27 @@ study:
         - { value: "3,891", unit: "h", label: "comfortable hours a year, with the parasol" }
     - headline: "a patio that can be reset"
       image: /projects/casa-castillo/casa-castillo_07_elements.webp
+      interactive:
+        type: hotspots
+        spots:
+          - label: "e5"
+            shapes: [[[27.8, 63.6], [41.8, 55.7], [50.5, 60.8], [36.8, 68.5]]]
+            body: "sliding roof panel at 5.70 m. the biggest lever on the patio: moving it to the outer half adds 139.6 kWh/m² of daytime sun a year, on average across the 32 pairs of settings that differ only in this panel. keep it against the house."
+          - label: "e6"
+            shapes: [[[41.8, 55.7], [55.8, 47.6], [64.8, 52.8], [50.5, 60.8]]]
+            body: "sliding roof panel at 5.70 m. moving it to the outer half takes away 41.5 kWh/m² of daytime sun a year, on average across the 32 pairs of settings that differ only in this panel. the best setting has it out."
+          - label: "e1"
+            shapes: [[[44.8, 64.0], [50.6, 60.9], [50.7, 67.3]]]
+            body: "sliding wall, 4.00 × 2.63 m. moving it to the outer half adds 12.5 kWh/m² of daytime sun on the patio, on average across the 32 pairs of settings that differ only in this panel."
+          - label: "e2"
+            shapes: [[[59.8, 53.5], [64.8, 52.8], [64.8, 59.1]]]
+            body: "sliding wall, 4.00 × 2.63 m. moving it to the outer half adds 0.7 kWh/m² of daytime sun on the patio, on average across the 32 pairs of settings that differ only in this panel. in practice it barely matters."
+          - label: "e3"
+            shapes: [[[62, 46.9], [70.8, 52], [70.8, 56.7], [62, 51.8]]]
+            body: "sliding wall, 4.00 × 2.63 m. moving it to the outer half takes away 5.7 kWh/m² of daytime sun on the patio, on average across the 32 pairs of settings that differ only in this panel. the best setting has it out."
+          - label: "e4"
+            shapes: [[[66.5, 41.7], [75.3, 46.8], [75.3, 53.2], [66.5, 48.1]]]
+            body: "sliding wall, 4.00 × 2.63 m. moving it to the outer half adds 10.2 kWh/m² of daytime sun on the patio, on average across the 32 pairs of settings that differ only in this panel."
       width: 2160
       height: 2200
       alt: "isometric drawing of the house and patio frame with six numbered panels. filled panels show position 0, against the house; dashed outlines show position 1, in the outer half of the patio."

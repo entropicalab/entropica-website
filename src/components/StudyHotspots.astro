@@ -1,0 +1,112 @@
+---
+// clickable architectural drawing for simulation studies: regions traced over a
+// section, plan or isometric. hover, tap or tab to a region to read what the
+// element is, what the study measured on it, and how it was modelled.
+// each region is one or more polygons in percent of the image (x right, y
+// down), authored in the project's content file.
+import type { Locale } from '../i18n/strings';
+
+interface Spot {
+  label: string;
+  shapes: [number, number][][];
+  body: string;
+  model?: string;
+}
+interface Props {
+  image: string;
+  width: number;
+  height: number;
+  alt: string;
+  spots: Spot[];
+  locale: Locale;
+}
+const { image, width, height, alt, spots, locale } = Astro.props;
+
+const L = {
+  en: { hint: 'hover or tap a part of the drawing', model: 'in the model' },
+  es: { hint: 'pasa el cursor o toca una parte del dibujo', model: 'en el modelo' },
+}[locale];
+const pts = (p: [number, number][]) => p.map(([x, y]) => `${x},${y}`).join(' ');
+---
+
+<figure class="hspot">
+  <div class="hspot-draw">
+    <img src={image} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      {spots.map((s, i) => s.shapes.map((shape) => <polygon points={pts(shape)} data-i={i} />))}
+    </svg>
+  </div>
+  <div class="hspot-side">
+    <div class="hspot-list" role="group">
+      {spots.map((s, i) => <button type="button" data-i={i} aria-pressed="false">{s.label}</button>)}
+    </div>
+    <div class="hspot-card" aria-live="polite">
+      <p class="hspot-hint">{L.hint}</p>
+      {spots.map((s, i) => (
+        <div class="hspot-detail" data-i={i} hidden>
+          <div class="hspot-title">{s.label}</div>
+          <p>{s.body}</p>
+          {s.model && <p class="hspot-model"><span>{L.model}:</span> {s.model}</p>}
+        </div>
+      ))}
+    </div>
+  </div>
+</figure>
+
+<style>
+  .hspot { margin: 0; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+  .hspot :global(*) { text-transform: none; }
+  .hspot-draw { position: relative; }
+  .hspot-draw img { display: block; width: 100%; height: auto; }
+  .hspot-draw svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hspot-draw polygon { fill: transparent; stroke: transparent; cursor: pointer; vector-effect: non-scaling-stroke; }
+  .hspot-draw polygon.on { fill: rgba(250, 179, 30, 0.28); stroke: var(--amber); stroke-width: 2; }
+  .hspot-draw:hover polygon:not(.on) { stroke: rgba(28, 28, 28, 0.18); stroke-width: 1; stroke-dasharray: 3 3; }
+
+  .hspot-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .hspot-list button {
+    font: inherit; font-size: 12px; padding: 6px 10px; background: transparent; color: var(--mute-on-paper);
+    border: 1px solid var(--line-on-paper); cursor: pointer;
+  }
+  .hspot-list button:hover { color: var(--ink-on-paper); border-color: var(--mute-on-paper); }
+  .hspot-list button[aria-pressed='true'] { background: var(--amber); border-color: var(--amber); color: var(--ink-on-paper); }
+  .hspot-card { min-height: 9em; border-top: 1px solid var(--line-on-paper); padding-top: 16px; }
+  .hspot-hint { font-size: 13px; color: var(--mute-on-paper-2); margin: 0; }
+  .hspot-detail[hidden] { display: none; }
+  .hspot-title { font-size: 18px; margin-bottom: 8px; }
+  .hspot-detail p { font-size: 16px; line-height: 1.5; margin: 0 0 12px; max-width: 52ch; }
+  .hspot-model { font-size: 14px !important; color: var(--mute-on-paper); }
+  .hspot-model span { color: var(--mute-on-paper-2); }
+
+  @media (max-width: 900px) {
+    .hspot { grid-template-columns: 1fr; gap: 20px; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.hspot').forEach((fig) => {
+    const polys = [...fig.querySelectorAll<SVGPolygonElement>('polygon')];
+    const buttons = [...fig.querySelectorAll<HTMLButtonElement>('.hspot-list button')];
+    const details = [...fig.querySelectorAll<HTMLElement>('.hspot-detail')];
+    const hint = fig.querySelector('.hspot-hint') as HTMLElement;
+    let pinned = -1;
+
+    function show(i: number) {
+      polys.forEach((p) => p.classList.toggle('on', Number(p.dataset.i) === i));
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.i) === i)));
+      details.forEach((d) => (d.hidden = Number(d.dataset.i) !== i));
+      hint.hidden = i >= 0;
+    }
+    polys.forEach((p) => {
+      const i = Number(p.dataset.i);
+      p.addEventListener('pointerenter', () => show(i));
+      p.addEventListener('click', () => { pinned = pinned === i ? -1 : i; show(pinned < 0 ? i : pinned); });
+    });
+    fig.querySelector('.hspot-draw svg')!.addEventListener('pointerleave', () => show(pinned));
+    buttons.forEach((b) => {
+      const i = Number(b.dataset.i);
+      b.addEventListener('click', () => { pinned = pinned === i ? -1 : i; show(pinned); });
+      b.addEventListener('focus', () => show(i));
+    });
+  });
+</script>

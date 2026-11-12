@@ -48,6 +48,34 @@ study:
         - { value: "74", unit: "%", label: "de la radiación solar directa sobre un techo plano llega desde más de 45° de altura" }
     - headline: "un segundo techo, 0.30 m arriba"
       image: /projects/casa-castillo/casa-castillo_02_section.webp
+      interactive:
+        type: hotspots
+        spots:
+          - label: "parasol"
+            shapes: [[[16, 35.3], [55, 35.3], [55, 37.4], [16, 37.4]]]
+            body: "un segundo techo 0.30 m sobre la losa, de 8.1 × 19.3 m: 1 m más ancho que la casa en los lados este y oeste. recibe los 1,900 kWh/m² de sol al año que si no caerían sobre el techo, y el aire se mueve por la separación."
+            model: "una superficie de sombra opaca, sin masa propia."
+          - label: "losa de techo"
+            shapes: [[[16, 37.7], [55, 37.7], [55, 39.6], [16, 39.6]]]
+            body: "bajo el parasol la losa recibe 16 kWh/m² de sol al año en vez de 1,900. su cara exterior llega a 35.2 °C en vez de 60.4 °C y nunca pasa de 45 °C: sin el parasol lo hace 1,248 horas al año."
+            model: "100 mm de concreto liviano, una cámara de aire y un cielorraso de placa acústica de 19 mm: un techo genérico de energyplus, igual en ambos casos."
+          - label: "casa principal"
+            shapes: [[[29, 39.7], [48.6, 39.7], [48.6, 51.8], [29, 51.8]]]
+            body: "6.1 × 19.1 m, sin climatización y con ventilación natural: sin aire acondicionado en el modelo. con el parasol y el plénum gana 450 horas en confort al año, de 3,441 a 3,891."
+          - label: "muros"
+            shapes: [[[27.6, 39.2], [29.2, 39.2], [29.2, 52.1], [27.6, 52.1]], [[48.6, 39.2], [50.2, 39.2], [50.2, 52.1], [48.6, 52.1]]]
+            body: "los mismos muros en ambos casos: el estudio cambia el techo y el piso, no las fachadas."
+            model: "100 mm de ladrillo, 200 mm de concreto pesado, 50 mm de aislante rígido, una cámara de aire y 19 mm de yeso: un muro genérico de energyplus."
+          - label: "plénum ventilado"
+            shapes: [[[20.7, 52.1], [50.2, 52.1], [50.2, 54.3], [20.7, 54.3]]]
+            body: "el caso de diseño además eleva el piso sobre un plénum ventilado. en un día promedio la cara interior del piso está 2.2 °C más fresca a las 2 pm. esa ganancia viene del plénum y del parasol juntos: el estudio no los corrió por separado."
+            model: "un espacio de aire ventilado bajo la losa de piso, solo en el caso de diseño."
+          - label: "patio"
+            shapes: [[[50.4, 40.4], [88, 40.4], [88, 51.8], [50.4, 51.8]]]
+            body: "8.00 × 19.10 m bajo una estructura con seis paneles corredizos: cuatro muros y dos paneles de techo. prueba cada configuración más abajo, en 08."
+          - label: "el sol más bajo"
+            shapes: [[[15, 66], [30, 66], [62, 80], [62, 84], [45, 82.5], [15, 73]]]
+            body: "solo el sol a menos de 16.7° sobre el horizonte puede pasar bajo el alero de 1 m del parasol y llegar al techo sobre los cuartos: la luz de primera hora y de final de la tarde."
       width: 2160
       height: 2200
       alt: "corte este-oeste por la casa principal y el patio, con los elementos cortados achurados y el plénum ventilado bajo el piso. un detalle del borde oeste muestra la losa de techo, el parasol 0.30 m encima, el alero de 1.00 m y un rayo de sol a 16.7°, el sol más bajo que puede llegar al techo sobre los cuartos."
@@ -57,6 +85,22 @@ study:
         - { value: "16.7", unit: "°", label: "el sol más bajo que llega al techo sobre los cuartos" }
     - headline: "el sol cae en el parasol"
       image: /projects/casa-castillo/casa-castillo_03_isometrics.webp
+      interactive:
+        type: hotspots
+        spots:
+          - label: "techo principal"
+            shapes: [[[16, 58.2], [30.5, 66.8], [70, 45.4], [55.5, 36.8]]]
+            body: "16 kWh/m² de sol al año bajo el parasol, frente a 1,900 sin él: 99% menos."
+          - label: "parasol"
+            shapes: [[[16, 49.1], [54.3, 27.8], [70.3, 36.8], [32, 58.4]]]
+            body: "levantado 3.5 m en este dibujo para mostrar el techo de abajo. recibe 1,900 kWh/m² de sol al año."
+            model: "una superficie de sombra opaca, sin masa propia."
+          - label: "muros"
+            shapes: [[[18, 58.9], [46.2, 75.6], [46.2, 81.5], [18, 65.3]]]
+            body: "los muros y el patio reciben el sol que deja el parasol. cada superficie va coloreada por su total anual, de pálido (menos de 200 kWh/m²) a oscuro (más de 1,600)."
+          - label: "patio y casa de piscina"
+            shapes: [[[58.5, 47.2], [84, 53.8], [84, 60.1], [71, 67.6], [58.5, 73.2]]]
+            body: "la estructura del patio con sus paneles corredizos, y la casa de piscina. el mapa de sol del patio, configuración por configuración, está más abajo, en 08."
       width: 2160
       height: 2200
       alt: "isométrico explotado de la casa coloreado por radiación solar anual, de pálido a rojo oscuro. el parasol, levantado sobre la casa, está en rojo oscuro (1,900 kWh/m²); el techo principal debajo está pálido (16 kWh/m²). los muros y el patio quedan en medio."
@@ -96,6 +140,27 @@ study:
         - { value: "3,891", unit: "h", label: "horas en confort al año, con el parasol" }
     - headline: "un patio que se puede reconfigurar"
       image: /projects/casa-castillo/casa-castillo_07_elements.webp
+      interactive:
+        type: hotspots
+        spots:
+          - label: "e5"
+            shapes: [[[27.8, 63.6], [41.8, 55.7], [50.5, 60.8], [36.8, 68.5]]]
+            body: "panel de techo corredizo a 5.70 m. la palanca más grande del patio: moverlo a la mitad exterior suma 139.6 kWh/m² de sol diurno al año, en promedio entre los 32 pares de configuraciones que solo difieren en este panel. mejor contra la casa."
+          - label: "e6"
+            shapes: [[[41.8, 55.7], [55.8, 47.6], [64.8, 52.8], [50.5, 60.8]]]
+            body: "panel de techo corredizo a 5.70 m. moverlo a la mitad exterior quita 41.5 kWh/m² de sol diurno al año, en promedio entre los 32 pares de configuraciones que solo difieren en este panel. la mejor configuración lo tiene afuera."
+          - label: "e1"
+            shapes: [[[44.8, 64.0], [50.6, 60.9], [50.7, 67.3]]]
+            body: "muro corredizo de 4.00 × 2.63 m. moverlo a la mitad exterior suma 12.5 kWh/m² de sol diurno en el patio, en promedio entre los 32 pares de configuraciones que solo difieren en este panel."
+          - label: "e2"
+            shapes: [[[59.8, 53.5], [64.8, 52.8], [64.8, 59.1]]]
+            body: "muro corredizo de 4.00 × 2.63 m. moverlo a la mitad exterior suma 0.7 kWh/m² de sol diurno en el patio, en promedio entre los 32 pares de configuraciones que solo difieren en este panel. en la práctica casi no importa."
+          - label: "e3"
+            shapes: [[[62, 46.9], [70.8, 52], [70.8, 56.7], [62, 51.8]]]
+            body: "muro corredizo de 4.00 × 2.63 m. moverlo a la mitad exterior quita 5.7 kWh/m² de sol diurno en el patio, en promedio entre los 32 pares de configuraciones que solo difieren en este panel. la mejor configuración lo tiene afuera."
+          - label: "e4"
+            shapes: [[[66.5, 41.7], [75.3, 46.8], [75.3, 53.2], [66.5, 48.1]]]
+            body: "muro corredizo de 4.00 × 2.63 m. moverlo a la mitad exterior suma 10.2 kWh/m² de sol diurno en el patio, en promedio entre los 32 pares de configuraciones que solo difieren en este panel."
       width: 2160
       height: 2200
       alt: "dibujo isométrico de la casa y la estructura del patio con seis paneles numerados. los paneles rellenos muestran la posición 0, contra la casa; los contornos punteados muestran la posición 1, en la mitad exterior del patio."

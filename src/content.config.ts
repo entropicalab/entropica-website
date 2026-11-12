@@ -95,11 +95,22 @@ const projects = defineCollection({
               .object({
                 // comfort-heatmap / surface-heatmap: StudyHeatmap.astro
                 // average-day: StudyAverageDay.astro · patio: StudyPatio.astro · sunpath: StudySunpath.astro
-                type: z.enum(['comfort-heatmap', 'surface-heatmap', 'average-day', 'patio', 'sunpath']),
-                data: z.string(), // json under public/
+                // hotspots: StudyHotspots.astro (clickable regions over the drawing itself)
+                type: z.enum(['comfort-heatmap', 'surface-heatmap', 'average-day', 'patio', 'sunpath', 'hotspots']),
+                data: z.string().optional(), // json under public/ (all types but hotspots)
                 cases: z.tuple([z.string(), z.string()]).optional(), // labels for the two cases (heatmaps, average-day)
                 field: z.string().optional(), // surface-heatmap: which series, e.g. 'roof'
                 surfaces: z.array(z.object({ field: z.string(), label: z.string() })).optional(), // average-day
+                spots: z
+                  .array(
+                    z.object({
+                      label: z.string(),
+                      shapes: z.array(z.array(z.tuple([z.number(), z.number()]))), // polygons, % of the image
+                      body: z.string(),
+                      model: z.string().optional(), // how the element was modelled, when it matters
+                    })
+                  )
+                  .optional(), // hotspots
               })
               .optional(),
           })
