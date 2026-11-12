@@ -97,7 +97,8 @@ const projects = defineCollection({
                 // average-day: StudyAverageDay.astro · patio: StudyPatio.astro · sunpath: StudySunpath.astro
                 // hotspots: StudyHotspots.astro (clickable regions over the drawing itself)
                 // climate-heatmap: StudyHeatmap.astro (weather only) · lines: StudyLines.astro (points in this file)
-                type: z.enum(['comfort-heatmap', 'surface-heatmap', 'climate-heatmap', 'average-day', 'patio', 'sunpath', 'hotspots', 'lines']),
+                // bars: StudyBars.astro · dumbbell: StudyDumbbell.astro (values in this file)
+                type: z.enum(['comfort-heatmap', 'surface-heatmap', 'climate-heatmap', 'average-day', 'patio', 'sunpath', 'hotspots', 'lines', 'bars', 'dumbbell']),
                 data: z.string().optional(), // json under public/ (all types but hotspots)
                 cases: z.tuple([z.string(), z.string()]).optional(), // labels for the two cases (heatmaps, average-day)
                 field: z.string().optional(), // surface-heatmap: which series, e.g. 'roof'
@@ -118,6 +119,11 @@ const projects = defineCollection({
                 xUnit: z.string().optional(),
                 yUnit: z.string().optional(),
                 chosen: z.tuple([z.number(), z.number()]).optional(), // lines: the point to mark
+                xTicks: z.array(z.string()).optional(), // lines: text labels for the x values, in order
+                categories: z.array(z.object({ label: z.string(), sub: z.string().optional(), note: z.string().optional() })).optional(), // bars
+                bars: z.array(z.object({ label: z.string(), values: z.array(z.number()) })).optional(), // bars: one per case
+                decimals: z.number().optional(), // bars
+                rows: z.array(z.object({ label: z.string(), a: z.number(), b: z.number(), note: z.string().optional() })).optional(), // dumbbell (labels: cases)
               })
               .optional(),
           })

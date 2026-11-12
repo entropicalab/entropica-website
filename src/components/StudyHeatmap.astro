@@ -213,7 +213,8 @@ const legendCase =
   @media (max-width: 640px) {
     .cmap-grid { grid-template-columns: 30px minmax(0, 1fr) 44px; column-gap: 6px; }
     /* too thin to read or tap at phone width: keep a floor, cells stretch here */
-    .cmap-plot { min-height: 96px; }
+    /* (a min-height with the aspect ratio would widen the plot past the screen) */
+    .cmap-plot { aspect-ratio: auto; height: 96px; }
     .cmap-xaxis span:nth-child(even) { visibility: hidden; }
     .cmap-hours-label, .cmap-months-label { font-size: 9px; }
   }
@@ -223,7 +224,7 @@ const legendCase =
   import { loadStudyData, MONTH_DAYS, MONTHS, hourSpan, deg, signedDeg } from '../scripts/study-data';
 
   type Case = { operative: number[]; target: number[]; fromTarget: number[]; comfortable: string; [k: string]: number[] | string };
-  type Data = { hours: number; outdoor: number[]; humidity?: number[]; wetbulb?: number[]; cases: { base: Case; design: Case } };
+  type Data = { hours: number; band?: number; outdoor: number[]; humidity?: number[]; wetbulb?: number[]; cases: { base: Case; design: Case } };
   type View = 'first' | 'base' | 'design';
   type State = 'ok' | 'hot' | 'cold';
   type Locale = 'en' | 'es';
@@ -253,7 +254,7 @@ const legendCase =
       n: (v: number) => v.toLocaleString('en-US'),
       // comfort
       statChanged: (net: string) => `${net} comfortable hours a year`,
-      subChanged: (g: string, l: string) => `${g} hours become comfortable, ${l} stop being comfortable.`,
+      subChanged: (g: string, l: string) => `${g} ${g === '1' ? 'hour becomes' : 'hours become'} comfortable, ${l} ${l === '1' ? 'stops' : 'stop'} being comfortable.`,
       statCase: (n: string) => `${n} comfortable hours a year`,
       subCase: (pct: number) => `${pct}% of the year, no air-conditioning.`,
       tipHourNet: (h: string, v: string) => `${h}: ${v} comfortable hours over the year`,
@@ -285,7 +286,7 @@ const legendCase =
       state: { ok: 'en confort', hot: 'demasiado calor', cold: 'demasiado frío' } as Record<State, string>,
       n: (v: number) => v.toLocaleString('en-US'),
       statChanged: (net: string) => `${net} horas en confort al año`,
-      subChanged: (g: string, l: string) => `${g} horas pasan a confort y ${l} dejan de estarlo.`,
+      subChanged: (g: string, l: string) => `${g} ${g === '1' ? 'hora pasa' : 'horas pasan'} a confort y ${l} ${l === '1' ? 'deja' : 'dejan'} de estarlo.`,
       statCase: (n: string) => `${n} horas en confort al año`,
       subCase: (pct: number) => `${pct}% del año, sin aire acondicionado.`,
       tipHourNet: (h: string, v: string) => `${h}: ${v} horas en confort en el año`,
@@ -338,6 +339,8 @@ const legendCase =
     const days = 365;
 
     let data: Data | null = null;
+    // comfort band edges; a study on the 80% band (± 3.5 °C) sends band: 35
+    let comfortEdges = EDGES.comfort;
     let view: View = 'first';
 
     // ---- per-kind behaviour ------------------------------------------------
@@ -345,7 +348,7 @@ const legendCase =
     const comfortColor = (c: Case, i: number) => {
       if (c.comfortable[i] === '1') return PAL.comfort[4];
       const v = c.fromTarget[i] / 10;
-      const k = bin(v, EDGES.comfort);
+      const k = bin(v, comfortEdges);
       return PAL.comfort[v > 0 ? Math.max(5, k) : Math.min(3, k)];
     };
     const series = (c: Case) => c[field] as number[];
@@ -558,7 +561,16 @@ const legendCase =
     }));
     new ResizeObserver(() => render()).observe(plot);
 
-    loadStudyData<Data>(fig.dataset.src!).then((json) => { data = json; render(); }).catch(() => { sub.textContent = ''; });
+    loadStudyData<Data>(fig.dataset.src!).then((json) => {
+      data = json;
+      if (kind === 'comfort' && json.band && json.band !== 25) {
+        const b = json.band / 10;
+        comfortEdges = [-10, -6, -(b + 1.5), -b, b, b + 1.5, 6, 10];
+        const fmt = (v: number) => `${v < 0 ? '−' : ''}${Math.abs(v)}`;
+        fig.querySelectorAll('[data-legend="case"] .lg-ticks span').forEach((s, i) => (s.textContent = fmt(comfortEdges[i])));
+      }
+      render();
+    }).catch(() => { sub.textContent = ''; });
   }
 
   // load each chart's data only when it scrolls near the viewport

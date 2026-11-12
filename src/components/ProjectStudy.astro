@@ -11,6 +11,8 @@ import StudyPatio from './StudyPatio.astro';
 import StudySunpath from './StudySunpath.astro';
 import StudyHotspots from './StudyHotspots.astro';
 import StudyLines from './StudyLines.astro';
+import StudyBars from './StudyBars.astro';
+import StudyDumbbell from './StudyDumbbell.astro';
 
 interface Props {
   study: NonNullable<CollectionEntry<'projects'>['data']['study']>;
@@ -86,7 +88,11 @@ const fmt = (value: string, unit?: string) => (!unit ? value : unit === '%' ? `$
         </div>
         <div class="panel-live">
           {p.interactive.type === 'lines' ? (
-            <StudyLines series={p.interactive.series ?? []} xLabel={p.interactive.xLabel ?? ''} yLabel={p.interactive.yLabel ?? ''} xUnit={p.interactive.xUnit} yUnit={p.interactive.yUnit} chosen={p.interactive.chosen} alt={p.alt} locale={locale} />
+            <StudyLines series={p.interactive.series ?? []} xLabel={p.interactive.xLabel ?? ''} yLabel={p.interactive.yLabel ?? ''} xUnit={p.interactive.xUnit} yUnit={p.interactive.yUnit} chosen={p.interactive.chosen} xTicks={p.interactive.xTicks} alt={p.alt} locale={locale} />
+          ) : p.interactive.type === 'bars' ? (
+            <StudyBars categories={p.interactive.categories ?? []} bars={p.interactive.bars ?? []} yLabel={p.interactive.yLabel ?? ''} yUnit={p.interactive.yUnit} decimals={p.interactive.decimals} alt={p.alt} locale={locale} />
+          ) : p.interactive.type === 'dumbbell' ? (
+            <StudyDumbbell rows={p.interactive.rows ?? []} cases={p.interactive.cases ?? ['a', 'b']} xLabel={p.interactive.xLabel ?? ''} xUnit={p.interactive.xUnit} alt={p.alt} locale={locale} />
           ) : p.interactive.type === 'hotspots' ? (
             <StudyHotspots image={p.image} width={p.width} height={p.height} alt={p.alt} spots={p.interactive.spots ?? []} locale={locale} />
           ) : p.interactive.type === 'sunpath' ? (

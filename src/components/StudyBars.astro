@@ -1,0 +1,152 @@
+---
+// small interactive bar chart for simulation studies: a few categories (e.g.
+// facades), one bar per case in each. the values are authored in the
+// project's content file. hover or tap a group to read every case, the change
+// between the first two, and the category's note. the values also sit in a
+// real table under the chart.
+// colors: first case ink (the base), second amber (the design). a chart with
+// one case draws it in amber.
+import type { Locale } from '../i18n/strings';
+
+interface Props {
+  categories: { label: string; sub?: string; note?: string }[];
+  bars: { label: string; values: number[] }[];
+  yLabel: string;
+  yUnit?: string;
+  decimals?: number;
+  alt: string;
+  locale: Locale;
+}
+const { categories, bars, yLabel, yUnit = '', decimals = 1, alt, locale } = Astro.props;
+const nf = (v: number) => v.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+---
+
+<figure class="sbars" role="group" aria-label={alt}
+  data-categories={JSON.stringify(categories)} data-bars={JSON.stringify(bars)} data-yunit={yUnit} data-dec={decimals}>
+  {bars.length > 1 && (
+    <div class="sbars-legend">{bars.map((b, i) => <span><i class={`s${i}`}></i>{b.label}</span>)}</div>
+  )}
+  <div class="sbars-ylabel">{yLabel}</div>
+  <div class="sbars-plot"></div>
+  <table class="sbars-table">
+    <thead><tr><th></th>{bars.map((b) => <th>{b.label || yLabel}</th>)}</tr></thead>
+    {categories.map((c, i) => (
+      <tbody>
+        <tr>
+          <td>{c.label}{c.sub && <span class="sub">{c.sub}</span>}</td>
+          {bars.map((b) => <td>{nf(b.values[i])}{yUnit ? ` ${yUnit}` : ''}</td>)}
+        </tr>
+        {c.note && <tr class="note-row"><td colspan={bars.length + 1}>{c.note}</td></tr>}
+      </tbody>
+    ))}
+  </table>
+  <div class="sbars-tip" hidden></div>
+</figure>
+
+<style>
+  .sbars { margin: 0; position: relative; max-width: 760px; }
+  .sbars :global(*) { text-transform: none; }
+  .sbars-legend { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 12px; margin-bottom: 14px; }
+  .sbars-legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .sbars-legend i { width: 12px; height: 12px; background: var(--bar-0); }
+  .sbars-legend i.s1 { background: var(--amber); }
+  .sbars-legend i.s2 { background: var(--bar-2); }
+  .sbars-ylabel { font-size: 11px; color: var(--mute-on-paper-2); margin-bottom: 6px; }
+  .sbars { --bar-0: #5b564a; --bar-2: #d8cdb6; }
+  .sbars-plot { position: relative; aspect-ratio: 16 / 10; }
+  .sbars-plot :global(svg) { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .sbars-plot :global(text) { font-family: var(--font-mono); font-size: 11px; fill: var(--mute-on-paper-2); font-feature-settings: 'tnum' 1; }
+  .sbars-plot :global(.val) { fill: var(--ink-on-paper); }
+  .sbars-plot :global(.cat) { fill: var(--ink-on-paper); font-size: 12px; }
+  .sbars-plot :global(.grid) { stroke: var(--line-on-paper-2); }
+  .sbars-plot :global(.base) { stroke: var(--ink-on-paper); }
+  .sbars-plot :global(.b0) { fill: var(--bar-0); }
+  .sbars-plot :global(.b1), .sbars-plot :global(.solo) { fill: var(--amber); }
+  .sbars-plot :global(.b2) { fill: var(--bar-2); }
+  .sbars-plot :global(.hit) { fill: transparent; cursor: pointer; }
+  .sbars-plot :global(.hit:hover), .sbars-plot :global(.hit:focus) { fill: rgba(0, 0, 0, 0.04); outline: none; }
+  .sbars-table { margin-top: 18px; border-collapse: collapse; font-size: 13px; font-feature-settings: 'tnum' 1; }
+  .sbars-table th { text-align: left; font-weight: 400; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase !important; color: var(--mute-on-paper-2); padding: 0 20px 6px 0; }
+  .sbars-table td { padding: 4px 20px 4px 0; border-top: 1px solid var(--line-on-paper-2); vertical-align: top; }
+  .sbars-table .sub { display: block; color: var(--mute-on-paper-2); font-size: 12px; }
+  /* a category's note runs under its values, the full width of the table */
+  .sbars-table .note-row td { border-top: 0; padding-top: 0; padding-bottom: 8px; color: var(--mute-on-paper-2); font-size: 12px; max-width: 60ch; }
+  .sbars-tip {
+    position: absolute; z-index: 5; pointer-events: none; background: var(--paper); border: 1px solid var(--ink-on-paper);
+    padding: 8px 10px; font-size: 12px; line-height: 1.5; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); white-space: pre; max-width: 320px;
+  }
+  .sbars-tip[hidden] { display: none; }
+  @media (max-width: 560px) { .sbars-plot { aspect-ratio: 4 / 3; } }
+</style>
+
+<script>
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const el = (n: string, a: Record<string, string | number>, text?: string) => {
+    const e = document.createElementNS(svgNS, n);
+    for (const [k, v] of Object.entries(a)) e.setAttribute(k, String(v));
+    if (text) e.textContent = text;
+    return e;
+  };
+  type Cat = { label: string; sub?: string; note?: string };
+  document.querySelectorAll<HTMLElement>('.sbars').forEach((fig) => {
+    const cats = JSON.parse(fig.dataset.categories!) as Cat[];
+    const bars = JSON.parse(fig.dataset.bars!) as { label: string; values: number[] }[];
+    const yu = fig.dataset.yunit ?? '', dec = Number(fig.dataset.dec ?? 1);
+    const nf = (v: number, d = dec) => v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+    const box = fig.querySelector('.sbars-plot') as HTMLElement;
+    const tip = fig.querySelector('.sbars-tip') as HTMLElement;
+    const niceStep = (top: number) => {
+      const raw = top / 4, p = 10 ** Math.floor(Math.log10(raw || 1)), m = raw / p;
+      return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p;
+    };
+    const tipText = (ci: number) => {
+      const c = cats[ci];
+      const lines = [c.sub ? `${c.label} · ${c.sub}` : c.label];
+      bars.forEach((b) => lines.push(`${b.label ? b.label + ': ' : ''}${nf(b.values[ci])}${yu ? ' ' + yu : ''}`));
+      if (bars.length >= 2) {
+        const a = bars[0].values[ci], b = bars[1].values[ci], pct = ((b - a) / a) * 100;
+        lines.push(`${pct < 0 ? '−' : '+'}${nf(Math.abs(pct), 0)}%`);
+      }
+      if (c.note) lines.push(c.note);
+      return lines.join('\n');
+    };
+    function draw() {
+      const W = box.clientWidth, H = box.clientHeight;
+      const top0 = Math.max(...bars.flatMap((b) => b.values));
+      const step = niceStep(top0), top = Math.ceil((top0 * 1.08) / step) * step;
+      const pl = Math.max(28, 10 + 7 * nf(top, 0).length), pr = 4, pt = 16, pb = cats.some((c) => c.sub) ? 40 : 24;
+      const Y = (v: number) => pt + (1 - v / top) * (H - pt - pb);
+      const gw = (W - pl - pr) / cats.length, inner = gw * 0.78, bw = inner / bars.length;
+      const svg = el('svg', { viewBox: `0 0 ${W} ${H}` });
+      for (let v = 0; v <= top + 1e-9; v += step) {
+        if (v > 0) svg.appendChild(el('line', { class: 'grid', x1: pl, x2: W - pr, y1: Y(v), y2: Y(v) }));
+        svg.appendChild(el('text', { x: pl - 8, y: Y(v) + 4, 'text-anchor': 'end' }, nf(v, 0)));
+      }
+      cats.forEach((c, ci) => {
+        const gx = pl + ci * gw, x0 = gx + (gw - inner) / 2;
+        bars.forEach((b, bi) => {
+          const v = b.values[ci], x = x0 + bi * bw + bw * 0.06, w = bw * 0.88;
+          svg.appendChild(el('rect', { class: bars.length === 1 ? 'solo' : `b${bi}`, x, y: Y(v), width: w, height: Y(0) - Y(v) }));
+          if (w > 22) svg.appendChild(el('text', { class: 'val', x: x + w / 2, y: Y(v) - 5, 'text-anchor': 'middle' }, nf(v)));
+        });
+        svg.appendChild(el('text', { class: 'cat', x: gx + gw / 2, y: H - pb + 17, 'text-anchor': 'middle' }, c.label));
+        if (c.sub) svg.appendChild(el('text', { x: gx + gw / 2, y: H - pb + 33, 'text-anchor': 'middle' }, c.sub));
+        const hit = el('rect', { class: 'hit', x: gx, y: pt, width: gw, height: H - pt, tabindex: 0, 'aria-label': tipText(ci).replace(/\n/g, ', ') });
+        const show = (ev: { clientX: number; clientY: number }) => {
+          tip.textContent = tipText(ci); tip.hidden = false;
+          const fb = fig.getBoundingClientRect();
+          tip.style.left = `${Math.max(0, Math.min(ev.clientX - fb.left + 12, fb.width - tip.offsetWidth))}px`;
+          tip.style.top = `${ev.clientY - fb.top - tip.offsetHeight - 10}px`;
+        };
+        hit.addEventListener('pointermove', (e) => show(e as PointerEvent));
+        hit.addEventListener('focus', () => { const r = (hit as SVGRectElement).getBoundingClientRect(); show({ clientX: r.left + r.width / 2, clientY: r.top + r.height / 3 }); });
+        hit.addEventListener('pointerleave', () => (tip.hidden = true));
+        hit.addEventListener('blur', () => (tip.hidden = true));
+        svg.appendChild(hit);
+      });
+      svg.appendChild(el('line', { class: 'base', x1: pl, x2: W - pr, y1: Y(0), y2: Y(0) }));
+      box.replaceChildren(svg);
+    }
+    new ResizeObserver(draw).observe(box);
+  });
+</script>

@@ -3,6 +3,9 @@
 // a few points each (e.g. comfort against window-to-wall ratio), authored in
 // the project's content file. hover or tap a point to read it; a chosen point
 // can be marked. the values are html-adjacent data, not pixels.
+// two series: the first is drawn in ink (the base case), the second in amber
+// (the design); hovering a point then reads both and the change between them.
+// xTicks: text labels for the x values, in order (e.g. month names).
 import type { Locale } from '../i18n/strings';
 
 interface Props {
@@ -12,27 +15,33 @@ interface Props {
   xUnit?: string;
   yUnit?: string;
   chosen?: [number, number];
+  xTicks?: string[];
   alt: string;
   locale: Locale;
 }
-const { series, xLabel, yLabel, xUnit = '', yUnit = '', chosen, alt, locale } = Astro.props;
+const { series, xLabel, yLabel, xUnit = '', yUnit = '', chosen, xTicks, alt, locale } = Astro.props;
 const chosenLabel = { en: 'chosen', es: 'elegido' }[locale];
 // show every y value with the same number of decimals as the most precise one
 const places = (v: number) => (String(v).split('.')[1] ?? '').length;
 const dec = Math.max(0, ...series.flatMap((s) => s.points.map((p) => places(p[1]))));
-const fy = (v: number | undefined) => (v === undefined ? '' : v.toFixed(dec));
+const fy = (v: number | undefined) => (v === undefined ? '' : v.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec }));
+const fx = (x: number, i: number) => (xTicks?.[i] ?? `${x}${xUnit}`);
 ---
 
 <figure class="slines" role="group" aria-label={alt}
   data-series={JSON.stringify(series)} data-xunit={xUnit} data-yunit={yUnit}
-  data-chosen={chosen ? JSON.stringify(chosen) : ''} data-chosen-label={chosenLabel} data-dec={dec}>
+  data-chosen={chosen ? JSON.stringify(chosen) : ''} data-chosen-label={chosenLabel} data-dec={dec}
+  data-xticks={xTicks ? JSON.stringify(xTicks) : ''}>
+  {series.length > 1 && (
+    <div class="slines-legend">{series.map((s, i) => <span><i class={`s${i}`}></i>{s.label}</span>)}</div>
+  )}
   <div class="slines-plot"></div>
   <div class="slines-axes"><span>{yLabel}</span><span>{xLabel}</span></div>
   <table class="slines-table">
     <thead><tr><th>{xLabel}</th>{series.map((s) => <th>{s.label || yLabel}</th>)}</tr></thead>
     <tbody>
       {series[0].points.map((p, i) => (
-        <tr><td>{p[0]}{xUnit}</td>{series.map((s) => <td>{fy(s.points[i]?.[1])}{yUnit}</td>)}</tr>
+        <tr><td>{fx(p[0], i)}</td>{series.map((s) => <td>{fy(s.points[i]?.[1])}{yUnit}</td>)}</tr>
       ))}
     </tbody>
   </table>
@@ -47,6 +56,13 @@ const fy = (v: number | undefined) => (v === undefined ? '' : v.toFixed(dec));
   .slines-plot :global(text) { font-family: var(--font-mono); font-size: 11px; fill: var(--mute-on-paper-2); font-feature-settings: 'tnum' 1; }
   .slines-plot :global(.grid) { stroke: var(--line-on-paper-2); }
   .slines-plot :global(.line) { fill: none; stroke: var(--ink-on-paper); stroke-width: 2; }
+  .slines-plot :global(.line.s1) { stroke: var(--amber); }
+  .slines-plot :global(.pt.s1) { stroke: var(--amber); }
+  .slines-plot :global(.pt.s1.on), .slines-plot :global(.pt.s1:hover) { fill: var(--amber); }
+  .slines-legend { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 12px; margin-bottom: 12px; }
+  .slines-legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .slines-legend i { width: 18px; height: 2px; background: var(--ink-on-paper); }
+  .slines-legend i.s1 { background: var(--amber); height: 3px; }
   .slines-plot :global(.pt) { fill: var(--paper); stroke: var(--ink-on-paper); stroke-width: 1.5; cursor: pointer; }
   .slines-plot :global(.pt.on), .slines-plot :global(.pt:hover) { fill: var(--ink-on-paper); }
   .slines-plot :global(.pt.chosen) { fill: var(--amber); stroke: var(--amber); }
@@ -58,7 +74,7 @@ const fy = (v: number | undefined) => (v === undefined ? '' : v.toFixed(dec));
   .slines-table td { padding: 4px 20px 4px 0; border-top: 1px solid var(--line-on-paper-2); }
   .slines-tip {
     position: absolute; z-index: 5; pointer-events: none; background: var(--paper); border: 1px solid var(--ink-on-paper);
-    padding: 8px 10px; font-size: 12px; line-height: 1.5; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); white-space: nowrap;
+    padding: 8px 10px; font-size: 12px; line-height: 1.5; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); white-space: pre;
   }
   .slines-tip[hidden] { display: none; }
 </style>
@@ -75,33 +91,59 @@ const fy = (v: number | undefined) => (v === undefined ? '' : v.toFixed(dec));
     const series = JSON.parse(fig.dataset.series!) as { label: string; points: [number, number][] }[];
     const chosen = fig.dataset.chosen ? (JSON.parse(fig.dataset.chosen) as [number, number]) : null;
     const xu = fig.dataset.xunit ?? '', yu = fig.dataset.yunit ?? '', dec = Number(fig.dataset.dec ?? 0);
+    const xticks = fig.dataset.xticks ? (JSON.parse(fig.dataset.xticks) as string[]) : null;
+    const xs0 = series[0].points.map((p) => p[0]);
+    const xl = (x: number) => (xticks ? xticks[xs0.indexOf(x)] ?? `${x}` : `${x}${xu}`);
+    const nf = (v: number, d: number) => v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+    // axis step: 1, 2 or 5 × a power of ten, about four steps over the range
+    const niceStep = (range: number) => {
+      const raw = range / 4, p = 10 ** Math.floor(Math.log10(raw || 1)), m = raw / p;
+      return Math.max(1, (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p);
+    };
+    // with two series, a point reads both values and the change
+    const tipText = (si: number, x: number) => {
+      if (series.length !== 2) {
+        const s = series[si], p = s.points.find((q) => q[0] === x)!;
+        return `${s.label ? s.label + ' · ' : ''}${xl(x)}: ${nf(p[1], dec)}${yu}`;
+      }
+      const [a, b] = series.map((s) => s.points.find((q) => q[0] === x)?.[1] ?? NaN);
+      const pct = ((b - a) / a) * 100;
+      return `${xl(x)}
+${series[0].label}: ${nf(a, dec)}${yu}
+${series[1].label}: ${nf(b, dec)}${yu}
+${pct < 0 ? '−' : '+'}${nf(Math.abs(pct), 1)}%`;
+    };
     const box = fig.querySelector('.slines-plot') as HTMLElement;
     const tip = fig.querySelector('.slines-tip') as HTMLElement;
     function draw() {
-      const W = box.clientWidth, H = box.clientHeight, pl = 44, pr = 12, pt = 10, pb = 26;
+      const W = box.clientWidth, H = box.clientHeight, pr = 12, pt = 10, pb = 26;
       const xs = series.flatMap((s) => s.points.map((p) => p[0])), ys = series.flatMap((s) => s.points.map((p) => p[1]));
       const x0 = Math.min(...xs), x1 = Math.max(...xs);
-      const step = Math.max(1, Math.round((Math.max(...ys) - Math.min(...ys)) / 3));
+      const step = niceStep(Math.max(...ys) - Math.min(...ys));
       const y0 = Math.floor(Math.min(...ys) / step) * step - step, y1 = Math.ceil(Math.max(...ys) / step) * step + step;
+      // room on the left for the longest axis label (about 7 px a character)
+      const pl = Math.max(44, 14 + 7 * Math.max(`${nf(y0, 0)}${yu}`.length, `${nf(y1, 0)}${yu}`.length));
       const X = (v: number) => pl + ((v - x0) / (x1 - x0)) * (W - pl - pr);
       const Y = (v: number) => pt + (1 - (v - y0) / (y1 - y0)) * (H - pt - pb);
       const svg = el('svg', { viewBox: `0 0 ${W} ${H}` });
       for (let v = y0; v <= y1 + 1e-9; v += step) {
         svg.appendChild(el('line', { class: 'grid', x1: pl, x2: W - pr, y1: Y(v), y2: Y(v) }));
-        svg.appendChild(el('text', { x: pl - 8, y: Y(v) + 4, 'text-anchor': 'end' }, `${v}${yu}`));
+        svg.appendChild(el('text', { x: pl - 8, y: Y(v) + 4, 'text-anchor': 'end' }, `${nf(v, 0)}${yu}`));
       }
-      series[0].points.forEach((p) => svg.appendChild(el('text', { x: X(p[0]), y: H - 6, 'text-anchor': 'middle' }, `${p[0]}${xu}`)));
-      series.forEach((s) => {
-        svg.appendChild(el('path', { class: 'line', d: s.points.map((p, i) => `${i ? 'L' : 'M'}${X(p[0])},${Y(p[1])}`).join('') }));
+      // on narrow screens, label every other x value
+      const every = (W - pl - pr) / series[0].points.length < 34 ? 2 : 1;
+      series[0].points.forEach((p, i) => { if (i % every === 0) svg.appendChild(el('text', { x: X(p[0]), y: H - 6, 'text-anchor': 'middle' }, xl(p[0]))); });
+      series.forEach((s, si) => {
+        svg.appendChild(el('path', { class: `line s${si}`, d: s.points.map((p, i) => `${i ? 'L' : 'M'}${X(p[0])},${Y(p[1])}`).join('') }));
         s.points.forEach((p) => {
           const isChosen = !!chosen && chosen[0] === p[0] && chosen[1] === p[1];
-          const c = el('circle', { class: `pt${isChosen ? ' chosen' : ''}`, cx: X(p[0]), cy: Y(p[1]), r: isChosen ? 6 : 5, tabindex: 0 });
-          const text = `${s.label ? s.label + ' · ' : ''}${p[0]}${xu}: ${p[1].toFixed(dec)}${yu}`;
+          const c = el('circle', { class: `pt s${si}${isChosen ? ' chosen' : ''}`, cx: X(p[0]), cy: Y(p[1]), r: isChosen ? 6 : 5, tabindex: 0 });
+          const text = tipText(si, p[0]);
           const show = (ev: { clientX: number; clientY: number }) => {
             tip.textContent = text; tip.hidden = false;
             const fb = fig.getBoundingClientRect();
             tip.style.left = `${Math.min(ev.clientX - fb.left + 12, fb.width - tip.offsetWidth)}px`;
-            tip.style.top = `${ev.clientY - fb.top - 36}px`;
+            tip.style.top = `${ev.clientY - fb.top - tip.offsetHeight - 10}px`;
           };
           c.addEventListener('pointerenter', (e) => show(e as PointerEvent));
           c.addEventListener('focus', () => { const r = (c as SVGCircleElement).getBoundingClientRect(); show({ clientX: r.left, clientY: r.top }); });
