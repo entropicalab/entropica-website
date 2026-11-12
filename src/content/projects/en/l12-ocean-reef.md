@@ -9,11 +9,9 @@ year: 2023
 typology: residential
 role: glass study + building performance simulation
 roleNote: 'architecture: forza creativa'
+status: unbuilt
 featured: false
 order: 12.5
-heroImage: /projects/l12-ocean-reef/01.jpg
-heroCaption: '// the 2023 simulation model, under the sun path of panamá city'
-heroAlt: 'the simulation model of l12 ocean reef: a white three-level house with its windows in blue, under a sun-path dome with the yearly wind rose on the ground'
 metric:
   value: '−46'
   unit: '%'

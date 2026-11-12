@@ -9,11 +9,9 @@ year: 2023
 typology: residential
 role: estudio de vidrios + simulación de desempeño
 roleNote: 'arquitectura: forza creativa'
+status: no construido
 featured: false
 order: 12.5
-heroImage: /projects/l12-ocean-reef/01.jpg
-heroCaption: '// el modelo de simulación de 2023, bajo la trayectoria solar de ciudad de panamá'
-heroAlt: 'el modelo de simulación de l12 ocean reef: una casa blanca de tres niveles con sus ventanas en azul, bajo una cúpula de trayectoria solar con la rosa de vientos del año en el suelo'
 metric:
   value: '−46'
   unit: '%'
