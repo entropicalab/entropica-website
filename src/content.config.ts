@@ -93,9 +93,13 @@ const projects = defineCollection({
             // above stays as the no-js fallback (and the instagram poster)
             interactive: z
               .object({
-                type: z.literal('comfort-heatmap'),
-                data: z.string(), // json under public/, see ComfortHeatmap.astro
+                // comfort-heatmap / surface-heatmap: StudyHeatmap.astro
+                // average-day: StudyAverageDay.astro
+                type: z.enum(['comfort-heatmap', 'surface-heatmap', 'average-day']),
+                data: z.string(), // json under public/
                 cases: z.tuple([z.string(), z.string()]), // labels for the two cases
+                field: z.string().optional(), // surface-heatmap: which series, e.g. 'roof'
+                surfaces: z.array(z.object({ field: z.string(), label: z.string() })).optional(), // average-day
               })
               .optional(),
           })

@@ -5,7 +5,8 @@
 // units (°C), so text-transform is switched off here to keep them intact.
 import type { CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n/strings';
-import ComfortHeatmap from './ComfortHeatmap.astro';
+import StudyHeatmap from './StudyHeatmap.astro';
+import StudyAverageDay from './StudyAverageDay.astro';
 
 interface Props {
   study: NonNullable<CollectionEntry<'projects'>['data']['study']>;
@@ -80,7 +81,19 @@ const fmt = (value: string, unit?: string) => (!unit ? value : unit === '%' ? `$
           <p class="panel-cap">{p.caption}</p>
         </div>
         <div class="panel-live">
-          <ComfortHeatmap src={p.interactive.data} cases={p.interactive.cases} alt={p.alt} fallback={p.image} locale={locale} />
+          {p.interactive.type === 'average-day' ? (
+            <StudyAverageDay src={p.interactive.data} cases={p.interactive.cases} surfaces={p.interactive.surfaces ?? []} alt={p.alt} fallback={p.image} locale={locale} />
+          ) : (
+            <StudyHeatmap
+              kind={p.interactive.type === 'surface-heatmap' ? 'surface' : 'comfort'}
+              field={p.interactive.field}
+              src={p.interactive.data}
+              cases={p.interactive.cases}
+              alt={p.alt}
+              fallback={p.image}
+              locale={locale}
+            />
+          )}
         </div>
       </article>
       ) : (

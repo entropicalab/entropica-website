@@ -59,37 +59,39 @@ study:
       width: 2160
       height: 2200
       alt: "isométrico explotado de la casa coloreado por radiación solar anual, de pálido a rojo oscuro. el parasol, levantado sobre la casa, está en rojo oscuro (1,900 kWh/m²); el techo principal debajo está pálido (16 kWh/m²). los muros y el patio quedan en medio."
-      caption: "radiación solar anual sobre cada superficie, con el parasol levantado para mostrar el techo de abajo. el parasol recibe 1,900 kWh/m² al año; el techo principal debajo recibe 16, frente a 1,900 en la casa original."
+      caption: "radiación solar anual sobre cada superficie, con el parasol levantado para mostrar el techo de abajo. el parasol recibe 1,900 kWh/m² al año; el techo principal debajo recibe 16, frente a 1,900 sin él."
       numbers:
-        - { value: "1,900", unit: "kWh/m²·yr", label: "techo principal, casa original" }
+        - { value: "1,900", unit: "kWh/m²·yr", label: "techo principal, sin el parasol" }
         - { value: "16", unit: "kWh/m²·yr", label: "techo principal, bajo el parasol" }
     - headline: "el techo deja de quemar"
       image: /projects/casa-castillo/casa-castillo_04_roof.webp
+      interactive: { type: surface-heatmap, field: roof, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["sin el parasol", "con el parasol"] }
       width: 2160
       height: 2200
-      alt: "dos gráficos hora por hora de la temperatura superficial del techo. casa original: bandas rojo oscuro cada mediodía todo el año, máximo de 60.4 °C. bajo el parasol: solo colores claros, máximo de 35.2 °C."
-      caption: "cada hora del año en la cara exterior del techo. en la casa original, la losa pasa de 45 °C casi todas las tardes y llega a 60.4 °C. bajo el parasol se queda por debajo de 35.2 °C todo el año."
+      alt: "dos gráficos hora por hora de la temperatura superficial del techo. sin el parasol: bandas rojo oscuro cada mediodía todo el año, máximo de 60.4 °C. bajo el parasol: solo colores claros, máximo de 35.2 °C."
+      caption: "cada hora del año en la cara exterior del techo. sin el parasol, la losa pasa de 45 °C casi todas las tardes y llega a 60.4 °C. bajo el parasol se queda por debajo de 35.2 °C todo el año."
       numbers:
-        - { value: "60.4", unit: "°C", label: "máximo del techo, casa original" }
+        - { value: "60.4", unit: "°C", label: "máximo del techo, sin el parasol" }
         - { value: "35.2", unit: "°C", label: "máximo del techo, bajo el parasol" }
     - headline: "el cielorraso deja de irradiar"
       image: /projects/casa-castillo/casa-castillo_05_inside.webp
+      interactive: { type: average-day, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["sin el parasol", "con el parasol"], surfaces: [{ field: ceiling, label: cielorraso }, { field: floor, label: piso }] }
       width: 2160
       height: 2200
-      alt: "dos gráficos de líneas de temperatura superficial interior en un día promedio. cielorraso: la casa original llega cerca de 37 °C a media tarde, con el parasol cerca de 32 °C. piso: la casa original cerca de 34 °C, con el parasol cerca de 31 °C. las líneas se juntan de noche."
+      alt: "dos gráficos de líneas de temperatura superficial interior en un día promedio. cielorraso: sin el parasol llega cerca de 37 °C a media tarde, con el parasol cerca de 32 °C. piso: sin el parasol cerca de 34 °C, con el parasol cerca de 31 °C. las líneas se juntan de noche."
       caption: "el día promedio del año, dentro de la casa principal. con el parasol, el cielorraso está 4.4 °C más fresco a las 2 pm y el piso 2.2 °C más fresco. las noches no cambian; el parasol trabaja cuando hay sol."
       numbers:
         - { value: "−4.4", unit: "°C", label: "cielorraso a las 2 pm" }
         - { value: "−2.2", unit: "°C", label: "piso a las 2 pm" }
     - headline: "y la casa gana 450 horas en confort"
       image: /projects/casa-castillo/casa-castillo_06_comfort.webp
-      interactive: { type: comfort-heatmap, data: /projects/casa-castillo/data/comfort-main-house.json, cases: ["sin el parasol", "con el parasol"] }
+      interactive: { type: comfort-heatmap, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["sin el parasol", "con el parasol"] }
       width: 2160
       height: 2200
-      alt: "dos gráficos hora por hora de grados respecto al objetivo de confort en la casa principal. ambos muestran tardes cálidas (rojo) y noches frescas (azul); con el parasol el rojo de la tarde es más claro y más delgado. 3,441 horas en confort en la casa original, 3,891 con el parasol."
+      alt: "dos gráficos hora por hora de grados respecto al objetivo de confort en la casa principal. ambos muestran tardes cálidas (rojo) y noches frescas (azul); con el parasol el rojo de la tarde es más claro y más delgado. 3,441 horas en confort sin el parasol, 3,891 con el parasol."
       caption: "cada hora del año en la casa principal, frente al objetivo de confort adaptativo. el parasol le quita el filo a las tardes: de 3,441 a 3,891 horas en confort al año, sin aire acondicionado y sin contar la brisa."
       numbers:
-        - { value: "3,441", unit: "h", label: "horas en confort al año, casa original" }
+        - { value: "3,441", unit: "h", label: "horas en confort al año, sin el parasol" }
         - { value: "3,891", unit: "h", label: "horas en confort al año, con el parasol" }
     - headline: "un patio que se puede reconfigurar"
       image: /projects/casa-castillo/casa-castillo_07_elements.webp

@@ -59,37 +59,39 @@ study:
       width: 2160
       height: 2200
       alt: "exploded isometric of the house colored by yearly sun, from pale to dark red. the parasol, lifted above the house, is dark red (1,900 kWh/m²); the main roof under it is pale (16 kWh/m²). walls and patio are in between."
-      caption: "yearly sun on every surface, with the parasol lifted to show the roof under it. the parasol takes 1,900 kWh/m² a year; the main roof under it gets 16, down from 1,900 as built."
+      caption: "yearly sun on every surface, with the parasol lifted to show the roof under it. the parasol takes 1,900 kWh/m² a year; the main roof under it gets 16, down from 1,900 without it."
       numbers:
-        - { value: "1,900", unit: "kWh/m²·yr", label: "main roof, as built" }
+        - { value: "1,900", unit: "kWh/m²·yr", label: "main roof, without the parasol" }
         - { value: "16", unit: "kWh/m²·yr", label: "main roof, under the parasol" }
     - headline: "the roof stops burning"
       image: /projects/casa-castillo/casa-castillo_04_roof.webp
+      interactive: { type: surface-heatmap, field: roof, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["without the parasol", "with the parasol"] }
       width: 2160
       height: 2200
-      alt: "two hour-by-hour charts of the roof surface temperature. as built: dark red bands every midday all year, peak 60.4 °C. under the parasol: light colors only, peak 35.2 °C."
-      caption: "every hour of the year on the outside face of the roof. as built, the slab passes 45 °C on most afternoons and peaks at 60.4 °C. under the parasol it stays below 35.2 °C all year."
+      alt: "two hour-by-hour charts of the roof surface temperature. without the parasol: dark red bands every midday all year, peak 60.4 °C. under the parasol: light colors only, peak 35.2 °C."
+      caption: "every hour of the year on the outside face of the roof. without the parasol, the slab passes 45 °C on most afternoons and peaks at 60.4 °C. under the parasol it stays below 35.2 °C all year."
       numbers:
-        - { value: "60.4", unit: "°C", label: "roof peak, as built" }
+        - { value: "60.4", unit: "°C", label: "roof peak, without the parasol" }
         - { value: "35.2", unit: "°C", label: "roof peak, under the parasol" }
     - headline: "the ceiling stops radiating"
       image: /projects/casa-castillo/casa-castillo_05_inside.webp
+      interactive: { type: average-day, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["without the parasol", "with the parasol"], surfaces: [{ field: ceiling, label: ceiling }, { field: floor, label: floor }] }
       width: 2160
       height: 2200
-      alt: "two line charts of inside surface temperature over an average day. ceiling: as built peaks near 37 °C in mid-afternoon, with the parasol near 32 °C. floor: as built near 34 °C, with the parasol near 31 °C. the lines meet at night."
+      alt: "two line charts of inside surface temperature over an average day. ceiling: without the parasol, peaks near 37 °C in mid-afternoon, with the parasol near 32 °C. floor: without the parasol near 34 °C, with the parasol near 31 °C. the lines meet at night."
       caption: "the average day of the year, inside the main house. with the parasol, the ceiling is 4.4 °C cooler at 2 pm and the floor 2.2 °C cooler. nights stay the same; the parasol works when the sun is up."
       numbers:
         - { value: "−4.4", unit: "°C", label: "ceiling at 2 pm" }
         - { value: "−2.2", unit: "°C", label: "floor at 2 pm" }
     - headline: "and the house gains 450 comfortable hours"
       image: /projects/casa-castillo/casa-castillo_06_comfort.webp
-      interactive: { type: comfort-heatmap, data: /projects/casa-castillo/data/comfort-main-house.json, cases: ["without the parasol", "with the parasol"] }
+      interactive: { type: comfort-heatmap, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["without the parasol", "with the parasol"] }
       width: 2160
       height: 2200
-      alt: "two hour-by-hour charts of degrees from the comfort target in the main house. both show warm afternoons (red) and cool nights (blue); with the parasol the afternoon red is lighter and thinner. 3,441 comfortable hours as built, 3,891 with the parasol."
+      alt: "two hour-by-hour charts of degrees from the comfort target in the main house. both show warm afternoons (red) and cool nights (blue); with the parasol the afternoon red is lighter and thinner. 3,441 comfortable hours without the parasol, 3,891 with the parasol."
       caption: "every hour of the year in the main house, against the adaptive comfort target. the parasol takes the edge off the afternoons: from 3,441 to 3,891 comfortable hours a year, with no air-conditioning and no credit for breeze."
       numbers:
-        - { value: "3,441", unit: "h", label: "comfortable hours a year, as built" }
+        - { value: "3,441", unit: "h", label: "comfortable hours a year, without the parasol" }
         - { value: "3,891", unit: "h", label: "comfortable hours a year, with the parasol" }
     - headline: "a patio that can be reset"
       image: /projects/casa-castillo/casa-castillo_07_elements.webp

@@ -1,0 +1,252 @@
+---
+// interactive average-day lines for simulation studies: one small multiple per
+// surface (e.g. ceiling, floor), two cases each, averaged over the whole year or
+// one month (picker). hover any hour to read both cases on every surface.
+// data: same hourly json as StudyHeatmap (cases.base|design.<field>[] in tenths of °C).
+import type { Locale } from '../i18n/strings';
+
+interface Props {
+  src: string;
+  cases: [string, string];
+  surfaces: { field: string; label: string }[];
+  alt: string;
+  fallback: string;
+  locale: Locale;
+}
+const { src, cases, surfaces, alt, fallback, locale } = Astro.props;
+
+const L = {
+  en: { year: 'year', months: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'], loading: 'loading 8,760 hours…', note: 'average day, inside surface temperature (°C)' },
+  es: { year: 'año', months: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'], loading: 'cargando 8,760 horas…', note: 'día promedio, temperatura superficial interior (°C)' },
+}[locale];
+---
+
+<figure class="avgd" data-src={src} data-locale={locale} data-cases={JSON.stringify(cases)} data-surfaces={JSON.stringify(surfaces)} role="group" aria-label={alt}>
+  <div class="avgd-bar">
+    <div class="avgd-periods" role="group">
+      <button type="button" data-period="-1" aria-pressed="true">{L.year}</button>
+      {L.months.map((m, i) => <button type="button" data-period={i} aria-pressed="false">{m}</button>)}
+    </div>
+    <div class="avgd-stat" aria-live="polite">
+      <span class="avgd-stat-big"></span>
+      <span class="avgd-stat-sub">{L.loading}</span>
+    </div>
+  </div>
+
+  <div class="avgd-panels">
+    {surfaces.map((s) => (
+      <div class="avgd-panel" data-field={s.field}>
+        <div class="avgd-title">{s.label}</div>
+        <div class="avgd-plot"></div>
+      </div>
+    ))}
+  </div>
+
+  <div class="avgd-legend">
+    <span class="lg-item"><i class="ln base"></i>{cases[0]}</span>
+    <span class="lg-item"><i class="ln design"></i>{cases[1]}</span>
+    <span class="lg-note">{L.note}</span>
+  </div>
+
+  <div class="avgd-tip" hidden></div>
+  <noscript><img src={fallback} alt={alt} width="2160" height="2200" style="width:100%;height:auto" /></noscript>
+</figure>
+
+<style>
+  .avgd { margin: 0; position: relative; }
+  .avgd :global(*) { text-transform: none; }
+  .avgd-bar { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .avgd-periods { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line-on-paper); }
+  .avgd-periods button {
+    font: inherit; font-size: 12px; padding: 6px 9px; background: transparent; color: var(--mute-on-paper);
+    border: 0; border-left: 1px solid var(--line-on-paper); cursor: pointer;
+  }
+  .avgd-periods button:first-child { border-left: 0; padding: 6px 12px; }
+  .avgd-periods button:hover { color: var(--ink-on-paper); }
+  .avgd-periods button[aria-pressed='true'] { background: var(--ink-on-paper); color: var(--paper); }
+  .avgd-stat { display: flex; flex-direction: column; gap: 2px; }
+  .avgd-stat-big { font-size: clamp(22px, 2.6vw, 30px); letter-spacing: -0.02em; font-feature-settings: 'tnum' 1; }
+  .avgd-stat-sub { font-size: 13px; color: var(--mute-on-paper); max-width: 52ch; }
+
+  .avgd-panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; }
+  .avgd-title { font-size: 14px; margin-bottom: 8px; }
+  .avgd-plot { position: relative; aspect-ratio: 4 / 3; cursor: crosshair; }
+  .avgd-plot :global(svg) { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .avgd-plot :global(text) { font-family: var(--font-mono); font-size: 11px; fill: var(--mute-on-paper-2); font-feature-settings: 'tnum' 1; }
+  .avgd-plot :global(.grid) { stroke: var(--line-on-paper-2); stroke-width: 1; }
+  .avgd-plot :global(.base) { stroke: var(--ink-on-paper); }
+  .avgd-plot :global(.design) { stroke: var(--amber); }
+  .avgd-plot :global(path.base), .avgd-plot :global(path.design) { fill: none; stroke-width: 2; stroke-linejoin: round; }
+  .avgd-plot :global(.gap) { fill: var(--amber); opacity: 0.12; }
+  .avgd-plot :global(.guide) { stroke: var(--ink-on-paper); stroke-width: 1; stroke-dasharray: 2 3; }
+  .avgd-plot :global(circle.base) { fill: var(--ink-on-paper); }
+  .avgd-plot :global(circle.design) { fill: var(--amber); }
+
+  .avgd-legend { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 12px; color: var(--mute-on-paper); align-items: center; }
+  .lg-item { display: inline-flex; align-items: center; gap: 8px; }
+  .ln { display: inline-block; width: 22px; height: 2px; }
+  .ln.base { background: var(--ink-on-paper); }
+  .ln.design { background: var(--amber); }
+  .lg-note { color: var(--mute-on-paper-2); }
+
+  .avgd-tip {
+    position: absolute; z-index: 5; pointer-events: none; background: var(--paper); border: 1px solid var(--ink-on-paper);
+    padding: 10px 12px; font-size: 12px; line-height: 1.5; min-width: 230px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+  .avgd-tip[hidden] { display: none; }
+  .avgd-tip :global(.t-when) { font-size: 13px; color: var(--ink-on-paper); margin-bottom: 4px; }
+  .avgd-tip :global(.t-sec) { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--line-on-paper-2); color: var(--ink-on-paper); }
+  .avgd-tip :global(.t-row) { display: flex; justify-content: space-between; gap: 16px; color: var(--mute-on-paper); }
+  .avgd-tip :global(.t-row b) { color: var(--ink-on-paper); font-weight: 500; font-feature-settings: 'tnum' 1; white-space: nowrap; }
+</style>
+
+<script>
+  import { loadStudyData, MONTH_DAYS, hourSpan, deg, signedDeg } from '../scripts/study-data';
+
+  type Data = { hours: number; cases: { base: Record<string, number[]>; design: Record<string, number[]> } };
+  type Locale = 'en' | 'es';
+  const T = {
+    en: {
+      period: (p: number, months: string[]) => (p < 0 ? 'on an average day of the year' : `on an average ${['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'][p]} day`),
+      big: (d: string, s: string, h: string) => `${d} on the ${s} at ${h}`,
+      sub: (others: string, period: string) => `the biggest gap ${period}.${others ? ` ${others} at the same hour.` : ''}`,
+      other: (s: string, d: string) => `${s}: ${d}`,
+      gap: 'difference',
+    },
+    es: {
+      period: (p: number, months: string[]) => (p < 0 ? 'en un día promedio del año' : `en un día promedio de ${['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'][p]}`),
+      big: (d: string, s: string, h: string) => `${d} en el ${s} a las ${h}`,
+      sub: (others: string, period: string) => `la mayor diferencia ${period}.${others ? ` ${others} a la misma hora.` : ''}`,
+      other: (s: string, d: string) => `${s}: ${d}`,
+      gap: 'diferencia',
+    },
+  };
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const el = (name: string, attrs: Record<string, string | number>, text?: string) => {
+    const e = document.createElementNS(svgNS, name);
+    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, String(v));
+    if (text) e.textContent = text;
+    return e;
+  };
+
+  function init(fig: HTMLElement) {
+    const locale: Locale = fig.dataset.locale === 'es' ? 'es' : 'en';
+    const t = T[locale];
+    const caseNames = JSON.parse(fig.dataset.cases!) as [string, string];
+    const surfaces = JSON.parse(fig.dataset.surfaces!) as { field: string; label: string }[];
+    const panels = [...fig.querySelectorAll<HTMLElement>('.avgd-panel')];
+    const buttons = [...fig.querySelectorAll<HTMLButtonElement>('.avgd-periods button')];
+    const big = fig.querySelector('.avgd-stat-big') as HTMLElement;
+    const sub = fig.querySelector('.avgd-stat-sub') as HTMLElement;
+    const tip = fig.querySelector('.avgd-tip') as HTMLElement;
+    let data: Data | null = null;
+    let period = -1; // -1 = whole year, else month index
+
+    // average day (24 values, hour-ending 1..24) for one series over the chosen period
+    function avgDay(series: number[]): number[] {
+      const sum = new Array(24).fill(0), n = new Array(24).fill(0);
+      let start = 0;
+      for (let m = 0; m < 12; m++) {
+        const len = MONTH_DAYS[m] * 24;
+        if (period < 0 || period === m) for (let i = start; i < start + len; i++) { sum[i % 24] += series[i]; n[i % 24]++; }
+        start += len;
+      }
+      return sum.map((s, h) => s / n[h]); // tenths of °C
+    }
+
+    let curves: { base: number[]; design: number[] }[] = [];
+    let geom: { x: (h: number) => number; y: (v: number) => number; W: number; H: number }[] = [];
+
+    function render() {
+      if (!data) return;
+      curves = surfaces.map((s) => ({ base: avgDay(data!.cases.base[s.field]), design: avgDay(data!.cases.design[s.field]) }));
+      // shared y range across panels (5 °C steps) so the surfaces compare honestly
+      const all = curves.flatMap((c) => [...c.base, ...c.design]).map((v) => v / 10);
+      const lo = Math.floor(Math.min(...all) / 5) * 5, hi = Math.ceil(Math.max(...all) / 5) * 5;
+      geom = [];
+      panels.forEach((panel, k) => {
+        const box = panel.querySelector('.avgd-plot') as HTMLElement;
+        const W = box.clientWidth, H = box.clientHeight, padL = 34, padB = 22, padT = 6, padR = 6;
+        const x = (h: number) => padL + (h / 24) * (W - padL - padR);
+        const y = (v: number) => padT + (1 - (v / 10 - lo) / (hi - lo)) * (H - padT - padB);
+        geom[k] = { x, y, W, H };
+        const svg = el('svg', { viewBox: `0 0 ${W} ${H}` });
+        for (let v = lo; v <= hi; v += 5) {
+          svg.appendChild(el('line', { class: 'grid', x1: padL, x2: W - padR, y1: y(v * 10), y2: y(v * 10) }));
+          svg.appendChild(el('text', { x: padL - 6, y: y(v * 10) + 4, 'text-anchor': 'end' }, String(v)));
+        }
+        for (const h of [0, 6, 12, 18, 24]) svg.appendChild(el('text', { x: x(h), y: H - 4, 'text-anchor': 'middle' }, locale === 'es' ? `${h}h` : `${h}h`));
+        // hour-ending h is plotted mid-interval, at h − 0.5
+        const pts = (arr: number[]) => arr.map((v, h) => [x(h + 0.5), y(v)] as const);
+        const pb = pts(curves[k].base), pd = pts(curves[k].design);
+        const line = (p: readonly (readonly [number, number])[]) => 'M' + p.map(([a, b]) => `${a.toFixed(1)},${b.toFixed(1)}`).join('L');
+        // the gap between the curves, shaded
+        svg.appendChild(el('path', { class: 'gap', d: line(pb) + 'L' + [...pd].reverse().map(([a, b]) => `${a.toFixed(1)},${b.toFixed(1)}`).join('L') + 'Z' }));
+        svg.appendChild(el('path', { class: 'base', d: line(pb) }));
+        svg.appendChild(el('path', { class: 'design', d: line(pd) }));
+        const g = el('g', { class: 'hover', visibility: 'hidden' });
+        g.appendChild(el('line', { class: 'guide', y1: padT, y2: H - padB, x1: 0, x2: 0 }));
+        g.appendChild(el('circle', { class: 'base', r: 3.5, cx: 0, cy: 0 }));
+        g.appendChild(el('circle', { class: 'design', r: 3.5, cx: 0, cy: 0 }));
+        svg.appendChild(g);
+        box.replaceChildren(svg);
+      });
+      // headline: the hour where the first surface gains the most
+      const d0 = curves[0].base.map((v, h) => v - curves[0].design[h]);
+      const hBest = d0.indexOf(Math.max(...d0));
+      big.textContent = t.big(signedDeg(-d0[hBest]), surfaces[0].label, hourSpan(locale, hBest + 1));
+      const others = surfaces.slice(1).map((s, k) => t.other(s.label, signedDeg(curves[k + 1].design[hBest] - curves[k + 1].base[hBest]))).join(', ');
+      sub.textContent = t.sub(others, t.period(period, []));
+    }
+
+    function hover(e: PointerEvent) {
+      if (!data || !geom.length) return;
+      const box = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      const k = panels.findIndex((p) => p.querySelector('.avgd-plot') === e.currentTarget);
+      const gk = geom[k];
+      const hx = ((e.clientX - box.left - gk.x(0)) / (gk.x(24) - gk.x(0))) * 24;
+      const h = Math.min(23, Math.max(0, Math.floor(hx))); // index of hour-ending h+1
+      panels.forEach((panel, j) => {
+        const g = panel.querySelector('g.hover') as SVGGElement | null;
+        if (!g) return;
+        const X = geom[j].x(h + 0.5);
+        g.setAttribute('visibility', 'visible');
+        g.querySelector('line')!.setAttribute('x1', String(X)); g.querySelector('line')!.setAttribute('x2', String(X));
+        const [cb, cd] = g.querySelectorAll('circle');
+        cb.setAttribute('cx', String(X)); cb.setAttribute('cy', String(geom[j].y(curves[j].base[h])));
+        cd.setAttribute('cx', String(X)); cd.setAttribute('cy', String(geom[j].y(curves[j].design[h])));
+      });
+      tip.innerHTML = `<div class="t-when">${hourSpan(locale, h + 1)} · ${t.period(period, [])}</div>` +
+        surfaces.map((s, j) => `<div class="t-sec">${s.label}</div>` +
+          `<div class="t-row"><span>${caseNames[0]}</span><b>${deg(curves[j].base[h])}</b></div>` +
+          `<div class="t-row"><span>${caseNames[1]}</span><b>${deg(curves[j].design[h])}</b></div>` +
+          `<div class="t-row"><span>${t.gap}</span><b>${signedDeg(curves[j].design[h] - curves[j].base[h])}</b></div>`).join('');
+      const fb = fig.getBoundingClientRect();
+      tip.hidden = false;
+      let x = e.clientX - fb.left + 14;
+      if (x + tip.offsetWidth > fb.width) x = e.clientX - fb.left - tip.offsetWidth - 14;
+      tip.style.left = `${Math.max(0, x)}px`; tip.style.top = `${e.clientY - fb.top + 14}px`;
+    }
+    function hide() {
+      tip.hidden = true;
+      panels.forEach((p) => p.querySelector('g.hover')?.setAttribute('visibility', 'hidden'));
+    }
+
+    panels.forEach((p) => {
+      const box = p.querySelector('.avgd-plot') as HTMLElement;
+      box.addEventListener('pointermove', hover); box.addEventListener('pointerdown', hover); box.addEventListener('pointerleave', hide);
+    });
+    buttons.forEach((b) => b.addEventListener('click', () => {
+      period = Number(b.dataset.period);
+      buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      render();
+    }));
+    new ResizeObserver(() => render()).observe(fig);
+    loadStudyData<Data>(fig.dataset.src!).then((json) => { data = json; render(); }).catch(() => { sub.textContent = ''; });
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => { if (en.isIntersecting) { io.unobserve(en.target); init(en.target as HTMLElement); } });
+  }, { rootMargin: '400px' });
+  document.querySelectorAll<HTMLElement>('.avgd').forEach((f) => io.observe(f));
+</script>
