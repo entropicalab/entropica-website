@@ -104,6 +104,7 @@ study:
         - { value: "64", unit: "settings", label: "2 positions per panel" }
     - headline: "all 64 settings, ranked by sun"
       image: /projects/casa-castillo/casa-castillo_08_configurations.webp
+      interactive: { type: patio, data: /projects/casa-castillo/data/patio-64.json }
       width: 2160
       height: 2200
       alt: "grid of 64 small patio plans, eight by eight, ranked from least to most sun. each plan is colored from pale to dark red by daytime sun on the floor, with sliding walls as lines and roof panels dashed. values run from 418 to 644 kWh/m²; the 2020 setting, 479, is framed."

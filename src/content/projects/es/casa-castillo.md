@@ -104,6 +104,7 @@ study:
         - { value: "64", unit: "configuraciones", label: "2 posiciones por panel" }
     - headline: "las 64 configuraciones, ordenadas por sol"
       image: /projects/casa-castillo/casa-castillo_08_configurations.webp
+      interactive: { type: patio, data: /projects/casa-castillo/data/patio-64.json }
       width: 2160
       height: 2200
       alt: "cuadrícula de 64 pequeñas plantas del patio, ocho por ocho, ordenadas de menos a más sol. cada planta va coloreada de pálido a rojo oscuro según la radiación solar diurna sobre el piso, con los muros corredizos como líneas y los paneles de techo punteados. los valores van de 418 a 644 kWh/m²; la configuración de 2020, 479, está enmarcada."

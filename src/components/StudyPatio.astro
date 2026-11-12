@@ -1,0 +1,297 @@
+---
+// interactive patio configurator for simulation studies: switch each movable
+// panel between its two positions and see the patio's yearly sun redraw, with
+// the setting's average and its rank among all settings. a ranked strip of every
+// setting sits underneath (hover to read, click to load).
+// data (see posters/web-data/*_patio_json.py): { step, depth, length, cells[[d,l]],
+//   elements[{id,type:'wall'|'roof'}], reference, configs{ bits|'none': {mean, values[]} } }
+import type { Locale } from '../i18n/strings';
+
+interface Props {
+  src: string;
+  alt: string;
+  fallback: string;
+  locale: Locale;
+}
+const { src, alt, fallback, locale } = Astro.props;
+
+const L = {
+  en: {
+    presets: { best: 'least sun', reference: '2020 setting', worst: 'most sun', none: 'no panels' },
+    loading: 'loading 64 settings…',
+    house: 'house side',
+    ranked: 'all 64 settings, least sun to most',
+    legend: 'daytime sun on the patio, kWh/m² a year',
+  },
+  es: {
+    presets: { best: 'menos sol', reference: 'configuración 2020', worst: 'más sol', none: 'sin paneles' },
+    loading: 'cargando 64 configuraciones…',
+    house: 'lado de la casa',
+    ranked: 'las 64 configuraciones, de menos a más sol',
+    legend: 'sol diurno en el patio, kWh/m² al año',
+  },
+}[locale];
+const PAL = ['#fde4d4', '#f6c0a8', '#ea957a', '#d36b56', '#b1483c', '#892a29'];
+const TICKS = ['200', '400', '800', '1200', '1600'];
+---
+
+<figure class="patio" data-src={src} data-locale={locale} role="group" aria-label={alt}>
+  <div class="patio-bar">
+    <div class="patio-presets" role="group">
+      {Object.entries(L.presets).map(([k, v]) => <button type="button" data-preset={k} aria-pressed="false">{v}</button>)}
+    </div>
+    <div class="patio-stat" aria-live="polite">
+      <span class="patio-stat-big"></span>
+      <span class="patio-stat-sub">{L.loading}</span>
+    </div>
+  </div>
+
+  <div class="patio-body">
+    <div class="patio-switches"></div>
+    <div class="patio-planwrap">
+      <div class="patio-plan"><canvas></canvas></div>
+      <div class="patio-house">↓ {L.house}</div>
+    </div>
+  </div>
+
+  <div class="patio-ranked-label">{L.ranked}</div>
+  <div class="patio-ranked"></div>
+
+  <div class="patio-legend">
+    <div class="lg-title">{L.legend}</div>
+    <div class="lg-scale">{PAL.map((c) => <i style={`background:${c}`}></i>)}</div>
+    <div class="lg-ticks">{TICKS.map((t) => <span>{t}</span>)}</div>
+  </div>
+
+  <div class="patio-tip" hidden></div>
+  <noscript><img src={fallback} alt={alt} width="2160" height="2200" style="width:100%;height:auto" /></noscript>
+</figure>
+
+<style>
+  .patio { margin: 0; position: relative; }
+  .patio :global(*) { text-transform: none; }
+  .patio-bar { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .patio-presets { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line-on-paper); }
+  .patio-presets button, .patio :global(.sw button) {
+    font: inherit; font-size: 12px; padding: 7px 12px; background: transparent; color: var(--mute-on-paper);
+    border: 0; border-left: 1px solid var(--line-on-paper); cursor: pointer;
+  }
+  .patio-presets button:first-child, .patio :global(.sw button:first-child) { border-left: 0; }
+  .patio-presets button:hover, .patio :global(.sw button:hover) { color: var(--ink-on-paper); }
+  .patio-presets button[aria-pressed='true'] { background: var(--ink-on-paper); color: var(--paper); }
+  .patio :global(.sw button[aria-pressed='true']) { background: var(--amber); color: var(--ink-on-paper); }
+  .patio-stat { display: flex; flex-direction: column; gap: 2px; }
+  .patio-stat-big { font-size: clamp(22px, 2.6vw, 30px); letter-spacing: -0.02em; font-feature-settings: 'tnum' 1; }
+  .patio-stat-sub { font-size: 13px; color: var(--mute-on-paper); max-width: 60ch; }
+
+  .patio-body { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 32px; align-items: start; }
+  .patio-switches { display: flex; flex-direction: column; gap: 10px; }
+  .patio :global(.sw-row) { display: flex; flex-direction: column; gap: 5px; }
+  .patio :global(.sw-name) { font-size: 13px; }
+  .patio :global(.sw-name span) { color: var(--mute-on-paper-2); }
+  .patio :global(.sw) { display: inline-flex; border: 1px solid var(--line-on-paper); align-self: flex-start; }
+  .patio :global(.sw[aria-disabled='true']) { opacity: 0.4; }
+
+  .patio-plan { position: relative; cursor: crosshair; }
+  .patio-plan canvas { display: block; width: 100%; height: auto; }
+  .patio-house { font-size: 11px; color: var(--mute-on-paper-2); margin-top: 6px; }
+
+  .patio-ranked-label { font-size: 11px; color: var(--mute-on-paper-2); margin: 28px 0 6px; }
+  .patio-ranked { position: relative; height: 72px; }
+  .patio-ranked :global(svg) { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .patio-ranked :global(rect) { cursor: pointer; }
+
+  .patio-legend { margin-top: 18px; font-size: 12px; color: var(--mute-on-paper); }
+  .lg-title { margin-bottom: 8px; }
+  .lg-scale { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; max-width: 420px; }
+  .lg-scale i { display: block; height: 12px; }
+  .lg-ticks { display: grid; grid-template-columns: 0.5fr repeat(5, 1fr) 0.5fr; max-width: 420px; margin-top: 4px; font-size: 11px; font-feature-settings: 'tnum' 1; }
+  .lg-ticks span { text-align: center; }
+  .lg-ticks span:first-child { grid-column: 2; }
+
+  .patio-tip {
+    position: absolute; z-index: 5; pointer-events: none; background: var(--paper); border: 1px solid var(--ink-on-paper);
+    padding: 10px 12px; font-size: 12px; line-height: 1.5; min-width: 200px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+  .patio-tip[hidden] { display: none; }
+  .patio-tip :global(.t-when) { font-size: 13px; color: var(--ink-on-paper); }
+  .patio-tip :global(.t-sub) { color: var(--mute-on-paper); }
+
+  @media (max-width: 760px) {
+    .patio-body { grid-template-columns: 1fr; gap: 20px; }
+    .patio-switches { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  }
+</style>
+
+<script>
+  import { loadStudyData } from '../scripts/study-data';
+
+  type Data = {
+    step: number; depth: number; length: number; cells: [number, number][];
+    elements: { id: string; type: 'wall' | 'roof' }[]; reference: string;
+    configs: Record<string, { mean: number; values: number[] }>;
+  };
+  type Locale = 'en' | 'es';
+  const PAL = ['#fde4d4', '#f6c0a8', '#ea957a', '#d36b56', '#b1483c', '#892a29'];
+  const EDGES = [200, 400, 800, 1200, 1600];
+  const color = (v: number) => { let k = 0; while (k < EDGES.length && v >= EDGES[k]) k++; return PAL[k]; };
+
+  const T = {
+    en: {
+      type: { wall: 'sliding wall', roof: 'sliding roof panel' } as Record<string, string>,
+      pos: ['against the house', 'outer half'],
+      big: (v: string) => `${v} kWh/m² of daytime sun a year`,
+      sub: (rank: number, best: number, none: number) => `rank ${rank} of 64${best > 0 ? `, ${best}% more than the least sun` : ', the least sun of all 64'}. ${none}% less than with no panels.`,
+      subNone: (worst: number) => `no panels at all: ${worst}% more than the sunniest setting.`,
+      describe: (out: string[]) => (out.length ? `${out.join(', ')} in the outer half` : 'all panels against the house'),
+      none: 'no panels',
+      cell: (v: number) => `${v} kWh/m² a year at this spot`,
+    },
+    es: {
+      type: { wall: 'muro corredizo', roof: 'panel de techo corredizo' } as Record<string, string>,
+      pos: ['contra la casa', 'mitad exterior'],
+      big: (v: string) => `${v} kWh/m² de sol diurno al año`,
+      sub: (rank: number, best: number, none: number) => `puesto ${rank} de 64${best > 0 ? `, ${best}% más que la de menos sol` : ', la de menos sol de las 64'}. ${none}% menos que sin paneles.`,
+      subNone: (worst: number) => `sin ningún panel: ${worst}% más que la configuración con más sol.`,
+      describe: (out: string[]) => (out.length ? `${out.join(', ')} en la mitad exterior` : 'todos los paneles contra la casa'),
+      none: 'sin paneles',
+      cell: (v: number) => `${v} kWh/m² al año en este punto`,
+    },
+  };
+  const svgNS = 'http://www.w3.org/2000/svg';
+
+  function init(fig: HTMLElement) {
+    const locale: Locale = fig.dataset.locale === 'es' ? 'es' : 'en';
+    const t = T[locale];
+    const canvas = fig.querySelector('canvas') as HTMLCanvasElement;
+    const plan = fig.querySelector('.patio-plan') as HTMLElement;
+    const switches = fig.querySelector('.patio-switches') as HTMLElement;
+    const ranked = fig.querySelector('.patio-ranked') as HTMLElement;
+    const presets = [...fig.querySelectorAll<HTMLButtonElement>('.patio-presets button')];
+    const big = fig.querySelector('.patio-stat-big') as HTMLElement;
+    const sub = fig.querySelector('.patio-stat-sub') as HTMLElement;
+    const tip = fig.querySelector('.patio-tip') as HTMLElement;
+    let data: Data;
+    let order: string[] = []; // settings ranked least sun first
+    let key = '';
+
+    const describe = (k: string) => (k === 'none' ? t.none : t.describe(data.elements.filter((_, i) => k[i] === '1').map((e) => e.id)));
+    const pct = (a: number, b: number) => Math.round((a / b - 1) * 100);
+
+    function buildSwitches() {
+      switches.replaceChildren(...data.elements.map((el, i) => {
+        const row = document.createElement('div');
+        row.className = 'sw-row';
+        row.innerHTML = `<div class="sw-name">${el.id} <span>· ${t.type[el.type]}</span></div>`;
+        const sw = document.createElement('div');
+        sw.className = 'sw'; sw.setAttribute('role', 'group');
+        t.pos.forEach((label, p) => {
+          const b = document.createElement('button');
+          b.type = 'button'; b.textContent = label; b.dataset.i = String(i); b.dataset.p = String(p);
+          b.addEventListener('click', () => {
+            const bits = (key === 'none' ? data.reference : key).split('');
+            bits[i] = String(p);
+            select(bits.join(''));
+          });
+          sw.appendChild(b);
+        });
+        row.appendChild(sw);
+        return row;
+      }));
+    }
+
+    function drawPlan() {
+      const cfg = data.configs[key];
+      const dpr = window.devicePixelRatio || 1;
+      const W = plan.clientWidth, cell = W / data.length, H = cell * data.depth;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      canvas.style.height = `${H}px`;
+      const c = canvas.getContext('2d')!;
+      c.scale(dpr, dpr);
+      c.clearRect(0, 0, W, H);
+      // length runs left to right, depth runs up from the house side (bottom)
+      data.cells.forEach(([d, l], j) => {
+        c.fillStyle = color(cfg.values[j]);
+        c.fillRect(l * cell, H - (d + 1) * cell, Math.ceil(cell), Math.ceil(cell));
+      });
+      c.strokeStyle = 'rgba(28,28,28,0.35)'; c.lineWidth = 1;
+      c.strokeRect(0.5, 0.5, W - 1, H - 1);
+      c.setLineDash([3, 3]); // half-depth line: the two panel positions
+      c.beginPath(); c.moveTo(0, H / 2); c.lineTo(W, H / 2); c.stroke();
+    }
+
+    function drawRanked() {
+      const svg = document.createElementNS(svgNS, 'svg');
+      const W = ranked.clientWidth, H = ranked.clientHeight, n = order.length, bw = W / n;
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('preserveAspectRatio', 'none');
+      const lo = data.configs[order[0]].mean, hi = data.configs[order[n - 1]].mean;
+      order.forEach((k, i) => {
+        const v = data.configs[k].mean, h = 8 + ((v - lo) / (hi - lo)) * (H - 8);
+        const r = document.createElementNS(svgNS, 'rect');
+        r.setAttribute('x', String(i * bw + bw * 0.15)); r.setAttribute('width', String(bw * 0.7));
+        r.setAttribute('y', String(H - h)); r.setAttribute('height', String(h));
+        r.setAttribute('fill', k === key ? 'var(--amber)' : k === data.reference ? 'var(--ink-on-paper)' : 'var(--line-on-paper)');
+        r.dataset.k = k;
+        svg.appendChild(r);
+      });
+      ranked.replaceChildren(svg);
+    }
+
+    function select(k: string) {
+      key = k;
+      const v = data.configs[k].mean, none = data.configs.none.mean;
+      big.textContent = t.big(Math.round(v).toLocaleString('en-US'));
+      sub.textContent = k === 'none'
+        ? t.subNone(pct(none, data.configs[order[order.length - 1]].mean))
+        : t.sub(order.indexOf(k) + 1, pct(v, data.configs[order[0]].mean), -pct(v, none));
+      const presetKey = k === 'none' ? 'none' : k === order[0] ? 'best' : k === order[order.length - 1] ? 'worst' : k === data.reference ? 'reference' : '';
+      presets.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.preset === presetKey)));
+      fig.querySelectorAll<HTMLButtonElement>('.sw button').forEach((b) => {
+        b.setAttribute('aria-pressed', String(k !== 'none' && k[Number(b.dataset.i)] === b.dataset.p));
+      });
+      fig.querySelectorAll('.sw').forEach((s) => s.setAttribute('aria-disabled', String(k === 'none')));
+      drawPlan(); drawRanked();
+    }
+
+    function showTip(html: string, e: PointerEvent) {
+      tip.innerHTML = html; tip.hidden = false;
+      const fb = fig.getBoundingClientRect();
+      let x = e.clientX - fb.left + 14;
+      if (x + tip.offsetWidth > fb.width) x = e.clientX - fb.left - tip.offsetWidth - 14;
+      tip.style.left = `${Math.max(0, x)}px`; tip.style.top = `${e.clientY - fb.top + 14}px`;
+    }
+
+    plan.addEventListener('pointermove', (e) => {
+      if (!data) return;
+      const r = canvas.getBoundingClientRect(), cell = r.width / data.length;
+      const l = Math.floor((e.clientX - r.left) / cell), d = data.depth - 1 - Math.floor((e.clientY - r.top) / cell);
+      const j = data.cells.findIndex(([cd, cl]) => cd === d && cl === l);
+      if (j < 0) { tip.hidden = true; return; }
+      showTip(`<div class="t-when">${t.cell(data.configs[key].values[j])}</div>`, e);
+    });
+    ranked.addEventListener('pointermove', (e) => {
+      const k = e.target instanceof SVGRectElement ? e.target.dataset.k : '';
+      if (!k) { tip.hidden = true; return; }
+      showTip(`<div class="t-when">${Math.round(data.configs[k].mean)} kWh/m²</div><div class="t-sub">${describe(k)}</div>`, e);
+    });
+    ranked.addEventListener('click', (e) => { const k = e.target instanceof SVGRectElement ? e.target.dataset.k : ''; if (k) select(k); });
+    [plan, ranked].forEach((el) => el.addEventListener('pointerleave', () => (tip.hidden = true)));
+    presets.forEach((b) => b.addEventListener('click', () => {
+      const p = b.dataset.preset;
+      select(p === 'none' ? 'none' : p === 'best' ? order[0] : p === 'worst' ? order[order.length - 1] : data.reference);
+    }));
+    new ResizeObserver(() => { if (data && key) { drawPlan(); drawRanked(); } }).observe(fig);
+
+    loadStudyData<Data>(fig.dataset.src!).then((json) => {
+      data = json;
+      order = Object.keys(data.configs).filter((k) => k !== 'none').sort((a, b) => data.configs[a].mean - data.configs[b].mean);
+      buildSwitches();
+      select(data.reference);
+    }).catch(() => { sub.textContent = ''; });
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => { if (en.isIntersecting) { io.unobserve(en.target); init(en.target as HTMLElement); } });
+  }, { rootMargin: '400px' });
+  document.querySelectorAll<HTMLElement>('.patio').forEach((f) => io.observe(f));
+</script>
