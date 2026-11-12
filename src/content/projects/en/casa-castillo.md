@@ -83,7 +83,7 @@ study:
         - { value: "−2.2", unit: "°C", label: "floor at 2 pm" }
     - headline: "and the house gains 450 comfortable hours"
       image: /projects/casa-castillo/casa-castillo_06_comfort.webp
-      interactive: { type: comfort-heatmap, data: /projects/casa-castillo/data/comfort-main-house.json, cases: ["as built", "with the parasol"] }
+      interactive: { type: comfort-heatmap, data: /projects/casa-castillo/data/comfort-main-house.json, cases: ["without the parasol", "with the parasol"] }
       width: 2160
       height: 2200
       alt: "two hour-by-hour charts of degrees from the comfort target in the main house. both show warm afternoons (red) and cool nights (blue); with the parasol the afternoon red is lighter and thinner. 3,441 comfortable hours as built, 3,891 with the parasol."
