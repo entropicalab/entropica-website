@@ -14,15 +14,16 @@ interface Props {
   yLabel: string;
   yUnit?: string;
   decimals?: number;
+  change?: boolean; // false: no % change in the tooltip (e.g. counts)
   alt: string;
   locale: Locale;
 }
-const { categories, bars, yLabel, yUnit = '', decimals = 1, alt, locale } = Astro.props;
+const { categories, bars, yLabel, yUnit = '', decimals = 1, change = true, alt, locale } = Astro.props;
 const nf = (v: number) => v.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 ---
 
 <figure class="sbars" role="group" aria-label={alt}
-  data-categories={JSON.stringify(categories)} data-bars={JSON.stringify(bars)} data-yunit={yUnit} data-dec={decimals}>
+  data-categories={JSON.stringify(categories)} data-bars={JSON.stringify(bars)} data-yunit={yUnit} data-dec={decimals} data-change={String(change)}>
   {bars.length > 1 && (
     <div class="sbars-legend">{bars.map((b, i) => <span><i class={`s${i}`}></i>{b.label}</span>)}</div>
   )}
@@ -34,7 +35,7 @@ const nf = (v: number) => v.toLocaleString('en-US', { minimumFractionDigits: dec
       <tbody>
         <tr>
           <td>{c.label}{c.sub && <span class="sub">{c.sub}</span>}</td>
-          {bars.map((b) => <td>{nf(b.values[i])}{yUnit ? ` ${yUnit}` : ''}</td>)}
+          {bars.map((b) => <td>{nf(b.values[i])}{yUnit ? (yUnit === '%' ? yUnit : ` ${yUnit}`) : ''}</td>)}
         </tr>
         {c.note && <tr class="note-row"><td colspan={bars.length + 1}>{c.note}</td></tr>}
       </tbody>
@@ -102,8 +103,8 @@ const nf = (v: number) => v.toLocaleString('en-US', { minimumFractionDigits: dec
     const tipText = (ci: number) => {
       const c = cats[ci];
       const lines = [c.sub ? `${c.label} · ${c.sub}` : c.label];
-      bars.forEach((b) => lines.push(`${b.label ? b.label + ': ' : ''}${nf(b.values[ci])}${yu ? ' ' + yu : ''}`));
-      if (bars.length >= 2) {
+      bars.forEach((b) => lines.push(`${b.label ? b.label + ': ' : ''}${nf(b.values[ci])}${yu ? (yu === '%' ? yu : ' ' + yu) : ''}`));
+      if (bars.length >= 2 && fig.dataset.change !== 'false') {
         const a = bars[0].values[ci], b = bars[1].values[ci], pct = ((b - a) / a) * 100;
         lines.push(`${pct < 0 ? '−' : '+'}${nf(Math.abs(pct), 0)}%`);
       }
@@ -113,7 +114,9 @@ const nf = (v: number) => v.toLocaleString('en-US', { minimumFractionDigits: dec
     function draw() {
       const W = box.clientWidth, H = box.clientHeight;
       const top0 = Math.max(...bars.flatMap((b) => b.values));
-      const step = niceStep(top0), top = Math.ceil((top0 * 1.08) / step) * step;
+      const step = niceStep(top0);
+      // a share never runs past 100%
+      const top = yu === '%' && top0 <= 100 ? Math.min(100, Math.ceil((top0 * 1.08) / step) * step) : Math.ceil((top0 * 1.08) / step) * step;
       const pl = Math.max(28, 10 + 7 * nf(top, 0).length), pr = 4, pt = 16, pb = cats.some((c) => c.sub) ? 40 : 24;
       const Y = (v: number) => pt + (1 - v / top) * (H - pt - pb);
       const gw = (W - pl - pr) / cats.length, inner = gw * 0.78, bw = inner / bars.length;

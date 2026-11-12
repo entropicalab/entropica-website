@@ -96,9 +96,9 @@ const projects = defineCollection({
                 // comfort-heatmap / surface-heatmap: StudyHeatmap.astro
                 // average-day: StudyAverageDay.astro · patio: StudyPatio.astro · sunpath: StudySunpath.astro
                 // hotspots: StudyHotspots.astro (clickable regions over the drawing itself)
-                // climate-heatmap: StudyHeatmap.astro (weather only) · lines: StudyLines.astro (points in this file)
+                // climate-heatmap / heat-heatmap: StudyHeatmap.astro (weather only; heat = utci heat stress) · lines: StudyLines.astro (points in this file)
                 // bars: StudyBars.astro · dumbbell: StudyDumbbell.astro (values in this file)
-                type: z.enum(['comfort-heatmap', 'surface-heatmap', 'climate-heatmap', 'average-day', 'patio', 'sunpath', 'hotspots', 'lines', 'bars', 'dumbbell']),
+                type: z.enum(['comfort-heatmap', 'surface-heatmap', 'climate-heatmap', 'average-day', 'patio', 'sunpath', 'hotspots', 'lines', 'bars', 'dumbbell', 'heat-heatmap']),
                 data: z.string().optional(), // json under public/ (all types but hotspots)
                 cases: z.tuple([z.string(), z.string()]).optional(), // labels for the two cases (heatmaps, average-day)
                 field: z.string().optional(), // surface-heatmap: which series, e.g. 'roof'
@@ -123,6 +123,7 @@ const projects = defineCollection({
                 categories: z.array(z.object({ label: z.string(), sub: z.string().optional(), note: z.string().optional() })).optional(), // bars
                 bars: z.array(z.object({ label: z.string(), values: z.array(z.number()) })).optional(), // bars: one per case
                 decimals: z.number().optional(), // bars
+                change: z.boolean().optional(), // bars: false hides the % change between the first two cases
                 rows: z.array(z.object({ label: z.string(), a: z.number(), b: z.number(), note: z.string().optional() })).optional(), // dumbbell (labels: cases)
               })
               .optional(),

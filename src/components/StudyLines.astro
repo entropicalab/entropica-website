@@ -120,7 +120,8 @@ ${pct < 0 ? '−' : '+'}${nf(Math.abs(pct), 1)}%`;
       const xs = series.flatMap((s) => s.points.map((p) => p[0])), ys = series.flatMap((s) => s.points.map((p) => p[1]));
       const x0 = Math.min(...xs), x1 = Math.max(...xs);
       const step = niceStep(Math.max(...ys) - Math.min(...ys));
-      const y0 = Math.floor(Math.min(...ys) / step) * step - step, y1 = Math.ceil(Math.max(...ys) / step) * step + step;
+      // one step of air below the lowest value, but never below zero for positive data
+      const yMin = Math.min(...ys), y0 = Math.max(yMin >= 0 ? 0 : -Infinity, Math.floor(yMin / step) * step - step), y1 = Math.ceil(Math.max(...ys) / step) * step + step;
       // room on the left for the longest axis label (about 7 px a character)
       const pl = Math.max(44, 14 + 7 * Math.max(`${nf(y0, 0)}${yu}`.length, `${nf(y1, 0)}${yu}`.length));
       const X = (v: number) => pl + ((v - x0) / (x1 - x0)) * (W - pl - pr);

@@ -90,7 +90,7 @@ const fmt = (value: string, unit?: string) => (!unit ? value : unit === '%' ? `$
           {p.interactive.type === 'lines' ? (
             <StudyLines series={p.interactive.series ?? []} xLabel={p.interactive.xLabel ?? ''} yLabel={p.interactive.yLabel ?? ''} xUnit={p.interactive.xUnit} yUnit={p.interactive.yUnit} chosen={p.interactive.chosen} xTicks={p.interactive.xTicks} alt={p.alt} locale={locale} />
           ) : p.interactive.type === 'bars' ? (
-            <StudyBars categories={p.interactive.categories ?? []} bars={p.interactive.bars ?? []} yLabel={p.interactive.yLabel ?? ''} yUnit={p.interactive.yUnit} decimals={p.interactive.decimals} alt={p.alt} locale={locale} />
+            <StudyBars categories={p.interactive.categories ?? []} bars={p.interactive.bars ?? []} yLabel={p.interactive.yLabel ?? ''} yUnit={p.interactive.yUnit} decimals={p.interactive.decimals} change={p.interactive.change} alt={p.alt} locale={locale} />
           ) : p.interactive.type === 'dumbbell' ? (
             <StudyDumbbell rows={p.interactive.rows ?? []} cases={p.interactive.cases ?? ['a', 'b']} xLabel={p.interactive.xLabel ?? ''} xUnit={p.interactive.xUnit} alt={p.alt} locale={locale} />
           ) : p.interactive.type === 'hotspots' ? (
@@ -103,7 +103,7 @@ const fmt = (value: string, unit?: string) => (!unit ? value : unit === '%' ? `$
             <StudyAverageDay src={p.interactive.data ?? ''} cases={p.interactive.cases ?? ['a', 'b']} surfaces={p.interactive.surfaces ?? []} alt={p.alt} fallback={p.image} locale={locale} />
           ) : (
             <StudyHeatmap
-              kind={p.interactive.type === 'surface-heatmap' ? 'surface' : p.interactive.type === 'climate-heatmap' ? 'climate' : 'comfort'}
+              kind={p.interactive.type === 'surface-heatmap' ? 'surface' : p.interactive.type === 'climate-heatmap' ? 'climate' : p.interactive.type === 'heat-heatmap' ? 'heat' : 'comfort'}
               field={p.interactive.field}
               src={p.interactive.data ?? ''}
               cases={p.interactive.cases ?? ['a', 'b']}

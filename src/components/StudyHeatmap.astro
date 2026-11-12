@@ -10,12 +10,15 @@
 //            e.g. field="roof")
 //   climate  views: air temperature · cooling from water (one weather year:
 //            top-level outdoor[], humidity[], wetbulb[]; no cases)
+//   heat     views: air temperature · felt in the shade (one weather year:
+//            top-level outdoor[], humidity[], utci[], utciCat "5566…" =
+//            ladybug utci category + 5, so 6+ is heat stress; no cases)
 // hover any hour for both cases; hover the margin bars for totals by hour of
 // day and by month. all labels are html: searchable and restylable.
 import type { Locale } from '../i18n/strings';
 
 interface Props {
-  kind: 'comfort' | 'surface' | 'climate';
+  kind: 'comfort' | 'surface' | 'climate' | 'heat';
   field?: string; // surface kind: which series, e.g. 'roof'
   src: string;
   cases: [string, string];
@@ -27,8 +30,10 @@ const { kind, field = '', src, cases, alt, fallback, locale } = Astro.props;
 
 const L = {
   en: {
-    first: { comfort: 'what changed', surface: 'the difference', climate: 'air temperature' },
+    first: { comfort: 'what changed', surface: 'the difference', climate: 'air temperature', heat: 'air temperature' },
     second: 'cooling from water',
+    secondHeat: 'felt in the shade',
+    heatTitle: 'felt temperature in the shade, utci (°C): no heat stress, then moderate, strong and very strong',
     months: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
     byHour: 'by hour of day',
     byMonth: 'by month',
@@ -41,8 +46,10 @@ const L = {
     wbTitle: 'cooling available from evaporating water: air minus wet-bulb temperature (°C)',
   },
   es: {
-    first: { comfort: 'qué cambió', surface: 'la diferencia', climate: 'temperatura del aire' },
+    first: { comfort: 'qué cambió', surface: 'la diferencia', climate: 'temperatura del aire', heat: 'temperatura del aire' },
     second: 'enfriamiento con agua',
+    secondHeat: 'sensación a la sombra',
+    heatTitle: 'temperatura sentida a la sombra, utci (°C): sin estrés térmico, luego moderado, fuerte y muy fuerte',
     months: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
     byHour: 'por hora del día',
     byMonth: 'por mes',
@@ -69,19 +76,21 @@ const PAL = {
   airTicks: ['20', '25', '30', '35', '40', '45'],
   wb: ['#eef2ef', '#d2e2e1', '#96c1c3', '#5a98a0', '#236e7d', '#014555'],
   wbTicks: ['4', '8', '12', '16', '20'],
+  heat: ['#e3ddd0', '#deab8a', '#c8714f', '#a0422d', '#6b1e1b'],
+  heatTicks: ['26', '32', '38', '46'],
 };
 const scale = (colors: string[], ticks: string[], title: string) => ({ colors, ticks, title });
-const legendFirst = kind === 'surface' ? scale(PAL.diff, PAL.diffTicks, L.surfaceDiff(cases[1])) : kind === 'climate' ? scale(PAL.air, PAL.airTicks, L.airTitle) : null;
+const legendFirst = kind === 'surface' ? scale(PAL.diff, PAL.diffTicks, L.surfaceDiff(cases[1])) : kind === 'climate' || kind === 'heat' ? scale(PAL.air, PAL.airTicks, L.airTitle) : null;
 const legendCase =
-  kind === 'surface' ? scale(PAL.temp, PAL.tempTicks, L.surfaceCase) : kind === 'climate' ? scale(PAL.wb, PAL.wbTicks, L.wbTitle) : scale(PAL.comfort, PAL.comfortTicks, L.comfortCase);
+  kind === 'surface' ? scale(PAL.temp, PAL.tempTicks, L.surfaceCase) : kind === 'climate' ? scale(PAL.wb, PAL.wbTicks, L.wbTitle) : kind === 'heat' ? scale(PAL.heat, PAL.heatTicks, L.heatTitle) : scale(PAL.comfort, PAL.comfortTicks, L.comfortCase);
 ---
 
 <figure class="cmap" data-kind={kind} data-field={field} data-src={src} data-locale={locale} data-cases={JSON.stringify(cases)}>
   <div class="cmap-bar">
     <div class="cmap-views" role="group">
       <button type="button" data-view="first" aria-pressed="true">{L.first[kind]}</button>
-      <button type="button" data-view="base" aria-pressed="false">{kind === 'climate' ? L.second : cases[0]}</button>
-      {kind !== 'climate' && <button type="button" data-view="design" aria-pressed="false">{cases[1]}</button>}
+      <button type="button" data-view="base" aria-pressed="false">{kind === 'climate' ? L.second : kind === 'heat' ? L.secondHeat : cases[0]}</button>
+      {kind !== 'climate' && kind !== 'heat' && <button type="button" data-view="design" aria-pressed="false">{cases[1]}</button>}
     </div>
     <div class="cmap-stat" aria-live="polite">
       <span class="cmap-stat-big"></span>
@@ -224,7 +233,7 @@ const legendCase =
   import { loadStudyData, MONTH_DAYS, MONTHS, hourSpan, deg, signedDeg } from '../scripts/study-data';
 
   type Case = { operative: number[]; target: number[]; fromTarget: number[]; comfortable: string; [k: string]: number[] | string };
-  type Data = { hours: number; band?: number; outdoor: number[]; humidity?: number[]; wetbulb?: number[]; cases: { base: Case; design: Case } };
+  type Data = { hours: number; band?: number; outdoor: number[]; humidity?: number[]; wetbulb?: number[]; utci?: number[]; utciCat?: string; cases: { base: Case; design: Case } };
   type View = 'first' | 'base' | 'design';
   type State = 'ok' | 'hot' | 'cold';
   type Locale = 'en' | 'es';
@@ -236,6 +245,7 @@ const legendCase =
     diff: ['#c8714f', '#e2b29a', '#e9e3d6', '#f8dfa8', '#fccb6a', '#fab31e', '#d9900c', '#a96a05'],
     air: ['#fde4d4', '#f6c0a8', '#ea957a', '#d36b56', '#b1483c', '#892a29', '#5b161a'],
     wb: ['#eef2ef', '#d2e2e1', '#96c1c3', '#5a98a0', '#236e7d', '#014555'],
+    heat: ['#e3ddd0', '#deab8a', '#c8714f', '#a0422d', '#6b1e1b'],
   };
   const EDGES = { comfort: [-10, -6, -4, -2.5, 2.5, 4, 6, 10], temp: [25, 30, 35, 40, 45, 55], diff: [-3, -1, 1, 5, 10, 15, 20], air: [20, 25, 30, 35, 40, 45], wb: [4, 8, 12, 16, 20] };
   const HOT_AIR = 35; // the study counts evaporative potential in the hours above 35 °C
@@ -276,6 +286,13 @@ const legendCase =
       humidity: 'humidity',
       wetbulb: 'wet bulb',
       evap: 'cooling from water',
+      // heat
+      statMean: (m: string) => `${m} average air temperature`,
+      statHeat: (p: string) => `${p} of the hours in heat stress, even in the shade`,
+      subHeat: (p: string) => `${p} in strong heat stress or more.`,
+      tipHeat: (h: string, v: number) => `${h}: ${Math.round(v)}% of hours in heat stress`,
+      utci: 'felt in the shade (utci)',
+      cats: ['no heat stress', 'moderate heat stress', 'strong heat stress', 'very strong heat stress', 'extreme heat stress'],
     },
     es: {
       outdoor: 'exterior',
@@ -306,6 +323,12 @@ const legendCase =
       humidity: 'humedad',
       wetbulb: 'bulbo húmedo',
       evap: 'enfriamiento con agua',
+      statMean: (m: string) => `${m} de temperatura media del aire`,
+      statHeat: (p: string) => `${p} de las horas con estrés térmico, incluso a la sombra`,
+      subHeat: (p: string) => `${p} con estrés térmico fuerte o mayor.`,
+      tipHeat: (h: string, v: number) => `${h}: ${Math.round(v)}% de las horas con estrés térmico`,
+      utci: 'sensación a la sombra (utci)',
+      cats: ['sin estrés térmico', 'estrés térmico moderado', 'estrés térmico fuerte', 'estrés térmico muy fuerte', 'estrés térmico extremo'],
     },
   };
   const signedInt = (v: number) => `${v >= 0 ? '+' : '−'}${Math.abs(v).toLocaleString('en-US')}`;
@@ -322,7 +345,7 @@ const legendCase =
   function init(fig: HTMLElement) {
     const locale: Locale = fig.dataset.locale === 'es' ? 'es' : 'en';
     const t = T[locale];
-    const kind = fig.dataset.kind === 'surface' ? 'surface' : fig.dataset.kind === 'climate' ? 'climate' : 'comfort';
+    const kind = fig.dataset.kind === 'surface' ? 'surface' : fig.dataset.kind === 'climate' ? 'climate' : fig.dataset.kind === 'heat' ? 'heat' : 'comfort';
     const field = fig.dataset.field ?? '';
     const caseNames = JSON.parse(fig.dataset.cases ?? '["a","b"]') as [string, string];
     const canvas = fig.querySelector('canvas') as HTMLCanvasElement;
@@ -357,7 +380,13 @@ const legendCase =
 
     const depression = (i: number) => (data!.outdoor[i] - data!.wetbulb![i]) / 10;
 
+    // heat: ladybug utci category (stored + 5); 1 moderate ... 4 extreme heat stress
+    const cat = (i: number) => Number(data!.utciCat![i]) - 5;
+    const heatColor = (i: number) => PAL.heat[Math.max(0, Math.min(4, cat(i)))];
+    const pct = (n: number) => `${Math.round((n / data!.hours) * 100)}%`;
+
     function colorAt(i: number): string {
+      if (kind === 'heat') return view === 'first' ? PAL.air[bin(data!.outdoor[i] / 10, EDGES.air)] : heatColor(i);
       const { base, design } = data!.cases;
       if (kind === 'climate') return view === 'first' ? PAL.air[bin(data!.outdoor[i] / 10, EDGES.air)] : PAL.wb[bin(depression(i), EDGES.wb)];
       if (kind === 'comfort') {
@@ -373,6 +402,13 @@ const legendCase =
 
     // value per hour feeding the margin bars, how they sum, and their tooltips
     function margin() {
+      if (kind === 'heat') {
+        return view === 'first'
+          ? { value: (i: number) => data!.outdoor[i] / 10, mean: true, pos: PAL.air[3], neg: PAL.air[3],
+              tipH: (h: string, v: number) => t.tipHourMean(h, deg(v * 10)), tipM: (m: string, v: number) => t.tipHourMean(m, deg(v * 10)) }
+          : { value: (i: number) => (cat(i) >= 1 ? 100 : 0), mean: true, pos: PAL.heat[2], neg: PAL.heat[2],
+              tipH: (h: string, v: number) => t.tipHeat(h, v), tipM: (m: string, v: number) => t.tipHeat(m, v) };
+      }
       const { base, design } = data!.cases;
       if (kind === 'climate') {
         return view === 'first'
@@ -397,6 +433,13 @@ const legendCase =
     }
 
     function stat(): [string, string] {
+      if (kind === 'heat') {
+        const out = data!.outdoor;
+        if (view === 'first') return [t.statMean(deg(out.reduce((a, b) => a + b, 0) / out.length)), t.subAir(deg(Math.max(...out)))];
+        let n = 0, strong = 0;
+        for (let i = 0; i < data!.hours; i++) { if (cat(i) >= 1) n++; if (cat(i) >= 2) strong++; }
+        return [t.statHeat(pct(n)), t.subHeat(pct(strong))];
+      }
       const { base, design } = data!.cases;
       if (kind === 'climate') {
         const out = data!.outdoor;
@@ -428,6 +471,11 @@ const legendCase =
     }
 
     function tipRows(i: number): string {
+      if (kind === 'heat') {
+        return `<div class="t-row"><span>${t.humidity}</span><b>${data!.humidity![i]}%</b></div>` +
+          `<div class="t-case"><div class="t-row"><span>${t.utci}</span><b>${deg(data!.utci![i])}</b></div>` +
+          `<div class="t-row"><span class="t-state"><i style="background:${heatColor(i)}"></i>${t.cats[Math.max(0, Math.min(4, cat(i)))]}</span></div></div>`;
+      }
       const { base, design } = data!.cases;
       if (kind === 'climate') {
         return `<div class="t-row"><span>${t.humidity}</span><b>${data!.humidity![i]}%</b></div>` +
