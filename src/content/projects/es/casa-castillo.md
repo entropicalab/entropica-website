@@ -19,13 +19,13 @@ metric:
   value: '+450'
   unit: 'h'
   label: "más horas en confort al año, sin aire acondicionado"
-  note: "casa principal, confort adaptativo (ashrae 55), aire quieto, clima tmyx de santiago de veraguas. simulación por entrópica, diseño de labhaus studio."
+  note: "casa principal, confort adaptativo (ashrae 55), aire quieto, clima tmyx de santiago de veraguas. caso de diseño: parasol y plénum ventilado. simulación por entrópica, diseño de labhaus studio."
 brief: |
   casa castillo es una casa de campo familiar en el arco seco de panamá, en los santos, diseñada por labhaus studio. entrópica hizo las simulaciones y validó las estrategias del diseño, en una colaboración entre ambos estudios.
 
   tan cerca del ecuador el sol pasa casi por encima, así que el diseño pone un segundo techo 0.30 m sobre el primero: un parasol. probamos la casa con y sin él, y las 64 maneras de configurar los paneles corredizos de su patio.
 approach: |
-  el parasol le quita al techo principal 99% de la radiación solar anual, la superficie del techo deja de quemar y la casa gana 450 horas en confort al año.
+  el parasol le quita al techo principal 99% de la radiación solar anual, la superficie del techo deja de quemar y, con un plénum ventilado bajo el piso elevado, la casa gana 450 horas en confort al año.
 
   en el patio, la mejor de las 64 configuraciones deja entrar menos de la mitad del sol diurno que un patio sin paneles.
 study:
@@ -33,8 +33,8 @@ study:
     - { value: "74%", label: "de la radiación solar directa sobre un techo plano llega desde más de 45° de altura" }
     - { value: "−99%", label: "radiación solar anual sobre el techo principal (de 1,900 a 16 kWh/m²)" }
     - { value: "−25 °C", label: "en la superficie del techo en su hora más caliente (de 60.4 a 35.2 °C)" }
-    - { value: "−4.4 °C", label: "en el cielorraso a las 2 pm, promedio del año" }
-    - { value: "+450 h", label: "horas en confort al año (de 3,441 a 3,891), sin aire acondicionado" }
+    - { value: "−5.5 °C", label: "en el cielorraso a las 15–16 h, en el día promedio del año" }
+    - { value: "+450 h", label: "horas en confort al año (de 3,441 a 3,891), con parasol y plénum, sin aire acondicionado" }
     - { value: "418–644 kWh/m²", label: "de radiación solar diurna en el patio, de la mejor a la peor de 64 configuraciones de paneles (868 sin paneles)" }
   panels:
     - headline: "el sol se para sobre la casa"
@@ -68,7 +68,7 @@ study:
             model: "100 mm de ladrillo, 200 mm de concreto pesado, 50 mm de aislante rígido, una cámara de aire y 19 mm de yeso: un muro genérico de energyplus."
           - label: "plénum ventilado"
             shapes: [[[20.7, 52.1], [50.2, 52.1], [50.2, 54.3], [20.7, 54.3]]]
-            body: "el caso de diseño además eleva el piso sobre un plénum ventilado. en un día promedio la cara interior del piso está 2.2 °C más fresca a las 2 pm. esa ganancia viene del plénum y del parasol juntos: el estudio no los corrió por separado."
+            body: "la casa está sobre pilotes. el caso de diseño modela los 0.51 m de aire bajo su piso elevado como un plénum ventilado; el primer modelo ponía el terreno justo debajo del piso. en el día promedio la cara interior del piso está 3.0 °C más fresca a las 15–16 h. esa ganancia viene del plénum y del parasol juntos: el estudio no los corrió por separado."
             model: "un espacio de aire ventilado bajo la losa de piso, solo en el caso de diseño."
           - label: "patio"
             shapes: [[[50.4, 40.4], [88, 40.4], [88, 51.8], [50.4, 51.8]]]
@@ -78,7 +78,7 @@ study:
             body: "solo el sol a menos de 16.7° sobre el horizonte puede pasar bajo el alero de 1 m del parasol y llegar al techo sobre los cuartos: la luz de primera hora y de final de la tarde."
       width: 2160
       height: 2200
-      alt: "corte este-oeste por la casa principal y el patio, con los elementos cortados achurados y el plénum ventilado bajo el piso. un detalle del borde oeste muestra la losa de techo, el parasol 0.30 m encima, el alero de 1.00 m y un rayo de sol a 16.7°, el sol más bajo que puede llegar al techo sobre los cuartos."
+      alt: "corte este-oeste por la casa principal y el patio, con los elementos cortados achurados y el plénum ventilado bajo el piso elevado. un detalle del borde oeste muestra la losa de techo, el parasol 0.30 m encima, el alero de 1.00 m y un rayo de sol a 16.7°, el sol más bajo que puede llegar al techo sobre los cuartos."
       caption: "el parasol cubre la losa de techo y su alero de 1 m, 0.30 m por encima. el aire se mueve por la separación; el sol a menos de 16.7° sobre el horizonte es el único sol directo que puede pasar por debajo y llegar al techo sobre los cuartos."
       numbers:
         - { value: "0.30", unit: "m", label: "de separación entre el techo y el parasol" }
@@ -99,7 +99,7 @@ study:
             shapes: [[[18, 58.9], [46.2, 75.6], [46.2, 81.5], [18, 65.3]]]
             body: "los muros y el patio reciben el sol que deja el parasol. cada superficie va coloreada por su total anual, de pálido (menos de 200 kWh/m²) a oscuro (más de 1,600)."
           - label: "patio y casa de piscina"
-            shapes: [[[58.5, 47.2], [84, 53.8], [84, 60.1], [71, 67.6], [58.5, 73.2]]]
+            shapes: [[[58.5, 51.5], [70, 45.3], [84, 54.1], [84, 60.1], [71.2, 67.1], [58.5, 74.1]]]
             body: "la estructura del patio con sus paneles corredizos, y la casa de piscina. el mapa de sol del patio, configuración por configuración, está más abajo, en 08."
       width: 2160
       height: 2200
@@ -120,24 +120,24 @@ study:
         - { value: "35.2", unit: "°C", label: "máximo del techo, bajo el parasol" }
     - headline: "el cielorraso deja de irradiar"
       image: /projects/casa-castillo/casa-castillo_05_inside.webp
-      interactive: { type: average-day, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["sin el parasol", "con el parasol"], surfaces: [{ field: ceiling, label: cielorraso }, { field: floor, label: piso }] }
+      interactive: { type: average-day, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["sin parasol ni plénum", "con parasol y plénum"], surfaces: [{ field: ceiling, label: cielorraso }, { field: floor, label: piso }] }
       width: 2160
       height: 2200
       alt: "dos gráficos de líneas de temperatura superficial interior en un día promedio. cielorraso: sin el parasol llega cerca de 37 °C a media tarde, con el parasol cerca de 32 °C. piso: sin el parasol cerca de 34 °C, con el parasol cerca de 31 °C. las líneas se juntan de noche."
-      caption: "el día promedio del año, dentro de la casa principal. con el parasol, el cielorraso está 4.4 °C más fresco a las 2 pm y el piso 2.2 °C más fresco. las noches no cambian; el parasol trabaja cuando hay sol."
+      caption: "el día promedio del año, dentro de la casa principal. la mayor diferencia llega a las 15–16 h: con parasol y plénum el cielorraso está 5.5 °C más fresco y el piso 3.0 °C. antes del amanecer las curvas se cruzan y el cielorraso está hasta 0.6 °C más cálido: el parasol trabaja cuando hay sol."
       numbers:
-        - { value: "−4.4", unit: "°C", label: "cielorraso a las 2 pm" }
-        - { value: "−2.2", unit: "°C", label: "piso a las 2 pm" }
+        - { value: "−5.5", unit: "°C", label: "cielorraso a las 15–16 h" }
+        - { value: "−3.0", unit: "°C", label: "piso a las 15–16 h" }
     - headline: "y la casa gana 450 horas en confort"
       image: /projects/casa-castillo/casa-castillo_06_comfort.webp
-      interactive: { type: comfort-heatmap, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["sin el parasol", "con el parasol"] }
+      interactive: { type: comfort-heatmap, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["sin parasol ni plénum", "con parasol y plénum"] }
       width: 2160
       height: 2200
       alt: "dos gráficos hora por hora de grados respecto al objetivo de confort en la casa principal. ambos muestran tardes cálidas (rojo) y noches frescas (azul); con el parasol el rojo de la tarde es más claro y más delgado. 3,441 horas en confort sin el parasol, 3,891 con el parasol."
-      caption: "cada hora del año en la casa principal, frente al objetivo de confort adaptativo. el parasol le quita el filo a las tardes: de 3,441 a 3,891 horas en confort al año, sin aire acondicionado y sin contar la brisa."
+      caption: "cada hora del año en la casa principal, frente al objetivo de confort adaptativo. el parasol y el plénum le quitan el filo a las tardes: de 3,441 a 3,891 horas en confort al año, sin aire acondicionado y sin contar la brisa."
       numbers:
-        - { value: "3,441", unit: "h", label: "horas en confort al año, sin el parasol" }
-        - { value: "3,891", unit: "h", label: "horas en confort al año, con el parasol" }
+        - { value: "3,441", unit: "h", label: "horas en confort al año, sin parasol ni plénum" }
+        - { value: "3,891", unit: "h", label: "horas en confort al año, con parasol y plénum" }
     - headline: "un patio que se puede reconfigurar"
       image: /projects/casa-castillo/casa-castillo_07_elements.webp
       interactive:
@@ -183,7 +183,7 @@ study:
   method:
     - "clima: archivo climático tmyx de santiago de veraguas (aeropuerto de cantú), la estación más cercana al sitio. sitio 7.80 n, 80.57 o."
     - "modelo: la casa principal (6.1 × 19.1 m) y la casa de piscina, sin climatización y con ventilación natural, simuladas en energyplus mediante honeybee para grasshopper."
-    - "caso de diseño: la misma casa con un segundo techo 0.30 m sobre la losa de techo y su alero de 1 m, y un plénum ventilado bajo el piso."
+    - "caso de diseño: la misma casa con un segundo techo 0.30 m sobre la losa de techo y su alero de 1 m, y los 0.51 m de aire bajo el piso elevado modelados como un plénum ventilado (el modelo base ponía el terreno justo debajo del piso)."
     - "confort: modelo adaptativo de ashrae 55, banda de 90% de aceptabilidad, aire quieto. con el viento del archivo climático como velocidad del aire, como en el estudio entregado, la ganancia es de 4,296 a 4,930 h."
     - "radiación solar sobre superficies y sobre el patio: cielo acumulado (parches de tregenza, sol directo agrupado por parche, difusa isotrópica, reflectancia del suelo de 0.2) y trazado de rayos en mallas de 0.5 m. patio a 0.9 m, de 07 a 18 h."
     - "dibujos: líneas make2d de rhino del modelo de 2020; colores calculados sobre la misma geometría y vista."

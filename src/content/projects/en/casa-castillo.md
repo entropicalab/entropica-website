@@ -19,13 +19,13 @@ metric:
   value: '+450'
   unit: 'h'
   label: "more comfortable hours a year, with no air-conditioning"
-  note: "main house, adaptive comfort (ashrae 55), still air, santiago de veraguas tmyx weather. simulation by entrópica, design by labhaus studio."
+  note: "main house, adaptive comfort (ashrae 55), still air, santiago de veraguas tmyx weather. design case: parasol and ventilated plenum. simulation by entrópica, design by labhaus studio."
 brief: |
   casa castillo is a family country house in panamá's dry arc, in los santos, designed by labhaus studio. entrópica ran the simulations and validated the design's strategies: a collaboration between the two studios.
 
   this close to the equator the sun passes almost overhead, so the design puts a second roof 0.30 m above the first: a parasol. we tested the house with and without it, and all 64 ways to set the sliding panels of its patio.
 approach: |
-  the parasol takes 99% of the yearly sun off the main roof, the roof surface stops burning, and the house gains 450 comfortable hours a year.
+  the parasol takes 99% of the yearly sun off the main roof, the roof surface stops burning and, with a ventilated plenum under the raised floor, the house gains 450 comfortable hours a year.
 
   on the patio, the best of the 64 settings lets in less than half the daytime sun of a patio with no panels.
 study:
@@ -33,8 +33,8 @@ study:
     - { value: "74%", label: "of the direct sun on a flat roof comes from higher than 45°" }
     - { value: "−99%", label: "yearly sun on the main roof (1,900 to 16 kWh/m²)" }
     - { value: "−25 °C", label: "on the roof surface in its hottest hour (60.4 to 35.2 °C)" }
-    - { value: "−4.4 °C", label: "on the ceiling at 2 pm, average of the year" }
-    - { value: "+450 h", label: "comfortable hours a year (3,441 to 3,891), no air-conditioning" }
+    - { value: "−5.5 °C", label: "on the ceiling at 3–4 pm, on the average day of the year" }
+    - { value: "+450 h", label: "comfortable hours a year (3,441 to 3,891), with the parasol and plenum, no air-conditioning" }
     - { value: "418–644 kWh/m²", label: "daytime sun on the patio, best to worst of 64 panel settings (868 with no panels)" }
   panels:
     - headline: "the sun stands over the house"
@@ -68,7 +68,7 @@ study:
             model: "100 mm brick, 200 mm heavyweight concrete, 50 mm insulation board, an air gap and 19 mm gypsum board: a generic energyplus wall."
           - label: "ventilated plenum"
             shapes: [[[20.7, 52.1], [50.2, 52.1], [50.2, 54.3], [20.7, 54.3]]]
-            body: "the design case also lifts the floor over a ventilated plenum. on an average day the floor's inside face runs 2.2 °C cooler at 2 pm. that gain comes from the plenum and the parasol together: the study did not run them apart."
+            body: "the house stands on stilts. the design case models the 0.51 m of air under its raised floor as a ventilated plenum; the first model set the ground right under the floor. on the average day the floor's inside face runs 3.0 °C cooler at 3–4 pm. that gain comes from the plenum and the parasol together: the study did not run them apart."
             model: "a ventilated air space under the floor slab, in the design case only."
           - label: "patio"
             shapes: [[[50.4, 40.4], [88, 40.4], [88, 51.8], [50.4, 51.8]]]
@@ -78,7 +78,7 @@ study:
             body: "only sun lower than 16.7° above the horizon can slip under the parasol's 1 m overhang and reach the roof over the rooms: early morning and late afternoon light."
       width: 2160
       height: 2200
-      alt: "east-west section through the main house and the patio, cut elements hatched, with the ventilated plenum under the floor. a detail of the west edge shows the slab roof, the parasol 0.30 m above it, the 1.00 m overhang, and a sun ray at 16.7°, the lowest sun that can reach the roof over the rooms."
+      alt: "east-west section through the main house and the patio, cut elements hatched, with the ventilated plenum under the raised floor. a detail of the west edge shows the slab roof, the parasol 0.30 m above it, the 1.00 m overhang, and a sun ray at 16.7°, the lowest sun that can reach the roof over the rooms."
       caption: "the parasol covers the slab roof and its 1 m overhang, 0.30 m above it. air moves through the gap; sun lower than 16.7° above the horizon is the only direct sun that can pass under it and reach the roof over the rooms."
       numbers:
         - { value: "0.30", unit: "m", label: "gap between the roof and the parasol" }
@@ -99,7 +99,7 @@ study:
             shapes: [[[18, 58.9], [46.2, 75.6], [46.2, 81.5], [18, 65.3]]]
             body: "the walls and the patio take the sun the parasol leaves. each surface is colored by its yearly total, from pale (under 200 kWh/m²) to dark (over 1,600)."
           - label: "patio and pool house"
-            shapes: [[[58.5, 47.2], [84, 53.8], [84, 60.1], [71, 67.6], [58.5, 73.2]]]
+            shapes: [[[58.5, 51.5], [70, 45.3], [84, 54.1], [84, 60.1], [71.2, 67.1], [58.5, 74.1]]]
             body: "the patio's frame and sliding panels, and the pool house. the patio's own sun map, setting by setting, is further down, in 08."
       width: 2160
       height: 2200
@@ -120,24 +120,24 @@ study:
         - { value: "35.2", unit: "°C", label: "roof peak, under the parasol" }
     - headline: "the ceiling stops radiating"
       image: /projects/casa-castillo/casa-castillo_05_inside.webp
-      interactive: { type: average-day, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["without the parasol", "with the parasol"], surfaces: [{ field: ceiling, label: ceiling }, { field: floor, label: floor }] }
+      interactive: { type: average-day, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["without the parasol or plenum", "with the parasol and plenum"], surfaces: [{ field: ceiling, label: ceiling }, { field: floor, label: floor }] }
       width: 2160
       height: 2200
       alt: "two line charts of inside surface temperature over an average day. ceiling: without the parasol, peaks near 37 °C in mid-afternoon, with the parasol near 32 °C. floor: without the parasol near 34 °C, with the parasol near 31 °C. the lines meet at night."
-      caption: "the average day of the year, inside the main house. with the parasol, the ceiling is 4.4 °C cooler at 2 pm and the floor 2.2 °C cooler. nights stay the same; the parasol works when the sun is up."
+      caption: "the average day of the year, inside the main house. the biggest gap comes at 3–4 pm: with the parasol and plenum the ceiling runs 5.5 °C cooler and the floor 3.0 °C. before dawn the curves cross, and the ceiling runs up to 0.6 °C warmer: the parasol works when the sun is up."
       numbers:
-        - { value: "−4.4", unit: "°C", label: "ceiling at 2 pm" }
-        - { value: "−2.2", unit: "°C", label: "floor at 2 pm" }
+        - { value: "−5.5", unit: "°C", label: "ceiling at 3–4 pm" }
+        - { value: "−3.0", unit: "°C", label: "floor at 3–4 pm" }
     - headline: "and the house gains 450 comfortable hours"
       image: /projects/casa-castillo/casa-castillo_06_comfort.webp
-      interactive: { type: comfort-heatmap, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["without the parasol", "with the parasol"] }
+      interactive: { type: comfort-heatmap, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["without the parasol or plenum", "with the parasol and plenum"] }
       width: 2160
       height: 2200
       alt: "two hour-by-hour charts of degrees from the comfort target in the main house. both show warm afternoons (red) and cool nights (blue); with the parasol the afternoon red is lighter and thinner. 3,441 comfortable hours without the parasol, 3,891 with the parasol."
-      caption: "every hour of the year in the main house, against the adaptive comfort target. the parasol takes the edge off the afternoons: from 3,441 to 3,891 comfortable hours a year, with no air-conditioning and no credit for breeze."
+      caption: "every hour of the year in the main house, against the adaptive comfort target. the parasol and the plenum take the edge off the afternoons: from 3,441 to 3,891 comfortable hours a year, with no air-conditioning and no credit for breeze."
       numbers:
-        - { value: "3,441", unit: "h", label: "comfortable hours a year, without the parasol" }
-        - { value: "3,891", unit: "h", label: "comfortable hours a year, with the parasol" }
+        - { value: "3,441", unit: "h", label: "comfortable hours a year, without the parasol or plenum" }
+        - { value: "3,891", unit: "h", label: "comfortable hours a year, with the parasol and plenum" }
     - headline: "a patio that can be reset"
       image: /projects/casa-castillo/casa-castillo_07_elements.webp
       interactive:
@@ -183,7 +183,7 @@ study:
   method:
     - "climate: santiago de veraguas (cantú airport) tmyx weather file, the closest station to the site. site 7.80 n, 80.57 w."
     - "model: the main house (6.1 × 19.1 m) and the pool house, free-running with natural ventilation, simulated in energyplus through honeybee for grasshopper."
-    - "design case: the same house with a second roof 0.30 m above the slab roof and its 1 m overhang, and a ventilated plenum under the floor."
+    - "design case: the same house with a second roof 0.30 m above the slab roof and its 1 m overhang, and the 0.51 m of air under the raised floor modelled as a ventilated plenum (the base model set the ground right under the floor)."
     - "comfort: ashrae 55 adaptive model, 90% acceptability band, still air. with the weather-file wind as air speed, as in the delivered study, the gain is 4,296 to 4,930 h."
     - "sun on surfaces and on the patio: cumulative sky (tregenza patches, direct sun binned per patch, isotropic diffuse, 0.2 ground reflectance) and ray casting on 0.5 m grids. patio at 0.9 m, 07–18 h."
     - "drawings: rhino make2d lines of the 2020 model; colors computed on the same geometry and view."
