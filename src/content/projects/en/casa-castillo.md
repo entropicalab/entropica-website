@@ -39,6 +39,7 @@ study:
   panels:
     - headline: "the sun stands over the house"
       image: /projects/casa-castillo/casa-castillo_01_sunpath.webp
+      interactive: { type: sunpath, data: /projects/casa-castillo/data/sunpath.json }
       width: 2160
       height: 2200
       alt: "sun path diagram, plan view with north up. hourly sun positions form figure-eight loops across the sky, most of them inside the 45° ring. dots are colored by air temperature from 20 to 36 °C; the warmest hours are in the early afternoon, high and to the west."

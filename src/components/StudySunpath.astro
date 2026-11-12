@@ -1,0 +1,277 @@
+---
+// interactive sun path for simulation studies: plan view, north up, one dot
+// per daylight hour of the weather year, colored by air temperature or by
+// direct sun. pick a month to bring its hours forward; hover any dot for its
+// date, hour, sun height and direction, air temperature and direct sun.
+// data (see posters/web-data/*_sunpath_json.py): { lat, highShare,
+//   points[[hourIndex, alt*10, az*10, temp*10, dni]], arcs{ name: [[alt*10, az*10]] } }
+import type { Locale } from '../i18n/strings';
+
+interface Props {
+  src: string;
+  alt: string;
+  fallback: string;
+  locale: Locale;
+}
+const { src, alt, fallback, locale } = Astro.props;
+
+const L = {
+  en: {
+    year: 'year',
+    months: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
+    colorBy: ['air temperature', 'direct sun'],
+    loading: 'loading the sun…',
+    legend: ['air temperature at each sun hour (°C)', 'direct sun at each sun hour (W/m²)'],
+    key: 'inside the dashed ring: sun above 45°. gray arcs: 21 jun, 21 mar, 21 dec.',
+  },
+  es: {
+    year: 'año',
+    months: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
+    colorBy: ['temperatura del aire', 'sol directo'],
+    loading: 'cargando el sol…',
+    legend: ['temperatura del aire en cada hora de sol (°C)', 'sol directo en cada hora de sol (W/m²)'],
+    key: 'dentro del anillo punteado: sol a más de 45°. arcos grises: 21 jun, 21 mar, 21 dic.',
+  },
+}[locale];
+const TEMP = ['#fde4d4', '#f6c0a8', '#ea957a', '#b1483c', '#892a29', '#5b161a'];
+const TEMP_TICKS = ['24', '26', '28', '30', '32'];
+const SUN = ['#f3eee2', '#f8dfa8', '#fccb6a', '#fab31e', '#d9900c', '#a96a05'];
+const SUN_TICKS = ['100', '300', '500', '700', '850'];
+---
+
+<figure class="spath" data-src={src} data-locale={locale} role="group" aria-label={alt}>
+  <div class="spath-bar">
+    <div class="spath-row">
+      <div class="seg" role="group" data-role="month">
+        <button type="button" data-m="-1" aria-pressed="true">{L.year}</button>
+        {L.months.map((m, i) => <button type="button" data-m={i} aria-pressed="false">{m}</button>)}
+      </div>
+      <div class="seg" role="group" data-role="color">
+        {L.colorBy.map((c, i) => <button type="button" data-c={i} aria-pressed={i === 0 ? 'true' : 'false'}>{c}</button>)}
+      </div>
+    </div>
+    <div class="spath-stat" aria-live="polite">
+      <span class="spath-stat-big"></span>
+      <span class="spath-stat-sub">{L.loading}</span>
+    </div>
+  </div>
+
+  <div class="spath-body">
+    <div class="spath-plot">
+      <canvas></canvas>
+      <svg class="spath-frame" aria-hidden="true"></svg>
+    </div>
+    <div class="spath-side">
+      <p class="spath-key">{L.key}</p>
+      {[TEMP, SUN].map((pal, i) => (
+        <div class="spath-legend" data-legend={i} hidden={i !== 0}>
+          <div class="lg-title">{L.legend[i]}</div>
+          <div class="lg-scale">{pal.map((c) => <i style={`background:${c}`}></i>)}</div>
+          <div class="lg-ticks">{(i === 0 ? TEMP_TICKS : SUN_TICKS).map((t) => <span>{t}</span>)}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="spath-tip" hidden></div>
+  <noscript><img src={fallback} alt={alt} width="2160" height="2200" style="width:100%;height:auto" /></noscript>
+</figure>
+
+<style>
+  .spath { margin: 0; position: relative; }
+  .spath :global(*) { text-transform: none; }
+  .spath-bar { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .spath-row { display: flex; flex-wrap: wrap; gap: 12px; }
+  .seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line-on-paper); }
+  .seg button {
+    font: inherit; font-size: 12px; padding: 6px 9px; background: transparent; color: var(--mute-on-paper);
+    border: 0; border-left: 1px solid var(--line-on-paper); cursor: pointer;
+  }
+  .seg button:first-child { border-left: 0; }
+  .seg button:hover { color: var(--ink-on-paper); }
+  .seg button[aria-pressed='true'] { background: var(--ink-on-paper); color: var(--paper); }
+  .spath-stat { display: flex; flex-direction: column; gap: 2px; }
+  .spath-stat-big { font-size: clamp(22px, 2.6vw, 30px); letter-spacing: -0.02em; font-feature-settings: 'tnum' 1; }
+  .spath-stat-sub { font-size: 13px; color: var(--mute-on-paper); max-width: 60ch; }
+
+  .spath-body { display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 1fr); gap: 40px; align-items: center; }
+  .spath-plot { position: relative; aspect-ratio: 1; cursor: crosshair; }
+  .spath-plot canvas, .spath-frame { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .spath-frame { pointer-events: none; overflow: visible; }
+  .spath-frame :global(text) { font-family: var(--font-mono); font-size: 12px; fill: var(--mute-on-paper); }
+  .spath-key { font-size: 13px; line-height: 1.6; color: var(--mute-on-paper); margin: 0 0 20px; max-width: 34ch; }
+  .spath-legend { font-size: 12px; color: var(--mute-on-paper); }
+  .spath-legend[hidden] { display: none; }
+  .lg-title { margin-bottom: 8px; }
+  .lg-scale { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; max-width: 320px; }
+  .lg-scale i { display: block; height: 12px; }
+  .lg-ticks { display: grid; grid-template-columns: 0.5fr repeat(5, 1fr) 0.5fr; max-width: 320px; margin-top: 4px; font-size: 11px; font-feature-settings: 'tnum' 1; }
+  .lg-ticks span { text-align: center; }
+  .lg-ticks span:first-child { grid-column: 2; }
+
+  .spath-tip {
+    position: absolute; z-index: 5; pointer-events: none; background: var(--paper); border: 1px solid var(--ink-on-paper);
+    padding: 10px 12px; font-size: 12px; line-height: 1.5; min-width: 210px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+  .spath-tip[hidden] { display: none; }
+  .spath-tip :global(.t-when) { font-size: 13px; color: var(--ink-on-paper); margin-bottom: 4px; }
+  .spath-tip :global(.t-row) { display: flex; justify-content: space-between; gap: 16px; color: var(--mute-on-paper); }
+  .spath-tip :global(.t-row b) { color: var(--ink-on-paper); font-weight: 500; font-feature-settings: 'tnum' 1; white-space: nowrap; }
+
+  @media (max-width: 760px) {
+    .spath-body { grid-template-columns: 1fr; gap: 20px; }
+  }
+</style>
+
+<script>
+  import { loadStudyData, MONTH_DAYS, MONTHS, hourSpan, deg } from '../scripts/study-data';
+
+  type Data = { lat: number; highShare: number; points: [number, number, number, number, number][]; arcs: Record<string, [number, number][]> };
+  type Locale = 'en' | 'es';
+  const TEMP = ['#fde4d4', '#f6c0a8', '#ea957a', '#b1483c', '#892a29', '#5b161a'];
+  const TEMP_EDGES = [24, 26, 28, 30, 32];
+  const SUN = ['#f3eee2', '#f8dfa8', '#fccb6a', '#fab31e', '#d9900c', '#a96a05'];
+  const SUN_EDGES = [100, 300, 500, 700, 850];
+  const bin = (v: number, e: number[]) => { let k = 0; while (k < e.length && v >= e[k]) k++; return k; };
+  // month index of each day of the year
+  const MONTH_OF_DAY: number[] = MONTH_DAYS.flatMap((n, m) => new Array(n).fill(m));
+
+  const T = {
+    en: {
+      big: (p: number) => `${p}% of the direct sun on a flat roof comes from higher than 45°`,
+      sub: (n: number, top: string, period: string) => `${period}: ${n.toLocaleString('en-US')} daylight hours, the sun as high as ${top}.`,
+      year: 'the whole year',
+      monthName: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'],
+      height: 'sun height', dir: 'direction', air: 'air', direct: 'direct sun',
+      compass: ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw'],
+      ring: 'above 45°',
+    },
+    es: {
+      big: (p: number) => `${p}% del sol directo sobre un techo plano llega desde más de 45°`,
+      sub: (n: number, top: string, period: string) => `${period}: ${n.toLocaleString('en-US')} horas de luz, el sol llega hasta ${top}.`,
+      year: 'todo el año',
+      monthName: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+      height: 'altura del sol', dir: 'dirección', air: 'aire', direct: 'sol directo',
+      compass: ['n', 'ne', 'e', 'se', 's', 'so', 'o', 'no'],
+      ring: 'más de 45°',
+    },
+  };
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const el = (name: string, attrs: Record<string, string | number>, text?: string) => {
+    const e = document.createElementNS(svgNS, name);
+    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, String(v));
+    if (text) e.textContent = text;
+    return e;
+  };
+
+  function init(fig: HTMLElement) {
+    const locale: Locale = fig.dataset.locale === 'es' ? 'es' : 'en';
+    const t = T[locale];
+    const months = MONTHS[locale];
+    const plot = fig.querySelector('.spath-plot') as HTMLElement;
+    const canvas = fig.querySelector('canvas') as HTMLCanvasElement;
+    const frame = fig.querySelector('.spath-frame') as SVGSVGElement;
+    const big = fig.querySelector('.spath-stat-big') as HTMLElement;
+    const sub = fig.querySelector('.spath-stat-sub') as HTMLElement;
+    const tip = fig.querySelector('.spath-tip') as HTMLElement;
+    const legends = [...fig.querySelectorAll<HTMLElement>('.spath-legend')];
+    let data: Data;
+    let month = -1, colorBy = 0;
+    let xy: [number, number][] = []; // screen position of each point, for hover
+
+    // equidistant polar projection: zenith in the centre, horizon on the rim, north up
+    const project = (alt: number, az: number, cx: number, cy: number, R: number): [number, number] => {
+      const r = ((90 - alt) / 90) * R, a = (az * Math.PI) / 180;
+      return [cx + r * Math.sin(a), cy - r * Math.cos(a)];
+    };
+    const inMonth = (p: Data['points'][number]) => month < 0 || MONTH_OF_DAY[Math.floor(p[0] / 24)] === month;
+
+    function draw() {
+      const S = plot.clientWidth, pad = 22, R = S / 2 - pad, cx = S / 2, cy = S / 2;
+      // frame: rings, 45° disc, day arcs, compass
+      frame.setAttribute('viewBox', `0 0 ${S} ${S}`);
+      frame.replaceChildren();
+      const disc = (45 / 90) * R;
+      frame.appendChild(el('circle', { cx, cy, r: disc, fill: 'rgba(250,179,30,0.12)', stroke: 'var(--ink-on-paper)', 'stroke-dasharray': '4 4', 'stroke-width': 1 }));
+      for (const a of [0, 15, 75]) frame.appendChild(el('circle', { cx, cy, r: ((90 - a) / 90) * R, fill: 'none', stroke: a === 0 ? 'var(--mute-on-paper-2)' : 'var(--line-on-paper-2)' }));
+      for (const a of [15, 45, 75]) frame.appendChild(el('text', { x: cx, y: cy - ((90 - a) / 90) * R - 5, 'text-anchor': 'middle' }, `${a}°`));
+      for (const arc of Object.values(data.arcs)) {
+        const d = arc.map(([al, az], i) => { const [x, y] = project(al / 10, az / 10, cx, cy, R); return `${i ? 'L' : 'M'}${x.toFixed(1)},${y.toFixed(1)}`; }).join('');
+        frame.appendChild(el('path', { d, fill: 'none', stroke: 'var(--mute-on-paper-2)', 'stroke-width': 1 }));
+      }
+      ([[0, 'n'], [90, 'e'], [180, 's'], [270, 'w']] as const).forEach(([az, k]) => {
+        const [x, y] = project(-6, az, cx, cy, R);
+        frame.appendChild(el('text', { x, y: y + 4, 'text-anchor': 'middle' }, t.compass[{ n: 0, e: 2, s: 4, w: 6 }[k]]));
+      });
+
+      // dots
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.round(S * dpr); canvas.height = Math.round(S * dpr);
+      const c = canvas.getContext('2d')!;
+      c.scale(dpr, dpr);
+      const r = Math.max(1.4, S / 260);
+      xy = data.points.map((p) => project(p[1] / 10, p[2] / 10, cx, cy, R));
+      // faded hours first, chosen month on top
+      for (const pass of [false, true]) {
+        data.points.forEach((p, i) => {
+          if (inMonth(p) !== pass) return;
+          c.globalAlpha = pass ? 1 : 0.12;
+          c.fillStyle = colorBy === 0 ? TEMP[bin(p[3] / 10, TEMP_EDGES)] : SUN[bin(p[4], SUN_EDGES)];
+          c.beginPath(); c.arc(xy[i][0], xy[i][1], r, 0, Math.PI * 2); c.fill();
+        });
+      }
+      c.globalAlpha = 1;
+
+      // stat for the chosen period
+      let beam = 0, high = 0, n = 0, top = 0;
+      for (const p of data.points) {
+        if (!inMonth(p)) continue;
+        const flat = p[4] * Math.sin((p[1] / 10) * Math.PI / 180);
+        beam += flat; if (p[1] > 450) high += flat;
+        n++; top = Math.max(top, p[1] / 10);
+      }
+      big.textContent = t.big(Math.round((high / beam) * 100));
+      sub.textContent = t.sub(n, `${top.toFixed(1)}°`, month < 0 ? t.year : t.monthName[month]);
+      legends.forEach((l, i) => (l.hidden = i !== colorBy));
+    }
+
+    plot.addEventListener('pointermove', (e) => {
+      if (!data) return;
+      const b = plot.getBoundingClientRect(), mx = e.clientX - b.left, my = e.clientY - b.top;
+      let best = -1, bd = 100;
+      data.points.forEach((p, i) => {
+        if (!inMonth(p)) return;
+        const d = (xy[i][0] - mx) ** 2 + (xy[i][1] - my) ** 2;
+        if (d < bd) { bd = d; best = i; }
+      });
+      if (best < 0) { tip.hidden = true; return; }
+      const [hi, al, az, tp, dni] = data.points[best];
+      const day = Math.floor(hi / 24), mo = MONTH_OF_DAY[day];
+      const dom = day - MONTH_DAYS.slice(0, mo).reduce((a, b) => a + b, 0) + 1;
+      tip.innerHTML = `<div class="t-when">${dom} ${months[mo]} · ${hourSpan(locale, (hi % 24) + 1)}</div>` +
+        `<div class="t-row"><span>${t.height}</span><b>${(al / 10).toFixed(1)}°${al > 450 ? ` · ${t.ring}` : ''}</b></div>` +
+        `<div class="t-row"><span>${t.dir}</span><b>${t.compass[Math.round(az / 450) % 8]} · ${(az / 10).toFixed(0)}°</b></div>` +
+        `<div class="t-row"><span>${t.air}</span><b>${deg(tp)}</b></div>` +
+        `<div class="t-row"><span>${t.direct}</span><b>${dni} W/m²</b></div>`;
+      tip.hidden = false;
+      const fb = fig.getBoundingClientRect();
+      let x = e.clientX - fb.left + 14;
+      if (x + tip.offsetWidth > fb.width) x = e.clientX - fb.left - tip.offsetWidth - 14;
+      tip.style.left = `${Math.max(0, x)}px`; tip.style.top = `${e.clientY - fb.top + 14}px`;
+    });
+    plot.addEventListener('pointerleave', () => (tip.hidden = true));
+    fig.querySelectorAll<HTMLButtonElement>('[data-role=month] button').forEach((b, _, all) => b.addEventListener('click', () => {
+      month = Number(b.dataset.m); all.forEach((x) => x.setAttribute('aria-pressed', String(x === b))); draw();
+    }));
+    fig.querySelectorAll<HTMLButtonElement>('[data-role=color] button').forEach((b, _, all) => b.addEventListener('click', () => {
+      colorBy = Number(b.dataset.c); all.forEach((x) => x.setAttribute('aria-pressed', String(x === b))); draw();
+    }));
+    new ResizeObserver(() => { if (data) draw(); }).observe(plot);
+    loadStudyData<Data>(fig.dataset.src!).then((json) => { data = json; draw(); }).catch(() => { sub.textContent = ''; });
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => { if (en.isIntersecting) { io.unobserve(en.target); init(en.target as HTMLElement); } });
+  }, { rootMargin: '400px' });
+  document.querySelectorAll<HTMLElement>('.spath').forEach((f) => io.observe(f));
+</script>

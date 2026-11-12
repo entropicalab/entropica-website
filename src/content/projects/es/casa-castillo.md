@@ -39,6 +39,7 @@ study:
   panels:
     - headline: "el sol se para sobre la casa"
       image: /projects/casa-castillo/casa-castillo_01_sunpath.webp
+      interactive: { type: sunpath, data: /projects/casa-castillo/data/sunpath.json }
       width: 2160
       height: 2200
       alt: "diagrama de trayectoria solar en planta, con el norte arriba. las posiciones horarias del sol forman lazos en forma de ocho en el cielo, la mayoría dentro del anillo de 45°. los puntos van coloreados por temperatura del aire de 20 a 36 °C; las horas más cálidas son a inicios de la tarde, altas y hacia el oeste."

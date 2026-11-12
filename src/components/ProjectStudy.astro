@@ -8,6 +8,7 @@ import type { Locale } from '../i18n/strings';
 import StudyHeatmap from './StudyHeatmap.astro';
 import StudyAverageDay from './StudyAverageDay.astro';
 import StudyPatio from './StudyPatio.astro';
+import StudySunpath from './StudySunpath.astro';
 
 interface Props {
   study: NonNullable<CollectionEntry<'projects'>['data']['study']>;
@@ -82,7 +83,9 @@ const fmt = (value: string, unit?: string) => (!unit ? value : unit === '%' ? `$
           <p class="panel-cap">{p.caption}</p>
         </div>
         <div class="panel-live">
-          {p.interactive.type === 'patio' ? (
+          {p.interactive.type === 'sunpath' ? (
+            <StudySunpath src={p.interactive.data} alt={p.alt} fallback={p.image} locale={locale} />
+          ) : p.interactive.type === 'patio' ? (
             <StudyPatio src={p.interactive.data} alt={p.alt} fallback={p.image} locale={locale} />
           ) : p.interactive.type === 'average-day' ? (
             <StudyAverageDay src={p.interactive.data} cases={p.interactive.cases ?? ['a', 'b']} surfaces={p.interactive.surfaces ?? []} alt={p.alt} fallback={p.image} locale={locale} />

@@ -94,8 +94,8 @@ const projects = defineCollection({
             interactive: z
               .object({
                 // comfort-heatmap / surface-heatmap: StudyHeatmap.astro
-                // average-day: StudyAverageDay.astro · patio: StudyPatio.astro
-                type: z.enum(['comfort-heatmap', 'surface-heatmap', 'average-day', 'patio']),
+                // average-day: StudyAverageDay.astro · patio: StudyPatio.astro · sunpath: StudySunpath.astro
+                type: z.enum(['comfort-heatmap', 'surface-heatmap', 'average-day', 'patio', 'sunpath']),
                 data: z.string(), // json under public/
                 cases: z.tuple([z.string(), z.string()]).optional(), // labels for the two cases (heatmaps, average-day)
                 field: z.string().optional(), // surface-heatmap: which series, e.g. 'roof'
