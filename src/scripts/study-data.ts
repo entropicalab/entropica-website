@@ -36,5 +36,11 @@ export function clock(locale: 'en' | 'es', h: number): string {
   return `${h12} ${h % 24 < 12 ? 'am' : 'pm'}`;
 }
 
-export const deg = (tenths: number) => `${(tenths / 10).toFixed(1)} °C`;
-export const signedDeg = (tenths: number) => `${tenths > 0 ? '+' : tenths < 0 ? '−' : '±'}${Math.abs(tenths / 10).toFixed(1)} °C`;
+// round half away from zero before formatting: toFixed alone turns 3.05 into
+// "3.0" because 3.05 has no exact binary form
+const oneDecimal = (tenths: number) => (Math.round(Math.abs(tenths)) / 10).toFixed(1);
+export const deg = (tenths: number) => `${tenths < 0 ? '−' : ''}${oneDecimal(tenths)} °C`;
+export const signedDeg = (tenths: number) => {
+  const r = Math.round(Math.abs(tenths));
+  return `${r === 0 ? '±' : tenths > 0 ? '+' : '−'}${oneDecimal(tenths)} °C`;
+};

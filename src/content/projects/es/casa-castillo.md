@@ -19,13 +19,13 @@ metric:
   value: '+450'
   unit: 'h'
   label: "más horas en confort al año, sin aire acondicionado"
-  note: "casa principal, confort adaptativo (ashrae 55), aire quieto, clima tmyx de santiago de veraguas. caso de diseño: parasol y plénum ventilado. simulación por entrópica, diseño de labhaus studio."
+  note: "casa principal, confort adaptativo (ashrae 55), aire quieto, clima tmyx de santiago de veraguas. simulación por entrópica, diseño de labhaus studio."
 brief: |
   casa castillo es una casa de campo familiar en el arco seco de panamá, en los santos, diseñada por labhaus studio. entrópica hizo las simulaciones y validó las estrategias del diseño, en una colaboración entre ambos estudios.
 
   tan cerca del ecuador el sol pasa casi por encima, así que el diseño pone un segundo techo 0.30 m sobre el primero: un parasol. probamos la casa con y sin él, y las 64 maneras de configurar los paneles corredizos de su patio.
 approach: |
-  el parasol le quita al techo principal 99% de la radiación solar anual, la superficie del techo deja de quemar y, con un plénum ventilado bajo el piso elevado, la casa gana 450 horas en confort al año.
+  el parasol le quita al techo principal 99% de la radiación solar anual, la superficie del techo deja de quemar y la casa gana 450 horas en confort al año.
 
   en el patio, la mejor de las 64 configuraciones deja entrar menos de la mitad del sol diurno que un patio sin paneles.
 study:
@@ -34,7 +34,7 @@ study:
     - { value: "−99%", label: "radiación solar anual sobre el techo principal (de 1,900 a 16 kWh/m²)" }
     - { value: "−25 °C", label: "en la superficie del techo en su hora más caliente (de 60.4 a 35.2 °C)" }
     - { value: "−5.5 °C", label: "en el cielorraso a las 15–16 h, en el día promedio del año" }
-    - { value: "+450 h", label: "horas en confort al año (de 3,441 a 3,891), con parasol y plénum, sin aire acondicionado" }
+    - { value: "+450 h", label: "horas en confort al año (de 3,441 a 3,891), sin aire acondicionado" }
     - { value: "418–644 kWh/m²", label: "de radiación solar diurna en el patio, de la mejor a la peor de 64 configuraciones de paneles (868 sin paneles)" }
   panels:
     - headline: "el sol se para sobre la casa"
@@ -52,33 +52,36 @@ study:
         type: hotspots
         spots:
           - label: "parasol"
-            shapes: [[[16, 35.3], [55, 35.3], [55, 37.4], [16, 37.4]]]
+            shapes: [[[16.0, 36.97], [54.67, 36.97], [54.67, 36.22], [16.0, 36.22]]]
             body: "un segundo techo 0.30 m sobre la losa, de 8.1 × 19.3 m: 1 m más ancho que la casa en los lados este y oeste. recibe los 1,900 kWh/m² de sol al año que si no caerían sobre el techo, y el aire se mueve por la separación."
             model: "una superficie de sombra opaca, sin masa propia."
+          - label: "cámara de aire"
+            shapes: [[[16.0, 38.23], [54.67, 38.23], [54.67, 36.83], [16.0, 36.83]]]
+            body: "0.30 m de aire libre entre el techo y el parasol. el aire se mueve por ahí; el sol no."
           - label: "losa de techo"
-            shapes: [[[16, 37.7], [55, 37.7], [55, 39.6], [16, 39.6]]]
+            shapes: [[[16.0, 39.08], [54.67, 39.08], [54.67, 38.1], [16.0, 38.1]]]
             body: "bajo el parasol la losa recibe 16 kWh/m² de sol al año en vez de 1,900. su cara exterior llega a 35.2 °C en vez de 60.4 °C y nunca pasa de 45 °C: sin el parasol lo hace 1,248 horas al año."
             model: "100 mm de concreto liviano, una cámara de aire y un cielorraso de placa acústica de 19 mm: un techo genérico de energyplus, igual en ambos casos."
           - label: "casa principal"
-            shapes: [[[29, 39.7], [48.6, 39.7], [48.6, 51.8], [29, 51.8]]]
-            body: "6.1 × 19.1 m, sin climatización y con ventilación natural: sin aire acondicionado en el modelo. con el parasol y el plénum gana 450 horas en confort al año, de 3,441 a 3,891."
+            shapes: [[[27.9, 51.93], [49.9, 51.93], [49.9, 38.94], [27.9, 38.94]]]
+            body: "6.1 × 19.1 m, sin climatización y con ventilación natural: sin aire acondicionado en el modelo. con el parasol gana 450 horas en confort al año, de 3,441 a 3,891."
           - label: "muros"
-            shapes: [[[27.6, 39.2], [29.2, 39.2], [29.2, 52.1], [27.6, 52.1]], [[48.6, 39.2], [50.2, 39.2], [50.2, 52.1], [48.6, 52.1]]]
+            shapes: [[[27.43, 51.93], [29.33, 51.93], [29.33, 38.94], [27.43, 38.94]], [[48.89, 38.94], [49.91, 38.94], [49.91, 51.93], [48.89, 51.93]]]
             body: "los mismos muros en ambos casos: el estudio cambia el techo y el piso, no las fachadas."
             model: "100 mm de ladrillo, 200 mm de concreto pesado, 50 mm de aislante rígido, una cámara de aire y 19 mm de yeso: un muro genérico de energyplus."
           - label: "plénum ventilado"
-            shapes: [[[20.7, 52.1], [50.2, 52.1], [50.2, 54.3], [20.7, 54.3]]]
-            body: "la casa está sobre pilotes. el caso de diseño modela los 0.51 m de aire bajo su piso elevado como un plénum ventilado; el primer modelo ponía el terreno justo debajo del piso. en el día promedio la cara interior del piso está 3.0 °C más fresca a las 15–16 h. esa ganancia viene del plénum y del parasol juntos: el estudio no los corrió por separado."
+            shapes: [[[20.76, 54.32], [88.0, 54.32], [88.0, 52.63], [20.76, 52.63]]]
+            body: "la casa y la terraza del patio están sobre pilotes de 0.5 m: aire libre entre el terreno y los pisos, en ambos casos. el modelo de diseño de 2020 además dibujaba el aire bajo la casa como una zona de plénum ventilado; una corrida de prueba en 2026 sin ella cambió los resultados de la casa en 0.1 °C como máximo, porque el piso de la casa da al aire exterior de todas formas. las ganancias de esta página vienen del parasol."
             model: "un espacio de aire ventilado bajo la losa de piso, solo en el caso de diseño."
           - label: "patio"
-            shapes: [[[50.4, 40.4], [88, 40.4], [88, 51.8], [50.4, 51.8]]]
+            shapes: [[[49.9, 51.93], [88.0, 51.93], [88.0, 39.64], [49.9, 39.64]]]
             body: "8.00 × 19.10 m bajo una estructura con seis paneles corredizos: cuatro muros y dos paneles de techo. prueba cada configuración más abajo, en 08."
           - label: "el sol más bajo"
-            shapes: [[[15, 66], [30, 66], [62, 80], [62, 84], [45, 82.5], [15, 73]]]
+            shapes: [[[16.8, 67.39], [61.24, 80.35], [61.24, 81.89], [16.8, 68.93]]]
             body: "solo el sol a menos de 16.7° sobre el horizonte puede pasar bajo el alero de 1 m del parasol y llegar al techo sobre los cuartos: la luz de primera hora y de final de la tarde."
       width: 2160
       height: 2200
-      alt: "corte este-oeste por la casa principal y el patio, con los elementos cortados achurados y el plénum ventilado bajo el piso elevado. un detalle del borde oeste muestra la losa de techo, el parasol 0.30 m encima, el alero de 1.00 m y un rayo de sol a 16.7°, el sol más bajo que puede llegar al techo sobre los cuartos."
+      alt: "corte este-oeste por la casa principal y el patio, con los elementos cortados achurados y la casa y la terraza del patio elevadas sobre pilotes de 0.5 m sobre un plénum ventilado. un detalle del borde oeste muestra la losa de techo, el parasol 0.30 m encima, el alero de 1.00 m y un rayo de sol a 16.7°, el sol más bajo que puede llegar al techo sobre los cuartos."
       caption: "el parasol cubre la losa de techo y su alero de 1 m, 0.30 m por encima. el aire se mueve por la separación; el sol a menos de 16.7° sobre el horizonte es el único sol directo que puede pasar por debajo y llegar al techo sobre los cuartos."
       numbers:
         - { value: "0.30", unit: "m", label: "de separación entre el techo y el parasol" }
@@ -120,24 +123,24 @@ study:
         - { value: "35.2", unit: "°C", label: "máximo del techo, bajo el parasol" }
     - headline: "el cielorraso deja de irradiar"
       image: /projects/casa-castillo/casa-castillo_05_inside.webp
-      interactive: { type: average-day, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["sin parasol ni plénum", "con parasol y plénum"], surfaces: [{ field: ceiling, label: cielorraso }, { field: floor, label: piso }] }
+      interactive: { type: average-day, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["sin el parasol", "con el parasol"], surfaces: [{ field: ceiling, label: cielorraso }, { field: floor, label: piso }] }
       width: 2160
       height: 2200
       alt: "dos gráficos de líneas de temperatura superficial interior en un día promedio. cielorraso: sin el parasol llega cerca de 37 °C a media tarde, con el parasol cerca de 32 °C. piso: sin el parasol cerca de 34 °C, con el parasol cerca de 31 °C. las líneas se juntan de noche."
-      caption: "el día promedio del año, dentro de la casa principal. la mayor diferencia llega a las 15–16 h: con parasol y plénum el cielorraso está 5.5 °C más fresco y el piso 3.0 °C. antes del amanecer las curvas se cruzan y el cielorraso está hasta 0.6 °C más cálido: el parasol trabaja cuando hay sol."
+      caption: "el día promedio del año, dentro de la casa principal. la mayor diferencia llega a las 15–16 h: con el parasol el cielorraso está 5.5 °C más fresco y el piso 3.1 °C. antes del amanecer las curvas se cruzan y el cielorraso está hasta 0.6 °C más cálido: el parasol trabaja cuando hay sol."
       numbers:
         - { value: "−5.5", unit: "°C", label: "cielorraso a las 15–16 h" }
-        - { value: "−3.0", unit: "°C", label: "piso a las 15–16 h" }
+        - { value: "−3.1", unit: "°C", label: "piso a las 15–16 h" }
     - headline: "y la casa gana 450 horas en confort"
       image: /projects/casa-castillo/casa-castillo_06_comfort.webp
-      interactive: { type: comfort-heatmap, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["sin parasol ni plénum", "con parasol y plénum"] }
+      interactive: { type: comfort-heatmap, data: /projects/casa-castillo/data/main-house-hourly.json, cases: ["sin el parasol", "con el parasol"] }
       width: 2160
       height: 2200
       alt: "dos gráficos hora por hora de grados respecto al objetivo de confort en la casa principal. ambos muestran tardes cálidas (rojo) y noches frescas (azul); con el parasol el rojo de la tarde es más claro y más delgado. 3,441 horas en confort sin el parasol, 3,891 con el parasol."
-      caption: "cada hora del año en la casa principal, frente al objetivo de confort adaptativo. el parasol y el plénum le quitan el filo a las tardes: de 3,441 a 3,891 horas en confort al año, sin aire acondicionado y sin contar la brisa."
+      caption: "cada hora del año en la casa principal, frente al objetivo de confort adaptativo. el parasol le quita el filo a las tardes: de 3,441 a 3,891 horas en confort al año, sin aire acondicionado y sin contar la brisa."
       numbers:
-        - { value: "3,441", unit: "h", label: "horas en confort al año, sin parasol ni plénum" }
-        - { value: "3,891", unit: "h", label: "horas en confort al año, con parasol y plénum" }
+        - { value: "3,441", unit: "h", label: "horas en confort al año, sin el parasol" }
+        - { value: "3,891", unit: "h", label: "horas en confort al año, con el parasol" }
     - headline: "un patio que se puede reconfigurar"
       image: /projects/casa-castillo/casa-castillo_07_elements.webp
       interactive:
@@ -183,7 +186,7 @@ study:
   method:
     - "clima: archivo climático tmyx de santiago de veraguas (aeropuerto de cantú), la estación más cercana al sitio. sitio 7.80 n, 80.57 o."
     - "modelo: la casa principal (6.1 × 19.1 m) y la casa de piscina, sin climatización y con ventilación natural, simuladas en energyplus mediante honeybee para grasshopper."
-    - "caso de diseño: la misma casa con un segundo techo 0.30 m sobre la losa de techo y su alero de 1 m, y los 0.51 m de aire bajo el piso elevado modelados como un plénum ventilado (el modelo base ponía el terreno justo debajo del piso)."
+    - "caso de diseño: la misma casa con un segundo techo 0.30 m sobre la losa de techo y su alero de 1 m. en ambos casos la casa y la terraza del patio están sobre pilotes de 0.5 m, y el piso de la casa da al aire exterior. el modelo de diseño de 2020 además dibuja el aire bajo la casa como una zona de plénum ventilado; una corrida de prueba en 2026 sin esa zona cambia los resultados de la casa en 0.1 °C como máximo, así que las ganancias vienen del parasol."
     - "confort: modelo adaptativo de ashrae 55, banda de 90% de aceptabilidad, aire quieto. con el viento del archivo climático como velocidad del aire, como en el estudio entregado, la ganancia es de 4,296 a 4,930 h."
     - "radiación solar sobre superficies y sobre el patio: cielo acumulado (parches de tregenza, sol directo agrupado por parche, difusa isotrópica, reflectancia del suelo de 0.2) y trazado de rayos en mallas de 0.5 m. patio a 0.9 m, de 07 a 18 h."
     - "dibujos: líneas make2d de rhino del modelo de 2020; colores calculados sobre la misma geometría y vista."

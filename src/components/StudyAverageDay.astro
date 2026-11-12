@@ -103,7 +103,12 @@ const L = {
 <script>
   import { loadStudyData, MONTH_DAYS, hourSpan, deg, signedDeg } from '../scripts/study-data';
 
-  type Data = { hours: number; cases: { base: Record<string, number[]>; design: Record<string, number[]> } };
+  type Data = {
+    hours: number;
+    cases: { base: Record<string, number[]>; design: Record<string, number[]> };
+    // optional full-precision average days: [field][case][period 0 = year, 1..12 = months][24] in hundredths of °C
+    avgDay?: Record<string, { base: number[][]; design: number[][] }>;
+  };
   type Locale = 'en' | 'es';
   const T = {
     en: {
@@ -142,7 +147,12 @@ const L = {
     let data: Data | null = null;
     let period = -1; // -1 = whole year, else month index
 
-    // average day (24 values, hour-ending 1..24) for one series over the chosen period
+    // average day (24 values, hour-ending 1..24, tenths of °C) for one field and case over the chosen
+    // period. prefers the file's precomputed full-precision curves; else averages the hourly series.
+    function avgDayFor(field: string, key: 'base' | 'design'): number[] {
+      const pre = data!.avgDay?.[field]?.[key]?.[period + 1];
+      return pre ? pre.map((v) => v / 10) : avgDay(data!.cases[key][field]);
+    }
     function avgDay(series: number[]): number[] {
       const sum = new Array(24).fill(0), n = new Array(24).fill(0);
       let start = 0;
@@ -159,7 +169,7 @@ const L = {
 
     function render() {
       if (!data) return;
-      curves = surfaces.map((s) => ({ base: avgDay(data!.cases.base[s.field]), design: avgDay(data!.cases.design[s.field]) }));
+      curves = surfaces.map((s) => ({ base: avgDayFor(s.field, 'base'), design: avgDayFor(s.field, 'design') }));
       // shared y range across panels (5 °C steps) so the surfaces compare honestly
       const all = curves.flatMap((c) => [...c.base, ...c.design]).map((v) => v / 10);
       const lo = Math.floor(Math.min(...all) / 5) * 5, hi = Math.ceil(Math.max(...all) / 5) * 5;
