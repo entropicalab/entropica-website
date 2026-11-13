@@ -14,10 +14,10 @@ featured: true
 order: 3
 heroImage: /projects/private-bank-offices/01.jpg
 metric:
-  value: '-45'
+  value: '−94'
   unit: '%'
-  label: radiación sobre la fachada
-  note: 'flujo solar incidente en las fachadas oeste y sur vs. línea base sin sombra. concurso.'
+  label: sol anual sobre el vidrio nuevo
+  note: 'vs. el mismo edificio sin sombra: de 331 a 21 kWh/m² al año. electricidad del aire acondicionado −8% (de 57,990 a 53,210 kWh al año). simulación en etapa de diseño, reejecutada en 2026. concurso.'
 brief: |
   chitré está en el arco seco, la zona más seca de panamá, con una estación seca larga y
   sol fuerte. el brief del cliente era una sucursal tranquila y bien iluminada, abierta a
@@ -27,19 +27,20 @@ brief: |
   el trabajo fue recortar la demanda de enfriamiento a algo que un sistema más silencioso
   pudiera sostener, sin perder la luz natural ni la apertura que daban sentido al brief.
 approach: |
-  modelamos primero el mapa de radiación del esquema existente, en tres franjas horarias
-  del año. oeste y sur eran las superficies de mayor carga solar. el diseño se redibujó alrededor
-  de una piel de bloque perforado que admitía luz natural ventilada mientras quebraba el
-  flujo directo.
+  modelamos primero el sol sobre el esquema existente. la fachada trasera (sur-suroeste) y
+  el vidrio de la plaza (oeste-noroeste) eran los que más recibían. el diseño respondió con
+  un techo sobre el lado de la plaza y una piel de bloque perforado sobre el vidrio de la
+  calle, al norte-noreste, que recibe el sol de abril a agosto en esta latitud. sobre el
+  vidrio nuevo, el sol anual baja de 331 a 21 kWh/m² frente al mismo edificio sin sombra.
 
   la piel es local, fundida en sitio, y se lee como piedra tallada desde afuera, pero la
   razón por la que existe está en la simulación, no en el moodboard.
 strategies:
   - label: piel de sombra
-    body: piel de bloque de concreto perforado alrededor de las fachadas oeste y sur; dimensionada para la trayectoria solar de chitré.
+    body: piel de bloque de concreto perforado sobre el vidrio de la calle, al norte-noreste; dimensionada para el sol de abril a agosto, cuando está al norte en chitré.
     delta: 'TBD'
   - label: vidrio
-    body: vidrio low-e tintado detrás de la piel; vidrio de visión angosto al este y norte.
+    body: vidrio low-e tintado detrás de la piel.
     delta: 'TBD'
   - label: techo
     body: rainscreen ventilado y aislamiento sobre la losa; pintura reflectiva.

@@ -211,6 +211,11 @@ const clients = [
         porque no construirías sin saber cómo va a lucir el edificio, aunque sea un render,
         ¿cierto? <span class="amber-text">lo mismo, pero para energía.</span>
       </p>
+      <p class="howdoit-fact">
+        evitar que el calor entre primero puede bajar la temperatura interior de 2 a 8 °C y
+        recortar la demanda anual de enfriamiento en 25 a 70 kWh/m².<sup>*</sup>
+        <span class="howdoit-src"><sup>*</sup> <a href="https://www.uncclearn.org/wp-content/uploads/library/Global_Cooling_Watch_2025.pdf" target="_blank" rel="noopener">pnuma · global cooling watch, 2025</a>.</span>
+      </p>
     </div>
   </section>
 
@@ -390,6 +395,9 @@ const clients = [
 
   .howdoit-head { margin-bottom: 48px; }
   .howdoit-head .eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400; margin-bottom: 16px; }
+  .howdoit-fact { text-transform: none; margin-top: 20px; font-size: 14px; line-height: 1.5; color: var(--mute-on-paper); max-width: 64ch; }
+  .howdoit-fact .howdoit-src { display: block; margin-top: 6px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper-2); }
+  .howdoit-fact .howdoit-src a { color: inherit; border-bottom: 1px solid currentColor; }
   .howdoit-punch { margin-top: 40px; font-size: clamp(18px, 1.8vw, 22px); line-height: 1.45; font-weight: 300; color: var(--ink-on-paper); max-width: 64ch; }
   .howdoit-punch .amber-text { color: var(--amber); }
 
