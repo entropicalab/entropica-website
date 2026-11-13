@@ -2,14 +2,14 @@
 title: oficinas privadas de banca
 slug: private-bank-offices
 locale: es
-eyebrow: '// concurso · 2.º lugar'
+eyebrow: '// concurso'
 lede: 'primero la sombra, luego el vidrio. una sucursal bancaria en chitré, en el arco seco de panamá: un techo nuevo y una piel de bloque perforado reducen 94% el sol sobre el vidrio nuevo y bajan a la mitad las horas de estrés térmico fuerte en la calle.'
 location: chitré, panamá
 year: 2021
 area: '376 m²'
 typology: commercial
 role: arquitectura + simulación
-status: concurso, 2.º lugar
+status: concurso
 featured: true
 order: 3
 heroImage: /projects/private-bank-offices/01.jpg
@@ -17,7 +17,7 @@ metric:
   value: '−94'
   unit: '%'
   label: sol anual sobre el vidrio nuevo
-  note: 'techo y bloque perforado frente al mismo edificio sin sombra: de 331 a 21 kWh/m² al año. simulación en etapa de diseño, modelo reconstruido y reejecutado en 2026. concurso, 2.º lugar.'
+  note: 'techo y bloque perforado frente al mismo edificio sin sombra: de 331 a 21 kWh/m² al año. simulación en etapa de diseño, modelo reconstruido y reejecutado en 2026. concurso.'
 brief: |
   chitré está en el arco seco, la zona más seca de panamá. al sol, la mayoría de las horas
   del día traen estrés térmico fuerte; a la sombra, casi ninguna. el cliente quería una
@@ -136,5 +136,5 @@ study:
     - 'sol sobre superficies: radiance 5.3, 145 parches de cielo, solo cielo (método de radiación incidente de ladybug), malla de 0.25 m.'
     - 'luz natural: radiance 5.3, 2 fases, 5 rebotes, malla de 0.6 m a la altura del escritorio, de 8:00 a 17:00, tvis del vidrio 0.88, sin persianas. luz natural útil: de 100 a 3,000 lx. sDA: 300 lx la mitad de las horas (no es un resultado de cumplimiento lm-83).'
     - 'energía: energyplus 24.2 con honeybee-energy 1.128, cargas ideales, aire acondicionado a 24 °C en horas de atención, electricidad = enfriamiento / cop 3.2 (supuesto). muros de bloque hueco, techo de concreto de 200 mm sin aislamiento, vidrio claro sencillo. piso: 537.4 m² antes, 705.1 m² después.'
-  credits: 'concurso 2021, 2.º lugar: entrópica. simulación y gráficos: entrópica, 2026. herramientas: radiance, energyplus, ladybug tools (honeybee, ladybug), pythermalcomfort, python.'
+  credits: 'concurso 2021: entrópica. simulación y gráficos: entrópica, 2026. herramientas: radiance, energyplus, ladybug tools (honeybee, ladybug), pythermalcomfort, python.'
 ---

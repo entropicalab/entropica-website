@@ -2,14 +2,14 @@
 title: private bank offices
 slug: private-bank-offices
 locale: en
-eyebrow: '// competition entry · 2nd place'
+eyebrow: '// competition entry'
 lede: 'shade first, then glass. a bank branch in chitré, in panamá''s dry arc: a new roof and a breezeblock skin cut the sun on the new glass by 94% and halve the hours of strong heat stress on the street.'
 location: chitré, panamá
 year: 2021
 area: '376 m²'
 typology: commercial
 role: architecture + simulation
-status: competition entry, 2nd place
+status: competition entry
 featured: true
 order: 3
 heroImage: /projects/private-bank-offices/01.jpg
@@ -17,7 +17,7 @@ metric:
   value: '−94'
   unit: '%'
   label: yearly sun on the new glass
-  note: 'roof and breezeblock against the same building with no shade: 331 to 21 kWh/m² a year. design-stage simulation, model rebuilt and rerun in 2026. competition entry, 2nd place.'
+  note: 'roof and breezeblock against the same building with no shade: 331 to 21 kWh/m² a year. design-stage simulation, model rebuilt and rerun in 2026. competition entry.'
 brief: |
   chitré is in the arco seco, the driest part of panamá. in the sun, most daytime hours
   bring strong heat stress; in the shade, almost none. the client wanted a calm, daylit
@@ -135,5 +135,5 @@ study:
     - 'sun on surfaces: radiance 5.3, 145 sky patches, sky only (ladybug incident-radiation method), 0.25 m grid.'
     - 'daylight: radiance 5.3, 2-phase, 5 bounces, 0.6 m grid at desk height, 8:00–17:00, glass tvis 0.88, no blinds. useful daylight: 100–3,000 lx. sDA: 300 lx for half of the hours (not an lm-83 compliance result).'
     - 'energy: energyplus 24.2 through honeybee-energy 1.128, ideal loads, a/c 24 °C in bank hours, electricity = cooling / cop 3.2 (assumed). hollow-block walls, 200 mm concrete roof without insulation, single clear glass. floor: 537.4 m² before, 705.1 m² after.'
-  credits: 'competition entry 2021, 2nd place: entrópica. simulation and graphics: entrópica, 2026. tools: radiance, energyplus, ladybug tools (honeybee, ladybug), pythermalcomfort, python.'
+  credits: 'competition entry 2021: entrópica. simulation and graphics: entrópica, 2026. tools: radiance, energyplus, ladybug tools (honeybee, ladybug), pythermalcomfort, python.'
 ---
