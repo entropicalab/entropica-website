@@ -14,8 +14,9 @@ featured: false
 order: 4
 heroImage: /projects/ministerio-publico/01.jpg
 award:
-  logo: /projects/ministerio-publico/award-moa-2023.png
-  label: 'moa panamá · 2023 · honorable mention'
+  logo: /projects/ministerio-publico/award-moa-2022.png
+  label: 'premios moa · 2022 · distinción de honor, 68th edition · colegio de arquitectos de panamá'
+  url: 'https://ministeriopublico.gob.pa/notas-de-prensa/la-procuraduria-general-de-la-nacion-recibe-distincion-de-honor-en-los-premios-moa-por-el-proyecto-de-la-nueva-sede-de-la-fiscalia-metropolitana/'
 brief: |
   the rehabilitation of a 1958 civic landmark to house a complex 2,600 m² program for the
   unidad metropolitana del ministerio público: offices, public-attention areas, and
