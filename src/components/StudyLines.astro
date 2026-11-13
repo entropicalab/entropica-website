@@ -63,6 +63,10 @@ const fx = (x: number, i: number) => (xTicks?.[i] ?? `${x}${xUnit}`);
   .slines-legend span { display: inline-flex; align-items: center; gap: 8px; }
   .slines-legend i { width: 18px; height: 2px; background: var(--ink-on-paper); }
   .slines-legend i.s1 { background: var(--amber); height: 3px; }
+  /* a third series: a quieter dashed line */
+  .slines-plot :global(.line.s2) { stroke: #a89c80; stroke-dasharray: 5 4; }
+  .slines-plot :global(.pt.s2) { stroke: #a89c80; }
+  .slines-legend i.s2 { background: repeating-linear-gradient(90deg, #a89c80 0 5px, transparent 5px 9px); }
   .slines-plot :global(.pt) { fill: var(--paper); stroke: var(--ink-on-paper); stroke-width: 1.5; cursor: pointer; }
   .slines-plot :global(.pt.on), .slines-plot :global(.pt:hover) { fill: var(--ink-on-paper); }
   .slines-plot :global(.pt.chosen) { fill: var(--amber); stroke: var(--amber); }
