@@ -19,8 +19,8 @@ metric:
   label: radiación sobre la fachada
   note: 'flujo solar incidente en las fachadas oeste y sur vs. línea base sin sombra. concurso.'
 brief: |
-  chitré es caliente, seco y brillante, más cerca de un clima saheliano que de un panamá
-  húmedo. el brief del cliente era una sucursal tranquila y bien iluminada, abierta a
+  chitré está en el arco seco, la zona más seca de panamá, con una estación seca larga y
+  sol fuerte. el brief del cliente era una sucursal tranquila y bien iluminada, abierta a
   clientes de pie, que el esquema anterior había resuelto con un perímetro totalmente
   vidriado.
 
@@ -30,13 +30,13 @@ approach: |
   modelamos primero el mapa de radiación del esquema existente, en tres franjas horarias
   del año. oeste y sur eran las superficies de mayor carga solar. el diseño se redibujó alrededor
   de una piel de bloque perforado que admitía luz natural ventilada mientras quebraba el
-  flujo directo por un factor medible de dos.
+  flujo directo.
 
   la piel es local, fundida en sitio, y se lee como piedra tallada desde afuera, pero la
   razón por la que existe está en la simulación, no en el moodboard.
 strategies:
   - label: piel de sombra
-    body: piel de bloque de concreto perforado alrededor de las fachadas oeste y sur; dimensionada para la trayectoria solar de chitré en abril–agosto.
+    body: piel de bloque de concreto perforado alrededor de las fachadas oeste y sur; dimensionada para la trayectoria solar de chitré.
     delta: 'TBD'
   - label: vidrio
     body: vidrio low-e tintado detrás de la piel; vidrio de visión angosto al este y norte.

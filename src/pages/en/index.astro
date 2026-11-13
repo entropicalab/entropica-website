@@ -84,7 +84,7 @@ const clients = [
 
 <BaseLayout
   title="entrópica · energy-led tropical architecture studio in panamá"
-  description="entrópica is an energy-led tropical architecture studio in panamá, central america. we use climate science and building thermodynamics to design cool buildings in hot places."
+  description="entrópica is an energy-led tropical architecture studio in panamá, central america. we use climate science and building physics to design cool buildings in hot places."
   locale={locale}
 >
   <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
@@ -140,7 +140,8 @@ const clients = [
     <div class="site-wrap">
       <div class="measurable-head">
         <div class="eyebrow">// what does that mean?</div>
-        <h2 class="block-h">designing from the climate has measurable results.</h2>
+        <h2 class="block-h">designing from the climate has quantified results.</h2>
+        <p class="measurable-sub">results from design-stage simulations, not measurements of the built work.</p>
       </div>
 
       <div class="measurable-grid">
@@ -153,6 +154,7 @@ const clients = [
               <div class="m-card-metric">
                 <span class="m-num">{p.data.metric.value}<span class="m-unit">{p.data.metric.unit}</span></span>
                 <span class="m-label">{p.data.metric.label}</span>
+                <span class="m-basis">simulated{p.data.status ? ` · ${p.data.status}` : ''}</span>
               </div>
             )}
             <div class="m-card-info">
@@ -183,7 +185,7 @@ const clients = [
       <div class="downside-grid">
         <div class="downside-left">
           <div class="eyebrow">// what does that mean?</div>
-          <h2 class="block-h">ignoring the climate has measurable results too.</h2>
+          <h2 class="block-h">ignoring the climate has a cost too.</h2>
         </div>
         <div class="downside-right">
           <div class="big-stat">
@@ -284,10 +286,11 @@ const clients = [
             registered architect and founder of entrópica.
           </p>
           <p class="founder-body-p">
-            his work spans the americas, asia, africa, and europe. he taught and researched
-            at the panamá green building council in 2013, co-founded pentagrama estudio de
-            diseño in 2015, and in 2018 co-founded acta, panamá's first sustainable
-            innovation zone. since 2026, he is part of mat, the tropical architecture
+            his work spans the americas, asia, africa, and europe. he researched at the
+            panamá green building council in 2013, taught at the urban sustainable lab,
+            co-founded pentagrama estudio de diseño in 2015, and in 2018 co-founded
+            <a class="inline-link" href="https://www.globalurban.net/panama-city-panama" target="_blank" rel="noopener">acta, the panamá
+            city sustainable innovation zone</a>. since 2026, he is part of mat, the tropical architecture
             movement. outside entrópica, he is a partner at trimpacta, the corporate side
             of the same problem: water footprint, carbon, and sustainability reporting.
           </p>
@@ -438,6 +441,8 @@ const clients = [
 
   /* ============ measurable upside (3 metric cards) ============ */
   .measurable-head { margin-bottom: 56px; }
+  .measurable-sub { margin: -8px 0 0; font-size: 13px; color: var(--mute-on-paper-2); max-width: 60ch; }
+  .m-basis { display: block; margin-top: 6px; font-size: 11px; letter-spacing: 0.08em; color: var(--mute-on-paper-2); }
   .measurable-head .eyebrow {
     font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
     font-weight: 400; margin-bottom: 16px;

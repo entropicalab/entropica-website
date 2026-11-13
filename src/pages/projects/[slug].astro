@@ -22,7 +22,8 @@ const hasNarrative = briefParas.length > 0 || approachParas.length > 0;
 const phaseValues = new Set(['concepto', 'concept', 'en obra', 'in progress', 'construido', 'built']);
 const hasProof = !!(data.award || (data.metric && !phaseValues.has(String(data.metric.value))));
 
-const heroAlt = data.heroAlt ?? `${data.title}, arquitectura tropical en ${data.location}`;
+const typologyLabel = t(`typology.${data.typology === 'mixed-use' ? 'mixedUse' : data.typology}` as any);
+const heroAlt = data.heroAlt ?? `${data.title}, ${typologyLabel}, ${data.location}`;
 
 const projectSchema = {
   '@context': 'https://schema.org',
@@ -50,7 +51,7 @@ const projectSchema = {
     <section class="cs-hero">
       <div class="site-wrap">
         <div class="hero-top">
-          <div class="eyebrow amber">{data.eyebrow ?? `// ${data.typology}`}</div>
+          <div class="eyebrow amber">{data.eyebrow ?? `// ${typologyLabel}`}</div>
           <h1 class="cs-h1">{data.title}.</h1>
           <p class="cs-lede">{data.lede}</p>
         </div>
@@ -62,7 +63,7 @@ const projectSchema = {
           <div><div class="k">{t('meta.location')}</div><div class="v">{data.location}</div></div>
           {data.year && data.year !== 'TBD' && (<div><div class="k">{t('meta.year')}</div><div class="v">{data.year}</div></div>)}
           {data.area && data.area !== 'TBD m²' && (<div><div class="k">{t('meta.area')}</div><div class="v">{data.area}</div></div>)}
-          <div><div class="k">{t('meta.typology')}</div><div class="v">{data.typology}</div></div>
+          <div><div class="k">{t('meta.typology')}</div><div class="v">{typologyLabel}</div></div>
           {data.status && (<div><div class="k">{t('meta.status')}</div><div class="v">{data.status}</div></div>)}
           {data.role && (
             <div>
@@ -148,7 +149,7 @@ const projectSchema = {
             {data.gallery.map((g, i) => (
               <div class={`gal-cell c${i + 1}`} data-tag={g.tag ?? ''}>
                 {g.src
-                  ? <img src={g.src} alt={`${data.title}, ${data.typology}, ${data.location} · vista ${i + 1}`} class="lb-trigger" />
+                  ? <img src={g.src} alt={`${data.title}, ${typologyLabel}, ${data.location} · vista ${i + 1}`} class="lb-trigger" />
                   : <span class="ph-tag">{g.tag}</span>
                 }
               </div>

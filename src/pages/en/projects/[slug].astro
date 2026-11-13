@@ -25,7 +25,7 @@ const hasNarrative = briefParas.length > 0 || approachParas.length > 0;
 const phaseValues = new Set(['concepto', 'concept', 'en obra', 'in progress', 'construido', 'built']);
 const hasProof = !!(data.award || (data.metric && !phaseValues.has(String(data.metric.value))));
 
-const heroAlt = data.heroAlt ?? `${data.title}, tropical architecture in ${data.location}`;
+const heroAlt = data.heroAlt ?? `${data.title}, ${data.typology}, ${data.location}`;
 
 const projectSchema = {
   '@context': 'https://schema.org',

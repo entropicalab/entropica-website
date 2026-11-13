@@ -84,7 +84,7 @@ const clients = [
 
 <BaseLayout
   title="entrópica · arquitectura tropical en panamá, guiada por energía"
-  description="entrópica es un estudio de arquitectura tropical en panamá enfocado en la energía. usamos ciencia climática para diseñar edificios frescos en lugares cálidos."
+  description="entrópica es un estudio de arquitectura tropical en panamá enfocado en la energía. usamos ciencia climática y física de la edificación para diseñar edificios frescos en lugares cálidos."
   locale={locale}
 >
   <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
@@ -135,7 +135,8 @@ const clients = [
     <div class="site-wrap">
       <div class="measurable-head">
         <div class="eyebrow">// ¿qué significa eso?</div>
-        <h2 class="block-h">diseñar partiendo por el clima tiene resultados medibles.</h2>
+        <h2 class="block-h">diseñar partiendo por el clima tiene resultados cuantificables.</h2>
+        <p class="measurable-sub">resultados de simulaciones en etapa de diseño, no mediciones de la obra construida.</p>
       </div>
 
       <div class="measurable-grid">
@@ -148,13 +149,14 @@ const clients = [
               <div class="m-card-metric">
                 <span class="m-num">{p.data.metric.value}<span class="m-unit">{p.data.metric.unit}</span></span>
                 <span class="m-label">{p.data.metric.label}</span>
+                <span class="m-basis">simulado{p.data.status ? ` · ${p.data.status}` : ''}</span>
               </div>
             )}
             <div class="m-card-info">
               <div class="m-title">{p.data.title}</div>
               <div class="m-meta">
                 <span>{p.data.area}</span><span class="sep">·</span>
-                <span>{p.data.typology}</span><span class="sep">·</span>
+                <span>{t(`typology.${p.data.typology === 'mixed-use' ? 'mixedUse' : p.data.typology}` as any)}</span><span class="sep">·</span>
                 <span>{p.data.location}</span><span class="sep">·</span>
                 <span>{p.data.year}</span>
               </div>
@@ -177,7 +179,7 @@ const clients = [
       <div class="downside-grid">
         <div class="downside-left">
           <div class="eyebrow">// ¿qué significa eso?</div>
-          <h2 class="block-h">ignorar el clima también tiene resultados medibles.</h2>
+          <h2 class="block-h">ignorar el clima también tiene un costo.</h2>
         </div>
         <div class="downside-right">
           <div class="big-stat">
@@ -274,10 +276,11 @@ const clients = [
             arquitecto registrado y fundador de entrópica.
           </p>
           <p class="founder-body-p">
-            su trabajo abarca américa, asia, áfrica y europa. enseñó e investigó en el
-            panamá green building council en 2013, co-fundó pentagrama estudio de diseño
-            en 2015, y en 2018 co-fundó acta, la primera zona de innovación sostenible
-            de panamá. desde el 2026 forma parte de mat, el movimiento de arquitectura
+            su trabajo abarca américa, asia, áfrica y europa. investigó en el panamá
+            green building council en 2013, enseñó en el urban sustainable lab, co-fundó
+            pentagrama estudio de diseño en 2015, y en 2018 co-fundó
+            <a class="inline-link" href="https://www.globalurban.net/panama-city-panama" target="_blank" rel="noopener">acta, la zona de
+            innovación sostenible de la ciudad de panamá</a>. desde el 2026 forma parte de mat, el movimiento de arquitectura
             tropical. fuera de entrópica, es socio en trimpacta, consultora que atiende
             el lado corporativo del mismo problema: huella hídrica, carbono y reportes
             de sostenibilidad.
@@ -345,6 +348,8 @@ const clients = [
   .block-h { font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 24px; font-weight: 300; max-width: 26ch; text-wrap: balance; }
   .block-sub { font-size: 17px; line-height: 1.55; color: var(--mute-on-paper); margin: 0; max-width: 56ch; font-weight: 400; }
 
+  .measurable-sub { margin: -8px 0 0; font-size: 13px; color: var(--mute-on-paper-2); max-width: 60ch; }
+  .m-basis { display: block; margin-top: 6px; font-size: 11px; letter-spacing: 0.08em; color: var(--mute-on-paper-2); }
   .measurable-head { margin-bottom: 56px; }
   .measurable-head .eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400; margin-bottom: 16px; }
   .measurable-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }

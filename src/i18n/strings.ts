@@ -105,7 +105,7 @@ export const t = {
 
     // footer
     'footer.tagline': 'edificios frescos en lugares calurosos.',
-    'footer.bio': 'entrópica es un estudio de arquitectura tropical en panamá enfocado en la energía. usamos ciencia climática y termodinámica para diseñar edificios frescos en lugares cálidos.',
+    'footer.bio': 'entrópica es un estudio de arquitectura tropical en panamá enfocado en la energía. usamos ciencia climática y física de la edificación para diseñar edificios frescos en lugares cálidos.',
     'footer.studio': 'estudio',
     'footer.work': 'proyectos',
     'footer.contact': 'contacto',

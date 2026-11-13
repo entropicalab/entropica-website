@@ -10,6 +10,7 @@ typology: institutional
 status: coming soon
 featured: false
 comingSoon: true
+hidden: true # saint-gobain: on hold until written consent
 order: 18
 heroImage: /projects/airport-nevada/01.jpg
 ---

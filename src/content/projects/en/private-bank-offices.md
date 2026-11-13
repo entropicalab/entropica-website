@@ -19,7 +19,7 @@ metric:
   label: radiation on the façade
   note: 'incident solar flux on the west and south façades vs. unshaded baseline. competition entry.'
 brief: |
-  chitré is hot, dry, and bright, closer to a sahel climate than a wet panamanian one.
+  chitré is in the arco seco, the driest region of panamá, with a long dry season and strong sun.
   the client's brief was a calm, daylit branch open to walk-in clients, which the
   earlier scheme had answered with a fully glazed perimeter.
 
@@ -28,13 +28,13 @@ approach: |
   we modelled the radiation map on the existing scheme first, in three timeslots across
   the year. west and south were the surfaces with the highest solar load. the design was redrawn around a
   perforated breezeblock screen that admitted ventilated daylight while breaking the
-  direct flux by a measurable factor of two.
+  direct flux.
 
   the screen is local, cast on site, and reads as carved stone from outside, but the
   reason it exists is in the simulation, not the mood board.
 strategies:
   - label: shading screen
-    body: perforated concrete breezeblock skin around the west and south façades; sized for chitré's april–august sun path.
+    body: perforated concrete breezeblock skin around the west and south façades; sized for chitré's sun path.
     delta: 'TBD'
   - label: glazing
     body: low-e tinted units behind the screen; vision glass kept narrow on east and north.
