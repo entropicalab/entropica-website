@@ -20,7 +20,8 @@ metric:
   note: 'estrategia de energía + luz natural por entrópica. líder de diseño: soba architecture.'
 award:
   logo: /projects/lotus-hall/award-paris-2024.png
-  label: 'design awards paris · 2024 · ganador, arquitectura cultural · otorgado a soba architecture'
+  label: 'dna paris design awards · 2024 · ganador, arquitectura cultural · soba, con josé barría en el equipo de diseño'
+  url: 'https://dna.paris/social/zoom.php?eid=71-91603-24'
 brief: |
   el zhengyi visitor center es un pabellón de acceso cultural en la entrada del pueblo
   histórico de zhengyi, en kunshan, al oeste de shanghái. el brief, establecido por soba
@@ -62,7 +63,7 @@ strategies:
   - label: aguas pluviales
     body: 'patios paisajistas + embudos en techo como retención y filtración; lógica de ciudad esponja.'
     delta: 'TBD'
-resultLabel: 'arquitectura cultural · design awards paris 2024 (soba architecture)'
+resultLabel: 'arquitectura cultural · dna paris design awards 2024 (soba)'
 resultDelta: 'ganador'
 closingQuote: 'un edificio donde la metáfora y la forma están de acuerdo.'
 gallery:

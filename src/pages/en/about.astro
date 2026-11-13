@@ -33,7 +33,7 @@ const work = [
   {
     role: 'co-founder · design principal',
     org: 'pentagrama',
-    period: '2013-2015 · 2018-2023',
+    period: '2013-2016 · 2018-2023',
     body: 'directed award-winning architectural projects (residential, commercial, institutional). managed design delivery, consultant coordination, and construction oversight.',
   },
   {
@@ -45,7 +45,7 @@ const work = [
 ];
 
 const honors = [
-  { year: '2024', name: 'design awards paris', detail: 'winner, cultural architecture: lotus hall by soba architecture. entrópica developed the energy and daylight strategy' },
+  { year: '2024', name: 'dna paris design awards', detail: 'winner, cultural architecture: lotus hall by soba, with josé barría in the design team (energy and daylight strategy)', url: 'https://dna.paris/social/zoom.php?eid=71-91603-24' },
   { year: '2023', name: 'moa panamá', detail: 'honorable mention' },
 ];
 
@@ -55,6 +55,7 @@ const personSchema = {
   name: 'josé barría',
   url: 'https://entropica-lab.com/en/about',
   jobTitle: 'architect · founder',
+  hasCredential: { '@type': 'EducationalOccupationalCredential', credentialCategory: 'license', name: 'licensed architect (panamá)', identifier: '2015-001-042', recognizedBy: { '@type': 'Organization', name: 'junta técnica de ingeniería y arquitectura (JTIA)' } },
   worksFor: { '@type': 'Organization', name: 'entrópica', url: 'https://entropica-lab.com' },
   alumniOf: [
     { '@type': 'CollegeOrUniversity', name: 'university of pennsylvania' },
@@ -99,10 +100,12 @@ const personSchema = {
         </div>
         <div class="bio-text prose">
           <p class="lede">
-            josé is the registered architect and founder of entrópica.
+            josé is a licensed architect in panamá (JTIA, license 2015-001-042) and the founder of entrópica.
           </p>
           <p>
-            his experience spans panamá and the united states, across residential,
+            his work spans the americas, asia, africa, and europe: he has practised in panamá
+            and the united states, and run remote studies for projects on other continents,
+            across residential,
             commercial, and institutional work, with a consistent focus on
             climate-responsive design and building performance. he has worked at design
             firms in philadelphia and panamá, researched at the panamá green building
@@ -112,7 +115,8 @@ const personSchema = {
           <p>
             outside entrópica he is a partner at trimpacta, a sustainability-consulting
             practice that handles the corporate side of the same problem, water
-            footprints, carbon accounting, and corporate sustainability reporting.
+            footprints, carbon accounting, and corporate sustainability reporting. since 2026
+            he is part of mat, the tropical architecture movement.
           </p>
 
           <h2>education</h2>
@@ -125,7 +129,7 @@ const personSchema = {
           <ul>
             {honors.map((h) => (
               <li>
-                <b>{h.name}</b>, {h.detail} <span class="muted">({h.year})</span>
+                <b>{h.url ? <a href={h.url} target="_blank" rel="noopener">{h.name}</a> : h.name}</b>, {h.detail} <span class="muted">({h.year})</span>
               </li>
             ))}
           </ul>

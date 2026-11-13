@@ -71,7 +71,7 @@ export const t = {
 
     // consent banner
     'consent.eyebrow': '// privacy',
-    'consent.text': 'this site uses google analytics to measure how it is used. no personal data is shared with third parties. cookies are not stored unless you accept.',
+    'consent.text': 'this site uses google analytics to measure how it is used. cookies are only stored if you accept. if you decline, google only receives a cookieless visit count.',
     'consent.accept': 'accept',
     'consent.decline': 'decline',
     'consent.more': 'more info',
@@ -143,7 +143,7 @@ export const t = {
 
     // consent banner
     'consent.eyebrow': '// privacidad',
-    'consent.text': 'este sitio usa google analytics para medir su uso. no compartimos datos personales con terceros. no se guardan cookies a menos que aceptes.',
+    'consent.text': 'este sitio usa google analytics para medir su uso. solo se guardan cookies si aceptas. si rechazas, google solo recibe un conteo de la visita, sin cookies.',
     'consent.accept': 'aceptar',
     'consent.decline': 'rechazar',
     'consent.more': 'más información',

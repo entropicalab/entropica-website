@@ -10,12 +10,12 @@ const work = [
   { role: 'fundador', org: 'entrópica', period: '2020-presente', body: 'estudio de diseño centrado en energía. simulaciones de desempeño (EnergyPlus, Radiance, OpenFOAM), optimización de fachada, modelado de luz natural. clientes: desarrolladores, ongs y firmas multinacionales.' },
   { role: 'co-fundador', org: 'acta sustainable innovation zone', period: '2018-2021', body: 'lideró estrategias de planificación sostenible; coordinó y diseñó proyectos de recuperación de espacio público; promovió políticas urbanas orientadas a la sostenibilidad.' },
   { role: 'arquitecto junior', org: 'erdy mchenry architecture · philadelphia, pa', period: '2017-2018', body: 'desarrollo de diseño y análisis ambiental para proyectos institucionales y de uso mixto, incluyendo el edificio neptune de vanguard campus west ($76mm).' },
-  { role: 'co-fundador · director de diseño', org: 'pentagrama', period: '2013-2015 · 2018-2023', body: 'dirigió proyectos arquitectónicos premiados (residenciales, comerciales, institucionales). manejó entrega de diseño, coordinación de consultores y supervisión de obra.' },
+  { role: 'co-fundador · director de diseño', org: 'pentagrama', period: '2013-2016 · 2018-2023', body: 'dirigió proyectos arquitectónicos premiados (residenciales, comerciales, institucionales). manejó entrega de diseño, coordinación de consultores y supervisión de obra.' },
   { role: 'investigador', org: 'panamá green building council', period: '2013', body: 'benchmarking de sostenibilidad, investigación de políticas y adopción temprana de herramientas de simulación en panamá.' },
 ];
 
 const honors = [
-  { year: '2024', name: 'design awards paris', detail: 'ganador, arquitectura cultural: lotus hall, de soba architecture. entrópica desarrolló la estrategia de energía y luz natural' },
+  { year: '2024', name: 'dna paris design awards', detail: 'ganador, arquitectura cultural: lotus hall, de soba, con josé barría en el equipo de diseño (estrategia de energía y luz natural)', url: 'https://dna.paris/social/zoom.php?eid=71-91603-24' },
   { year: '2023', name: 'moa panamá', detail: 'mención honorífica' },
 ];
 
@@ -25,6 +25,7 @@ const personSchema = {
   name: 'josé barría',
   url: 'https://entropica-lab.com/about',
   jobTitle: 'arquitecto · fundador',
+  hasCredential: { '@type': 'EducationalOccupationalCredential', credentialCategory: 'license', name: 'arquitecto idóneo', identifier: '2015-001-042', recognizedBy: { '@type': 'Organization', name: 'junta técnica de ingeniería y arquitectura (JTIA)' } },
   worksFor: { '@type': 'Organization', name: 'entrópica', url: 'https://entropica-lab.com' },
   alumniOf: [
     { '@type': 'CollegeOrUniversity', name: 'university of pennsylvania' },
@@ -67,10 +68,12 @@ const personSchema = {
         </div>
         <div class="bio-text prose">
           <p class="lede">
-            josé es arquitecto registrado y fundador de entrópica.
+            josé es arquitecto idóneo (JTIA, licencia 2015-001-042) y fundador de entrópica.
           </p>
           <p>
-            su experiencia abarca panamá y los estados unidos, en proyectos residenciales,
+            su trabajo abarca américa, asia, áfrica y europa: ha ejercido en panamá y en los
+            estados unidos, y ha hecho estudios a distancia para proyectos en otros
+            continentes, en proyectos residenciales,
             comerciales e institucionales, siempre con un foco en diseño responsivo al
             clima y desempeño edilicio. ha trabajado en estudios en philadelphia y
             panamá, investigó en el panamá green building council, enseñó en el urban
@@ -81,7 +84,8 @@ const personSchema = {
           <p>
             fuera de entrópica es socio de trimpacta, una consultora de sostenibilidad
             que aborda el lado corporativo del mismo problema, huella hídrica,
-            contabilidad de carbono, y reportes de sostenibilidad corporativa.
+            contabilidad de carbono, y reportes de sostenibilidad corporativa. desde 2026
+            forma parte de mat, el movimiento de arquitectura tropical.
           </p>
 
           <h2>educación</h2>
@@ -93,7 +97,7 @@ const personSchema = {
           <h2>distinciones</h2>
           <ul>
             {honors.map((h) => (
-              <li><b>{h.name}</b>, {h.detail} <span class="muted">({h.year})</span></li>
+              <li><b>{h.url ? <a href={h.url} target="_blank" rel="noopener">{h.name}</a> : h.name}</b>, {h.detail} <span class="muted">({h.year})</span></li>
             ))}
           </ul>
         </div>
