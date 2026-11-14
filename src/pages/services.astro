@@ -10,33 +10,33 @@ const services = [
     n: '01',
     icon: 'architecture',
     title: 'diseño conceptual',
-    short: 'el servicio base. aquí se toman las decisiones que más mueven la energía del edificio, antes de comprometer el diseño.',
-    body: 'es el servicio fundamental y, casi siempre, donde más se gana en energía. definimos el programa en función del sol y de los elementos del sitio, y fijamos las metas de energía junto con su factibilidad. la orientación, la huella y las grandes decisiones de sombra se resuelven con evidencia climática, porque el movimiento más barato de un edificio es el que ocurre antes de trazar las líneas.',
-    deliverables: ['estudios de masa ajustados al clima', 'programa definido según sol y sitio', 'metas de energía + factibilidad'],
+    short: 'decidimos hacia dónde mira el edificio, cuánto vidrio lleva y dónde va la sombra, con el clima de tu terreno. es la etapa donde más se ahorra.',
+    body: '',
+    deliverables: ['opciones de volumen probadas con el clima del sitio', 'el programa organizado según el sol', 'una meta de energía realista'],
   },
   {
     n: '02',
     icon: 'dashboard_customize',
-    title: 'diseño + coordinación arquitectónica',
-    short: 'la fase de documentación constructiva: materiales, ensamblajes y sistemas, coordinados para cumplir o superar las metas de energía.',
-    body: 'la fase de planos constructivos. aquí se deciden materiales, ensamblajes y sistemas, y se sostienen talleres de coordinación con los ingenieros estructural, eléctrico, sanitario y mecánico, para que el proyecto cumpla, o supere, las metas de energía fijadas en el concepto.',
-    deliverables: ['documentos constructivos + especificaciones', 'definición de materiales, ensamblajes y sistemas', 'talleres de coordinación con ingeniería (estructural, eléctrica, sanitaria, mecánica)'],
+    title: 'proyecto completo',
+    short: 'los planos de construcción, con materiales y sistemas definidos y coordinados con los ingenieros estructural, eléctrico, sanitario y mecánico.',
+    body: '',
+    deliverables: ['planos y especificaciones', 'materiales y sistemas definidos', 'reuniones de coordinación con los ingenieros'],
   },
   {
     n: '03',
     icon: 'description',
-    title: 'permisos + documentación',
-    short: 'anteproyectos y planos aprobados. josé barría tiene más de diez años de experiencia en el municipio de panamá y a nivel nacional.',
-    body: 'josé barría lleva más de diez años aprobando anteproyectos y planos misceláneos y constructivos en el municipio de panamá y en el resto del país. escribimos los documentos como serán leídos: por la oficina que procesa el permiso, y por el contratista que cotiza la obra.',
-    deliverables: ['anteproyecto para revisión municipal', 'planos misceláneos + constructivos', 'tramitación en el municipio de panamá y a nivel nacional'],
+    title: 'permisos y planos',
+    short: 'anteproyectos y planos que pasan la revisión en el municipio de panamá y en el resto del país. josé barría lleva más de diez años tramitándolos.',
+    body: '',
+    deliverables: ['anteproyecto para revisión municipal', 'planos misceláneos y de construcción', 'trámite en el municipio de panamá y a nivel nacional'],
   },
   {
     n: '04',
     icon: 'monitoring',
-    title: 'asesoría en energía y desempeño',
-    short: 'respuestas basadas en datos a preguntas de energía, para consultoría, certificación o proyectos ya construidos.',
-    body: 'encaja en proyectos de consultoría, de certificación o ya construidos. damos respuestas basadas en datos a preguntas concretas de energía: si un vano conviene ampliar, si una fachada más aislada se paga sola. si tu proyecto busca LEED o EDGE, el análisis de energía y luz natural ayuda a tu equipo a tomar las decisiones que la certificación va a medir. en panamá, el método simplificado de la guía de construcción sostenible (resolución 3980 de 2018) exige a las edificaciones nuevas ahorrar 15% de energía frente a una línea base, y 20% después de los dos primeros años (panamá green building council, 2026).',
-    deliverables: ['modelación de envolvente, luz natural y energía (EnergyPlus, Radiance)', 'respuestas basadas en datos a preguntas de diseño'],
+    title: 'estudios de energía',
+    short: 'respondemos con números preguntas concretas: si conviene agrandar una ventana, o si una fachada más aislada se paga sola. también sirve si tu proyecto busca leed o edge.',
+    body: 'en panamá, las edificaciones nuevas deben ahorrar 15% de energía frente a una línea base, y 20% después de los dos primeros años (resolución 3980 de 2018, según el panamá green building council, 2026).',
+    deliverables: ['simulaciones de sol, luz natural y energía', 'respuestas claras a preguntas de diseño'],
   },
 ];
 ---
@@ -49,14 +49,10 @@ const services = [
   <section class="hero">
     <div class="site-wrap">
       <div class="eyebrow">// servicios</div>
-      <h1 class="hero-h">
-        servicios arquitectónicos completos,<br />
-        guiados por energía.
-      </h1>
+      <h1 class="hero-h">del primer boceto al permiso.</h1>
       <p class="hero-lede">
-        desde el concepto hasta la construcción. el desempeño energético y operativo
-        guían cada decisión de diseño, en la misma conversación en la que se diseña
-        el edificio.
+        diseñamos tu proyecto, lo coordinamos con los ingenieros y lo llevamos hasta el
+        permiso. el clima entra en cada decisión.
       </p>
     </div>
   </section>
@@ -73,9 +69,9 @@ const services = [
             <div class="svc-title">{s.title}</div>
             <div class="svc-content">
               <p class="svc-short">{s.short}</p>
-              <p class="svc-body">{s.body}</p>
+              {s.body && <p class="svc-body">{s.body}</p>}
               <div class="svc-deliverables">
-                <div class="dv-eb">// entregables</div>
+                <div class="dv-eb">// incluye</div>
                 <ul>{s.deliverables.map((d) => <li>{d}</li>)}</ul>
               </div>
             </div>
@@ -88,32 +84,18 @@ const services = [
   <section class="block">
     <div class="site-wrap">
       <div class="two-col">
-        <div class="col-eb"><div class="eyebrow">// arquitectura e interiores</div></div>
+        <div class="col-eb"><div class="eyebrow">// obra nueva o remodelación</div></div>
         <div class="col-body">
-          <h2 class="block-h">obra nueva o espacio existente.</h2>
+          <h2 class="block-h">también trabajamos con lo que ya existe.</h2>
           <div class="prose">
             <p>
-              estos servicios aplican tanto a proyectos de arquitectura, donde la
-              envolvente aún está por definir, como a proyectos de diseño de interiores,
-              donde la envolvente ya está fija y el trabajo es reorganizar espacios y
-              sistemas para ganar confort térmico con lo que hay. nuestra guía sobre
-              <a class="inline-link" href={localized('/blog/sustainable-architecture-panama', locale)}>arquitectura sostenible en panamá</a>
-              explica la lógica de envolvente detrás de ambos.
-            </p>
-            <p>
+              en una remodelación la fachada ya está. el trabajo es reorganizar espacios y
+              sistemas para que el lugar se sienta más fresco.
               <a class="inline-link" href={localized('/projects/current-technologies', locale)}>current technologies</a>
-              es un ejemplo de interiores: misma lógica de energía, distinto punto de
-              partida.
+              es un ejemplo.
             </p>
             <p>
-              el punto de partida importa menos de lo que parece. la luz natural, el costo
-              del agua y el confort térmico no son problemas separados con certificaciones
-              separadas. son una sola pregunta de energía, respondida contra el clima donde
-              el edificio se va a parar de verdad. un encargo que empieza por el agua de
-              lluvia o la luz natural igual termina aquí.
-            </p>
-            <p>
-              ¿dudas sobre alcance, permisos o certificación?
+              ¿dudas sobre alcance o permisos? revisa las
               <a class="inline-link" href={localized('/faq', locale)}>preguntas frecuentes</a>.
             </p>
           </div>
@@ -125,14 +107,10 @@ const services = [
   <section class="closing-cta">
     <div class="site-wrap">
       <div class="closing-inner">
-        <div class="eyebrow">// la próxima colaboración</div>
-        <h2 class="closing-h">
-          cuéntanos del clima y del brief.<br />
-          nosotros te decimos qué pide el edificio.
-        </h2>
+        <h2 class="closing-h">¿vas a construir o remodelar?</h2>
         <div class="closing-ctas">
           <a class="btn amber" href={localized('/contact', locale)}>
-            {t('cta.contact')}
+            cuéntanos tu proyecto
             <span class="arrow-tail" aria-hidden="true"></span>
           </a>
           <a class="contact-line" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a>

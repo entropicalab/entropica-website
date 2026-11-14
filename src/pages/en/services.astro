@@ -10,33 +10,33 @@ const services = [
     n: '01',
     icon: 'architecture',
     title: 'concept design',
-    short: 'the foundational service. this is where the decisions that move a building\'s energy the most get made, before the design is committed.',
-    body: 'the basic, required service and almost always where the energy gains are largest. we define the program around the sun and the elements of the site, and we set the energy goals along with their feasibility. orientation, footprint, and the big shading decisions are resolved with climate evidence, because the cheapest move in any building is the one that happens before the lines are drawn.',
-    deliverables: ['climate-tuned massing studies', 'program defined around sun and site', 'energy goals + feasibility'],
+    short: 'we decide which way the building faces, how much glass it has and where the shade goes, with your site\'s climate. this is where most of the savings come from.',
+    body: '',
+    deliverables: ['massing options tested against the site\'s climate', 'the program arranged by the sun', 'a realistic energy target'],
   },
   {
     n: '02',
     icon: 'dashboard_customize',
-    title: 'architectural design + coordination',
-    short: 'the construction-documents phase: materials, assemblies, and systems, coordinated to meet or beat the energy goals.',
-    body: 'the construction-drawings phase. materials, assemblies, and systems are decided here, and we hold coordination workshops with the structural, electrical, plumbing, and mechanical engineers so the project meets, or exceeds, the energy goals set at concept.',
-    deliverables: ['construction documents + specifications', 'materials, assemblies, and systems', 'coordination workshops with engineering (structural, electrical, plumbing, mechanical)'],
+    title: 'full design',
+    short: 'the construction drawings, with materials and systems defined and coordinated with the structural, electrical, plumbing and mechanical engineers.',
+    body: '',
+    deliverables: ['drawings and specifications', 'materials and systems defined', 'coordination meetings with the engineers'],
   },
   {
     n: '03',
     icon: 'description',
-    title: 'permitting + documentation',
-    short: 'preliminary designs and drawings approved. josé barría has more than ten years of permit experience in the municipality of panamá and countrywide.',
-    body: 'josé barría has spent more than ten years approving preliminary designs (anteproyecto) and miscellaneous and construction drawings in the municipality of panamá and across the country. we write the documents the way they will be read, by the office processing the permit, and by the contractor estimating the build.',
-    deliverables: ['anteproyecto for municipal review', 'miscellaneous + construction drawings', 'filing in the municipality of panamá and countrywide'],
+    title: 'permits and drawings',
+    short: 'preliminary designs and drawings that pass review in the municipality of panamá and across the country. josé barría has been getting them approved for more than ten years.',
+    body: '',
+    deliverables: ['preliminary design (anteproyecto) for municipal review', 'miscellaneous and construction drawings', 'filing in the municipality of panamá and nationwide'],
   },
   {
     n: '04',
     icon: 'monitoring',
-    title: 'energy + performance advisory',
-    short: 'data-based answers to energy questions, for consultancy, certification, or already-built projects.',
-    body: 'fits consultancy, certification, or already-built projects. we give data-based answers to concrete energy questions: whether to widen an opening, whether a more insulated façade pays for itself. if your project is going for LEED or EDGE, energy and daylight analysis helps your team make the decisions the certification will measure. in panamá, the simplified method of the sustainable construction guide (resolution 3980 of 2018) requires new buildings to save 15% of energy against a baseline, and 20% after the first two years (panamá green building council, 2026).',
-    deliverables: ['envelope, daylight, and energy modelling (EnergyPlus, Radiance)', 'data-based answers to design questions'],
+    title: 'energy studies',
+    short: 'we answer concrete questions with numbers: whether to make a window bigger, or whether a better-insulated facade pays for itself. it also helps if your project is going for leed or edge.',
+    body: 'in panamá, new buildings must save 15% of energy against a baseline, and 20% after the first two years (resolution 3980 of 2018, per the panamá green building council, 2026).',
+    deliverables: ['sun, daylight and energy simulations', 'clear answers to design questions'],
   },
 ];
 ---
@@ -50,14 +50,10 @@ const services = [
   <section class="hero">
     <div class="site-wrap">
       <div class="eyebrow">// services</div>
-      <h1 class="hero-h">
-        full architectural services,<br />
-        energy-led.
-      </h1>
+      <h1 class="hero-h">from the first sketch to the permit.</h1>
       <p class="hero-lede">
-        from concept to construction. energy and operational performance guide
-        every design decision, in the same conversation the building is being
-        designed in.
+        we design your project, coordinate it with the engineers and take it through to
+        the permit. the climate goes into every decision.
       </p>
     </div>
   </section>
@@ -75,9 +71,9 @@ const services = [
             <div class="svc-title">{s.title}</div>
             <div class="svc-content">
               <p class="svc-short">{s.short}</p>
-              <p class="svc-body">{s.body}</p>
+              {s.body && <p class="svc-body">{s.body}</p>}
               <div class="svc-deliverables">
-                <div class="dv-eb">// deliverables</div>
+                <div class="dv-eb">// includes</div>
                 <ul>
                   {s.deliverables.map((d) => (
                     <li>{d}</li>
@@ -95,34 +91,19 @@ const services = [
   <section class="block">
     <div class="site-wrap">
       <div class="two-col">
-        <div class="col-eb">
-          <div class="eyebrow">// architecture + interiors</div>
-        </div>
+        <div class="col-eb"><div class="eyebrow">// new build or renovation</div></div>
         <div class="col-body">
-          <h2 class="block-h">new build or existing space.</h2>
+          <h2 class="block-h">we also work with what is already there.</h2>
           <div class="prose">
             <p>
-              these services apply to architectural projects, where the envelope is still
-              to be defined, and to interior-design projects, where the envelope is fixed
-              and the work is rearranging spaces and systems to win thermal comfort with
-              what is already there. our guide on
-              <a class="inline-link" href={localized('/blog/sustainable-architecture-panama', locale)}>sustainable architecture in panamá</a>
-              explains the envelope logic behind both.
-            </p>
-            <p>
+              in a renovation the facade is already built. the work is to rearrange spaces
+              and systems so the place feels cooler.
               <a class="inline-link" href={localized('/projects/current-technologies', locale)}>current technologies</a>
-              is an interiors example: same energy logic, different starting point.
+              is an example.
             </p>
             <p>
-              the starting point matters less than it looks. daylight, water cost, and
-              thermal comfort are not separate problems with separate certifications. they
-              are one energy question, answered against the climate where the building will
-              actually stand. a brief that opens with rainwater or natural light still ends
-              up here.
-            </p>
-            <p>
-              questions about scope, permitting, or certification?
-              <a class="inline-link" href={localized('/faq', locale)}>frequently asked questions</a>.
+              questions about scope or permits? see the
+              <a class="inline-link" href={localized('/faq', locale)}>faq</a>.
             </p>
           </div>
         </div>
@@ -134,14 +115,10 @@ const services = [
   <section class="closing-cta">
     <div class="site-wrap">
       <div class="closing-inner">
-        <div class="eyebrow">// the next collaboration</div>
-        <h2 class="closing-h">
-          tell us about the climate and the brief.<br />
-          we'll tell you what the building needs.
-        </h2>
+        <h2 class="closing-h">building or renovating?</h2>
         <div class="closing-ctas">
           <a class="btn amber" href={localized('/contact', locale)}>
-            {t('cta.contact')}
+            tell us about your project
             <span class="arrow-tail" aria-hidden="true"></span>
           </a>
           <a class="contact-line" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a>
