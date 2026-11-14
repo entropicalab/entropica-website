@@ -6,12 +6,12 @@ const locale = 'es' as const;
 const t = tr(locale);
 
 const work = [
-  { role: 'socio', org: 'trimpacta', period: '2024-presente', body: 'consultoría de sostenibilidad basada en datos para empresas y corporaciones. reportes de sostenibilidad, huella hídrica y contabilidad de carbono.' },
-  { role: 'fundador', org: 'entrópica', period: '2020-presente', body: 'estudio de diseño centrado en energía. simulaciones de desempeño (EnergyPlus, Radiance), optimización de fachada, modelado de luz natural. clientes: desarrolladores, ongs y firmas multinacionales.' },
-  { role: 'co-fundador', org: 'acta sustainable innovation zone', period: '2018-2021', body: 'lideró estrategias de planificación sostenible; coordinó y diseñó proyectos de recuperación de espacio público; promovió políticas urbanas orientadas a la sostenibilidad.' },
-  { role: 'arquitecto junior', org: 'erdy mchenry architecture · philadelphia, pa', period: '2017-2018', body: 'desarrollo de diseño y análisis ambiental para proyectos institucionales y de uso mixto, incluyendo el edificio neptune de vanguard campus west ($76mm).' },
-  { role: 'co-fundador · director de diseño', org: 'pentagrama', period: '2013-2016 · 2018-2023', body: 'dirigió proyectos arquitectónicos premiados (residenciales, comerciales, institucionales). manejó entrega de diseño, coordinación de consultores y supervisión de obra.' },
-  { role: 'investigador', org: 'panamá green building council', period: '2013', body: 'benchmarking de sostenibilidad, investigación de políticas y adopción temprana de herramientas de simulación en panamá.' },
+  { role: 'socio', org: 'trimpacta', period: '2024-presente', body: 'reportes de sostenibilidad, huella hídrica y carbono para empresas.' },
+  { role: 'fundador', org: 'entrópica', period: '2020-presente', body: 'diseño de arquitectura y simulaciones de sol, luz natural y energía.' },
+  { role: 'co-fundador', org: 'acta sustainable innovation zone', period: '2018-2021', body: 'planificación urbana sostenible y proyectos de espacio público.' },
+  { role: 'arquitecto junior', org: 'erdy mchenry architecture · philadelphia, pa', period: '2017-2018', body: 'diseño y análisis ambiental de edificios institucionales y de uso mixto, como el edificio neptune del campus west de vanguard.' },
+  { role: 'co-fundador · director de diseño', org: 'pentagrama', period: '2013-2016 · 2018-2023', body: 'dirigió el diseño de proyectos residenciales, comerciales e institucionales, y su coordinación y supervisión de obra.' },
+  { role: 'investigador', org: 'panamá green building council', period: '2013', body: 'investigación sobre sostenibilidad y las primeras herramientas de simulación en panamá.' },
 ];
 
 const honors = [
@@ -44,13 +44,9 @@ const personSchema = {
   <section class="hero">
     <div class="site-wrap">
       <div class="eyebrow">// nosotros</div>
-      <h1 class="hero-h">
-        algo como un estudio<br />
-        y laboratorio.
-      </h1>
+      <h1 class="hero-h">un estudio pequeño en ciudad de panamá.</h1>
       <p class="hero-lede">
-        investigando y diseñando, encontrando la manera más sensata de crear
-        arquitectura en un clima cambiante.
+        diseñamos y simulamos edificios para el clima del trópico. lo dirige josé barría.
       </p>
     </div>
   </section>
@@ -71,21 +67,14 @@ const personSchema = {
             josé es arquitecto idóneo (JTIA, licencia 2015-001-042) y fundador de entrópica.
           </p>
           <p>
-            su trabajo abarca américa, asia, áfrica y europa: ha ejercido en panamá y en los
-            estados unidos, y ha hecho estudios a distancia para proyectos en otros
-            continentes, en proyectos residenciales,
-            comerciales e institucionales, siempre con un foco en diseño responsivo al
-            clima y desempeño edilicio. ha trabajado en estudios en philadelphia y
-            panamá, investigó en el panamá green building council, enseñó en el urban
-            sustainable lab, y co-fundó una
-            práctica temprana de diseño sostenible que sentó la base técnica para
-            entrópica.
+            ha trabajado en panamá y en estados unidos, y ha hecho estudios para proyectos
+            en asia, áfrica y europa. antes de entrópica trabajó en erdy mchenry architecture,
+            en philadelphia, y co-fundó pentagrama y acta. investigó en el panamá green
+            building council y enseñó en el urban sustainable lab.
           </p>
           <p>
-            fuera de entrópica es socio de trimpacta, una consultora de sostenibilidad
-            que aborda el lado corporativo del mismo problema, huella hídrica,
-            contabilidad de carbono, y reportes de sostenibilidad corporativa. desde 2026
-            forma parte de mat, el movimiento de arquitectura tropical.
+            también es socio de trimpacta, una consultora de huella hídrica y carbono, y
+            desde 2026 forma parte de mat, el movimiento de arquitectura tropical.
           </p>
 
           <h2>educación</h2>
@@ -108,8 +97,8 @@ const personSchema = {
   <section class="block">
     <div class="site-wrap">
       <div class="proof-head">
-        <div class="eyebrow">// el trabajo, antes de este trabajo</div>
-        <h2 class="block-h">experiencia seleccionada.</h2>
+        <div class="eyebrow">// trayectoria</div>
+        <h2 class="block-h">dónde ha trabajado.</h2>
       </div>
 
       <div class="cv-stack">
@@ -132,20 +121,12 @@ const personSchema = {
       <div class="two-col">
         <div class="col-eb"><div class="eyebrow">// ¿por qué tanta lluvia?</div></div>
         <div class="col-body">
-          <h2 class="block-h">porque el clima es donde empieza el edificio.</h2>
+          <h2 class="block-h">mostramos los proyectos con lluvia a propósito.</h2>
           <div class="prose">
             <p>
-              presentamos nuestros proyectos en condiciones lluviosas o nubladas a
-              propósito. es un recordatorio de que el clima es el punto de partida, no un
-              telón de fondo. el desempeño empieza por entender las realidades ambientales
-              que el edificio va a enfrentar: clima, luz y cambio estacional moldean el
-              confort, el uso energético y la resiliencia de largo plazo.
-            </p>
-            <p>
-              al mostrar nuestros diseños en su verdadero contexto climático, hacemos un
-              punto único: belleza y eficiencia son inseparables del lugar. nuestra guía sobre
-              <a class="inline-link" href={localized('/blog/sustainable-architecture-panama', locale)}>arquitectura sostenible en panamá</a>
-              desarrolla por qué esto importa en el trópico.
+              en panamá el clima es el punto de partida del diseño, así que lo mostramos tal
+              como es: con lluvia y cielo nublado. más en nuestra guía de
+              <a class="inline-link" href={localized('/blog/sustainable-architecture-panama', locale)}>arquitectura sostenible en panamá</a>.
             </p>
           </div>
         </div>
@@ -158,23 +139,23 @@ const personSchema = {
       <div class="philosophy-grid">
         <div>
           <div class="eyebrow">// principio 01</div>
-          <h3 class="phil-h">primero pasivo.</h3>
-          <p class="phil-body">orientación, sombra, aislamiento, vidrio, optimizados antes de dimensionar cualquier sistema.</p>
+          <h3 class="phil-h">primero lo pasivo.</h3>
+          <p class="phil-body">sombra, orientación y buen vidrio antes de elegir equipos.</p>
         </div>
         <div>
           <div class="eyebrow">// principio 02</div>
           <h3 class="phil-h">simular antes de dibujar.</h3>
-          <p class="phil-body">simulaciones pequeñas, hechas temprano, le ganan a una simulación grande hecha al final.</p>
+          <p class="phil-body">una simulación pequeña y temprana sirve más que una grande al final.</p>
         </div>
         <div>
           <div class="eyebrow">// principio 03</div>
-          <h3 class="phil-h">medir el movimiento.</h3>
-          <p class="phil-body">cada afirmación tiene un número detrás, en las mismas unidades en que el cliente paga.</p>
+          <h3 class="phil-h">decir cuánto.</h3>
+          <p class="phil-body">cada resultado con su número, en horas, grados o dólares.</p>
         </div>
         <div>
           <div class="eyebrow">// principio 04</div>
-          <h3 class="phil-h">ser específico.</h3>
-          <p class="phil-body">tropical significa tropical. los estándares importados no sobreviven el contacto con panamá.</p>
+          <h3 class="phil-h">diseñar para aquí.</h3>
+          <p class="phil-body">lo que funciona en climas templados no siempre sirve en panamá.</p>
         </div>
       </div>
     </div>
@@ -183,13 +164,10 @@ const personSchema = {
   <section class="closing-cta">
     <div class="site-wrap">
       <div class="closing-inner">
-        <h2 class="closing-h">
-          si esto se parece al proyecto que tienes en mente,<br />
-          deberíamos hablar.
-        </h2>
+        <h2 class="closing-h">¿tienes un proyecto en mente?</h2>
         <div class="closing-ctas">
           <a class="btn amber" href={localized('/contact', locale)}>
-            {t('cta.contact')}
+            cuéntanos tu proyecto
             <span class="arrow-tail" aria-hidden="true"></span>
           </a>
           <a class="contact-line" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a>
