@@ -7,64 +7,64 @@ const t = tr(locale);
 
 const faqs = [
   {
-    q: 'why not just install ac and forget about passive design?',
-    a: 'you can, and almost everybody does. the cost shows up on the bill. in a fully air-conditioned single-family house, cooling is around 70% of the electricity use, and panamá\'s residential tariff is progressive, so that consumption is billed in the most expensive block of the month. shading the west face and controlling the glazing before sizing the equipment cuts the cooling load by about 40% under the res v.2 code. the air conditioning is still there: it just works less, every month, for 30 years.',
+    q: "why not just install ac and be done with it?",
+    a: "you can, and almost everybody does. the cost arrives on the bill, every month. if the building takes in less heat, the equipment can be smaller and it works less. according to the un, keeping heat out of a building can lower indoor temperatures by 2 to 8 °C (unep, global cooling watch 2025).",
   },
   {
-    q: 'why does the electricity bill climb so fast in panamá?',
-    a: 'because the residential tariff is progressive. the first 300 kwh of the month run around USD 0.091/kwh; from 301 to 750 kwh they rise to about 0.158; above 750 kwh the kilowatt runs around 0.230. air conditioning is usually what pushes you into the expensive block, so the last kwh of the month cost more than twice the first ones. cutting the consumption that sits in the top block is where the real saving is.',
+    q: "why does the electricity bill climb so fast in panamá?",
+    a: "because the residential tariff is progressive: the more you use in a month, the more each kwh costs. the first 300 kwh run around USD 0.091; from 301 to 750, about 0.158; above 750, about 0.230. air-conditioning is usually what pushes you into the expensive block.",
   },
   {
-    q: 'how much does it cost to build a house in panamá in 2026?',
-    a: 'for a single-family house we work with ranges of USD 370 to 500 per m² at a basic finish, 650 to 850 at standard, and 1,300 to 2,200 at premium, plus roughly 15% of indirect costs: design, municipal permits, and legal. it excludes land, furniture, and the itbms on professional services. you can run the range against your own project in the cost calculator.',
+    q: "how much does it cost to build a house in panamá in 2026?",
+    a: "for a house we work with ranges of USD 370 to 500 per m² at a basic finish, 650 to 850 at standard and 1,300 to 2,200 at premium. add about 15% for design, permits and legal. it excludes land, furniture and itbms. you can try your own case in the cost calculator.",
   },
   {
-    q: 'how much does passive design actually save?',
-    a: 'the res v.2 code targets roughly a 40% cut in cooling, 30% in lighting, and 5% in plug loads, which across the total lands in a 20 to 38.8% energy-saving band. that is the code\'s design intent rather than measured performance, which is why we simulate each project against panamá\'s real recorded weather instead of quoting the regulation\'s figure. across the life of the building, ignoring the climate costs 30 to 50% more to operate (ashrae · iea cooling report, 2024).',
+    q: "how much does passive design actually save?",
+    a: "it depends on the building, which is why we simulate each project. as a reference, the un reports average energy savings of 29% from passive cooling measures (unep, global cooling watch 2025). in panamá, the sustainable building guide asks new buildings to save 20%.",
   },
   {
-    q: 'is it better to renovate or build from scratch?',
-    a: 'it depends on the state of the structure, and the opening numbers help you decide. the municipality of panamá sets a reference floor of USD 250 to 500 per m² to renovate a single-family home, against 650 to 850 for a standard new build. the fees invert: coici charges a minimum of 2.00% of the global cost for reforms to existing structures, against 1.00% for a new residence, because cutting into concrete that already exists carries more risk. the calculator has a renovation mode to compare both routes.',
+    q: "is it better to renovate or build from scratch?",
+    a: "it depends on the state of the structure. as a starting point, the municipality of panamá uses USD 250 to 500 per m² to renovate a house, against 650 to 850 for a standard new one. fees go the other way: coici sets a minimum of 2% for renovations and 1% for a new house, because working on what already exists carries more risk. the calculator has a renovation mode to compare.",
   },
   {
-    q: 'what do i need to start a project with entrópica?',
-    a: 'a first conversation about the brief and the place is usually enough to begin.',
+    q: "what do i need to start a project with entrópica?",
+    a: "a conversation about the place and what you want to build. that's enough to begin.",
   },
   {
-    q: 'where do you work?',
-    a: 'we take on design projects internationally, but permit approvals are panamá only, for obvious reasons.',
+    q: "where do you work?",
+    a: "we design for anywhere. permits we handle in panamá only.",
   },
   {
-    q: 'do you handle building permits?',
-    a: 'yes. preliminary designs, miscellaneous drawings, and construction documents, in the municipality of panamá and countrywide.',
+    q: "do you handle building permits?",
+    a: "yes: preliminary designs, miscellaneous drawings and construction documents, in the municipality of panamá and the rest of the country.",
   },
   {
-    q: 'how much does it cost to build a climate-led building?',
-    a: 'it depends. the median construction cost in panamá is around USD 1,000/m². we run workshops with the client and contractor to value-engineer anything that affects the capex. our main focus, though, is reducing opex over the building\'s lifetime.',
+    q: "how much does it cost to build a climate-led building?",
+    a: "it depends on the project. we go through everything that moves the construction cost with the client and the contractor, and we focus on lowering what the building spends every month. for a construction range, use the cost calculator.",
   },
   {
-    q: 'do you help with leed or edge certification?',
-    a: 'we support teams going for leed or edge with energy and daylight analysis during design, so the decisions the certification will measure are made with data. we also offer it as a standalone service for projects where the architecture is already underway.',
+    q: "do you help with leed or edge certification?",
+    a: "we haven't taken a project through leed or edge certification yet. we know the process and we do the energy and daylight studies it relies on, so we can work alongside the team that handles it.",
   },
   {
-    q: 'do you do interior projects, or only new builds?',
-    a: 'both. in a new build the envelope is still to be defined; in interiors the envelope is fixed and the work is rearranging spaces and systems to win thermal comfort with what is already there. the same energy logic applies in either case.',
+    q: "do you do interior projects, or only new builds?",
+    a: "both. in a new build the shape of the building is still open. in a renovation the facade already exists, and the work is rearranging the inside so it's more comfortable.",
   },
   {
-    q: 'what is bioclimatic architecture, and why does it matter in panamá?',
-    a: 'it means designing with the climate instead of against it: using orientation, shade, ventilation, and the envelope so the building is cool before it depends on air conditioning. in a hot, humid tropical climate like panamá, those decisions set how much energy the building spends for the rest of its life.',
+    q: "what is bioclimatic architecture, and why does it matter in panamá?",
+    a: "it means designing with the climate: using orientation, shade, ventilation and materials so the building stays cool before the ac goes on. in panamá, those decisions set how much energy the building uses for the rest of its life.",
   },
   {
-    q: 'do i need to own the land before talking to you?',
-    a: 'not necessarily. if you already have the site, we can run orientation and solar studies on the real plot. if you are still choosing, we can help you read how climate and position would affect the project before you commit.',
+    q: "do i need to own the land before talking to you?",
+    a: "no. if you already have it, we study the sun and wind on the real site. if you're still choosing, we help you compare how the climate would affect each option.",
   },
   {
-    q: 'do you work with other architecture firms?',
-    a: 'yes. part of our advisory work is alongside other architecture firms and product manufacturers, bringing energy and performance modelling to projects that already have a design team.',
+    q: "do you work with other architecture firms?",
+    a: "yes. part of our work is advising other firms and manufacturers, with energy and daylight studies for projects that already have a design team.",
   },
   {
-    q: 'what languages do you work in?',
-    a: 'spanish and english, for both documentation and coordination with clients and consultants inside and outside panamá.',
+    q: "what languages do you work in?",
+    a: "spanish and english, in documents and in meetings.",
   },
 ];
 
@@ -81,7 +81,7 @@ const faqSchema = {
 
 <BaseLayout
   title="frequently asked questions · entrópica · architects in panamá"
-  description="frequently asked questions about working with entrópica: permitting in the municipality of panamá, cost, leed and edge certification, interior projects, and bioclimatic architecture in panamá."
+  description="frequently asked questions about entrópica: construction costs in panamá, the electricity bill, municipal permits, renovations and bioclimatic architecture."
   locale={locale}
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -91,8 +91,7 @@ const faqSchema = {
       <div class="eyebrow">// frequently asked</div>
       <h1 class="hero-h">what people usually ask.</h1>
       <p class="hero-lede">
-        permitting, cost, certification, and interiors. if your question is not here,
-        write to us and we will answer it directly.
+        if your question isn't here, write to us.
       </p>
     </div>
   </section>

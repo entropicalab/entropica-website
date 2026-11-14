@@ -7,64 +7,64 @@ const t = tr(locale);
 
 const faqs = [
   {
-    q: '¿por qué no le pongo aire acondicionado y ya?',
-    a: 'puedes, y es lo que hace casi todo el mundo. el costo aparece en la factura. en una casa unifamiliar con aire acondicionado en todo el espacio, el enfriamiento es alrededor del 70% del consumo eléctrico, y la tarifa residencial en panamá es progresiva, así que ese consumo se paga en el bloque más caro del mes. sombrear la cara oeste y controlar el vidrio antes de dimensionar el equipo baja la carga de enfriamiento cerca de 40% bajo el res v.2. el aire acondicionado sigue ahí: solo trabaja menos, cada mes, durante 30 años.',
+    q: "¿por qué no le pongo aire acondicionado y ya?",
+    a: "puedes, y es lo que hace casi todo el mundo. el costo llega en la factura, cada mes. si el edificio recibe menos calor, el equipo puede ser más pequeño y trabaja menos. según la onu, evitar que el calor entre puede bajar la temperatura interior entre 2 y 8 °C (unep, global cooling watch 2025).",
   },
   {
-    q: '¿por qué se sube tanto la cuenta de luz en panamá?',
-    a: 'porque la tarifa residencial es progresiva. los primeros 300 kwh del mes rondan los USD 0.091/kwh; de 301 a 750 kwh suben a cerca de 0.158; y por encima de 750 kwh el kilovatio ronda 0.230. el aire acondicionado es lo que normalmente te cruza al bloque caro, así que los últimos kwh del mes cuestan más del doble que los primeros. bajar el consumo del bloque alto es donde está el ahorro real.',
+    q: "¿por qué se sube tanto la cuenta de luz en panamá?",
+    a: "porque la tarifa residencial es progresiva: mientras más consumes en el mes, más caro sale cada kwh. los primeros 300 kwh rondan USD 0.091; de 301 a 750, cerca de 0.158; por encima de 750, cerca de 0.230. el aire acondicionado suele ser lo que te lleva al bloque caro.",
   },
   {
-    q: '¿cuánto cuesta construir una casa en panamá en 2026?',
-    a: 'para vivienda unifamiliar manejamos rangos de USD 370 a 500 por m² en acabado básico, 650 a 850 en estándar y 1,300 a 2,200 en premium, más cerca de 15% de costos indirectos: diseño, permisos municipales y legal. no incluye terreno, mobiliario ni el itbms sobre servicios profesionales. puedes mover el rango contra tu propio proyecto en la calculadora de costos.',
+    q: "¿cuánto cuesta construir una casa en panamá en 2026?",
+    a: "para una casa manejamos rangos de USD 370 a 500 por m² en acabado básico, 650 a 850 en estándar y 1,300 a 2,200 en premium. súmale cerca de 15% para diseño, permisos y legal. no incluye terreno, muebles ni el itbms. puedes probar tu caso en la calculadora de costos.",
   },
   {
-    q: '¿cuánto se ahorra de verdad con diseño pasivo?',
-    a: 'el res v.2 apunta a reducir el enfriamiento cerca de 40%, la iluminación 30% y los equipos 5%, lo que sobre el total aterriza en una banda de 20 a 38.8% de ahorro energético. esa es una meta de diseño del código y no un desempeño medido, y por eso simulamos cada proyecto contra el clima real de panamá en lugar de citar la cifra del reglamento. a lo largo de la vida del edificio, ignorar el clima cuesta entre 30 y 50% más en operación (ashrae · iea cooling report, 2024).',
+    q: "¿cuánto se ahorra de verdad con diseño pasivo?",
+    a: "depende del edificio, y por eso simulamos cada proyecto. como referencia, la onu reporta un ahorro promedio de 29% de energía con medidas de enfriamiento pasivo (unep, global cooling watch 2025). en panamá, la guía de construcción sostenible pide 20% de ahorro en edificios nuevos.",
   },
   {
-    q: '¿conviene renovar o construir desde cero?',
-    a: 'depende del estado de la estructura, y los números de arranque ayudan a decidir. el municipio de panamá fija un piso de referencia de USD 250 a 500 por m² para remodelar una vivienda unifamiliar, contra 650 a 850 de una obra nueva estándar. en honorarios se invierte: coici cobra un mínimo de 2.00% del costo global por reformas a estructuras existentes, contra 1.00% de una residencia nueva, porque intervenir un concreto que ya existe carga más riesgo. la calculadora tiene modo renovación para comparar los dos caminos.',
+    q: "¿conviene renovar o construir desde cero?",
+    a: "depende del estado de la estructura. como punto de partida, el municipio de panamá usa USD 250 a 500 por m² para remodelar una casa, contra 650 a 850 para una nueva estándar. los honorarios van al revés: coici fija un mínimo de 2% para reformas y 1% para casa nueva, porque intervenir lo existente tiene más riesgo. la calculadora tiene un modo de renovación para comparar.",
   },
   {
-    q: '¿qué necesito para empezar un proyecto con entrópica?',
-    a: 'una primera conversación sobre el brief y el lugar suele ser suficiente para arrancar.',
+    q: "¿qué necesito para empezar un proyecto con entrópica?",
+    a: "una conversación sobre el lugar y lo que quieres construir. con eso arrancamos.",
   },
   {
-    q: '¿dónde trabajan?',
-    a: 'trabajamos proyectos de diseño internacionalmente, pero aprobaciones de planos únicamente en panamá, por razones obvias.',
+    q: "¿dónde trabajan?",
+    a: "diseñamos para cualquier lugar. los permisos los tramitamos solo en panamá.",
   },
   {
-    q: '¿tramitan permisos de construcción?',
-    a: 'sí. anteproyecto, planos misceláneos y planos constructivos, en el municipio de panamá y a nivel nacional.',
+    q: "¿tramitan permisos de construcción?",
+    a: "sí: anteproyecto, planos misceláneos y planos constructivos, en el municipio de panamá y en el resto del país.",
   },
   {
-    q: '¿cuánto cuesta construir un edificio diseñado para el clima?',
-    a: 'depende. el costo mediano de construcción en panamá ronda los USD 1,000/m². hacemos talleres con el cliente y el contratista para optimizar todo lo que afecte el capex. nuestro enfoque principal, sin embargo, es la reducción del opex durante la vida del edificio.',
+    q: "¿cuánto cuesta construir un edificio diseñado para el clima?",
+    a: "depende del proyecto. revisamos con el cliente y el contratista todo lo que mueve el costo de obra, y nos enfocamos en bajar lo que el edificio gasta cada mes. para un rango de obra, usa la calculadora de costos.",
   },
   {
-    q: '¿ayudan con certificaciones leed o edge?',
-    a: 'apoyamos a equipos que buscan leed o edge con análisis de energía y luz natural durante el diseño, para que las decisiones que la certificación va a medir se tomen con datos. también lo ofrecemos como servicio independiente para proyectos donde la arquitectura ya está en marcha.',
+    q: "¿ayudan con certificaciones leed o edge?",
+    a: "todavía no hemos llevado un proyecto a certificación leed o edge. conocemos el proceso y hacemos los estudios de energía y luz natural en los que se apoya, así que podemos trabajar junto al equipo que la tramite.",
   },
   {
-    q: '¿hacen proyectos de interiores, o solo obra nueva?',
-    a: 'ambos. en obra nueva la envolvente aún está por definir; en interiores la envolvente ya está fija y el trabajo es reorganizar espacios y sistemas para ganar confort térmico con lo que hay. la misma lógica de energía aplica en los dos casos.',
+    q: "¿hacen proyectos de interiores, o solo obra nueva?",
+    a: "las dos cosas. en obra nueva todavía se puede decidir la forma del edificio. en una remodelación la fachada ya existe, y el trabajo es reorganizar por dentro para que sea más cómodo.",
   },
   {
-    q: '¿qué es la arquitectura bioclimática y por qué importa en panamá?',
-    a: 'es diseñar con el clima en lugar de contra él: usar orientación, sombra, ventilación y la envolvente para que el edificio sea fresco antes de depender del aire acondicionado. en un clima tropical y húmedo como el de panamá, esas decisiones definen cuánta energía gasta el edificio el resto de su vida.',
+    q: "¿qué es la arquitectura bioclimática y por qué importa en panamá?",
+    a: "es diseñar con el clima: usar la orientación, la sombra, la ventilación y los materiales para que el edificio se mantenga fresco antes de encender el aire. en panamá, esas decisiones marcan cuánta energía gasta el edificio el resto de su vida.",
   },
   {
-    q: '¿necesito tener el terreno antes de hablar con ustedes?',
-    a: 'no es indispensable. si ya tienes el terreno, podemos correr estudios de orientación y sol sobre el sitio real. si todavía estás eligiendo, podemos ayudarte a leer cómo el clima y la posición afectarían al proyecto antes de comprometerte.',
+    q: "¿necesito tener el terreno antes de hablar con ustedes?",
+    a: "no hace falta. si ya lo tienes, estudiamos el sol y el viento del sitio real. si todavía estás eligiendo, te ayudamos a comparar cómo le afectaría el clima a cada opción.",
   },
   {
-    q: '¿trabajan con otras firmas de arquitectura?',
-    a: 'sí. parte de nuestro trabajo de asesoría es de la mano de otras firmas de arquitectura y de fabricantes de productos, aportando modelación de energía y desempeño a proyectos que ya tienen un equipo de diseño.',
+    q: "¿trabajan con otras firmas de arquitectura?",
+    a: "sí. parte de nuestro trabajo es asesorar a otras firmas y a fabricantes, con estudios de energía y luz natural para proyectos que ya tienen su equipo de diseño.",
   },
   {
-    q: '¿en qué idiomas trabajan?',
-    a: 'español e inglés, tanto para la documentación como para la coordinación con clientes y consultores dentro y fuera de panamá.',
+    q: "¿en qué idiomas trabajan?",
+    a: "español e inglés, en documentos y en reuniones.",
   },
 ];
 
@@ -81,7 +81,7 @@ const faqSchema = {
 
 <BaseLayout
   title="preguntas frecuentes · entrópica · arquitectos en panamá"
-  description="preguntas frecuentes sobre trabajar con entrópica: permisos en el municipio de panamá, costos, certificación leed y edge, proyectos de interiores y arquitectura bioclimática en panamá."
+  description="preguntas frecuentes sobre entrópica: costos de construcción en panamá, la factura de luz, permisos municipales, remodelaciones y arquitectura bioclimática."
   locale={locale}
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -91,8 +91,7 @@ const faqSchema = {
       <div class="eyebrow">// preguntas frecuentes</div>
       <h1 class="hero-h">lo que suelen preguntarnos.</h1>
       <p class="hero-lede">
-        permisos, costos, certificación e interiores. si tu pregunta no está aquí,
-        escríbenos y la respondemos directo.
+        si tu pregunta no está aquí, escríbenos.
       </p>
     </div>
   </section>
