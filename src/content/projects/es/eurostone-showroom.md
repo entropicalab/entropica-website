@@ -3,7 +3,7 @@ title: eurostone showroom
 slug: eurostone-showroom
 locale: es
 eyebrow: '// comercial'
-lede: 'un concepto interior guiado por la luz natural para el showroom de eurostone, donde el brief era: todo en piedra, iluminado con honestidad.'
+lede: "un concepto de interiores para el showroom de eurostone en ciudad de panamá, donde la luz natural muestra la piedra."
 location: ciudad de panamá, panamá
 year: 2019
 area: 'TBD m²'
@@ -13,34 +13,10 @@ status: concepto
 featured: false
 order: 14
 heroImage: /projects/eurostone-showroom/01.jpg
-metric:
-  value: 'concepto'
-  unit: ''
-  label: 'estudio de luz natural · concepto'
-  note: 'concepto interior que enfatiza honestidad material bajo luz natural controlada.'
 brief: |
-  un concepto interior para el showroom de eurostone: un espacio cuya historia material
-  primaria es la piedra, iluminado con honestidad. el brief pedía un showroom que se
-  leyera como una sola composición material bajo condiciones variables de luz natural.
+  eurostone quería un showroom que se leyera como una sola pieza de piedra, bajo una luz que cambia durante el día.
 approach: |
-  el diseño trata la luz natural como el instrumento espacial principal. se usaron
-  estudios isométricos para probar la composición material bajo diferentes ángulos de
-  sol, asegurando que las superficies de piedra permanecieran legibles a lo largo del
-  día. el layout secuencia un lounge, un bar / cocina y un salón principal, cada uno
-  con su propia estrategia de luz natural pero con una paleta material continua.
-strategies:
-  - label: composición de luz
-    body: 'estudios isométricos de superficies de piedra bajo condiciones variables de luz natural.'
-    delta: 'TBD'
-  - label: secuencia espacial
-    body: 'lounge → bar / cocina → salón principal, cada uno con su propio registro de luz.'
-    delta: 'TBD'
-  - label: materiales
-    body: 'una sola historia material, con piedra como paleta conectora entre espacios.'
-    delta: 'TBD'
-resultLabel: 'composición interior guiada por luz natural'
-resultDelta: 'concepto'
-closingQuote: 'un showroom para el material mismo.'
+  probamos con isometrías cómo se ve la piedra con el sol a distintas horas. el recorrido va del lounge al bar y la cocina, y de ahí al salón principal, con la misma piedra en todo.
 gallery:
   - { src: '/projects/eurostone-showroom/02.jpg', tag: '// vista' }
   - { src: '/projects/eurostone-showroom/03.jpg', tag: '// vista' }

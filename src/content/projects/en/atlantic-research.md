@@ -3,7 +3,7 @@ title: atlantic research
 slug: atlantic-research
 locale: en
 eyebrow: '// institutional'
-lede: a tropical research and visitor pavilion for a research institution, defined by a concrete frame, deep overhangs, and operable louvres tuned to cross-ventilation and salt-air durability.
+lede: "a research and visitor pavilion on the caribbean coast. a concrete frame, deep overhangs and louvers that open to the wind, built to last by the sea."
 location: caribbean coast, panamá
 year: 2021
 area: 'TBD m²'
@@ -43,17 +43,10 @@ approach: |
 strategies:
   - label: structure
     body: 'concrete frame with slender columns supporting a broad flat roof; deep overhangs.'
-    delta: 'TBD'
   - label: louvres
     body: 'operable wooden louvres at the perimeter for cross-ventilation and filtered daylight.'
-    delta: 'TBD'
   - label: materials
     body: 'exposed concrete, timber, and stone selected for the salt-humid environment.'
-    delta: 'TBD'
   - label: ventilation
     body: 'minimal mechanical dependence; cross-ventilation as the primary cooling strategy.'
-    delta: 'TBD'
-resultLabel: 'passive cooling target'
-resultDelta: 'TBD'
-closingQuote: 'institutional dignity, fully integrated with the landscape.'
 ---

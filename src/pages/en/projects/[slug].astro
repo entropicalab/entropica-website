@@ -105,7 +105,7 @@ const projectSchema = {
               </div>
             )}
             <div class="proof-text">
-              <div class="eyebrow amber">// the proof</div>
+              <div class="eyebrow amber">// the result</div>
               {data.metric && <h2>{data.metric.label}.</h2>}
               {!data.metric && data.award && <h2>{data.award.label}.</h2>}
               {data.metric?.note && <p class="note">{data.metric.note}</p>}
@@ -134,7 +134,7 @@ const projectSchema = {
           <div class="narr-grid">
             <div class="narr-side">
               <div class="eyebrow">// the project</div>
-              <h2 class="narr-h">brief, approach, outcome.</h2>
+              <h2 class="narr-h">what was asked, and how it was solved.</h2>
             </div>
             <div class="narr-body">
               <div class="narr-cols">
@@ -146,7 +146,7 @@ const projectSchema = {
                 )}
                 {approachParas.length > 0 && (
                   <div class="narr-col">
-                    <div class="narr-eb">// approach</div>
+                    <div class="narr-eb">// the answer</div>
                     {approachParas.map((p) => (<p>{p}</p>))}
                   </div>
                 )}
@@ -183,8 +183,8 @@ const projectSchema = {
       <section class="cs-strategies">
         <div class="site-wrap">
           <div class="strat-head">
-            <div class="eyebrow">// design moves</div>
-            <h2 class="narr-h">the decisions that shaped it.</h2>
+            <div class="eyebrow">// how it works</div>
+            <h2 class="narr-h">the key decisions.</h2>
           </div>
           <div class="strat-stack">
             {data.strategies.map((s, i) => (

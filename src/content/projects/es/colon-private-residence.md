@@ -3,7 +3,7 @@ title: residencia privada · colón
 slug: colon-private-residence
 locale: es
 eyebrow: '// residencial'
-lede: una casa unifamiliar en el lado caribe de panamá, en diseño contra un objetivo net-zero. orientación, envolvente y techo se están trabajando contra la simulación energética mientras el proyecto está aún en diseño.
+lede: "una casa de 784 m² en colón, todavía en diseño, que busca producir toda la energía que usa."
 location: colón, panamá
 year: 2025
 area: '784 m²'
@@ -15,22 +15,7 @@ hidden: true
 order: 6
 heroImage: /projects/colon-private-residence/01.jpg
 brief: |
-  el lado caribe del istmo, más caliente y más húmedo que el pacífico, con una
-  brisa más suave. el cliente pidió una casa que pudiera ser cómoda sin necesitar
-  conexión a la red, no una casa que *pareciera* sostenible.
+  el lado caribe es más caliente y húmedo que el pacífico, y tiene menos brisa. el cliente quería una casa cómoda que no dependa de la red.
 approach: |
-  el diseño abre con tres estudios sobre el mismo sitio: orientación, ventilación
-  y techo. la orientación fijó el eje largo este-oeste para que las caras cortas
-  enfrenten al sol. el estudio de ventilación fijó las aperturas según el alisio
-  predominante del noreste. el techo se convirtió en un solo plano voladizo,
-  sombreando la cara sur y cargando un arreglo fotovoltaico en su superficie
-  superior.
-strategies:
-  - label: orientación
-    body: eje largo este-oeste; caras cortas al este y oeste minimizadas; norte y sur extendidos.
-  - label: techo
-    body: plano voladizo continuo, profundo al sur; arreglo pv en la cara superior dimensionado al consumo anual proyectado.
-  - label: envolvente
-    body: bloque de arcilla local con rainscreen ventilado; aislamiento profundo en techo.
-closingQuote: 'una casa que pide menos, para que los paneles puedan darle todo.'
+  tres estudios antes de dibujar: orientación, viento y techo. la casa corre de este a oeste, abre hacia el viento del noreste y lleva un solo techo grande que da sombra al sur y carga los paneles solares.
 ---

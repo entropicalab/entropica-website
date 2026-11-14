@@ -3,7 +3,7 @@ title: cabañas las lajas
 slug: las-lajas-cabins
 locale: es
 eyebrow: '// residencial'
-lede: un masterplan conceptual para un conjunto de cabañas en las lajas, dimensionadas para el clima tropical de tierras altas que gobierna el sitio.
+lede: "un plan conceptual para un grupo de cabañas en las lajas, pensado para el clima del sitio."
 location: las lajas, panamá
 year: 'TBD'
 area: 'TBD m²'

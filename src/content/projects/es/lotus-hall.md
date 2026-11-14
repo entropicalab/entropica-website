@@ -3,7 +3,7 @@ title: lotus hall
 slug: lotus-hall
 locale: es
 eyebrow: '// institucional'
-lede: 'el zhengyi visitor center: un pabellón de acceso cultural moldeado por la geometría de una hoja de loto, diseñado contra las cargas de enfriamiento, luz natural y aguas pluviales de un clima subtropical húmedo.'
+lede: "un centro de visitantes en kunshan, cerca de shanghái, con un techo en forma de hoja de loto. el techo sombrea el vidrio y deja entrar luz suave."
 location: kunshan, china
 year: 2020
 area: '4,585 m²'
@@ -14,58 +14,29 @@ featured: false # vuelve al inicio después de la reejecución de 2026
 order: 1
 heroImage: /projects/lotus-hall/01.jpg
 metric:
-  value: '-36'
-  unit: '%'
-  label: reducción de carga de enfriamiento
-  note: 'estrategia de energía + luz natural por entrópica. líder de diseño: soba architecture.'
+  value: "−36"
+  unit: "%"
+  label: "menos calor que enfriar"
+  note: "simulado. estudios de energía y luz natural de entrópica; diseño de soba architecture."
 award:
   logo: /projects/lotus-hall/award-paris-2024.png
   label: 'dna paris design awards · 2024 · ganador, arquitectura cultural · soba, con josé barría en el equipo de diseño'
   url: 'https://dna.paris/social/zoom.php?eid=71-91603-24'
 brief: |
-  el zhengyi visitor center es un pabellón de acceso cultural en la entrada del pueblo
-  histórico de zhengyi, en kunshan, al oeste de shanghái. el brief, establecido por soba
-  architecture, pidió un edificio público que sirviera como salón de eventos y centro
-  de visitantes, mientras referenciaba simbólicamente al loto, un elemento icónico del
-  paisaje local.
+  la entrada del pueblo histórico de zhengyi, en kunshan. soba architecture diseñó un salón de eventos y centro de visitantes que recuerda al loto del paisaje local.
 
-  el clima es cfa, subtropical húmedo: veranos cálidos y húmedos, inviernos fríos y
-  secos. el desafío de diseño era honrar una geometría de techo profundamente expresiva
-  manteniendo el edificio confortable durante ambas mitades del año.
+  los veranos son calientes y húmedos, y los inviernos fríos. el edificio tenía que ser cómodo en las dos estaciones.
 approach: |
-  la geometría del techo, inspirada en la curva de las hojas de loto, se diseñó con
-  aleros profundos que protegen las fachadas vidriadas de la ganancia solar no deseada
-  permitiendo a su vez una generosa luz natural en los espacios interiores. lucernarios y
-  un patio central llevan luz natural difusa profundamente al edificio, reduciendo la
-  dependencia de iluminación artificial y mejorando la calidad de los interiores
-  públicos. estos movimientos pasivos de luz natural se combinan con vidrio low-e de alto
-  desempeño y sistemas de aislamiento de techo que reducen la intensidad de uso energético.
-
-  la ventilación natural a través de la forma del techo, junto con el amortiguamiento
-  térmico de su geometría cóncava, reduce las cargas de enfriamiento y mejora el confort
-  a lo largo de las estaciones. el agua de lluvia se gestiona mediante patios paisajistas
-  y embudos en el techo que actúan como retención y filtración natural, encarnando los
-  principios de ciudad esponja.
-
-  más allá de las métricas, el proyecto muestra cómo la expresión arquitectónica y el
-  desempeño ambiental pueden alinearse: geometría, selección de materiales y narrativa
-  cultural convergiendo en un hito ambientalmente responsable.
+  entrópica hizo los estudios de luz natural y energía, y la especificación de la fachada, junto al equipo de soba.
 strategies:
-  - label: geometría de techo
-    body: 'aleros inspirados en hojas de loto dimensionados para sombrear fachadas vidriadas en pico de verano.'
-    delta: 'TBD'
-  - label: luz natural
-    body: 'patio central + lucernarios para luz difusa profunda en planta; vidrio low-e en perímetro.'
-    delta: 'TBD'
-  - label: ventilación
-    body: 'ventilación natural guiada por la forma del techo; la geometría cóncava amortigua oscilaciones térmicas.'
-    delta: 'TBD'
-  - label: aguas pluviales
-    body: 'patios paisajistas + embudos en techo como retención y filtración; lógica de ciudad esponja.'
-    delta: 'TBD'
-resultLabel: 'arquitectura cultural · dna paris design awards 2024 (soba)'
-resultDelta: 'ganador'
-closingQuote: 'un edificio donde la metáfora y la forma están de acuerdo.'
+  - label: "techo"
+    body: "aleros profundos, con la curva de la hoja, que sombrean el vidrio en verano."
+  - label: "luz natural"
+    body: "un patio central y lucernarios llevan luz suave al centro del edificio."
+  - label: "aire"
+    body: "la forma del techo ayuda a mover el aire por dentro."
+  - label: "lluvia"
+    body: "patios con plantas y embudos en el techo retienen y filtran el agua."
 gallery:
   - { src: '/projects/lotus-hall/02.jpg', tag: '// vista' }
   - { src: '/projects/lotus-hall/03.jpg', tag: '// vista' }

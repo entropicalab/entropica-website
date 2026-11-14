@@ -3,7 +3,7 @@ title: ministerio público
 slug: ministerio-publico
 locale: es
 eyebrow: '// institucional'
-lede: rehabilitación de un edificio civil de 1958 para la unidad metropolitana del ministerio público, un encargo institucional cuyo valor de diseño tuvo que surgir desde adentro de la envolvente existente.
+lede: "un edificio de 1958 en ciudad de panamá, hoy sede de la fiscalía metropolitana. la fachada no se podía tocar, así que el trabajo fue por dentro."
 location: ciudad de panamá, panamá
 year: 2020
 area: '2,600 m²'
@@ -18,47 +18,18 @@ award:
   label: 'premios moa · 2022 · distinción de honor, edición 68 · colegio de arquitectos de panamá'
   url: 'https://ministeriopublico.gob.pa/notas-de-prensa/la-procuraduria-general-de-la-nacion-recibe-distincion-de-honor-en-los-premios-moa-por-el-proyecto-de-la-nueva-sede-de-la-fiscalia-metropolitana/'
 brief: |
-  rehabilitación de un edificio civil de 1958 para alojar un programa complejo de 2,600 m²
-  de la unidad metropolitana del ministerio público: oficinas, áreas de atención al público
-  y laboratorios forenses. presupuesto aproximado de USD 10M.
-
-  la envolvente existente no podía modificarse. el valor de diseño tenía que venir de
-  circulación, jerarquía espacial e integración de nuevos usos dentro de las limitaciones
-  del cascarón histórico.
+  2,600 m² para la unidad metropolitana del ministerio público: oficinas, atención al público y laboratorios forenses, dentro de un edificio cuya fachada debía quedar igual.
 approach: |
-  reestructuramos los flujos entre áreas públicas, semipúblicas y restringidas, optimizando
-  las conexiones entre oficinas y laboratorios manteniendo la organización jerárquica
-  solicitada por el cliente. las estrategias energéticas estuvieron limitadas por la
-  imposibilidad de alterar la fachada o introducir sistemas nuevos, así que cuidamos que
-  los louvers emblemáticos del diseño de 1958 retuvieran su rol funcional y cultural.
-
-  la intervención se extendió más allá del edificio con la renovación de aceras y nuevas
-  jardineras, mejorando la accesibilidad y el espacio público circundante.
-
-  el ministerio público es un ejemplo de arquitectura moderna tropical panameña: protección
-  solar simple y efectiva, integrada en la lógica formal del edificio desde 1958.
-
-  este proyecto demuestra la capacidad de entrópica para trabajar en contextos públicos
-  de alto presupuesto bajo restricciones regulatorias y programáticas estrictas. la libertad
-  de diseño era limitada; la mención honorífica de los **premios mejores obras de
-  arquitectura 2023** resalta el valor arquitectónico del enfoque en proyectos cívicos
-  complejos.
+  reordenamos el edificio por dentro y cuidamos lo que ya funcionaba.
 strategies:
-  - label: circulación
-    body: 'flujos públicos / semipúblicos / restringidos reestructurados; se preservó la organización jerárquica.'
-    delta: 'TBD'
-  - label: patrimonio
-    body: 'louvers emblemáticos de 1958 preservados en su rol funcional y cultural.'
-    delta: 'TBD'
-  - label: ajuste programático
-    body: 'programa de oficinas, atención pública y laboratorio forense integrado dentro del cascarón intacto.'
-    delta: 'TBD'
-  - label: espacio público
-    body: 'renovación de aceras y jardineras para mejorar la accesibilidad alrededor del edificio.'
-    delta: 'TBD'
-resultLabel: 'mejores obras de arquitectura panamá'
-resultDelta: 'mención honorífica · 2023'
-closingQuote: 'un hito cívico, restaurado desde adentro.'
+  - label: "recorridos"
+    body: "lo público, lo semipúblico y lo restringido, cada uno con su camino."
+  - label: "persianas"
+    body: "las persianas de 1958 se quedan y siguen dando sombra."
+  - label: "programa"
+    body: "oficinas, atención al público y laboratorios, dentro del edificio existente."
+  - label: "la calle"
+    body: "aceras y jardineras nuevas alrededor del edificio."
 gallery:
   - { src: '/projects/ministerio-publico/02.jpg', tag: '// fachada · foto · j. barría' }
   - { src: '/projects/ministerio-publico/03-luchau.jpg', tag: '// interior · foto · c. luchau' }

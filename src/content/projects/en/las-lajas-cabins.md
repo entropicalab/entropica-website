@@ -3,7 +3,7 @@ title: las lajas cabins
 slug: las-lajas-cabins
 locale: en
 eyebrow: '// residential'
-lede: a conceptual masterplan for a cluster of cabins in las lajas, sized for the highland tropical climate that governs the site.
+lede: "a concept plan for a group of cabins in las lajas, designed for the climate of the site."
 location: las lajas, panamá
 year: 'TBD'
 area: 'TBD m²'

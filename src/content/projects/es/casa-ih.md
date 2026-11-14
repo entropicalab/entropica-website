@@ -3,7 +3,7 @@ title: casa ih
 slug: casa-ih
 locale: es
 eyebrow: '// residencial'
-lede: una residencia unifamiliar en la costa panameña, actualmente en construcción. composición tropical-moderna donde la vida exterior sombreada es el principio organizativo.
+lede: "una casa en la costa pacífica de panamá, en construcción. la vida pasa en terrazas con sombra."
 location: costa pacífica, panamá
 year: 2024
 area: 'TBD m²'
@@ -13,18 +13,10 @@ status: en construcción
 featured: false
 order: 12
 heroImage: /projects/casa-ih/01.jpg
-metric:
-  value: 'en obra'
-  unit: ''
-  label: 'objetivo de confort · medición al completar'
-  note: 'el edificio está en construcción; el alcance detallado y el estudio de confort se publican al completarse.'
 brief: |
-  una residencia familiar en la costa panameña, actualmente en construcción. la casa sigue
-  una composición tropical-moderna donde la vida exterior sombreada se trata como principio
-  organizativo en lugar de un detalle de perímetro.
+  una casa familiar organizada alrededor de sus terrazas con sombra.
 approach: |
-  más detalle de este proyecto se publicará cuando la construcción avance y la intención
-  de diseño sea legible en forma construida.
+  publicaremos más cuando avance la obra.
 gallery:
   - { src: '/projects/casa-ih/02.jpg', tag: '// vista' }
 ---

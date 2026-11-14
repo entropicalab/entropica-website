@@ -3,7 +3,7 @@ title: lotus hall
 slug: lotus-hall
 locale: en
 eyebrow: '// institutional'
-lede: 'the zhengyi visitor center: a cultural-gateway pavilion shaped by the geometry of a lotus leaf, designed against the cooling, daylight, and stormwater loads of a humid subtropical climate.'
+lede: "a visitor center in kunshan, near shanghai, with a roof shaped like a lotus leaf. the roof shades the glass and lets in soft light."
 location: kunshan, china
 year: 2020
 area: '4,585 m²'
@@ -14,56 +14,29 @@ featured: false # back on the home page after the 2026 rerun
 order: 1
 heroImage: /projects/lotus-hall/01.jpg
 metric:
-  value: '-36'
-  unit: '%'
-  label: cooling load reduction
-  note: 'energy + daylight strategy by entrópica. design lead: soba architecture.'
+  value: "−36"
+  unit: "%"
+  label: "less heat to cool"
+  note: "simulated. energy and daylight studies by entrópica; design by soba architecture."
 award:
   logo: /projects/lotus-hall/award-paris-2024.png
   label: 'dna paris design awards · 2024 · winner, cultural architecture · soba, with josé barría in the design team'
   url: 'https://dna.paris/social/zoom.php?eid=71-91603-24'
 brief: |
-  the zhengyi visitor center is a cultural gateway pavilion at the entrance of zhengyi historic
-  town in kunshan, west of shanghai. the brief, set by soba architecture, asked for a public-facing
-  building that could double as event hall and visitor center, while symbolically referencing
-  the lotus, an iconic element of the local landscape.
+  the entrance to the historic town of zhengyi, in kunshan. soba architecture designed an event hall and visitor center that recalls the lotus of the local landscape.
 
-  the climate is cfa, humid subtropical: hot wet summers, cold dry winters. the design
-  challenge was to honor a deeply expressive roof geometry while keeping the building
-  comfortable across both halves of the year.
+  summers are hot and humid, winters are cold. the building had to be comfortable in both seasons.
 approach: |
-  the geometry of the roof, inspired by the curve of lotus leaves, was designed with deep
-  overhangs that protect glazed façades from unwanted solar heat gain while still admitting
-  generous daylight into interior spaces. skylights and a central courtyard bring diffuse
-  natural light deep into the building, reducing reliance on artificial lighting and
-  enhancing the quality of public interiors. these passive daylighting moves are paired with
-  high-performance low-e glazing and roof insulation systems that lower the building's
-  energy use intensity.
-
-  natural ventilation through the roof form, combined with the thermal buffering of its
-  concave geometry, reduces cooling loads and improves comfort across seasons. rainwater
-  is managed through landscaped courtyards and roof funnels that act as natural retention
-  and filtration, embodying sponge-city principles.
-
-  beyond the metrics, the project shows how architectural expression and environmental
-  performance can align: geometry, material selection, and cultural narrative converging
-  into an environmentally responsible landmark.
+  entrópica did the daylight and energy studies and the facade specification, together with the soba team.
 strategies:
-  - label: roof geometry
-    body: 'lotus-leaf-inspired overhangs sized to shade glazed façades during peak summer.'
-    delta: 'TBD'
-  - label: daylight
-    body: 'central courtyard + skylights for diffuse daylight deep in plan; low-e glazing on perimeter.'
-    delta: 'TBD'
-  - label: ventilation
-    body: 'natural ventilation guided by the roof form; concave geometry buffers temperature swings.'
-    delta: 'TBD'
-  - label: stormwater
-    body: 'landscaped courtyards + roof funnels as retention and filtration; sponge-city logic.'
-    delta: 'TBD'
-resultLabel: 'cultural architecture · dna paris design awards 2024 (soba)'
-resultDelta: 'winner'
-closingQuote: 'a building where the metaphor and the form agree.'
+  - label: "roof"
+    body: "deep overhangs, following the curve of the leaf, that shade the glass in summer."
+  - label: "daylight"
+    body: "a central courtyard and skylights bring soft light to the middle of the building."
+  - label: "air"
+    body: "the shape of the roof helps move air through the inside."
+  - label: "rain"
+    body: "planted courtyards and roof funnels hold and filter the water."
 gallery:
   - { src: '/projects/lotus-hall/02.jpg', tag: '// view' }
   - { src: '/projects/lotus-hall/03.jpg', tag: '// view' }

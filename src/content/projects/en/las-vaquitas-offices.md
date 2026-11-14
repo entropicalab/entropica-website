@@ -3,7 +3,7 @@ title: las vaquitas offices
 slug: las-vaquitas-offices
 locale: en
 eyebrow: '// commercial'
-lede: 'façade and envelope design for a private office building on the via españa corridor: glazing selection, shading depth, and envelope strategy, validated against energy simulation.'
+lede: "the facade of a 1,600 m² office building in domingo díaz. we compared glass and shading with simulations and recommended one."
 location: domingo díaz, panamá
 year: 2022
 area: '1,600 m²'
@@ -14,24 +14,18 @@ featured: false
 order: 8
 heroImage: /projects/las-vaquitas-offices/01.jpg
 brief: |
-  the developer had a structural shell already designed and a façade procurement
-  decision still open. the brief was façade design: compare reasonable glazing and shading variants,
-  and recommend one for construction.
+  the structure was already designed. the facade was still open: which glass, and how much shade.
 approach: |
-  the simulation ran on the building's actual orientation and adjacency. each variant returned a cooling load, a daylight autonomy reading,
-  and an indicative capex delta.
-
-  the recommendation was an intermediate shading depth with the better glazing,
-  not the most expensive option on either axis.
+  each option was tested with the real orientation and neighbors. a medium-depth shade with the better glass won, and neither was the most expensive choice.
 strategies:
-  - label: glazing comparison
-    body: 'multiple low-e specs modelled against the same massing.'
-  - label: shading depth
-    body: 'multiple external fin depths modelled to find the sweet spot for west and south.'
-  - label: orientation tuning
-    body: 'per-elevation glazing ratio adjusted on the south and west faces.'
-  - label: roof spec
-    body: 'continuous insulation under the rainscreen; reflective topcoat.'
+  - label: "glass"
+    body: "several heat-reflecting glass types, tested on the same building."
+  - label: "fins"
+    body: "outside fins at several depths, on the west and south."
+  - label: "windows"
+    body: "less glass on the south and west faces."
+  - label: "roof"
+    body: "continuous insulation and paint that reflects the sun."
 gallery:
   - { src: '/projects/las-vaquitas-offices/02.jpg', tag: '// interior' }
   - { src: '/projects/las-vaquitas-offices/03.jpg', tag: '// façade detail' }

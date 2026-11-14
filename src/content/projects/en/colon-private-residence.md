@@ -3,7 +3,7 @@ title: colón private residence
 slug: colon-private-residence
 locale: en
 eyebrow: '// residential'
-lede: a single-family house on the caribbean side of panamá, being designed against a net-zero target. orientation, envelope, and roof are being worked against the energy simulation while the project is still in design.
+lede: "a 784 m² house in colón, still in design, that aims to produce all the energy it uses."
 location: colón, panamá
 year: 2025
 area: '784 m²'
@@ -15,21 +15,7 @@ hidden: true
 order: 6
 heroImage: /projects/colon-private-residence/01.jpg
 brief: |
-  the caribbean side of the isthmus, hotter and wetter than the pacific, with a
-  softer breeze. the client asked for a house that could be comfortable without
-  needing a grid connection, not a house that *looked* sustainable.
+  the caribbean side is hotter and more humid than the pacific, with less breeze. the client wanted a comfortable house that doesn't depend on the grid.
 approach: |
-  the design opens with three studies on the same site: orientation, ventilation,
-  and roof. orientation set the long axis east-west so the short faces meet the
-  sun. the ventilation study set apertures by the prevailing northeast trade. the
-  roof became a single overhanging plane, shading the south face and carrying a
-  photovoltaic array on its upper surface.
-strategies:
-  - label: orientation
-    body: long axis east-west; short faces on east and west minimised; north and south extended.
-  - label: roof
-    body: continuous overhanging plane, deep on south; pv array on the upper face sized to projected annual consumption.
-  - label: envelope
-    body: locally-fired clay block with a ventilated rainscreen; deep roof insulation.
-closingQuote: 'a house that asks for less, so the panels can give it everything.'
+  three studies before drawing: orientation, wind and roof. the house runs east to west, opens to the northeast wind and has a single large roof that shades the south and carries the solar panels.
 ---

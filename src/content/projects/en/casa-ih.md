@@ -3,7 +3,7 @@ title: casa ih
 slug: casa-ih
 locale: en
 eyebrow: '// residential'
-lede: a single-family residence on the panamanian coast, currently in construction. tropical-modern composition with shaded outdoor living as the organising principle.
+lede: "a house on panamá's pacific coast, under construction. life happens on shaded terraces."
 location: pacific coast, panamá
 year: 2024
 area: 'TBD m²'
@@ -13,18 +13,10 @@ status: in construction
 featured: false
 order: 12
 heroImage: /projects/casa-ih/01.jpg
-metric:
-  value: 'in progress'
-  unit: ''
-  label: 'comfort target · measured on completion'
-  note: 'the building is in construction; detailed scope and the comfort study are published once it completes.'
 brief: |
-  a family residence on the panamanian coast, currently in construction. the house follows
-  a tropical-modern composition in which shaded outdoor living is treated as the organising
-  principle rather than a perimeter detail.
+  a family house organized around its shaded terraces.
 approach: |
-  more detail on this project will be published as construction completes and the design
-  intent becomes legible in built form.
+  we'll share more as construction moves along.
 gallery:
   - { src: '/projects/casa-ih/02.jpg', tag: '// view' }
 ---

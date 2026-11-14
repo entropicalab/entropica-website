@@ -3,7 +3,7 @@ title: atlantic research
 slug: atlantic-research
 locale: es
 eyebrow: '// institucional'
-lede: un pabellón tropical de investigación y visitantes para una institución de investigación, definido por un marco de concreto, aleros profundos y louvers operables ajustados para ventilación cruzada y durabilidad ante el aire salino.
+lede: "un pabellón de investigación y visitantes en la costa caribe. marco de concreto, aleros profundos y persianas que se abren al viento, hechos para durar junto al mar."
 location: costa caribe, panamá
 year: 2021
 area: 'TBD m²'
@@ -44,17 +44,10 @@ approach: |
 strategies:
   - label: estructura
     body: 'marco de concreto con columnas esbeltas soportando una cubierta amplia y plana; aleros profundos.'
-    delta: 'TBD'
   - label: louvers
     body: 'louvers operables de madera en el perímetro para ventilación cruzada y luz natural filtrada.'
-    delta: 'TBD'
   - label: materiales
     body: 'concreto expuesto, madera y piedra seleccionados para el ambiente salino-húmedo.'
-    delta: 'TBD'
   - label: ventilación
     body: 'dependencia mecánica mínima; ventilación cruzada como estrategia principal de enfriamiento.'
-    delta: 'TBD'
-resultLabel: 'objetivo de enfriamiento pasivo'
-resultDelta: 'TBD'
-closingQuote: 'dignidad institucional, plenamente integrada al paisaje.'
 ---

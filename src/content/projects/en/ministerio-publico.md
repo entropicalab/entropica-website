@@ -3,7 +3,7 @@ title: ministerio público
 slug: ministerio-publico
 locale: en
 eyebrow: '// institutional'
-lede: rehabilitating a 1958 civic landmark for the unidad metropolitana del ministerio público, an institutional brief whose design value had to come from inside the existing envelope.
+lede: "a 1958 building in panamá city, now home to the metropolitan prosecutor's office. the facade could not change, so the work happened inside."
 location: ciudad de panamá, panamá
 year: 2020
 area: '2,600 m²'
@@ -18,46 +18,18 @@ award:
   label: 'premios moa · 2022 · distinción de honor, 68th edition · colegio de arquitectos de panamá'
   url: 'https://ministeriopublico.gob.pa/notas-de-prensa/la-procuraduria-general-de-la-nacion-recibe-distincion-de-honor-en-los-premios-moa-por-el-proyecto-de-la-nueva-sede-de-la-fiscalia-metropolitana/'
 brief: |
-  the rehabilitation of a 1958 civic landmark to house a complex 2,600 m² program for the
-  unidad metropolitana del ministerio público: offices, public-attention areas, and
-  forensic laboratories. budget around USD 10M.
-
-  the existing envelope could not be modified. design value had to come from circulation,
-  spatial hierarchy, and the integration of new uses within the limitations of the historic
-  shell.
+  2,600 m² for the metropolitan unit of the public ministry: offices, public service areas and forensic labs, inside a building whose facade had to stay as it was.
 approach: |
-  we restructured flows between public, semi-public, and restricted areas, optimising
-  connections between offices and laboratories while maintaining the hierarchical
-  organisation requested by the client. energy strategies were limited by the impossibility
-  of altering the façade or introducing new systems, so we made sure the building's
-  emblematic 1958 louvres retained their functional and cultural role.
-
-  the intervention extended beyond the building itself with renovation of sidewalks and
-  the addition of tree pits, improving accessibility and the surrounding public realm.
-
-  the ministerio público is an example of panamanian tropical modern architecture: simple yet
-  effective solar protection strategies, embedded in the formal logic of the 1958 building.
-
-  this project demonstrates entrópica's capacity to work in high-budget public-sector
-  contexts under strict regulatory and programmatic constraints. design freedom was
-  limited; the honorable mention at the **2023 mejores obras de arquitectura awards**
-  highlights the architectural value of the approach in complex civic projects.
+  we reorganized the building inside and kept what already worked.
 strategies:
-  - label: circulation
-    body: 'restructured public / semi-public / restricted flows; preserved hierarchical organisation.'
-    delta: 'TBD'
-  - label: heritage
-    body: 'emblematic 1958 louvres preserved in their functional and cultural role.'
-    delta: 'TBD'
-  - label: program fit
-    body: 'office, public-attention, and forensic-laboratory program integrated within unmodified shell.'
-    delta: 'TBD'
-  - label: public realm
-    body: 'sidewalk renovation and tree pits to improve accessibility around the building.'
-    delta: 'TBD'
-resultLabel: 'mejores obras de arquitectura panamá'
-resultDelta: 'honorable mention · 2023'
-closingQuote: 'a civic landmark, restored from the inside.'
+  - label: "circulation"
+    body: "public, semi-public and restricted areas, each with its own route."
+  - label: "louvers"
+    body: "the 1958 louvers stay and still give shade."
+  - label: "program"
+    body: "offices, public service and labs, inside the existing building."
+  - label: "the street"
+    body: "new sidewalks and planters around the building."
 gallery:
   - { src: '/projects/ministerio-publico/02.jpg', tag: '// façade · photo · j. barría' }
   - { src: '/projects/ministerio-publico/03-luchau.jpg', tag: '// interior · photo · c. luchau' }
