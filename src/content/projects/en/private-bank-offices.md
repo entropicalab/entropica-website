@@ -16,7 +16,7 @@ heroImage: /projects/private-bank-offices/01.jpg
 metric:
   value: '−94'
   unit: '%'
-  label: yearly sun on the new glass
+  label: less sun on the glass
   note: 'roof and breezeblock against the same building with no shade: 331 to 21 kWh/m² a year. design-stage simulation, model rebuilt and rerun in 2026. competition entry.'
 brief: |
   chitré is in the arco seco, the driest part of panamá. in the sun, most daytime hours

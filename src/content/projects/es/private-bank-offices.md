@@ -16,7 +16,7 @@ heroImage: /projects/private-bank-offices/01.jpg
 metric:
   value: '−94'
   unit: '%'
-  label: sol anual sobre el vidrio nuevo
+  label: menos sol sobre el vidrio
   note: 'techo y bloque perforado frente al mismo edificio sin sombra: de 331 a 21 kWh/m² al año. simulación en etapa de diseño, modelo reconstruido y reejecutado en 2026. concurso.'
 brief: |
   chitré está en el arco seco, la zona más seca de panamá. al sol, la mayoría de las horas

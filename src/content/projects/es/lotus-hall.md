@@ -10,7 +10,7 @@ area: '4,585 m²'
 typology: institutional
 role: estudios de luz natural + modelado energético + especificación de fachada
 status: concepto
-featured: true
+featured: false # vuelve al inicio después de la reejecución de 2026
 order: 1
 heroImage: /projects/lotus-hall/01.jpg
 metric:

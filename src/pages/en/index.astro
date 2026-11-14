@@ -12,22 +12,19 @@ const featured = allProjects
   .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 
 const services = [
-  { eyebrow: '// 01', title: 'concept design', icon: 'architecture', body: 'orientation, massing, and program tested against the climate before the design is committed.' },
-  { eyebrow: '// 02', title: 'architectural design + coordination', icon: 'dashboard_customize', body: 'full architectural delivery, including complementary engineering disciplines.' },
-  { eyebrow: '// 03', title: 'permitting + documentation', icon: 'description', body: 'construction documents that pass review and that the contractor can actually build.' },
-  { eyebrow: '// 04', title: 'energy + performance advisory', icon: 'monitoring', body: 'envelope simulation, daylight studies, leed / edge support, as a standalone or in-house service.' },
+  { eyebrow: '// 01', title: 'concept design', icon: 'architecture', body: 'which way the building faces, how much glass it has and where the shade goes, decided with your site\'s climate.' },
+  { eyebrow: '// 02', title: 'full design', icon: 'dashboard_customize', body: 'the design from start to finish, coordinated with the engineers.' },
+  { eyebrow: '// 03', title: 'permits and drawings', icon: 'description', body: 'drawings that pass review and that the contractor can build.' },
+  { eyebrow: '// 04', title: 'energy studies', icon: 'monitoring', body: 'we simulate the sun, the daylight and the air-conditioning of your project, or your team\'s.' },
 ];
 
 const problems = [
-  { p: 'high energy use', s: 'solar control, envelope strategy, and system alignment.', icon: 'bolt' },
-  { p: 'overheating + comfort complaints', s: 'shading, air movement, passive cooling strategies.', icon: 'device_thermostat' },
-  { p: 'humidity + indoor air issues', s: 'moisture load management and detailing for durability.', icon: 'humidity_mid' },
-  { p: 'coastal exposure + corrosion', s: 'material selection and protective detailing.', icon: 'waves' },
-  { p: 'poor daylight or glare', s: 'daylight shaping and controlled solar access.', icon: 'wb_sunny' },
-  { p: 'costly maintenance', s: 'simpler systems and durable assemblies.', icon: 'build' },
+  { p: 'high power bills', s: 'shade first, so the air-conditioning works less.', icon: 'bolt' },
+  { p: 'hot rooms', s: 'shade and moving air before more equipment.', icon: 'device_thermostat' },
+  { p: 'damp and mold', s: 'details that let walls and roofs dry out.', icon: 'humidity_mid' },
+  { p: 'salt and wear', s: 'materials and details made for the coast.', icon: 'waves' },
 ];
 
-const manifesto = ['shade', 'airflow', 'moisture', 'durability', 'vegetation', 'energy'];
 
 const businessSchema = {
   '@context': 'https://schema.org',
@@ -83,8 +80,8 @@ const clients = [
 ---
 
 <BaseLayout
-  title="entrópica · energy-led tropical architecture studio in panamá"
-  description="entrópica is an energy-led tropical architecture studio in panamá, central america. we use climate science and building physics to design cool buildings in hot places."
+  title="entrópica · architecture for the heat of panamá"
+  description="an architecture studio in panamá city. we design houses and buildings that need less air-conditioning, and we check it with simulations before they are built."
   locale={locale}
 >
   <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
@@ -92,56 +89,32 @@ const clients = [
   <section class="hero">
     <div class="site-wrap">
       <div class="hero-grid">
-        <div class="hero-eb">// tropical architecture studio · est. 2020</div>
+        <div class="hero-eb">// architecture studio · panamá city · since 2020</div>
         <h1 class="hero-h">
-          energy-led tropical<br />
-          architecture.
+          architecture for the heat of panamá.
         </h1>
         <p class="hero-lede">
-          entrópica is a tropical architecture studio in panamá. the sun, the heat,
-          and the humidity determine the energy cost of a project. that is our starting
-          point for design.
+          we design buildings that need less air-conditioning, and we check it with
+          simulations before they are built.
         </p>
         <div class="hero-ctas">
-          <a class="btn amber" href={localized('/projects', locale)}>
-            {t('cta.viewWork')}
+          <a class="btn amber" href={localized('/contact', locale)}>
+            tell us about your project
             <span class="arrow-tail" aria-hidden="true"></span>
           </a>
-          <a class="btn" href={localized('/contact', locale)}>{t('cta.contact')}</a>
+          <a class="btn" href={localized('/projects', locale)}>{t('cta.viewWork')}</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ manifesto strip (KEEP) ============ -->
-  <section class="manifesto-strip">
-    <div class="site-wrap">
-      <div class="manifesto-eb">// performance is design material</div>
-      <div class="manifesto-grid">
-        {manifesto.map((word) => (
-          <div class="manifesto-cell">
-            {word} <span class="amber">is architecture.</span>
-          </div>
-        ))}
-      </div>
-      <p class="manifesto-note">
-        in temperate-climate practice, shade, ventilation, humidity, and energy are usually
-        resolved later, tacked on as an engineering layer at the end. here they are part of
-        the brief from the first drawing. thermal performance defines form, materiality, and
-        the way our projects are inhabited. we design
-        <a class="inline-link" href={localized('/blog/sustainable-architecture-panama', locale)}>architecture for the tropics</a>
-        using climate as the primary material.
-      </p>
-    </div>
-  </section>
 
   <!-- ============ what does that mean? · measurable upside ============ -->
   <section class="block measurable">
     <div class="site-wrap">
       <div class="measurable-head">
-        <div class="eyebrow">// what does that mean?</div>
-        <h2 class="block-h">designing from the climate has quantified results.</h2>
-        <p class="measurable-sub">results from design-stage simulations, not measurements of the built work.</p>
+        <div class="eyebrow">// projects</div>
+        <h2 class="block-h">what changed in recent projects.</h2>
       </div>
 
       <div class="measurable-grid">
@@ -154,7 +127,6 @@ const clients = [
               <div class="m-card-metric">
                 <span class="m-num">{p.data.metric.value}<span class="m-unit">{p.data.metric.unit}</span></span>
                 <span class="m-label">{p.data.metric.label}</span>
-                <span class="m-basis">simulated{p.data.status ? ` · ${p.data.status}` : ''}</span>
               </div>
             )}
             <div class="m-card-info">
@@ -170,6 +142,7 @@ const clients = [
         ))}
       </div>
 
+      <p class="measurable-sub">figures simulated before construction. air-conditioning already takes about a fifth of the electricity used in buildings worldwide (<a href="https://www.iea.org/reports/the-future-of-cooling" target="_blank" rel="noopener">iea, 2018</a>).</p>
       <div class="measurable-foot">
         <a class="btn" href={localized('/projects', locale)}>
           {t('cta.viewWork')}
@@ -179,31 +152,13 @@ const clients = [
     </div>
   </section>
 
-  <!-- ============ what does that mean? · measurable downside ============ -->
-  <section class="block downside">
-    <div class="site-wrap">
-      <div class="downside-grid">
-        <div class="downside-left">
-          <div class="eyebrow">// what does that mean?</div>
-          <h2 class="block-h">ignoring the climate has a cost too.</h2>
-        </div>
-        <div class="downside-right">
-          <div class="big-stat">
-            <span class="big-num">20<span class="big-unit">%</span></span>
-            <p class="big-stat-line">of the electricity used in buildings worldwide already goes to air conditioners and fans. without action, the energy for cooling will more than triple by 2050.<sup>*</sup></p>
-            <p class="big-stat-source"><sup>*</sup> <a href="https://www.iea.org/reports/the-future-of-cooling" target="_blank" rel="noopener">iea · the future of cooling, 2018</a>.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ============ how do we do it? ============ -->
   <section class="block howdoit">
     <div class="site-wrap">
       <div class="howdoit-head">
-        <div class="eyebrow">// how do we do it?</div>
-        <h2 class="block-h">we design with energy simulations, to avoid:</h2>
+        <div class="eyebrow">// how we work</div>
+        <h2 class="block-h">we test the design against the climate before it is built.</h2>
       </div>
       <div class="problems-grid">
         {problems.map((p) => (
@@ -215,12 +170,10 @@ const clients = [
         ))}
       </div>
       <p class="howdoit-punch">
-        because you wouldn't build without knowing how the building will look, even just from
-        a render. <span class="amber-text">same thing, but for energy.</span>
+        you wouldn't build without seeing a render first. <span class="amber-text">we do the same with the heat.</span>
       </p>
       <p class="howdoit-fact">
-        keeping the heat out first can lower indoor temperatures by 2 to 8 °C and cut annual
-        cooling demand by 25 to 70 kWh/m².<sup>*</sup>
+        stopping the heat before it gets in can lower indoor temperatures by 2 to 8 °C.<sup>*</sup>
         <span class="howdoit-src"><sup>*</sup> <a href="https://www.uncclearn.org/wp-content/uploads/library/Global_Cooling_Watch_2025.pdf" target="_blank" rel="noopener">unep · global cooling watch, 2025</a>.</span>
       </p>
     </div>
@@ -230,14 +183,13 @@ const clients = [
   <section class="block services alt">
     <div class="site-wrap">
       <div class="services-head">
-        <div class="eyebrow">// our offering</div>
-        <h2 class="block-h">architectural services, energy-led.</h2>
-        <p class="block-sub">from concept to construction, energy is a design criterion from day one.</p>
+        <div class="eyebrow">// services</div>
+        <h2 class="block-h">from the first sketch to the permit.</h2>
       </div>
 
       <div class="services-layout">
         <div class="services-img">
-          <img src="/servicios-guiados.jpg" alt="energy-led architecture services" loading="lazy" />
+          <img src="/servicios-guiados.jpg" alt="drawings and a model of an entrópica project" loading="lazy" />
         </div>
         <div class="services-grid">
           {services.map((s) => (
@@ -252,7 +204,7 @@ const clients = [
       </div>
 
       <div class="services-foot">
-        <a class="btn" href={localized('/services', locale)}>more on services</a>
+        <a class="btn" href={localized('/services', locale)}>see services</a>
       </div>
     </div>
   </section>
@@ -261,8 +213,8 @@ const clients = [
   <section class="block experience">
     <div class="site-wrap">
       <div class="experience-head">
-        <div class="eyebrow">// our experience</div>
-        <h2 class="block-h">some of the clients we've earned.</h2>
+        <div class="eyebrow">// clients</div>
+        <h2 class="block-h">who we have worked with.</h2>
       </div>
       <div class="clients-grid">
         {clients.map((c) => (
@@ -291,16 +243,14 @@ const clients = [
             licensed architect in panamá (JTIA, license 2015-001-042) and founder of entrópica.
           </p>
           <p class="founder-body-p">
-            his work spans the americas, asia, africa, and europe. he researched at the
-            panamá green building council in 2013, taught at the urban sustainable lab,
-            co-founded pentagrama estudio de diseño (working from 2013, incorporated in 2016), and in 2018 co-founded
+            he studied environmental building design at the university of pennsylvania. he
+            co-founded pentagrama estudio de diseño and
             <a class="inline-link" href="https://www.globalurban.net/panama-city-panama" target="_blank" rel="noopener">acta, the panamá
-            city sustainable innovation zone</a>. since 2026, he is part of mat, the tropical architecture
-            movement. outside entrópica, he is a partner at trimpacta, the corporate side
-            of the same problem: water footprint, carbon, and sustainability reporting.
+            city sustainable innovation zone</a>. he is also a partner at trimpacta, a water
+            footprint and carbon consultancy.
           </p>
           <a class="btn" href={localized('/about', locale)}>
-            more about the studio
+            about josé and the studio
             <span class="arrow-tail" aria-hidden="true"></span>
           </a>
         </div>
@@ -312,14 +262,10 @@ const clients = [
   <section class="closing-cta">
     <div class="site-wrap">
       <div class="closing-inner">
-        <div class="eyebrow">// let's get to work</div>
-        <h2 class="closing-h">
-          cool buildings<br />
-          in hot places.
-        </h2>
+        <h2 class="closing-h">building somewhere hot?</h2>
         <div class="closing-ctas">
           <a class="btn amber" href={localized('/contact', locale)}>
-            {t('cta.contact')}
+            tell us about your project
             <span class="arrow-tail" aria-hidden="true"></span>
           </a>
           <a class="contact-line" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a>
@@ -446,7 +392,8 @@ const clients = [
 
   /* ============ measurable upside (3 metric cards) ============ */
   .measurable-head { margin-bottom: 56px; }
-  .measurable-sub { margin: -8px 0 0; font-size: 13px; color: var(--mute-on-paper-2); max-width: 60ch; }
+  .measurable-sub a { color: inherit; border-bottom: 1px solid currentColor; }
+  .measurable-sub { margin: 32px 0 0; font-size: 13px; color: var(--mute-on-paper-2); max-width: 60ch; }
   .m-basis { display: block; margin-top: 6px; font-size: 11px; letter-spacing: 0.08em; color: var(--mute-on-paper-2); }
   .measurable-head .eyebrow {
     font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
@@ -606,7 +553,7 @@ const clients = [
   /* ============ problems strip ============ */
   .problems-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
   }
   .problem {

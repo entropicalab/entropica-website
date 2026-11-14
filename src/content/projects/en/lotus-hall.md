@@ -10,7 +10,7 @@ area: '4,585 m²'
 typology: institutional
 role: daylight studies + energy modeling + façade specification
 status: concept
-featured: true
+featured: false # back on the home page after the 2026 rerun
 order: 1
 heroImage: /projects/lotus-hall/01.jpg
 metric:

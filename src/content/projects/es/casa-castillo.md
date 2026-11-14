@@ -10,7 +10,7 @@ typology: residential
 role: "simulaciones + validación de estrategias"
 roleNote: "diseño: labhaus studio"
 roleNoteUrl: "https://www.instagram.com/labhausstudio/"
-featured: false
+featured: true
 order: 13.5
 heroImage: /projects/casa-castillo/01.jpg
 heroCaption: "// ilustración con ia, basada en el modelo del estudio de 2020"
@@ -18,7 +18,7 @@ heroAlt: "ilustración con ia de casa castillo, basada en el modelo del estudio 
 metric:
   value: '+450'
   unit: 'h'
-  label: "más horas en confort al año, sin aire acondicionado"
+  label: "horas frescas más al año, sin aire acondicionado"
   note: "casa principal, confort adaptativo (ashrae 55), aire quieto, clima tmyx de santiago de veraguas. simulación por entrópica, diseño de labhaus studio."
 brief: |
   casa castillo es una casa de campo familiar en el arco seco de panamá, en los santos, diseñada por labhaus studio. entrópica hizo las simulaciones y validó las estrategias del diseño, en una colaboración entre ambos estudios.
