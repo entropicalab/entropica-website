@@ -45,4 +45,4 @@ el emplazamiento ártico podría reducir el uso de energía a la mitad mientras 
 
 ---
 
-diseñamos edificios para el futuro, no para el pasado. [hablemos.](/es/contact)
+¿estás diseñando un edificio? [escríbenos.](/contact)

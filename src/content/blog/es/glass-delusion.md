@@ -49,7 +49,7 @@ en el norte de europa o de norteamérica, el desafío térmico principal es la c
 
 la arquitectura en el trópico debe defender el interior del sol, no rendirse a él. la torre de vidrio integral es una reliquia de una era de combustibles fósiles que ya no podemos costear. la verdadera modernidad tropical es fresca, sombreada y protegida.
 
-¿te preocupa la huella energética de tu edificio? [escríbenos](/es/contact) para una revisión de desempeño de fachada.
+¿quieres revisar la fachada de tu edificio? [escríbenos.](/contact)
 
 ---
 

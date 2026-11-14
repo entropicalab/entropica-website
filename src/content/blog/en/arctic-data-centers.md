@@ -45,4 +45,4 @@ arctic siting could cut energy use by half while reshaping how we think about th
 
 ---
 
-we design buildings for the future, not the past. [let's talk.](/contact)
+designing a building? [write to us.](/en/contact)

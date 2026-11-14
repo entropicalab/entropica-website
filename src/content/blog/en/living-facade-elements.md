@@ -45,4 +45,4 @@ algae façades could transform buildings into urban biofactories: reducing carbo
 
 ---
 
-we design buildings for the future, not the past. [let's talk.](/contact)
+designing a building? [write to us.](/en/contact)

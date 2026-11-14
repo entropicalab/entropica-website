@@ -7,7 +7,7 @@ tags: ['tropical architecture', 'climate', 'panamá']
 keywords: ['sustainable architecture panama', 'tropical architecture panama', 'bioclimatic architecture panama']
 eyebrow: '// the guide'
 heroImage: /blog/sustainable-architecture-panama/sust-arch-panama.jpg
-summary: a long-form take on why panamá's glass-tower aesthetic is structurally incompatible with its climate and its electricity rates, and what tropical-specific design moves actually work.
+summary: why an unshaded glass building costs more in panamá, and which tropical design moves fix it.
 date: 2024-10-21
 author: josé barría
 draft: false
@@ -15,105 +15,53 @@ draft: false
 
 > why glass buildings are costly in the tropics.
 
-panamá's skyline has transformed rapidly over the last two decades. glass façades now dominate our urban landscape: shimmering towers that promise modernity, transparency, and prestige. yet beneath their polished surfaces lies a contradiction: these aesthetic decisions come at a steep environmental and economic cost.
+in the last two decades, panamá's skyline filled up with glass towers. they look modern and let in a lot of light. they also let in a lot of heat, and that heat is paid for every month on the air-conditioning bill.
 
-as an architect working in the tropics, i see every day how the overuse of *unprotected* glass façades defies both climate logic and sustainable design principles. in a country with high electricity costs and constant heat, unprotected glass turns a building into a monument to inefficiency.
+the fix is to put the glass in the right place and give it shade.
 
-## local observations
+## what you see in the city
 
-many office towers feature continuous glass façades in all directions. during the afternoon, you can see mirrored reflections of the sun bouncing onto neighbouring façades, multiplying heat and glare.
+many office towers have continuous glass on all four facades. in the afternoon, the sun bounces between neighboring buildings and adds heat and glare.
 
-meanwhile, *older tropical buildings* (those with deep balconies, shaded verandas, or ventilated roofs) often maintain reasonable indoor conditions with minimal cooling. their appearance may be less "corporate," but their logic is profoundly sustainable.
+older tropical buildings, with deep balconies, galleries and ventilated roofs, usually stay reasonable inside with little air-conditioning. they look less corporate, but they answer the climate better.
 
-i avoid naming specific projects out of respect for peers. the aim is to question a trend, not to single out peers: why do we keep repeating a typology that works against our own climate?
+i don't name specific projects. the question is about a habit: why do we keep repeating a building type that works against our own climate?
 
-## the energy context of panamá
+## electricity in panamá gets expensive when you use a lot
 
-electricity in panamá is expensive. as of 2024, residential rates average around **USD 0.175 per kwh**, while commercial users pay closer to **USD 0.196 per kwh**. the national electricity market operates between **169 and 199 USD / mwh**, roughly the same 0.17 to 0.20 USD / kwh range.
+the residential tariff is progressive. the first 300 kwh of the month run around USD 0.091 each; from 301 to 750, about 0.158; above 750, about 0.230. air-conditioning is usually what takes a house into the expensive block.
 
-this positions panamá among high-electricity-cost nations, with higher prices than costa rica or el salvador. the reasons are structural: generation depends heavily on hydroelectricity, but variability in rainfall and the need for fossil-fuel backup add volatility. for any air-conditioned building, these rates translate into significant operational costs, and for a fully glazed building in the tropics, those costs multiply.
+worldwide, air conditioners and fans already use about a fifth of the electricity in buildings, and without action the energy for cooling will more than triple by 2050 ([iea, the future of cooling, 2018](https://www.iea.org/reports/the-future-of-cooling)).
 
-## the greenhouse effect of glass buildings
+## what glass does with heat
 
-glass is seductive. it floods interiors with daylight and offers sweeping views. but in tropical climates, its behaviour under direct solar radiation is problematic.
+sunlight passes through the glass, warms the floor, the furniture and the walls, and that heat stays inside. it's the greenhouse effect at the scale of a room.
 
-sunlight enters as **short-wave radiation**, strikes interior surfaces, and is re-emitted as **long-wave infrared heat**. most glass is opaque to these longer wavelengths, trapping heat inside: the **greenhouse effect**. the result is higher indoor temperatures and an increased dependence on mechanical cooling.
+solar-control glass helps, but it doesn't replace shade. sun stopped outside never turns into heat inside.
 
-research in tropical climates has quantified this effect. studies show that high-glazing-ratio façades can increase cooling energy demand by **25 to 50%** compared to balanced envelope designs. even with solar-control or low-emissivity glass, the thermal load remains substantial. a 2017 evaluation of glass-performance metrics concluded that standard clear glass performs poorly in tropical latitudes, while tinted or coated glass only partially mitigates the problem.
+## how much passive design gains
 
-## the hidden cost of aesthetics
+according to the un, keeping heat out of a building can lower indoor temperatures by 2 to 8 °C and cut annual cooling demand by 25 to 70 kWh per m² ([unep, global cooling watch 2025](https://www.uncclearn.org/wp-content/uploads/library/Global_Cooling_Watch_2025.pdf)). on average, passive measures save 29% of the energy.
 
-when architects specify glass façades in tropical cities, the decision is often aesthetic or symbolic: "modern," "corporate," "transparent." rarely is it based on climate or performance.
+in panamá, the sustainable building guide asks new buildings to save 20% of their energy against a baseline ([panamá green building council, 2026](https://panamagbc.org/wp-content/uploads/2026/04/Avance-de-Sostenibilidad-en-la-edificacion-en-Panama.pdf)).
 
-however, every square metre of exposed glass increases internal heat gain, raising both cooling load and installed hvac capacity. this mechanical dependence creates a feedback loop: the more glass, the more cooling; the more cooling, the higher the bills; the higher the bills, the more pressure to cut comfort or efficiency elsewhere. and the heat trapped inside glass buildings does not disappear, it gets pushed outside and into the city, worsening the urban heat island.
+## what works in the tropics
 
-for building owners, this translates into thousands of dollars in annual energy expenses. if a typical office tower consumes **100,000 kwh / year** for air conditioning, a 25 to 50% excess from poor façade design adds **25,000 to 50,000 kwh / year**, or roughly **USD 4,000 to 8,500 annually**, depending on tariff levels. over a 25-year lifespan, the difference can exceed **USD 200,000**, excluding maintenance and equipment replacement.
+1. **shade outside the glass.** overhangs, vertical fins and screens stop the sun before it reaches the window.
+2. **louvers and mesh.** metal, wood or perforated sheet. they let the air through and cut the sun.
+3. **glass by orientation.** glass that lets light in and reflects heat, chosen for each facade.
+4. **natural ventilation.** windows facing each other, high openings to let hot air out, and night flushing.
+5. **thermal mass.** concrete or block walls that soak up the day's heat and release it at night, where the climate allows it.
+6. **upgrades for existing buildings.** window films, added shading or a partial change of glass.
 
-this is a non-marginal issue that defines the building's long-term sustainability and economic performance.
+## how we work
 
-## the irony of mechanically-dependent modernism
+at entrópica every project starts with the climate of the site: sun, wind and humidity. we model the sun path and simulate the facade with energyplus and ladybug before the design is closed.
 
-there is a philosophical irony at play. the international style (which popularised glass façades) emerged from temperate contexts where solar gain was welcome. copied *uncritically* to the tropics, it becomes self-defeating.
+less heat coming in allows smaller equipment, which lowers both the cost to install it and the monthly bill.
 
-in panamá's hot-humid climate, full-glass buildings require **mechanical cooling 24 hours a day**. if the chiller fails or the grid cuts off, comfort collapses instantly. compare this to vernacular or climate-responsive buildings that remain habitable even when systems are off.
+## in short
 
-when architecture relies entirely on energy to correct its own environmental mistakes, it ceases to be sustainable or even reasonable, no matter how many green labels it carries.
+glass can be part of tropical architecture if it's shaded and placed where it's needed. every square meter of facade is a decision you pay for over the life of the building.
 
-## smarter tropical design strategies
-
-panamá has centuries of climatic wisdom embedded in its traditional architecture. the same principles can inform contemporary design without sacrificing modernity.
-
-1. **shading devices.** horizontal overhangs, vertical fins, and brise-soleil elements block direct sun before it hits the glass. even a 1 m overhang can cut solar exposure on upper floors by 50%.
-2. **external louvres and screens.** adjustable shading (metal, perforated mesh, or wood) allows occupants to control glare and heat gain dynamically.
-3. **selective glazing.** low-e or spectrally selective glass reduces solar heat gain while maintaining visible light. reflective or tinted coatings should be tuned to orientation.
-4. **natural ventilation.** cross-ventilation, stack-effect openings, and night-time flushing dissipate accumulated heat.
-5. **double-skin façades.** an air cavity between outer and inner glass layers allows ventilation to expel hot air.
-6. **thermal mass.** concrete or masonry walls act as buffers, absorbing daytime heat and releasing it at night.
-7. **retrofit measures.** for existing glass buildings, window films, shading additions, or partial recladding can cut cooling loads by up to 27%.
-
-## quantifying the impact
-
-a few numbers to keep:
-
-- a typical 10-storey commercial building with full glass façades can have **40 to 60% higher solar heat gain** compared to an optimised design.
-- cooling energy in such buildings often represents **60 to 70% of total electricity consumption**.
-- if tariffs rise (as they did in early 2024 by 2 to 15% depending on customer class), operational costs can escalate faster than inflation.
-- nationwide, commercial buildings account for roughly **35% of total electricity use**, a figure expected to grow with urban densification.
-
-reducing façade gains is therefore one of the most direct and cost-effective pathways to cut urban energy demand.
-
-## our design philosophy
-
-at entrópica, we begin every project by understanding its climatic forces: orientation, prevailing winds, humidity, and solar geometry. unprotected glass is never a default.
-
-1. **climate first.** we model the sun's path and evaluate the façade's behaviour using simulation tools like energyplus and ladybug to predict energy consumption.
-2. **balance and modulation.** we combine transparent and opaque materials strategically, adding shade where necessary.
-3. **aesthetics through performance.** beauty emerges when form and energy logic align: when a façade both delights and protects.
-
-lower heat gains → smaller mechanical equipment → lower upfront *and* lifetime costs.
-
-this approach merges art, science, and responsibility. it is how sustainable architecture must evolve in the tropics: through local intelligence.
-
-## conclusion
-
-sustainable architecture in panamá is not a matter of certifications or slogans. it is a matter of coherence. a glass tower cooled by massive chillers is not sustainable simply because it installs efficient equipment. sustainability begins when design decisions themselves (form, material, orientation) reduce the need for that equipment.
-
-glass can be part of tropical architecture, but only when used consciously, shaded intelligently, and sized according to purpose. every square metre of façade is a long-term energy decision.
-
-in a country where electricity is expensive and the climate is unforgiving, embracing context is the most progressive thing an architect can do.
-
-if you are developing or designing in the region, entrópica can help you simulate, measure, and optimise your project's energy performance, ensuring that beauty, comfort, and efficiency coexist under the same roof.
-
-[reach out](/contact).
-
----
-
-**sources**
-
-- globalpetrolprices, 2024. electricity prices in panama.
-- climatescope, 2024. panama energy market overview.
-- sciencedirect, 2023. advances in retrofitting strategies for energy efficiency in tropical climates.
-- sciencedirect, 2017. evaluation of building glass performance metrics for the tropical climate.
-- mdpi buildings journal, 2024, vol 14 (6): 1633.
-- springer, 2024. improving energy performance in tropical office buildings.
-- enerdata, 2024. panama country energy profile.
+if you're designing or developing in panamá, we can simulate your project before it's built. [write to us.](/en/contact)

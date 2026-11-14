@@ -45,4 +45,4 @@ las fachadas de algas podrían transformar los edificios en biofábricas urbanas
 
 ---
 
-diseñamos edificios para el futuro, no para el pasado. [hablemos.](/es/contact)
+¿estás diseñando un edificio? [escríbenos.](/contact)

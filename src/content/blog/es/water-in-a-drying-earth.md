@@ -45,4 +45,4 @@ integrar la cosecha de agua en la arquitectura descentraliza el suministro, redu
 
 ---
 
-diseñamos edificios para el futuro, no para el pasado. [hablemos.](/es/contact)
+¿estás diseñando un edificio? [escríbenos.](/contact)
