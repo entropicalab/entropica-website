@@ -66,7 +66,7 @@ export const t = {
     'form.send': 'send',
     'form.typology.placeholder': 'select one',
     'form.sent.title': 'message received.',
-    'form.sent.body': "we'll get back to you within two working days.",
+    'form.sent.body': "we'll reply within one working day.",
     'form.error': "that didn't go through. try again, or write to us at",
 
     // consent banner
@@ -138,7 +138,7 @@ export const t = {
     'form.send': 'enviar',
     'form.typology.placeholder': 'selecciona una opción',
     'form.sent.title': 'mensaje recibido.',
-    'form.sent.body': 'te responderemos en un plazo de dos días hábiles.',
+    'form.sent.body': 'te respondemos en un día hábil.',
     'form.error': 'no se pudo enviar. intenta de nuevo o escríbenos a',
 
     // consent banner
