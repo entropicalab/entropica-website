@@ -3,7 +3,7 @@ title: new chautauqua institute
 slug: new-chautauqua-institute
 locale: es
 eyebrow: '// trabajo académico'
-lede: 'una fachada que lee la sombra de la ciudad. en la densa singapur los vecinos dan sombra a los pisos bajos, así que las persianas se cierran a medida que el edificio sube: reducen 71% el sol sobre el vidrio y mantienen luz natural suficiente en 94% del área de piso.'
+lede: "una fachada que lee la sombra de la ciudad. en singapur los vecinos dan sombra a los pisos bajos, así que las persianas se cierran a medida que el edificio sube. el sol sobre el vidrio baja 71%."
 location: singapur
 year: 2017
 typology: mixed-use
@@ -19,24 +19,13 @@ metric:
   value: '−71'
   unit: '%'
   label: de sol sobre el vidrio detrás de las persianas, en un año
-  note: 'proyecto académico en equipo, universidad de pensilvania, taller arch 708 de diseño ambiental de edificios, 2017. modelos de archivo reejecutados en 2026: radiance y energyplus, clima iwec de singapur. la imagen es una visualización con ia.'
+  note: "proyecto académico en equipo, universidad de pensilvania, 2017. modelos reejecutados en 2026. la imagen es una visualización con ia."
 brief: |
-  el new chautauqua institute es un proyecto de taller de 2017 para un edificio de
-  investigación y residencia sobre un estacionamiento en el centro de singapur, de josé
-  barría, bhakti kothari y neeharika siram, en el taller de diseño ambiental de edificios
-  de la universidad de pensilvania.
+  el new chautauqua institute es un proyecto de taller de 2017 en la universidad de pensilvania, de josé barría, bhakti kothari y neeharika siram: un edificio de investigación y residencia en el centro de singapur.
 
-  esta página sigue una idea de una versión temprana del diseño: una jaula de persianas
-  horizontales que se cierra a medida que el edificio sale de la sombra de sus vecinos. en
-  2026 se reejecutaron los modelos de archivo y se recalculó cada número de esta página.
+  esta página sigue una idea de una versión temprana del diseño. en 2026 se volvieron a correr los modelos.
 approach: |
-  singapur es caliente y húmeda todo el año, y la calle nunca está fresca, así que la
-  sombra y el aire en movimiento son las herramientas. una oficina mostró el orden: primero
-  la sombra, luego un mejor vidrio, luego la ventilación natural.
-
-  en el edificio, la ciudad ya da sombra a los pisos bajos. el último piso, por encima de
-  los techos vecinos de 20 m, recibe 2.9 veces más sol en su vidrio que el primero. por eso
-  las persianas no se reparten por igual: 7 en el primer piso, 14 en el último.
+  el último piso, por encima de los techos vecinos, recibe 2.9 veces más sol que el primero. por eso las persianas no se reparten por igual: 7 en el primer piso y 14 en el último.
 study:
   keyNumbers:
     - { value: '93%', label: 'de las horas del año con estrés térmico, incluso a la sombra (utci de 26 °C o más)' }
@@ -46,28 +35,6 @@ study:
     - { value: '−71%', label: 'de sol sobre el vidrio detrás de las persianas (de 389 a 114 kWh/m² al año)' }
     - { value: '94%', label: 'del área de piso con luz natural suficiente (sDA) detrás de las persianas' }
   panels:
-    - headline: caliente y húmedo, todo el año
-      image: /projects/new-chautauqua-institute/new-chautauqua-institute_01_climate.webp
-      interactive: { type: heat-heatmap, data: /projects/new-chautauqua-institute/data/climate-hourly.json }
-      width: 2160
-      height: 2200
-      alt: 'gráficos hora por hora del año en singapur: la temperatura del aire, cálida todas las tardes y casi sin cambio entre meses; y la temperatura sentida a la sombra (utci), casi todas las horas con estrés térmico moderado.'
-      caption: 'cada hora del año en singapur. el aire promedia 27.5 °C y 84% de humedad, casi sin estaciones. a la sombra, 93% de las horas tienen estrés térmico: la calle nunca está fresca, así que la sombra y el aire en movimiento son las herramientas.'
-      numbers:
-        - { value: '27.5', unit: '°C', label: 'temperatura media del aire' }
-        - { value: '93', unit: '%', label: 'de las horas con estrés térmico a la sombra' }
-    - headline: primero la sombra, luego el vidrio, luego el aire
-      image: /projects/new-chautauqua-institute/new-chautauqua-institute_02_ladder.webp
-      interactive: { type: comfort-heatmap, data: /projects/new-chautauqua-institute/data/room-hourly.json, cases: ['la oficina original', 'sombras, vidrio y aire'] }
-      width: 2160
-      height: 2200
-      alt: 'gráficos hora por hora de una oficina, original y con sombras, mejor vidrio y ventilación natural. la franja de calor del mediodía se reduce: de 3,064 a 6,519 horas en confort.'
-      caption: 'una oficina, el mismo clima, un cambio a la vez. la oficina original está en confort 35% del año. las sombras la llevan a 52%, un mejor vidrio a 57% y la ventilación natural a 74%. el gráfico compara el primer paso con el último.'
-      numbers:
-        - { value: '35', unit: '%', label: 'la oficina original' }
-        - { value: '52', unit: '%', label: '+ sombras' }
-        - { value: '57', unit: '%', label: '+ mejor vidrio' }
-        - { value: '74', unit: '%', label: '+ ventilación natural' }
     - headline: la ciudad da sombra abajo, el cielo quema arriba
       image: /projects/new-chautauqua-institute/new-chautauqua-institute_03_shadow.webp
       interactive:
@@ -81,7 +48,7 @@ study:
       width: 2160
       height: 2200
       alt: 'gráfico de líneas del sol anual sobre el vidrio de cada piso sin persianas: 208, 271, 361, 503 y 603 kWh/m² del primer piso al quinto.'
-      caption: 'sol anual sobre el vidrio de la caja sin persianas, del primer piso al último. el primer piso recibe 208 kWh/m²; el último, por encima de los techos vecinos de 20 m, recibe 603: 2.9 veces más. la fachada no necesita la misma sombra a cada altura.'
+      caption: "el sol de un año sobre el vidrio de cada piso, sin persianas. el primero recibe 208 kWh/m²; el último, por encima de los vecinos, 603."
       numbers:
         - { value: '208', unit: 'kWh/m²·año', label: 'primer piso, sin persianas' }
         - { value: '603', unit: 'kWh/m²·año', label: 'último piso, sin persianas' }
@@ -104,7 +71,7 @@ study:
       width: 2160
       height: 2200
       alt: 'gráfico de barras de persianas por piso, como se dibujaron en 2017 (7, 7, 10, 11, 14) y en proporción al sol de cada piso (5, 7, 9, 13, 15).'
-      caption: 'las persianas de 2017 y cuántas recibe cada piso: 7, 7, 10, 11, 14, más una debajo del primer piso (50 en total). repartir las 49 persianas de los pisos 1 a 5 en proporción al sol de cada piso da 5, 7, 9, 13, 15. el espaciado de 2017 sigue de cerca al sol. debajo de cada piso: su sol sin persianas.'
+      caption: "cuántas persianas lleva cada piso, como se dibujaron en 2017 y repartidas según el sol. se parecen mucho. una más va debajo del primer piso: 50 en total."
       numbers:
         - { value: '7 a 14', unit: '', label: 'persianas por piso, como se dibujaron' }
         - { value: '5 a 15', unit: '', label: 'persianas por piso, en proporción al sol' }
@@ -122,7 +89,7 @@ study:
       width: 2160
       height: 2200
       alt: 'gráfico de líneas del sol anual sobre el vidrio de cada piso detrás de las mismas 50 persianas, con espaciado parejo (25, 41, 71, 139, 221 kWh/m²) y con el espaciado de 2017 (62, 69, 104, 151, 183).'
-      caption: 'las mismas 50 persianas, con el espaciado de 2017 o parejo. con el de 2017 el último piso recibe 17% menos sol (183 contra 221 kWh/m²), y los pisos bajos, ya sombreados por la ciudad, reciben más sol y más luz natural (62 contra 25 en el primer piso). en toda la fachada el espaciado de 2017 deja entrar un poco más de sol (114 contra 99): mueve la sombra, no la aumenta.'
+      caption: "las mismas 50 persianas, con el espaciado de 2017 o parejo. el de 2017 le quita 17% de sol al último piso y deja más luz abajo, donde la ciudad ya da sombra."
       numbers:
         - { value: '−17', unit: '%', label: 'de sol en el último piso' }
         - { value: '62 vs 25', unit: 'kWh/m²·año', label: 'primer piso, 2017 contra parejo' }
@@ -146,18 +113,10 @@ study:
       width: 2160
       height: 2200
       alt: 'gráfico de barras del área de piso con luz natural suficiente (sDA) por piso, sin persianas, con las persianas de 2017 y con persianas parejas. piso 1: 97, 82 y 75%; pisos 3 a 5 cerca de 100% en todos los casos.'
-      caption: 'luz natural en cada piso sin persianas, con persianas parejas y con las de 2017. con las persianas de 2017, 94% del área de piso recibe luz natural suficiente (sin persianas: 99%). el primer piso conserva 82% contra 75% con espaciado parejo, y las horas con exceso de luz en el último piso bajan de 37% a 10%.'
+      caption: "luz natural en cada piso. con las persianas de 2017, 94% del piso tiene luz suficiente (99% sin persianas), y el exceso de luz en el último piso baja de 37% a 10% de las horas."
       numbers:
         - { value: '94', unit: '%', label: 'del área de piso con luz natural suficiente, persianas de 2017' }
         - { value: '37 → 10', unit: '%', label: 'horas con exceso de luz en el último piso' }
-    - headline: el sol se queda en las persianas
-      image: /projects/new-chautauqua-institute/new-chautauqua-institute_07_street.webp
-      width: 2160
-      height: 2200
-      alt: 'perspectiva a nivel de calle de una caja elevada de cinco pisos envuelta en persianas horizontales. el vidrio detrás de las persianas muestra franjas rojas pálidas del sol anual. las guías marcan el último piso (183 kWh/m² al año) y el primero (62).'
-      caption: 'la caja desde la esquina noreste, con el sol anual calculado sobre el vidrio detrás de las persianas desde la misma cámara. 389 kWh/m² al año sobre el vidrio sin protección pasan a 114: 62 en el primer piso y 183 en el último.'
-      numbers:
-        - { value: '−71', unit: '%', label: 'de sol sobre el vidrio detrás de las persianas' }
   method:
     - 'clima: archivo climático iwec de singapur (changi, 1.37° n). utci a la sombra con la temperatura radiante media igual a la del aire; estrés térmico = utci de 26 °C o más.'
     - 'escalera de la oficina: la oficina de energyplus archivada en 2017 (7 × 12 × 4 m, vidrio al sur, sin climatización), reejecutada en energyplus 9.1 para las 8,760 horas; confort adaptativo (ashrae 55, 90%), aire quieto. las láminas de 2017 usaban el viento del archivo climático en el interior y una semana de junio, así que se leen distinto. mejor vidrio: valores de ashrae 189.1, zona 1 (supuestos).'

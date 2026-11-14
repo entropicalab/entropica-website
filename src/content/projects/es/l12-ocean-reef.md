@@ -3,7 +3,7 @@ title: l12 ocean reef
 slug: l12-ocean-reef
 locale: es
 eyebrow: '// estudio de vidrios'
-lede: '¿qué vidrio vale la pena pagar? el proveedor ofreció tres sets de vidrio para esta casa en panamá. simulamos la casa con cada uno: el vidrio doble selectivo reduce 46% el calor que entra por el vidrio y 10% la electricidad del aire acondicionado. el vidrio acústico compra silencio, no energía.'
+lede: "¿qué vidrio vale la pena pagar? simulamos esta casa en panamá con los tres vidrios que ofreció el proveedor. el vidrio doble deja entrar la mitad del calor y baja 10% la electricidad del aire acondicionado."
 location: ocean reef, panamá
 year: 2023
 typology: residential
@@ -16,25 +16,13 @@ metric:
   value: '−46'
   unit: '%'
   label: de calor por el vidrio en un año, de vidrio sencillo a la mezcla optimizada
-  note: 'energyplus 24.2, año climático típico de tocumen, reejecución en 2026 del estudio de 2023. valores de vidrio de la ficha del proveedor (profil 2000 / metra). arquitectura de forza creativa, estudio de vidrios de entrópica.'
+  note: "simulado con el clima de tocumen, reejecutado en 2026. arquitectura de forza creativa, estudio de entrópica."
 brief: |
-  l12 ocean reef es una casa de tres niveles en panamá con 173 m² de vidrio. el
-  proveedor, profil 2000 / metra, propuso tres sets: vidrio claro sencillo, vidrio doble
-  selectivo y el mismo vidrio doble con una capa acústica.
-
-  simulamos la casa con cada uno. el vidrio doble reduce 46% el calor que entra por el
-  vidrio. la electricidad del aire acondicionado baja cerca de una décima, porque muros,
-  techo y personas siguen aportando calor. el vidrio acústico da el mismo resultado
-  térmico: compra silencio, no energía.
+  l12 ocean reef es una casa de tres pisos en panamá con 173 m² de vidrio. el proveedor, profil 2000 / metra, ofreció tres opciones: vidrio sencillo, vidrio doble selectivo y el mismo vidrio doble con una capa acústica.
 approach: |
-  la respuesta fue una mezcla, no un solo vidrio para toda la casa: vidrio acústico en las
-  áreas sociales y la suite principal, vidrio doble en las recámaras y vidrio sencillo en
-  la cocina y las áreas de servicio. la mezcla logra 91% del ahorro del vidrio doble en
-  toda la casa.
+  la respuesta fue una mezcla: vidrio acústico en las áreas sociales y la suite principal, vidrio doble en las recámaras y sencillo en la cocina y el servicio. la mezcla logra 91% del ahorro de poner vidrio doble en toda la casa.
 
-  en 2026 revisamos el estudio de 2023 y reconstruimos el modelo con los valores reales
-  de los vidrios del proveedor y las ventanas reales. cada número de esta página sale de
-  esa reejecución.
+  el vidrio acústico aísla del calor igual que el doble. lo que se paga de más es silencio.
 study:
   keyNumbers:
     - { value: '−46%', label: 'de calor por el vidrio en un año, de vidrio sencillo a la mezcla optimizada' }
@@ -61,7 +49,7 @@ study:
       width: 2160
       height: 2200
       alt: 'gráfico de barras del calor que entra por el vidrio en cada fachada, vidrio sencillo contra la mezcla optimizada. norte: de 7.1 a 3.5 MWh (25 m² de vidrio); este: de 35.8 a 18.3 MWh (50 m² de vidrio); sur: de 17.6 a 8.9 MWh (69 m² de vidrio); oeste: de 12.6 a 9.1 MWh (29 m² de vidrio).'
-      caption: 'el vidrio doble selectivo deja entrar 46% menos calor por el vidrio: de 73.1 a 39.8 MWh al año. la fachada este es la que más gana: de 35.8 a 18.3 MWh. la mayor parte del recorte viene de la capa selectiva, que deja pasar la mitad del sol (g de 0.84 a 0.40).'
+      caption: "el calor que entra por el vidrio en un año, por fachada. con la mezcla baja de 73.1 a 39.8 MWh. la fachada este es la que más gana."
       numbers:
         - { value: '−46', unit: '%', label: 'de calor por el vidrio' }
         - { value: '73.1 → 39.8', unit: 'MWh', label: 'al año, todas las ventanas' }
@@ -79,21 +67,11 @@ study:
       width: 2160
       height: 2200
       alt: 'gráfico de líneas de la electricidad del aire acondicionado mes a mes, vidrio sencillo contra la mezcla optimizada. la mezcla está por debajo todos los meses. año: 19,849 y 17,870 kWh.'
-      caption: 'para una familia de dos, el aire acondicionado usa 10% menos electricidad: de 19,849 a 17,870 kWh al año. la mezcla gasta menos todos los meses, sobre todo en la estación seca. el vidrio es una fuente de calor entre muchas: muros, techo, personas y equipos siguen necesitando enfriamiento. con 10 personas en la casa, el recorte es de 9.5%.'
+      caption: "la electricidad del aire acondicionado mes a mes, para una familia de dos. la mezcla gasta menos todos los meses: de 19,849 a 17,870 kWh al año. el vidrio es solo una de las fuentes de calor."
       numbers:
         - { value: '−10', unit: '%', label: 'de electricidad del aire acondicionado, familia de dos' }
         - { value: '1,979', unit: 'kWh', label: 'menos al año' }
         - { value: '−9.5', unit: '%', label: 'con la casa llena' }
-    - headline: la sala, hora por hora
-      image: /projects/l12-ocean-reef/l12-ocean-reef_03_year.webp
-      interactive: { type: comfort-heatmap, data: /projects/l12-ocean-reef/data/living-room-hourly.json, cases: ['vidrio sencillo', 'mezcla optimizada'] }
-      width: 2160
-      height: 2200
-      alt: 'gráficos hora por hora de la sala sin aire acondicionado, coloreados por grados respecto al objetivo de confort. vidrio sencillo: 7,258 horas en confort. mezcla optimizada: 8,248.'
-      caption: 'cada columna es un día y cada fila una hora, sin aire acondicionado y con las ventanas abiertas cuando ayuda. con vidrio sencillo la sala pasa de 30 °C durante 1,186 horas al año; con la mezcla optimizada, 356. la mayoría de las horas calientes caen entre las 11 y las 17 h, y la mitad en la estación seca, de enero a abril.'
-      numbers:
-        - { value: '1,186 → 356', unit: 'h', label: 'sobre 30 °C en la sala' }
-        - { value: '7,258 → 8,248', unit: 'h', label: 'horas en confort en la sala' }
     - headline: habitación por habitación
       image: /projects/l12-ocean-reef/l12-ocean-reef_04_rooms.webp
       interactive:
@@ -116,7 +94,7 @@ study:
       width: 2160
       height: 2200
       alt: 'gráfico de puntos de las horas en confort por habitación sin aire acondicionado, vidrio sencillo contra la mezcla optimizada. sala / comedor: de 82.8 a 94.2%; cocina: de 91.7 a 93.4%; atrio / escalera: de 83.6 a 94.7%; visitas, planta baja: de 82.3 a 89.0%; recámara 1: de 78.5 a 83.4%; recámara 2: de 80.3 a 84.0%; recámara 3: de 84.3 a 87.9%; recámara principal: de 78.8 a 85.6%; visitas, último piso: de 69.7 a 74.6%; estudio / oficina: de 68.7 a 72.1%; gimnasio: de 64.9 a 70.1%.'
-      caption: 'sin aire acondicionado, toda la casa gana 6.2 puntos de horas en confort. las habitaciones con más vidrio son las que más ganan: sala / comedor +11.3, atrio / escalera +11.0. las habitaciones del último piso siguen siendo las menos confortables con cualquier vidrio.'
+      caption: "horas cómodas sin aire acondicionado, habitación por habitación. las que tienen más vidrio son las que más ganan: la sala, 11.3 puntos."
       numbers:
         - { value: '+6.2', unit: 'pts', label: 'toda la casa' }
         - { value: '+11.3', unit: 'pts', label: 'sala / comedor' }
@@ -135,7 +113,7 @@ study:
       width: 2160
       height: 2200
       alt: 'gráfico de barras del área de vidrio en la mezcla optimizada: set 1 74 m², set 2 80 m², set 3 19 m². set 1: ug 1.1, g 0.40, rw 43 dB; set 2: ug 1.1, g 0.40, rw 37 dB; set 3: ug 5.6, g 0.84, rw 32 dB.'
-      caption: 'la mezcla optimizada pone vidrio acústico en las áreas sociales y la suite principal, vidrio doble en las recámaras y vidrio sencillo en la cocina, la lavandería y las áreas de servicio. esta mezcla logra 91% del ahorro del vidrio doble en toda la casa. los sets 1 y 2 tienen los mismos valores térmicos: el set acústico compra 6 dB de silencio, no energía.'
+      caption: "dónde va cada vidrio en la mezcla. los sets 1 y 2 aíslan igual del calor; el 1 suma 6 dB de silencio."
       numbers:
         - { value: '91', unit: '%', label: 'del ahorro del vidrio doble en toda la casa' }
         - { value: '6', unit: 'dB', label: 'set 1 contra set 2, mismo calor' }

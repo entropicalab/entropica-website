@@ -3,7 +3,7 @@ title: l12 ocean reef
 slug: l12-ocean-reef
 locale: en
 eyebrow: '// glass study'
-lede: 'which glass is worth paying for? the supplier offered three glass sets for this house in panamá. we simulated the house with each one: double selective glass cuts the heat through the glass by 46% and the a/c electricity by 10%. the acoustic glass buys quiet, not energy.'
+lede: "which glass is worth paying for? we simulated this house in panamá with the three glass options the supplier offered. double glass lets in half the heat and cuts the a/c electricity by 10%."
 location: ocean reef, panamá
 year: 2023
 typology: residential
@@ -16,23 +16,13 @@ metric:
   value: '−46'
   unit: '%'
   label: heat through the glass in a year, single glass to the optimized mix
-  note: 'energyplus 24.2, tocumen typical weather year, 2026 rerun of the 2023 study. glass values from the supplier sheet (profil 2000 / metra). architecture by forza creativa, glass study by entrópica.'
+  note: "simulated with the tocumen climate, rerun in 2026. architecture by forza creativa, study by entrópica."
 brief: |
-  l12 ocean reef is a three-level house in panamá with 173 m² of glass. the glass
-  supplier, profil 2000 / metra, proposed three sets: single clear glass, double
-  selective glass, and the same double glass with an acoustic layer.
-
-  we simulated the house with each one. double glass cuts the heat that comes in through
-  the glass by 46%. the a/c electricity drops by about a tenth, because walls, roof and
-  people still add heat. the acoustic glass gives the same heat result: it buys quiet,
-  not energy.
+  l12 ocean reef is a three-level house in panamá with 173 m² of glass. the supplier, profil 2000 / metra, offered three options: single glass, double selective glass, and the same double glass with an acoustic layer.
 approach: |
-  the answer was a mix, not one glass for the whole house: acoustic glass in the living
-  areas and the master suite, double glass in the bedrooms, and single glass in the
-  kitchen and service rooms. the mix gets 91% of the saving of double glass everywhere.
+  the answer was a mix: acoustic glass in the living areas and the master suite, double glass in the bedrooms, and single glass in the kitchen and service rooms. the mix gets 91% of the saving of double glass everywhere.
 
-  in 2026 we reviewed the 2023 study and rebuilt the model with the supplier's real glass
-  values and real windows. every number on this page comes from that rerun.
+  the acoustic glass keeps out the heat just like the double glass. what you pay extra for is quiet.
 study:
   keyNumbers:
     - { value: '−46%', label: 'heat through the glass in a year, single glass to the optimized mix' }
@@ -59,7 +49,7 @@ study:
       width: 2160
       height: 2200
       alt: 'bar chart of the heat gain through the glass per facade, single glass against the optimized mix. north: 7.1 to 3.5 MWh (25 m² of glass); east: 35.8 to 18.3 MWh (50 m² of glass); south: 17.6 to 8.9 MWh (69 m² of glass); west: 12.6 to 9.1 MWh (29 m² of glass).'
-      caption: 'double selective glass lets in 46% less heat through the glass: 73.1 to 39.8 MWh a year. the east facade gains the most: 35.8 to 18.3 MWh. most of the cut comes from the coating, which halves the sun that passes (g 0.84 to 0.40).'
+      caption: "the heat that comes in through the glass in a year, by facade. with the mix it drops from 73.1 to 39.8 MWh. the east facade gains the most."
       numbers:
         - { value: '−46', unit: '%', label: 'heat through the glass' }
         - { value: '73.1 → 39.8', unit: 'MWh', label: 'a year, all windows' }
@@ -77,21 +67,11 @@ study:
       width: 2160
       height: 2200
       alt: 'line chart of the a/c electricity month by month, single glass against the optimized mix. the mix is lower in every month. year: 19,849 and 17,870 kWh.'
-      caption: 'for a family of two, the a/c uses 10% less electricity: 19,849 to 17,870 kWh a year. the mix is lower in every month, most in the dry season. the glass is one source of heat among many: walls, roof, people and appliances still need cooling. with 10 people in the house, the cut is 9.5%.'
+      caption: "the a/c electricity month by month, for a family of two. the mix uses less every month: from 19,849 to 17,870 kWh a year. the glass is only one source of heat."
       numbers:
         - { value: '−10', unit: '%', label: 'a/c electricity, family of two' }
         - { value: '1,979', unit: 'kWh', label: 'less a year' }
         - { value: '−9.5', unit: '%', label: 'a/c electricity, full house' }
-    - headline: the living room, every hour
-      image: /projects/l12-ocean-reef/l12-ocean-reef_03_year.webp
-      interactive: { type: comfort-heatmap, data: /projects/l12-ocean-reef/data/living-room-hourly.json, cases: ['single glass', 'optimized mix'] }
-      width: 2160
-      height: 2200
-      alt: 'hour-by-hour charts of the living room without a/c, colored by degrees from the comfort target. single glass: 7,258 comfortable hours. optimized mix: 8,248.'
-      caption: 'each column is a day, each row an hour, with no a/c and the windows open when it helps. with single glass the living room is above 30 °C for 1,186 hours a year; with the optimized mix, 356. most of the hot hours fall between 11 am and 5 pm, and half of them in the dry season, january to april.'
-      numbers:
-        - { value: '1,186 → 356', unit: 'h', label: 'above 30 °C in the living room' }
-        - { value: '7,258 → 8,248', unit: 'h', label: 'comfortable hours in the living room' }
     - headline: room by room
       image: /projects/l12-ocean-reef/l12-ocean-reef_04_rooms.webp
       interactive:
@@ -114,7 +94,7 @@ study:
       width: 2160
       height: 2200
       alt: 'dot chart of comfortable hours per room without a/c, single glass against the optimized mix. living / dining: 82.8 to 94.2%; kitchen: 91.7 to 93.4%; atrium / stair: 83.6 to 94.7%; guest room, ground floor: 82.3 to 89.0%; bedroom 1: 78.5 to 83.4%; bedroom 2: 80.3 to 84.0%; bedroom 3: 84.3 to 87.9%; master bedroom: 78.8 to 85.6%; guest room, top floor: 69.7 to 74.6%; den / office: 68.7 to 72.1%; gym: 64.9 to 70.1%.'
-      caption: 'without a/c, the whole house gains 6.2 points of comfortable hours. the rooms with the most glass gain the most: living / dining +11.3, atrium / stair +11.0. the top-floor rooms stay the least comfortable with either glass.'
+      caption: "comfortable hours without a/c, room by room. the rooms with the most glass gain the most: the living room, 11.3 points."
       numbers:
         - { value: '+6.2', unit: 'pts', label: 'whole house' }
         - { value: '+11.3', unit: 'pts', label: 'living / dining' }
@@ -133,7 +113,7 @@ study:
       width: 2160
       height: 2200
       alt: 'bar chart of the glass area in the optimized mix: set 1 74 m², set 2 80 m², set 3 19 m². set 1: ug 1.1, g 0.40, rw 43 dB; set 2: ug 1.1, g 0.40, rw 37 dB; set 3: ug 5.6, g 0.84, rw 32 dB.'
-      caption: 'the optimized mix puts acoustic glass in the living areas and the master suite, double glass in the bedrooms, and single glass in the kitchen, laundry and service rooms. this mix gets 91% of the saving of double glass everywhere. sets 1 and 2 have the same thermal values: the acoustic set buys 6 dB of quiet, not energy.'
+      caption: "where each glass goes in the mix. sets 1 and 2 keep out the same heat; set 1 adds 6 dB of quiet."
       numbers:
         - { value: '91', unit: '%', label: 'of the saving of double glass everywhere' }
         - { value: '6', unit: 'dB', label: 'set 1 against set 2, same heat' }

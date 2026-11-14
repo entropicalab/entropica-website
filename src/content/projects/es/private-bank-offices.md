@@ -3,7 +3,7 @@ title: oficinas privadas de banca
 slug: private-bank-offices
 locale: es
 eyebrow: '// concurso'
-lede: 'primero la sombra, luego el vidrio. una sucursal bancaria en chitré, en el arco seco de panamá: un techo nuevo y una piel de bloque perforado reducen 94% el sol sobre el vidrio nuevo y bajan a la mitad las horas de estrés térmico fuerte en la calle.'
+lede: "primero la sombra, luego el vidrio. en esta sucursal en chitré, un techo grande y una piel de bloque perforado le quitan al vidrio nuevo 94% del sol."
 location: chitré, panamá
 year: 2021
 area: '376 m²'
@@ -17,24 +17,15 @@ metric:
   value: '−94'
   unit: '%'
   label: menos sol sobre el vidrio
-  note: 'techo y bloque perforado frente al mismo edificio sin sombra: de 331 a 21 kWh/m² al año. simulación en etapa de diseño, modelo reconstruido y reejecutado en 2026. concurso.'
+  note: "frente al mismo edificio sin sombra: de 331 a 21 kWh/m² al año. simulado antes de construir, con el modelo reconstruido en 2026. concurso."
 brief: |
-  chitré está en el arco seco, la zona más seca de panamá. al sol, la mayoría de las horas
-  del día traen estrés térmico fuerte; a la sombra, casi ninguna. el cliente quería una
-  sucursal tranquila y con luz natural, abierta a clientes de pie.
+  chitré está en el arco seco, la zona más seca de panamá. al sol, la mayoría de las horas del día traen estrés térmico fuerte; a la sombra, casi ninguna.
 
-  el diseño de 2021 agrega un bloque de vidrio frente a la sucursal existente, bajo un
-  gran techo, detrás de una piel de bloque perforado.
+  el diseño de 2021 suma un bloque de vidrio frente a la sucursal existente, bajo un techo grande.
 approach: |
-  en 2026 reconstruimos el modelo a partir de los planos del concurso y probamos cada
-  decisión por separado: el techo, el recorrido hasta la puerta, el vidrio, la luz natural,
-  el techo existente y la energía de toda la sucursal.
+  el techo hace casi todo el trabajo: da sombra a la calle, al recorrido y al vidrio de la plaza. la piel de bloque solo protege el vidrio de la calle.
 
-  el techo hace la mayor parte del trabajo. da sombra a la calle, al recorrido y al vidrio
-  de la plaza. el bloque perforado solo tiene que proteger el vidrio de la calle, que mira
-  al norte-noreste y recibe el sol de abril a agosto. el resultado: una sucursal con 31%
-  más de área y 2.2 veces el vidrio, con la misma energía de aire acondicionado por m² que
-  antes.
+  la sucursal crece 31% con la misma energía de aire acondicionado por m². con una pintura blanca en el techo viejo, gasta 9% menos que antes.
 study:
   keyNumbers:
     - { value: '−47%', label: 'de horas con estrés térmico fuerte del lado de la calle (de 68% a 36% de las horas de atención)' }
@@ -48,18 +39,9 @@ study:
       width: 2160
       height: 2200
       alt: 'tres plantas de sitio, norte arriba, coloreadas por la parte de las horas de atención con estrés térmico fuerte en el área peatonal. antes: 68%. bloque de vidrio sin el techo: 63%. diseño de 2021 con el techo: 36%.'
-      caption: 'del lado de la calle, las horas con estrés térmico fuerte bajan de 68% a 36% de las horas de atención. el bloque de vidrio solo casi no cambia nada (63%): el gran techo hace el trabajo.'
+      caption: "las horas de calor fuerte en la calle bajan de 68% a 36% de las horas de atención. el bloque de vidrio solo casi no cambia nada (63%); el techo hace el trabajo."
       numbers:
         - { value: '68 → 36', unit: '%', label: 'horas de atención con estrés térmico fuerte, lado de la calle' }
-    - headline: un recorrido más largo, a la sombra
-      image: /projects/private-bank-offices/private-bank-offices_02_walk.webp
-      width: 2160
-      height: 2200
-      alt: 'gráfico de líneas de la parte de las horas de atención con estrés térmico fuerte a lo largo del recorrido de la calle a la puerta. antes, cruzando el estacionamiento: 69% en 23.3 m. diseño de 2021: 43% en 28.5 m, bajando bajo el techo nuevo. sin el techo: 69%.'
-      caption: 'la puerta nueva queda 5 m más lejos de la calle, pero el recorrido es más fresco: el estrés térmico fuerte baja de 69% a 43% de las horas de atención, y la temperatura sentida media de 33.1 a 31.4 °C. los primeros 12 m son la acera pública, al sol.'
-      numbers:
-        - { value: '69 → 43', unit: '%', label: 'estrés térmico fuerte en el recorrido' }
-        - { value: '33.1 → 31.4', unit: '°C', label: 'utci media en el recorrido' }
     - headline: el bloque de vidrio puede ser de vidrio
       image: /projects/private-bank-offices/private-bank-offices_03_glass.webp
       interactive:
@@ -78,25 +60,16 @@ study:
       width: 2160
       height: 2200
       alt: 'gráfico de barras del sol sobre el vidrio nuevo en tres pasos. vidrio de la calle: 252, 104, 21 kWh/m². vidrio de la plaza: 466, 22, 22 kWh/m².'
-      caption: 'el techo y el bloque perforado reducen 94% el sol sobre el vidrio nuevo: de 331 a 21 kWh/m² al año. el techo protege el vidrio de la plaza (de 466 a 22). el bloque perforado protege el vidrio de la calle (de 104 a 21), que mira al nne y recibe el sol de abril a agosto. cualquier abertura entre 15% y 55% funciona (de 22 a 30 kWh/m²).'
+      caption: "el sol sobre el vidrio nuevo, paso a paso. el techo protege el vidrio de la plaza; la piel de bloque, el de la calle, que recibe el sol de abril a agosto."
       numbers:
         - { value: '−94', unit: '%', label: 'de sol sobre el vidrio nuevo' }
         - { value: '331 → 21', unit: 'kWh/m²', label: 'al año' }
-    - headline: luz natural sin deslumbramiento
-      image: /projects/private-bank-offices/private-bank-offices_04_daylight.webp
-      width: 2160
-      height: 2200
-      alt: 'tres plantas del bloque de vidrio coloreadas por la parte de las horas de atención sobre 3,000 lx. bloque de vidrio solo: 65%; con el techo: 15%; con el techo y el bloque perforado: 0.2%.'
-      caption: 'sin el techo, el bloque de vidrio pasa de 3,000 lx durante 65% de las horas de atención. con el techo y el bloque perforado: 0.2%. la luz natural útil sube de 28% a 92% de las horas, y 83% del piso sigue teniendo luz natural suficiente.'
-      numbers:
-        - { value: '92', unit: '%', label: 'de las horas de atención con luz natural útil' }
-        - { value: '83', unit: '%', label: 'sDA 300 lx' }
     - headline: pinta el techo viejo antes de construir uno nuevo
       image: /projects/private-bank-offices/private-bank-offices_05_oldroof.webp
       width: 2160
       height: 2200
       alt: 'gráfico de puntos de la electricidad de aire acondicionado por m² del diseño de 2021 con cinco opciones para el techo existente: tal cual 75.5; aislamiento 72.5; pintura blanca + aislamiento 71.1; pintura blanca envejecida 71.0; pintura blanca nueva 69.0 kWh/m². techo nuevo completo: 68.1. antes: 76.0.'
-      caption: 'el techo de 2021 cubre solo los primeros 2 m del edificio existente. un techo nuevo sobre todo el edificio bajaría el aire acondicionado a 68.1 kWh/m² al año. una pintura blanca sobre el techo existente logra 88% de ese ahorro (69.0 kWh/m²), 61% cuando envejece. el aislamiento bajo el techo blanco lo empeora: el techo deja de perder de noche el calor del día.'
+      caption: "un techo nuevo sobre toda la sucursal bajaría el aire acondicionado a 68.1 kWh/m² al año. una pintura blanca sobre el techo viejo logra 88% de ese ahorro."
       numbers:
         - { value: '88', unit: '%', label: 'del ahorro del techo completo, pintura blanca' }
         - { value: '69.0', unit: 'kWh/m²', label: 'de aire acondicionado al año con la pintura blanca' }
@@ -115,19 +88,10 @@ study:
       width: 2160
       height: 2200
       alt: 'gráfico de líneas de la electricidad de aire acondicionado por m² mes a mes. antes: 76.0 kWh/m² al año (40,852 kWh). diseño de 2021: 75.5 (53,214 kWh). con la pintura blanca: 69.0 (48,649 kWh).'
-      caption: 'el diseño de 2021 agrega 31% más de área (de 537 a 705 m²) y 2.2 veces el vidrio. el aire acondicionado por m² se mantiene: de 76.0 a 75.5 kWh/m² al año. con una pintura blanca sobre el techo existente: 69.0, 9% menos que antes.'
+      caption: "el aire acondicionado por m², mes a mes. la sucursal crece de 537 a 705 m² y gasta lo mismo por m²: 76.0 antes, 75.5 después y 69.0 con la pintura blanca."
       numbers:
         - { value: '76.0 → 75.5', unit: 'kWh/m²', label: 'de aire acondicionado al año' }
         - { value: '−9', unit: '%', label: 'con la pintura blanca' }
-    - headline: 'el clima: la sombra lo es todo'
-      image: /projects/private-bank-offices/private-bank-offices_07_climate.webp
-      width: 2160
-      height: 2200
-      alt: 'gráfico de barras de las horas del día con estrés térmico fuerte por mes, al sol (65–77%) y a la sombra (0–12%). gráfico de barras de la lluvia mensual media en la estación los santos del imhpa: 1,066 mm al año, menos de 60 mm de diciembre a abril.'
-      caption: 'al sol, 71% de las horas del día traen estrés térmico fuerte; a la sombra, 4%. en chitré llueven 1,066 mm al año (ciudad de panamá: 1,799 mm), con cinco meses secos de diciembre a abril (81 mm en total).'
-      numbers:
-        - { value: '71 / 4', unit: '%', label: 'horas del día con estrés térmico fuerte, sol / sombra' }
-        - { value: '1,066', unit: 'mm', label: 'de lluvia al año, imhpa los santos' }
   method:
     - 'estado: simulado, en etapa de diseño. no se midió nada.'
     - 'modelo: reconstruido en 2026 a partir de los planos del concurso de 2021 (rhino). sitio a 7.96° n; la fachada de la calle mira al nne (19°), el vidrio de la plaza al ono (289°). vecino del lado ono: 7 m (supuesto).'

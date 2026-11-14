@@ -3,7 +3,7 @@ title: private bank offices
 slug: private-bank-offices
 locale: en
 eyebrow: '// competition entry'
-lede: 'shade first, then glass. a bank branch in chitré, in panamá''s dry arc: a new roof and a breezeblock skin cut the sun on the new glass by 94% and halve the hours of strong heat stress on the street.'
+lede: "shade first, then glass. in this bank branch in chitré, a large roof and a perforated block skin take 94% of the sun off the new glass."
 location: chitré, panamá
 year: 2021
 area: '376 m²'
@@ -17,23 +17,15 @@ metric:
   value: '−94'
   unit: '%'
   label: less sun on the glass
-  note: 'roof and breezeblock against the same building with no shade: 331 to 21 kWh/m² a year. design-stage simulation, model rebuilt and rerun in 2026. competition entry.'
+  note: "against the same building with no shade: 331 to 21 kWh/m² a year. simulated before construction, with the model rebuilt in 2026. competition entry."
 brief: |
-  chitré is in the arco seco, the driest part of panamá. in the sun, most daytime hours
-  bring strong heat stress; in the shade, almost none. the client wanted a calm, daylit
-  branch, open to walk-in clients.
+  chitré is in the arco seco, the driest part of panamá. in the sun, most daytime hours bring strong heat stress; in the shade, almost none.
 
-  the 2021 design adds a glass block in front of the old branch, under one large roof,
-  behind a breezeblock skin.
+  the 2021 design adds a glass block in front of the existing branch, under a large roof.
 approach: |
-  in 2026 we rebuilt the model from the competition drawings and tested each move on its
-  own: the roof, the walk to the door, the glass, the daylight, the old roof and the energy
-  of the whole branch.
+  the roof does most of the work: it shades the street, the walk and the plaza glass. the block skin only protects the street glass.
 
-  the roof does most of the work. it shades the street, the walk and the plaza glass. the
-  breezeblock only has to protect the street glass, which faces north-northeast and gets
-  its sun from april to august. the result: a branch with 31% more floor and 2.2 times
-  the glass, at the same air-conditioning energy per m² as before.
+  the branch grows 31% with the same air-conditioning energy per m². with a white coating on the old roof, it uses 9% less than before.
 study:
   keyNumbers:
     - { value: '−47%', label: 'hours of strong heat stress on the street side (68% to 36% of bank hours)' }
@@ -47,18 +39,9 @@ study:
       width: 2160
       height: 2200
       alt: 'three site plans, north up, colored by the share of bank hours with strong heat stress on the pedestrian area. before: 68%. glass block without the roof: 63%. 2021 design with the roof: 36%.'
-      caption: 'on the street side, the hours of strong heat stress drop from 68% to 36% of bank hours. the glass block alone does almost nothing (63%): the large roof does the work.'
+      caption: "the hours of strong heat on the street drop from 68% to 36% of bank hours. the glass block alone changes almost nothing (63%); the roof does the work."
       numbers:
         - { value: '68 → 36', unit: '%', label: 'bank hours with strong heat stress, street side' }
-    - headline: a longer walk, in the shade
-      image: /projects/private-bank-offices/private-bank-offices_02_walk.webp
-      width: 2160
-      height: 2200
-      alt: 'line chart of the share of bank hours with strong heat stress along the walk from the street to the door. before, across the parking: 69% over 23.3 m. 2021 design: 43% over 28.5 m, falling under the new roof. without the roof: 69%.'
-      caption: 'the new door is 5 m further from the street, but the walk is cooler: strong heat stress 69% to 43% of bank hours, mean felt temperature 33.1 to 31.4 °C. the first 12 m are the public sidewalk, in the sun.'
-      numbers:
-        - { value: '69 → 43', unit: '%', label: 'strong heat stress on the walk' }
-        - { value: '33.1 → 31.4', unit: '°C', label: 'mean utci on the walk' }
     - headline: the glass block can be glass
       image: /projects/private-bank-offices/private-bank-offices_03_glass.webp
       interactive:
@@ -77,25 +60,16 @@ study:
       width: 2160
       height: 2200
       alt: 'bar chart of the sun on the new glass in three steps. street glass: 252, 104, 21 kWh/m². plaza glass: 466, 22, 22 kWh/m².'
-      caption: 'the roof and the breezeblock cut the sun on the new glass by 94%: 331 to 21 kWh/m² a year. the roof protects the plaza glass (466 to 22). the breezeblock protects the street glass (104 to 21), which faces nne and gets its sun from april to august. any open share from 15% to 55% works (22 to 30 kWh/m²).'
+      caption: "the sun on the new glass, step by step. the roof protects the plaza glass; the block skin protects the street glass, which gets its sun from april to august."
       numbers:
         - { value: '−94', unit: '%', label: 'sun on the new glass' }
         - { value: '331 → 21', unit: 'kWh/m²', label: 'a year' }
-    - headline: daylight without glare
-      image: /projects/private-bank-offices/private-bank-offices_04_daylight.webp
-      width: 2160
-      height: 2200
-      alt: 'three floor plans of the glass block colored by the share of bank hours above 3,000 lx. glass block alone: 65%; with the roof: 15%; with the roof and the breezeblock: 0.2%.'
-      caption: 'without the roof, the glass block is above 3,000 lx for 65% of bank hours. with the roof and the breezeblock: 0.2%. useful daylight rises from 28% to 92% of the hours, and 83% of the floor still has enough daylight.'
-      numbers:
-        - { value: '92', unit: '%', label: 'of bank hours with useful daylight' }
-        - { value: '83', unit: '%', label: 'sDA 300 lx' }
     - headline: paint the old roof before you build a new one
       image: /projects/private-bank-offices/private-bank-offices_05_oldroof.webp
       width: 2160
       height: 2200
       alt: 'dot chart of a/c electricity per m² for the 2021 design with five old-roof options: as is 75.5; insulation 72.5; white coating + insulation 71.1; white coating, aged 71.0; white coating, new 69.0 kWh/m². new full roof: 68.1. before: 76.0.'
-      caption: 'the 2021 roof covers only the first 2 m of the old building. a new roof over all of it would cut the a/c to 68.1 kWh/m² a year. a white coating on the old roof gets 88% of that saving (69.0 kWh/m²), 61% when it ages. insulation under the white roof makes it worse: the roof stops losing the day''s heat at night.'
+      caption: "a new roof over the whole branch would cut the air-conditioning to 68.1 kWh/m² a year. a white coating on the old roof gets 88% of that saving."
       numbers:
         - { value: '88', unit: '%', label: 'of the full-roof saving, white coating' }
         - { value: '69.0', unit: 'kWh/m²', label: 'a/c a year with the white coating' }
@@ -114,19 +88,10 @@ study:
       width: 2160
       height: 2200
       alt: 'line chart of a/c electricity per m² month by month. before: 76.0 kWh/m² a year (40,852 kWh). 2021 design: 75.5 (53,214 kWh). with the white coating: 69.0 (48,649 kWh).'
-      caption: 'the 2021 design adds 31% more floor (537 to 705 m²) and 2.2 times the glass. the a/c per m² stays the same: 76.0 to 75.5 kWh/m² a year. with a white coating on the old roof: 69.0, 9% less than before.'
+      caption: "air-conditioning per m², month by month. the branch grows from 537 to 705 m² and uses the same per m²: 76.0 before, 75.5 after and 69.0 with the white coating."
       numbers:
         - { value: '76.0 → 75.5', unit: 'kWh/m²', label: 'a/c a year' }
         - { value: '−9', unit: '%', label: 'with the white coating' }
-    - headline: 'the climate: shade is everything'
-      image: /projects/private-bank-offices/private-bank-offices_07_climate.webp
-      width: 2160
-      height: 2200
-      alt: 'bar chart of daytime hours with strong heat stress per month, in the sun (65–77%) and in the shade (0–12%). bar chart of mean monthly rain at imhpa los santos: 1,066 mm a year, under 60 mm from december to april.'
-      caption: 'in the sun, 71% of daytime hours bring strong heat stress; in the shade, 4%. chitré gets 1,066 mm of rain a year (panamá city: 1,799 mm), with five dry months from december to april (81 mm in all).'
-      numbers:
-        - { value: '71 / 4', unit: '%', label: 'daytime hours with strong heat stress, sun / shade' }
-        - { value: '1,066', unit: 'mm', label: 'rain a year, imhpa los santos' }
   method:
     - 'status: simulated, design stage. nothing was measured.'
     - 'model: rebuilt in 2026 from the 2021 competition drawings (rhino). site at 7.96° n; the street facade faces nne (19°), the plaza glass faces wnw (289°). neighbor on the wnw side: 7 m (assumed).'

@@ -3,7 +3,7 @@ title: manzil basit
 slug: manzil-basit
 locale: es
 eyebrow: '// estudio de estrategias pasivas'
-lede: '¿qué enfría una habitación en el desierto? antes de diseñar esta casa en abu dabi, probamos seis estrategias pasivas en una sola habitación. sin aire acondicionado, las horas en confort pasaron de 19.72% a 66.67% del año.'
+lede: "¿qué enfría una habitación en el desierto? antes de diseñar esta casa en abu dabi, probamos seis estrategias en una sola habitación. sin aire acondicionado, pasó de estar cómoda 20% del año a 67%."
 location: abu dabi, emiratos árabes unidos
 year: 2020
 typology: residential
@@ -19,22 +19,15 @@ metric:
   value: '3.4'
   unit: '×'
   label: más horas en confort al año, misma habitación, sin aire acondicionado
-  note: 'confort adaptativo (ashrae 55), habitación sin climatización, clima iwec de abu dabi. estudio y simulación por entrópica. las imágenes de la casa son visualizaciones con ia basadas en el diseño conceptual del cliente.'
+  note: "simulado con el clima de abu dabi. las imágenes de la casa son visualizaciones con ia basadas en el diseño conceptual del cliente."
 brief: |
-  manzil basit, "casa simple" en árabe, es una casa privada en abu dabi, en un clima
-  desértico cálido donde la mitad del año hay estrés térmico afuera, incluso a la sombra.
+  manzil basit, "casa simple" en árabe, es una casa privada en abu dabi. afuera, la mitad del año hay estrés térmico, incluso a la sombra.
 
-  antes de cualquier diseño, probamos una habitación de 6 × 9 × 3 m con seis estrategias
-  pasivas, una después de otra. sin aire acondicionado, la habitación pasó de 19.72% a
-  66.67% de horas en confort al año: 3.4 veces más. el aire y el agua aportaron 64% de esa
-  ganancia. bloquear el sol aportó 32%.
+  antes de diseñar, probamos una habitación de 6 × 9 × 3 m con seis estrategias, una después de otra.
 approach: |
-  la casa, tal como se visualiza, lleva en la fachada las estrategias que bloquean el sol:
-  sombras de techo que flotan sobre cada volumen y celosías perforadas sobre el vidrio.
+  lo que más ayudó fue el aire y el agua: ventilar, mover el aire y enfriar con agua. bloquear el sol aportó la mitad de eso.
 
-  las estrategias que más trabajan, el aire y el agua, no salen en una foto. por eso el
-  estudio se hizo primero: con el aire seco del desierto, la ventilación, el movimiento de
-  aire y el enfriamiento evaporativo aportaron el doble de confort que la sombra.
+  esas ideas no salen en una foto. por eso el estudio se hizo antes del diseño.
 study:
   keyNumbers:
     - { value: '3.4×', label: 'más horas en confort al año, misma habitación, sin aire acondicionado' }
@@ -53,7 +46,7 @@ study:
       width: 2160
       height: 2200
       alt: 'dos gráficos hora por hora del año en abu dabi. arriba: temperatura percibida a la sombra (utci), con estrés térmico en 50% de las horas, más fuerte de mayo a septiembre por la tarde. abajo: enfriamiento disponible al evaporar agua, hasta 25 °C al mediodía.'
-      caption: 'afuera, la mitad del año hay estrés térmico, incluso a la sombra. pero el aire es seco: en las horas sobre 35 °C, evaporar agua puede enfriarlo 14 °C (mediana). por eso el enfriamiento evaporativo terminó siendo la estrategia más fuerte del estudio.'
+      caption: "cada hora del año en abu dabi. afuera hace calor, pero el aire es seco: en las horas de más de 35 °C, el agua al evaporarse puede enfriarlo 14 °C."
       numbers:
         - { value: '14', unit: '°C', label: 'depresión de bulbo húmedo mediana en las horas sobre 35 °C' }
         - { value: '50', unit: '%', label: 'del año con estrés térmico afuera, a la sombra' }
@@ -62,7 +55,7 @@ study:
       width: 2160
       height: 2200
       alt: 'gráfico escalonado de horas en confort, de 19.72% (habitación base) a 66.67% (habitación final). pasos: orientación +1.04, sombra en ventanas +6.38, doble techo +8.73, intercambio de aire +2.30, movimiento de aire percibido +11.03, enfriamiento evaporativo +17.47 puntos porcentuales. los pasos de aire y agua van en ámbar (64% de la ganancia); los que bloquean el sol, en arena (32%).'
-      caption: 'cada barra suma una estrategia a la habitación. la orientación casi no aporta (+1.04 pts). la sombra en ventanas (+6.38) y un doble techo (+8.73) bloquean el sol. el aire hace más: el intercambio de aire (+2.30) y el movimiento de aire percibido (+11.03). el enfriamiento evaporativo es el que más aporta (+17.47). la habitación termina en 66.67% de horas en confort, desde 19.72%.'
+      caption: "cada barra suma una estrategia a la habitación. el enfriamiento con agua aporta más (+17.47 puntos) y la orientación casi nada (+1.04). la habitación termina cómoda 66.67% del año."
       numbers:
         - { value: '+17.47', unit: 'pts', label: 'enfriamiento evaporativo' }
         - { value: '+11.03', unit: 'pts', label: 'movimiento de aire percibido' }
@@ -76,27 +69,17 @@ study:
       width: 2160
       height: 2200
       alt: 'dos gráficos hora por hora de grados respecto al objetivo de confort. habitación base: rojo oscuro (demasiado calor) casi todas las tardes de marzo a noviembre, 1,721 horas en confort. habitación final: casi todo en arena (confort), rojo claro en las tardes de verano, azul (demasiado frío) en las mañanas de invierno, 5,819 horas en confort.'
-      caption: 'cada columna es un día y cada fila, una hora. la habitación base está demasiado caliente casi todas las tardes. la habitación final está en confort la mayor parte del año: +4,098 horas en confort. las tardes de verano siguen cálidas y ahora las mañanas de invierno son frías, así que las aberturas y el agua necesitan control en las mañanas frescas.'
+      caption: "cada hora del año, antes y después. la habitación base pasa casi todas las tardes con demasiado calor; la final está cómoda la mayor parte del año. ahora algunas mañanas de invierno quedan frescas."
       numbers:
         - { value: '1,721', unit: 'h', label: 'horas en confort al año, habitación base' }
         - { value: '5,819', unit: 'h', label: 'horas en confort al año, habitación final' }
-    - headline: una sombra de techo más grande le gana a una cámara de aire más grande
-      image: /projects/manzil-basit/manzil-basit_04_roof.webp
-      width: 2160
-      height: 2200
-      alt: 'gráfico de líneas de horas en confort según el tamaño de la sombra de techo (1:1, 1.25:1, 1.5:1) para cámaras de aire de 0.30, 0.45 y 0.60 m. todas las líneas suben con el tamaño de la sombra, de cerca de 33% a 36%. el caso elegido, 1.5:1 con una cámara de 0.30 m, da 35.87%.'
-      caption: 'probamos un segundo techo sobre la habitación: tres tamaños y tres cámaras de aire. hacer la sombra 1.5 veces el techo sumó 2.51 pts. cambiar la cámara sumó 0.81 pts como máximo. el techo funciona primero como parasol y después como cámara ventilada.'
-      numbers:
-        - { value: '+2.51', unit: 'pts', label: 'por una sombra de techo más grande (1:1 a 1.5:1)' }
-        - { value: '0.81', unit: 'pts', label: 'lo máximo que suma la cámara de aire' }
-        - { value: '35.87', unit: '%', label: 'techo elegido' }
     - headline: con la habitación ventilada, más vidrio no aporta nada
       image: /projects/manzil-basit/manzil-basit_05_window.webp
       interactive: { type: lines, series: [{ label: "", points: [[30, 49.20], [45, 47.83], [50, 47.48], [65, 47.08], [80, 46.13]] }], xLabel: "proporción de ventana en muro", yLabel: "horas en confort al año", xUnit: "%", yUnit: "%", chosen: [30, 49.20] }
       width: 2160
       height: 2200
       alt: 'gráfico de líneas de horas en confort según la proporción de ventana en muro: 49.2% con 30%, 47.8% con 45%, 47.5% con 50%, 47.1% con 65% y 46.1% con 80%. la línea es casi plana.'
-      caption: 'con ventilación cruzada, pasar de 30% a 80% de vidrio cambió el confort apenas −3.07 pts. así, el vidrio puede seguir a las vistas y a la luz natural, no al flujo de aire. nos quedamos con 30%.'
+      caption: "con la habitación ventilada, pasar de 30% a 80% de vidrio casi no cambia el confort (−3.07 puntos). el vidrio se puede elegir por la vista y la luz. nos quedamos con 30%."
       numbers:
         - { value: '−3.07', unit: 'pts', label: 'de 30% a 80% de vidrio' }
         - { value: '49.20', unit: '%', label: 'elegido: 30% de vidrio' }
