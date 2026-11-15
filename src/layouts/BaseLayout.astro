@@ -18,6 +18,7 @@ interface Props {
   // footer, no nav, no language toggle and no hreflang alternates, so the
   // visitor stays on the page (used by /en/manufacturers).
   bare?: boolean;
+  bareDark?: boolean; // bare header on an ink band, white logo
 }
 
 const pathname = Astro.url.pathname;
@@ -29,6 +30,7 @@ const {
   ogImage = '/entropica-og-gradient.jpg',
   noindex = false,
   bare = false,
+  bareDark = false,
 } = Astro.props;
 
 const fullTitle = title.includes('entrópica') ? title : `${title} · entrópica`;
@@ -107,10 +109,10 @@ const hreflang = [
   <body>
     <a class="skip" href="#main">skip to content</a>
     {bare ? (
-      <header class="bare-header">
+      <header class={bareDark ? 'bare-header dark' : 'bare-header'}>
         <div class="site-wrap">
           <a href={pathname} aria-label="entrópica">
-            <img src="/entropica-dark.png" alt="entrópica" width="200" height="56" />
+            <img src={bareDark ? '/entropica-white.png' : '/entropica-dark.png'} alt="entrópica" width="200" height="56" />
           </a>
         </div>
       </header>
@@ -136,6 +138,7 @@ const hreflang = [
   .bare-header { padding: 28px 0; border-bottom: 1px solid var(--line-on-paper); }
   .bare-header img { height: 30px; width: auto; max-width: 100%; display: block; }
   @media (max-width: 520px) { .bare-header img { height: 22px; } }
+  .bare-header.dark { background: var(--ink); border-bottom-color: var(--line); }
   .page-updated { padding: 14px 0 4px; }
   .page-updated time {
     font-size: 10px;

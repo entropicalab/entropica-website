@@ -2,10 +2,11 @@
 // manufacturer landing page. built from "261115 entrópica, manufacturer
 // landing page · build spec". english only, no spanish mirror, no site nav:
 // the outbound email links here and the page has one job.
-// every claim on this page has to be true today. before adding a figure,
-// check it against the current study, not an older export.
+// visual first (jose, 2026-11-15): one picture and one number per section.
+// every figure on this page comes from a published study or the tornillo
+// sample study export (C:\Entropica\047-ElTornillo\sim_export\tor_cases.csv).
+// check it there before changing it. glass is named by type only.
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import StudyBars from '../../components/StudyBars.astro';
 
 const locale = 'en' as const;
 
@@ -17,67 +18,125 @@ const EMAIL = 'info@entropica-lab.com';
 // the sample report is offered on request, and the call is booked by email.
 const SAMPLE_REPORT_URL = ''; // e.g. '/manufacturers/sample-report.pdf'
 const BOOKING_URL = ''; // e.g. a cal.com or calendly link
-
 const hasSample = SAMPLE_REPORT_URL !== '';
 
-const tiers = [
+// ---- hero: the sample-study tower, drawn from its real geometry ----------
+// 30 typical floors, plate 26.94 m square, 4.04 m floor to floor, 8.18° twist
+// per floor, counterclockwise going up. floors 10, 14 and 17 were simulated.
+const FLOORS = 30;
+const HALF = 26.94 / 2;
+const STEP = 4.04;
+const TWIST = (8.18 * Math.PI) / 180;
+const SIMULATED = [10, 14, 17];
+const C30 = Math.cos(Math.PI / 6);
+const S30 = Math.sin(Math.PI / 6);
+const plates = Array.from({ length: FLOORS }, (_, i) => {
+  const a = i * TWIST;
+  const z = i * STEP;
+  const pts = [
+    [-HALF, -HALF],
+    [HALF, -HALF],
+    [HALF, HALF],
+    [-HALF, HALF],
+  ].map(([x, y]) => {
+    const rx = x * Math.cos(a) - y * Math.sin(a);
+    const ry = x * Math.sin(a) + y * Math.cos(a);
+    return [(rx - ry) * C30, (rx + ry) * S30 - z];
+  });
+  return {
+    i,
+    sim: SIMULATED.includes(i + 1),
+    points: pts.map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(' '),
+  };
+});
+const towerTop = -(FLOORS - 1) * STEP - HALF * 1.45;
+const towerBox = `${(-HALF * 1.45).toFixed(1)} ${towerTop.toFixed(1)} ${(HALF * 2.9).toFixed(1)} ${(-towerTop + HALF * 1.45).toFixed(1)}`;
+
+// ---- one tile per product category ---------------------------------------
+// a = before, b = after, same unit. change is rounded from a and b.
+const tiles = [
   {
-    n: '01',
-    name: 'project study',
-    body: 'one live project. fixed scope, fixed price, a report in days.',
-    tag: 'the entry point',
+    cat: 'glazing',
+    num: '−37%',
+    what: 'a/c electricity, single clear to double reflective glass',
+    a: { l: 'single clear', v: 113.5 },
+    b: { l: 'double reflective', v: 71.4 },
+    unit: 'kWh/m² a year',
+    src: 'office tower, sample study',
   },
   {
-    n: '02',
-    name: 'sales-evidence program',
-    body: 'a set number of studies a quarter, a priority queue, and your own report template.',
-    tag: 'for reps who need studies regularly',
+    cat: 'dynamic glass',
+    num: '−40%',
+    what: 'working hours too warm at a desk 1 m from the glass',
+    a: { l: 'double reflective', v: 29.4 },
+    b: { l: 'electrochromic', v: 17.5 },
+    unit: '% of working hours',
+    src: 'office tower, sample study',
   },
   {
-    n: '03',
-    name: 'sales tools',
-    body: 'the same workflow turned into a tool your team runs on routine projects, such as a glass-comparison calculator. entrópica takes the hard cases.',
-    tag: 'in development',
+    cat: 'louvers and shading',
+    num: '−71%',
+    what: 'sun on the glass behind the louvers',
+    a: { l: 'no louvers', v: 389 },
+    b: { l: 'louvers', v: 114 },
+    unit: 'kWh/m² a year',
+    src: 'office building, singapore',
   },
+  {
+    cat: 'screens and breezeblock',
+    num: '−94%',
+    what: 'sun on the new glass, with a roof and a block screen',
+    a: { l: 'no shade', v: 331 },
+    b: { l: 'roof + screen', v: 21 },
+    unit: 'kWh/m² a year',
+    src: 'bank branch, design stage',
+  },
+  {
+    cat: 'facade systems',
+    num: '−91 t',
+    what: 'chiller for a 30-floor tower: glass wall to a shaded 40% glass band',
+    a: { l: 'glass wall', v: 620 },
+    b: { l: 'shaded band', v: 529 },
+    unit: 'tons of cooling',
+    src: 'office tower, sample study',
+  },
+  {
+    cat: 'roof coatings',
+    num: '−9%',
+    what: 'a/c electricity, with a white coating on the old roof',
+    a: { l: 'before', v: 76.0 },
+    b: { l: 'white coating', v: 69.0 },
+    unit: 'kWh/m² a year',
+    src: 'bank branch, design stage',
+  },
+];
+
+// ---- the right number: same glass, two metrics (tor_cases.csv G3 / G6) ----
+const metrics = [
+  { k: 'a/c electricity', unit: 'kWh/m² a year', a: 71.4, b: 66.8, change: '−7%' },
+  { k: 'too warm at a desk 1 m from the glass', unit: '% of working hours', a: 29.4, b: 17.5, change: '−40%' },
 ];
 
 const steps = [
-  { n: '1', name: 'scope', body: 'you send the drawings and the question.' },
-  { n: '2', name: 'model', body: 'entrópica builds the geometry and the simulation in grasshopper / honeybee.' },
-  { n: '3', name: 'run', body: "the study runs on the project's real conditions, or inside your own definition." },
-  { n: '4', name: 'report', body: 'you get the results in your template, with charts or a branded deck.' },
+  { icon: 'architecture', name: 'scope', body: 'you send the drawings and the question' },
+  { icon: 'view_in_ar', name: 'model', body: 'the building and your product, in grasshopper / honeybee' },
+  { icon: 'bolt', name: 'run', body: '8,760 hours of the real climate, or your own definition' },
+  { icon: 'description', name: 'report', body: 'results in your template' },
 ];
 
-const trust = [
-  { name: 'your logic, your templates.', body: 'entrópica works inside your definition and output format and changes only the inputs. the result stays yours.' },
-  { name: 'the same deliverable every time.', body: 'a results spreadsheet, charts at final size, and a report.' },
-  { name: 'one documented method.', body: 'the same process on every study.' },
-  { name: 'your timezone.', body: 'same-day collaboration across the americas.' },
+const tiers = [
+  { n: '01', name: 'project study', body: 'one project, fixed scope, fixed price.' },
+  { n: '02', name: 'sales-evidence program', body: 'studies every quarter, a priority queue, your template.' },
+  { n: '03', name: 'sales tools', body: 'the workflow as a tool your team runs. entrópica takes the hard cases.', dev: true },
+];
+
+const confidentiality = [
+  { icon: 'contract', t: 'entrópica signs an nda.' },
+  { icon: 'visibility_off', t: 'no client, building or product named, if you prefer.' },
+  { icon: 'lock', t: 'your models and data stay private and are never reused.' },
 ];
 
 const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance', 'climatestudio'];
-
-const confidentiality = [
-  'entrópica signs an nda.',
-  'results can be anonymized: no client, building or product named.',
-  'your models and data are handled privately and never reused.',
-];
-
-// the glazing study below is the 2026 rerun (energyplus 24.2 through honeybee).
-// the values match src/content/projects/en/l12-ocean-reef.md. glass is named by
-// type only on this page, never by brand or supplier.
-const glass = {
-  categories: [
-    { label: 'north', sub: '25 m²' },
-    { label: 'east', sub: '50 m²' },
-    { label: 'south', sub: '69 m²' },
-    { label: 'west', sub: '29 m²' },
-  ],
-  bars: [
-    { label: 'single clear glass everywhere', values: [7.1, 35.8, 17.6, 12.6] },
-    { label: 'room-by-room mix', values: [3.5, 18.3, 8.9, 9.1] },
-  ],
-};
 ---
 
 <BaseLayout
@@ -85,185 +144,189 @@ const glass = {
   description="independent simulation studies that prove how your product performs in a real building and climate, in days, in your report format."
   locale={locale}
   bare
+  bareDark
 >
   <!-- 1 · hero -->
-  <section class="hero">
-    <div class="site-wrap">
-      <div class="eyebrow">// for building-product manufacturers</div>
-      <h1>numbers that win the specification.</h1>
-      <p class="lede">
-        when your sales team needs to prove what your product does in a real building,
-        entrópica models the project with your product and delivers a report your
-        specifier will accept, in days.
-      </p>
-      <div class="ctas">
-        <a class="btn amber" href="#start">start a study <span class="arrow-tail" aria-hidden="true"></span></a>
-        {hasSample ? (
-          <a class="btn" href={SAMPLE_REPORT_URL} download>see a sample report</a>
-        ) : (
-          <a class="btn" href="#proof">see a sample study</a>
-        )}
-      </div>
-      <ul class="strip" aria-label="in short">
-        <li>studies for a global glazing manufacturer</li>
-        <li>modeled in grasshopper / honeybee</li>
-        <li>delivered in your report format</li>
-        <li>in days</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- 2 · the problem -->
-  <section class="band problem">
-    <div class="site-wrap">
-      <div class="eyebrow">// the problem</div>
-      <h2>a datasheet doesn't win the argument. a project study does.</h2>
-      <div class="contrast" role="img" aria-label="a datasheet gives one number at standard conditions. a project study gives this building, this climate, every hour of the year.">
-        <div class="side">
-          <div class="side-k">the datasheet</div>
-          <div class="side-v">one number</div>
-          <div class="side-d">standard conditions, any building</div>
-          <div class="grid one" aria-hidden="true"><i></i></div>
-        </div>
-        <div class="side on">
-          <div class="side-k">the project study</div>
-          <div class="side-v">8,760 hours</div>
-          <div class="side-d">this building, this climate, a full year</div>
-          <div class="grid many" aria-hidden="true">{Array.from({ length: 96 }, (_, i) => <i style={`--o:${(0.25 + 0.75 * Math.abs(Math.sin(i * 0.9))).toFixed(2)}`}></i>)}</div>
-        </div>
-      </div>
-      <p class="body-p">
-        your reps lose specifications when they can't show, fast and credibly, what your
-        product does in <em>this</em> building, in <em>this</em> climate. entrópica turns
-        your product into that evidence.
-      </p>
-    </div>
-  </section>
-
-  <!-- 3 · the offer -->
-  <section class="band">
-    <div class="site-wrap">
-      <div class="eyebrow">// the offer</div>
-      <h2>every number is built to hold up when a competitor checks it.</h2>
-      <ol class="tiers">
-        {tiers.map((t) => (
-          <li class={t.tag === 'in development' ? 'tier dev' : 'tier'}>
-            <div class="tier-n">{t.n}</div>
-            <h3>{t.name}</h3>
-            <p>{t.body}</p>
-            <div class="tier-tag">{t.tag}</div>
-          </li>
-        ))}
-      </ol>
-      <div class="scope">
-        <div class="scope-k">what a study models</div>
-        <p>
-          <strong>facade and glazing performance first:</strong> shgc and visible-transmittance
-          trade-offs, and shading. then whole-building energy, daylight and glare, and
-          thermal comfort.
+  <section class="hero" id="hero">
+    <div class="site-wrap hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">// for building-product manufacturers</div>
+        <h1>numbers that win the specification.</h1>
+        <p class="lede">
+          entrópica models the project with your product and delivers a report your
+          specifier will accept. in days.
         </p>
+        <div class="ctas">
+          <a class="btn amber" href="#start">start a study <span class="arrow-tail" aria-hidden="true"></span></a>
+          {hasSample ? (
+            <a class="btn ghost" href={SAMPLE_REPORT_URL} download>see a sample report</a>
+          ) : (
+            <a class="btn ghost" href="#products">see the studies</a>
+          )}
+        </div>
+        <ul class="strip" aria-label="in short">
+          <li>studies for a global glazing manufacturer</li>
+          <li>grasshopper / honeybee</li>
+          <li>your report format</li>
+          <li>in days</li>
+        </ul>
+      </div>
+      <figure class="tower">
+        <svg viewBox={towerBox} role="img" aria-label="the sample-study tower: 30 office floors, each turned 8.18° from the one below. three floors, highlighted, were simulated.">
+          {plates.map((p) => (
+            <polygon class={p.sim ? 'plate sim' : 'plate'} points={p.points} style={`--d:${p.i * 45}ms`} />
+          ))}
+        </svg>
+        <figcaption>
+          <span><b>30</b> floors</span>
+          <span><b>8.18°</b> twist a floor</span>
+          <span><b>6</b> glass types</span>
+          <span class="amb"><b>3</b> floors simulated</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 2 · which product do you sell -->
+  <section class="band" id="products">
+    <div class="site-wrap">
+      <div class="eyebrow">// which product do you sell?</div>
+      <h2>one study, one number your rep can use.</h2>
+      <ul class="tiles">
+        {tiles.map((t) => {
+          const max = Math.max(t.a.v, t.b.v);
+          return (
+            <li class="ptile">
+              <div class="tile-cat">{t.cat}</div>
+              <div class="tile-num">{t.num}</div>
+              <div class="tile-what">{t.what}</div>
+              <div class="pair" aria-label={`${t.a.l}: ${t.a.v} ${t.unit}. ${t.b.l}: ${t.b.v} ${t.unit}.`}>
+                <div class="brow"><span class="bl">{t.a.l}</span><span class="btrack"><i style={`width:${(t.a.v / max) * 100}%`}></i></span><span class="bv">{t.a.v}</span></div>
+                <div class="brow b"><span class="bl">{t.b.l}</span><span class="btrack"><i style={`width:${(t.b.v / max) * 100}%`}></i></span><span class="bv">{t.b.v}</span></div>
+              </div>
+              <div class="tile-foot"><span>{t.unit}</span><span>{t.src}</span></div>
+            </li>
+          );
+        })}
+      </ul>
+      <p class="fine-note">simulated, independent entrópica studies. glass named by type, never by brand.</p>
+    </div>
+  </section>
+
+  <!-- 3 · the right number -->
+  <section class="band dark">
+    <div class="site-wrap">
+      <div class="eyebrow">// the right number</div>
+      <h2>the same glass, measured two ways.</h2>
+      <div class="metrics">
+        {metrics.map((m) => (
+          <div class="metric">
+            <div class="m-change">{m.change}</div>
+            <div class="m-k">{m.k}</div>
+            <div class="m-bars">
+              <div class="brow"><span class="bl">double reflective</span><span class="btrack"><i style={`width:${(m.a / m.a) * 100}%`}></i></span><span class="bv">{m.a}</span></div>
+              <div class="brow b"><span class="bl">electrochromic</span><span class="btrack"><i style={`width:${(m.b / m.a) * 100}%`}></i></span><span class="bv">{m.b}</span></div>
+            </div>
+            <div class="m-unit">{m.unit}</div>
+          </div>
+        ))}
+      </div>
+      <p class="dark-p">
+        energy alone undersells this glass. the desk by the window shows its value.
+        finding the number your specifier cares about is part of every study.
+      </p>
+      <p class="dark-fine">sample study: a 30-floor office tower in a hot-humid climate, energyplus, 8,760 hours.</p>
+    </div>
+  </section>
+
+  <!-- 4 · what you receive -->
+  <section class="band">
+    <div class="site-wrap receive">
+      <div class="fan" aria-hidden="true">
+        <img src="/projects/new-chautauqua-institute/new-chautauqua-institute_05_trade.webp" alt="" width="2160" height="2200" loading="lazy" />
+        <img src="/projects/private-bank-offices/private-bank-offices_03_glass.webp" alt="" width="2160" height="2200" loading="lazy" />
+        <img src="/projects/l12-ocean-reef/l12-ocean-reef_01_glass.webp" alt="" width="2160" height="2200" loading="lazy" />
+      </div>
+      <div>
+        <div class="eyebrow">// what you receive</div>
+        <h2>a report your rep can send the same day.</h2>
+        <ul class="get">
+          <li><span class="material-symbols-outlined" aria-hidden="true">description</span>the report, in your template</li>
+          <li><span class="material-symbols-outlined" aria-hidden="true">bar_chart</span>charts at final size</li>
+          <li><span class="material-symbols-outlined" aria-hidden="true">table_chart</span>the results spreadsheet</li>
+        </ul>
+        <div class="sample">
+          {hasSample ? (
+            <a class="btn" href={SAMPLE_REPORT_URL} download>download a sample report</a>
+          ) : (
+            <a class="btn" href={`mailto:${EMAIL}?subject=sample%20report`}>ask for a sample report</a>
+          )}
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 4 · how entrópica works -->
+  <!-- 5 · how it works -->
   <section class="band">
     <div class="site-wrap">
       <div class="eyebrow">// how it works</div>
-      <h2>four steps, the same on every study.</h2>
-      <ol class="steps">
-        {steps.map((s) => (
+      <h2>the same four steps on every study.</h2>
+      <ol class="flow">
+        {steps.map((s, i) => (
           <li>
-            <div class="step-n">{s.n}</div>
+            <span class="node"><span class="material-symbols-outlined" aria-hidden="true">{s.icon}</span></span>
+            <span class="step-n">0{i + 1}</span>
             <h3>{s.name}</h3>
             <p>{s.body}</p>
           </li>
         ))}
       </ol>
-      <ul class="trust">
-        {trust.map((t) => (
-          <li><strong>{t.name}</strong> {t.body}</li>
-        ))}
-      </ul>
+      <div class="days"><span>in days</span></div>
       <ul class="tools" aria-label="tools">
         {tools.map((t) => <li>{t}</li>)}
       </ul>
     </div>
   </section>
 
-  <!-- 5 · proof -->
-  <section class="band" id="proof">
+  <!-- 6 · offer -->
+  <section class="band">
     <div class="site-wrap">
-      <div class="eyebrow">// the proof</div>
-      <h2>what a study looks like.</h2>
-
-      <article class="study">
-        <div class="study-meta">
-          <div class="study-k">glazing study · residential · tropical coast</div>
-          <dl>
-            <div><dt>the question</dt><dd>the supplier offered three glass types. which are worth paying for, and where?</dd></div>
-            <div><dt>what was modeled</dt><dd>a three-level house: 173 m² of glass in 29 windows, every room, a full year. single clear, double selective and double acoustic glass. energyplus through honeybee, rerun in 2026.</dd></div>
-          </dl>
-          <div class="headline">
-            <span class="num">−46<span class="u">%</span></span>
-            <span class="lab">heat through the glass in a year, with the right glass in each room</span>
-          </div>
-          <p class="study-note">
-            the mix keeps 91% of the saving of double glass everywhere, and the acoustic
-            glass stops the same heat as the plain double glass. the extra cost buys quiet.
-          </p>
-        </div>
-        <div class="study-chart">
-          <StudyBars
-            categories={glass.categories}
-            bars={glass.bars}
-            yLabel="heat through the glass, by facade (MWh a year)"
-            yUnit="MWh"
-            alt="bar chart of the heat through the glass in a year by facade, single clear glass everywhere against the room-by-room mix. north 7.1 to 3.5, east 35.8 to 18.3, south 17.6 to 8.9, west 12.6 to 9.1 MWh. total 73.1 to 39.8 MWh."
-            locale={locale}
-          />
-        </div>
-      </article>
-
-      <div class="sample">
-        <div>
-          <div class="study-k">sample sales-support report</div>
-          <p>
-            {hasSample
-              ? 'an anonymized report, as a manufacturer receives it. glass named by type, costs as ranges.'
-              : 'an anonymized report, as a manufacturer receives it, is sent on request with the first reply.'}
-          </p>
-        </div>
-        {hasSample ? (
-          <a class="btn" href={SAMPLE_REPORT_URL} download>download the sample</a>
-        ) : (
-          <a class="btn" href={`mailto:${EMAIL}?subject=sample%20report`}>ask for the sample</a>
-        )}
-      </div>
+      <div class="eyebrow">// the offer</div>
+      <h2>start with one study.</h2>
+      <ol class="tiers">
+        {tiers.map((t) => (
+          <li class={t.dev ? 'tier dev' : 'tier'}>
+            <div class="tier-n">{t.n}</div>
+            <h3>{t.name}</h3>
+            <p>{t.body}</p>
+            {t.dev && <div class="tier-tag">in development</div>}
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 
-  <!-- 6 · confidentiality -->
+  <!-- 7 · confidentiality -->
   <section class="band">
     <div class="site-wrap">
       <div class="eyebrow">// confidentiality</div>
-      <h2>your product, your project, kept private.</h2>
       <ul class="conf">
-        {confidentiality.map((c) => <li>{c}</li>)}
+        {confidentiality.map((c) => (
+          <li><span class="material-symbols-outlined" aria-hidden="true">{c.icon}</span>{c.t}</li>
+        ))}
       </ul>
     </div>
   </section>
 
-  <!-- 7 + 8 · close -->
+  <!-- 8 · close -->
   <section class="band close" id="start">
     <div class="site-wrap">
       <div class="close-grid">
         <div>
           <div class="eyebrow amber">// start a study</div>
-          <h2>tell entrópica about the project and the product.</h2>
+          <h2>send the project and the question.</h2>
           <p class="body-p">
-            send the project and the question. entrópica scopes the study and replies with
-            a fixed price and a turnaround. finding out what it takes costs nothing.
+            entrópica replies with a fixed price and a turnaround, at no cost.
           </p>
           <ul class="direct">
             <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
@@ -292,7 +355,7 @@ const glass = {
             </div>
             <div class="field full">
               <label for="m-project">the project and the question</label>
-              <textarea id="m-project" name="project" rows="5" required placeholder="where it is, the product, and what the specifier needs to see"></textarea>
+              <textarea id="m-project" name="project" rows="4" required placeholder="where it is, the product, and what the specifier needs to see"></textarea>
             </div>
             <div class="field full">
               <label for="m-files">link to drawings <span class="opt">(optional)</span></label>
@@ -316,6 +379,8 @@ const glass = {
     </div>
   </section>
 
+  <a class="sticky-cta" href="#start" data-sticky hidden>start a study <span aria-hidden="true">→</span></a>
+
   <footer class="bare-footer" slot="footer">
     <div class="site-wrap">
       <p>consultancies and architecture teams that need overflow modeling can also get in touch.</p>
@@ -326,150 +391,191 @@ const glass = {
 
 <script>
   import '../../scripts/ajax-form';
+
+  // the sticky button shows once the hero is gone, and hides at the form.
+  const sticky = document.querySelector<HTMLElement>('[data-sticky]');
+  const hero = document.getElementById('hero');
+  const start = document.getElementById('start');
+  if (sticky && hero && start && 'IntersectionObserver' in window) {
+    let heroOn = true;
+    let startOn = false;
+    const update = () => { sticky.hidden = heroOn || startOn; };
+    new IntersectionObserver(([e]) => { heroOn = e.isIntersecting; update(); }).observe(hero);
+    new IntersectionObserver(([e]) => { startOn = e.isIntersecting; update(); }, { threshold: 0.15 }).observe(start);
+  }
 </script>
 
 <style>
-  .hero { padding: 104px 0 88px; }
   .eyebrow {
     font-size: 11px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    margin-bottom: 24px;
+    margin-bottom: 22px;
   }
-  h1 {
-    font-size: clamp(38px, 6.4vw, 84px);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    margin: 0 0 32px;
-    max-width: 14ch;
-    text-wrap: balance;
-  }
-  .lede {
-    font-size: clamp(16px, 1.5vw, 20px);
-    line-height: 1.6;
-    color: var(--mute-on-paper);
-    max-width: 58ch;
-    margin: 0 0 40px;
-  }
-  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 56px; }
-  .strip {
-    list-style: none; padding: 20px 0 0; margin: 0;
-    border-top: 1px solid var(--line-on-paper);
-    display: flex; flex-wrap: wrap; gap: 8px 0;
-    font-size: 12px; letter-spacing: 0.04em; color: var(--mute-on-paper);
-  }
-  .strip li:not(:last-child)::after { content: '·'; padding: 0 14px; color: var(--mute-on-paper-2); }
-
-  .band { padding: 88px 0; border-top: 1px solid var(--line-on-paper); }
   h2 {
-    font-size: clamp(26px, 3.4vw, 42px);
+    font-size: clamp(26px, 3.4vw, 44px);
     line-height: 1.1;
     letter-spacing: -0.02em;
     margin: 0 0 48px;
-    max-width: 24ch;
+    max-width: 22ch;
     text-wrap: balance;
   }
-  h3 { font-size: 18px; letter-spacing: -0.01em; margin: 0 0 10px; }
-  .body-p { font-size: 17px; line-height: 1.65; color: var(--mute-on-paper); max-width: 60ch; margin: 0; }
-  .body-p em { font-style: normal; color: var(--ink-on-paper); border-bottom: 1px solid var(--amber); }
+  h3 { font-size: 17px; letter-spacing: -0.01em; margin: 0 0 8px; }
+  .band { padding: 96px 0; border-top: 1px solid var(--line-on-paper); }
 
-  /* the problem: one dot against a year of hours */
-  .contrast {
-    display: grid; grid-template-columns: 1fr 1.6fr; gap: 1px;
-    background: var(--line-on-paper); border: 1px solid var(--line-on-paper);
-    margin-bottom: 40px;
+  /* ---- hero, on ink ---- */
+  .hero { background: var(--ink); color: var(--text); padding: 72px 0 80px; overflow: hidden; }
+  .hero .eyebrow { color: var(--mute); }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; }
+  .hero h1 {
+    font-size: clamp(40px, 6.6vw, 92px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    margin: 0 0 28px;
+    max-width: 12ch;
+    color: var(--text);
   }
-  .side { background: var(--paper); padding: 28px; display: flex; flex-direction: column; }
-  .side.on { background: var(--paper-2); }
-  .side-k { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper-2); margin-bottom: 14px; }
-  .side-v { font-size: clamp(24px, 2.8vw, 34px); letter-spacing: -0.02em; font-weight: 300; text-transform: none; }
-  .side-d { font-size: 13px; color: var(--mute-on-paper); margin: 6px 0 28px; }
-  .grid { margin-top: auto; display: grid; gap: 3px; }
-  .grid i { display: block; aspect-ratio: 1; background: var(--ink-on-paper); }
-  .grid.one { grid-template-columns: repeat(24, 1fr); }
-  .grid.one i { opacity: 0.55; }
-  .grid.many { grid-template-columns: repeat(24, 1fr); }
-  .grid.many i { background: var(--amber); opacity: var(--o); }
+  .lede { font-size: clamp(16px, 1.5vw, 20px); line-height: 1.55; color: var(--mute); max-width: 44ch; margin: 0 0 36px; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 48px; }
+  .btn.ghost { border-color: var(--line-3); color: var(--text); }
+  .btn.ghost:hover { background: var(--text); color: var(--ink); }
+  .btn.amber:hover { background: var(--text); border-color: var(--text); color: var(--ink); }
+  .strip {
+    list-style: none; padding: 18px 0 0; margin: 0; border-top: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; gap: 6px 0; font-size: 12px; color: var(--mute);
+  }
+  .strip li:not(:last-child)::after { content: '·'; padding: 0 12px; color: var(--mute-3); }
 
-  /* the offer */
-  .tiers {
-    list-style: none; padding: 0; margin: 0 0 48px;
+  .tower { margin: 0; display: flex; flex-direction: column; align-items: center; }
+  .tower svg { width: 100%; max-width: 360px; height: auto; max-height: 560px; overflow: visible; }
+  .plate {
+    fill: var(--ink); stroke: rgba(255, 255, 255, 0.42); stroke-width: 0.22; stroke-linejoin: round;
+    animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--d);
+  }
+  .plate.sim { fill: #3a2f17; stroke: var(--amber); stroke-width: 0.4; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .plate { animation: none; } }
+  .tower figcaption {
+    margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px;
+    font-size: 12px; color: var(--mute);
+  }
+  .tower b { color: var(--text); font-weight: 400; }
+  .tower .amb b { color: var(--amber); }
+
+  /* real units keep their case (kWh, W/m²) */
+  .tile-foot, .tile-what, .m-unit, .m-k, .dark-fine, .flow p { text-transform: none; }
+
+  /* ---- product tiles ---- */
+  .tiles {
+    list-style: none; padding: 0; margin: 0;
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
     background: var(--line-on-paper); border: 1px solid var(--line-on-paper);
   }
-  .tier { background: var(--paper); padding: 28px; display: flex; flex-direction: column; }
-  .tier-n { font-size: 12px; color: var(--amber); margin-bottom: 28px; letter-spacing: 0.08em; }
-  .tier p { font-size: 15px; line-height: 1.6; color: var(--mute-on-paper); margin: 0 0 28px; }
-  .tier-tag { margin-top: auto; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-on-paper-2); }
+  .ptile { background: var(--paper); padding: 28px 28px 22px; display: flex; flex-direction: column; transition: background 0.2s; }
+  .ptile:hover { background: var(--paper-2); }
+  .tile-cat { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); margin-bottom: 18px; }
+  .tile-num {
+    font-size: clamp(48px, 5vw, 72px); font-weight: 300; letter-spacing: -0.04em; line-height: 1;
+    color: var(--ink-on-paper); text-transform: none; margin-bottom: 12px;
+  }
+  .tile-what { font-size: 13px; line-height: 1.5; color: var(--mute-on-paper); min-height: 3em; margin-bottom: 22px; }
+  .pair, .m-bars { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+  .brow { display: grid; grid-template-columns: 11.5em 1fr 3.4em; align-items: center; gap: 10px; font-size: 11px; color: var(--ink-on-paper); }
+  .bl { color: var(--mute-on-paper); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .btrack { height: 10px; background: var(--line-on-paper); }
+  .btrack i { display: block; height: 100%; background: #5b564a; }
+  .brow.b .btrack i { background: var(--amber); }
+  .bv { text-align: right; font-feature-settings: 'tnum' 1; color: var(--ink-on-paper); }
+  .metric .bv { color: var(--text); }
+  .tile-foot {
+    margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line-on-paper);
+    display: flex; justify-content: space-between; gap: 12px; font-size: 10.5px; color: var(--mute-on-paper-2);
+  }
+  .fine-note { margin: 16px 0 0; font-size: 11px; color: var(--mute-on-paper-2); }
+
+  /* ---- the right number, on ink ---- */
+  .band.dark { background: var(--ink); color: var(--text); border-top: none; }
+  .band.dark .eyebrow { color: var(--mute); }
+  .band.dark h2 { color: var(--text); }
+  .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 36px; }
+  .metric { background: var(--ink); padding: 32px; }
+  .m-change { font-size: clamp(64px, 8vw, 120px); font-weight: 300; letter-spacing: -0.05em; line-height: 0.95; color: var(--text); margin-bottom: 14px; }
+  .metric:last-child .m-change { color: var(--amber); }
+  .m-k { font-size: 14px; color: var(--mute); margin-bottom: 26px; min-height: 2.6em; }
+  .metric .bl { color: var(--mute); }
+  .metric .btrack { background: var(--line); }
+  .metric .btrack i { background: rgba(255, 255, 255, 0.55); }
+  .metric .brow.b .btrack i { background: var(--amber); }
+  .m-unit { font-size: 11px; color: var(--mute-2); }
+  .dark-p { font-size: clamp(17px, 1.6vw, 21px); line-height: 1.55; color: var(--text); max-width: 52ch; margin: 0 0 14px; }
+  .dark-fine { font-size: 11px; color: var(--mute-2); margin: 0; }
+
+  /* ---- what you receive ---- */
+  .receive { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .fan { position: relative; aspect-ratio: 1 / 0.92; }
+  .fan img {
+    position: absolute; width: 62%; height: auto; top: 6%; left: 19%;
+    border: 1px solid var(--line-on-paper-2); box-shadow: 0 18px 40px -18px rgba(28, 28, 28, 0.35);
+    transform-origin: 50% 100%; transition: transform 0.35s ease;
+  }
+  .fan img:nth-child(1) { transform: rotate(-9deg) translateX(-14%); }
+  .fan img:nth-child(2) { transform: rotate(5deg) translateX(14%); }
+  .fan img:nth-child(3) { transform: translateY(-2%); }
+  .fan:hover img:nth-child(1) { transform: rotate(-13deg) translateX(-22%); }
+  .fan:hover img:nth-child(2) { transform: rotate(9deg) translateX(22%); }
+  .get { list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-direction: column; gap: 14px; }
+  .get li { display: flex; align-items: center; gap: 14px; font-size: 16px; }
+  .material-symbols-outlined { font-size: 22px; color: var(--amber); text-transform: none; letter-spacing: 0; }
+
+  /* ---- how it works ---- */
+  .flow { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; }
+  .flow::before { content: ''; position: absolute; top: 28px; left: 28px; right: 12%; height: 1px; background: var(--ink-on-paper); }
+  .flow li { position: relative; }
+  .node {
+    width: 56px; height: 56px; border-radius: 50%; background: var(--paper);
+    border: 1px solid var(--ink-on-paper); display: grid; place-items: center; margin-bottom: 20px; position: relative;
+  }
+  .node .material-symbols-outlined { color: var(--ink-on-paper); font-size: 24px; }
+  .flow li:last-child .node { background: var(--amber); border-color: var(--amber); }
+  .step-n { display: block; font-size: 11px; color: var(--amber); margin-bottom: 8px; }
+  .flow p { font-size: 13px; line-height: 1.55; color: var(--mute-on-paper); margin: 0; max-width: 24ch; }
+  .days { margin: 28px 0 40px; display: flex; align-items: center; gap: 14px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); }
+  .days::before { content: ''; height: 1px; flex: 1; max-width: 72%; background: linear-gradient(90deg, transparent, var(--amber)); }
+  .tools { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tools li { font-size: 12px; padding: 6px 12px; border: 1px solid var(--line-on-paper-2); color: var(--mute-on-paper); }
+
+  /* ---- offer ---- */
+  .tiers {
+    list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--line-on-paper); border: 1px solid var(--line-on-paper);
+  }
+  .tier { background: var(--paper); padding: 28px; }
+  .tier-n { font-size: 12px; color: var(--amber); margin-bottom: 22px; }
+  .tier p { font-size: 14px; line-height: 1.55; color: var(--mute-on-paper); margin: 0; }
   .tier.dev { background: var(--paper-2); }
   .tier.dev .tier-n { color: var(--mute-on-paper-2); }
-  .scope { display: grid; grid-template-columns: 220px 1fr; gap: 24px; max-width: 900px; }
-  .scope-k { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper-2); padding-top: 4px; }
-  .scope p { margin: 0; font-size: 16px; line-height: 1.65; color: var(--mute-on-paper); }
-  .scope strong { color: var(--ink-on-paper); font-weight: 400; }
+  .tier-tag { margin-top: 18px; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-on-paper-2); }
 
-  /* how it works */
-  .steps {
-    list-style: none; padding: 0; margin: 0 0 56px;
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
-    counter-reset: none;
-  }
-  .steps li { border-top: 1px solid var(--ink-on-paper); padding-top: 18px; }
-  .step-n { font-size: 12px; color: var(--amber); margin-bottom: 18px; }
-  .steps p { font-size: 14px; line-height: 1.6; color: var(--mute-on-paper); margin: 0; }
-  .trust {
-    list-style: none; padding: 0; margin: 0 0 40px;
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 48px; max-width: 1000px;
-  }
-  .trust li { font-size: 15px; line-height: 1.6; color: var(--mute-on-paper); }
-  .trust strong { color: var(--ink-on-paper); font-weight: 400; }
-  .tools { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .tools li {
-    font-size: 12px; padding: 6px 12px;
-    border: 1px solid var(--line-on-paper-2); color: var(--mute-on-paper);
-  }
-
-  /* proof */
-  .study {
-    display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px;
-    padding: 36px; border: 1px solid var(--line-on-paper); background: var(--paper-2);
-    margin-bottom: 24px;
-  }
-  .study-k { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper-2); margin-bottom: 20px; }
-  .study dl { margin: 0 0 28px; display: flex; flex-direction: column; gap: 16px; }
-  .study dt { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-on-paper-2); margin-bottom: 4px; }
-  .study dd { margin: 0; font-size: 14px; line-height: 1.6; }
-  .headline { display: flex; flex-direction: column; gap: 6px; padding: 20px 0; border-top: 1px solid var(--line-on-paper); }
-  .headline .num { font-size: clamp(44px, 5vw, 64px); font-weight: 300; letter-spacing: -0.03em; color: var(--amber); line-height: 1; }
-  .headline .u { font-size: 0.5em; text-transform: none; }
-  .headline .lab { font-size: 13px; color: var(--mute-on-paper); }
-  .study-note { font-size: 14px; line-height: 1.6; color: var(--mute-on-paper); margin: 0; }
-  .sample {
-    display: flex; justify-content: space-between; align-items: center; gap: 24px;
-    padding: 28px 36px; border: 1px solid var(--line-on-paper);
-  }
-  .sample .study-k { margin-bottom: 8px; }
-  .sample p { margin: 0; font-size: 14px; color: var(--mute-on-paper); max-width: 60ch; }
-
-  /* confidentiality */
+  /* ---- confidentiality ---- */
   .conf { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-  .conf li { border-top: 1px solid var(--ink-on-paper); padding-top: 18px; font-size: 15px; line-height: 1.6; }
+  .conf li { display: flex; flex-direction: column; gap: 14px; font-size: 16px; line-height: 1.5; max-width: 28ch; }
+  .conf .material-symbols-outlined { font-size: 32px; }
 
-  /* close */
+  /* ---- close ---- */
   .close { background: var(--paper-2); }
   .close-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; }
-  .close h2 { margin-bottom: 24px; }
-  .direct { list-style: none; padding: 0; margin: 32px 0 0; display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+  .close h2 { margin-bottom: 20px; }
+  .body-p { font-size: 17px; line-height: 1.6; color: var(--mute-on-paper); max-width: 44ch; margin: 0; }
+  .direct { list-style: none; padding: 0; margin: 28px 0 0; font-size: 14px; display: flex; flex-direction: column; gap: 6px; }
   .direct a, .form-error a, .bare-footer a { border-bottom: 1px solid var(--line-on-paper-2); }
   .direct a:hover, .bare-footer a:hover { color: var(--amber); border-bottom-color: var(--amber); }
-  .study-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .study-form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   .field { display: flex; flex-direction: column; gap: 6px; }
   .field.full { grid-column: 1 / -1; }
   .field label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-on-paper); }
   .field .opt { text-transform: none; letter-spacing: 0; color: var(--mute-on-paper-2); }
   .field input, .field textarea {
-    font: inherit; font-size: 15px; padding: 12px 14px;
-    background: var(--paper); color: var(--ink-on-paper);
+    font: inherit; font-size: 15px; padding: 12px 14px; background: var(--paper); color: var(--ink-on-paper);
     border: 1px solid var(--line-on-paper-2); border-radius: 0;
   }
   .field input:focus, .field textarea:focus { outline: 2px solid var(--amber); outline-offset: -1px; }
@@ -480,23 +586,40 @@ const glass = {
   .sent { padding: 32px; border: 1px solid var(--line-on-paper); background: var(--paper); }
   .sent h3 { margin: 0; }
 
+  /* ---- sticky button ---- */
+  .sticky-cta {
+    position: fixed; right: 24px; bottom: 24px; z-index: 40;
+    background: var(--amber); color: var(--ink); padding: 14px 20px;
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    box-shadow: 0 10px 30px -10px rgba(28, 28, 28, 0.45);
+  }
+  .sticky-cta:hover { background: var(--ink-on-paper); color: var(--paper); }
+  .sticky-cta[hidden] { display: none; }
+
   .bare-footer { padding: 40px 0 48px; border-top: 1px solid var(--line-on-paper); }
   .bare-footer p { margin: 0 0 10px; font-size: 13px; color: var(--mute-on-paper); }
   .bare-footer .fine { font-size: 11px; color: var(--mute-on-paper-2); margin: 0; }
 
-  @media (max-width: 900px) {
-    .hero { padding: 64px 0 56px; }
-    .band { padding: 64px 0; }
-    .contrast, .tiers, .study, .close-grid, .conf, .trust { grid-template-columns: 1fr; }
-    .steps { grid-template-columns: 1fr 1fr; }
-    .scope { grid-template-columns: 1fr; gap: 8px; }
-    .study { padding: 24px; gap: 32px; }
-    .sample { flex-direction: column; align-items: flex-start; padding: 24px; }
-    .close-grid { gap: 48px; }
+  @media (max-width: 1000px) {
+    .tiles { grid-template-columns: 1fr 1fr; }
   }
-  @media (max-width: 520px) {
-    .steps, .study-form { grid-template-columns: 1fr; }
-    .strip li:not(:last-child)::after { content: ''; padding: 0; }
+  @media (max-width: 900px) {
+    .band { padding: 64px 0; }
+    .hero { padding: 48px 0 56px; }
+    .hero-grid, .receive, .close-grid, .metrics, .tiers, .conf { grid-template-columns: 1fr; }
+    .hero-grid { gap: 40px; }
+    .tower svg { max-width: 240px; max-height: 380px; }
+    .receive { gap: 40px; }
+    .flow { grid-template-columns: 1fr 1fr; row-gap: 36px; }
+    .flow::before { display: none; }
+    .close-grid { gap: 40px; }
+  }
+  @media (max-width: 600px) {
+    .tiles { grid-template-columns: 1fr; }
+    .study-form { grid-template-columns: 1fr; }
+    .metric { padding: 24px; }
     .strip { flex-direction: column; }
+    .strip li:not(:last-child)::after { content: ''; padding: 0; }
+    .sticky-cta { left: 16px; right: 16px; bottom: 16px; text-align: center; }
   }
 </style>
