@@ -1,0 +1,502 @@
+---
+// manufacturer landing page. built from "261115 entrópica, manufacturer
+// landing page · build spec". english only, no spanish mirror, no site nav:
+// the outbound email links here and the page has one job.
+// every claim on this page has to be true today. before adding a figure,
+// check it against the current study, not an older export.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StudyBars from '../../components/StudyBars.astro';
+
+const locale = 'en' as const;
+
+// formspree form id for info@entropica-lab.com (same endpoint as /contact).
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkoerobb';
+const EMAIL = 'info@entropica-lab.com';
+
+// fill these when they exist. while empty, the page falls back honestly:
+// the sample report is offered on request, and the call is booked by email.
+const SAMPLE_REPORT_URL = ''; // e.g. '/manufacturers/sample-report.pdf'
+const BOOKING_URL = ''; // e.g. a cal.com or calendly link
+
+const hasSample = SAMPLE_REPORT_URL !== '';
+
+const tiers = [
+  {
+    n: '01',
+    name: 'project study',
+    body: 'one live project. fixed scope, fixed price, a report in days.',
+    tag: 'the entry point',
+  },
+  {
+    n: '02',
+    name: 'sales-evidence program',
+    body: 'a set number of studies a quarter, a priority queue, and your own report template.',
+    tag: 'for reps who need studies regularly',
+  },
+  {
+    n: '03',
+    name: 'sales tools',
+    body: 'the same workflow turned into a tool your team runs on routine projects, such as a glass-comparison calculator. entrópica takes the hard cases.',
+    tag: 'in development',
+  },
+];
+
+const steps = [
+  { n: '1', name: 'scope', body: 'you send the drawings and the question.' },
+  { n: '2', name: 'model', body: 'entrópica builds the geometry and the simulation in grasshopper / honeybee.' },
+  { n: '3', name: 'run', body: "the study runs on the project's real conditions, or inside your own definition." },
+  { n: '4', name: 'report', body: 'you get the results in your template, with charts or a branded deck.' },
+];
+
+const trust = [
+  { name: 'your logic, your templates.', body: 'entrópica works inside your definition and output format and changes only the inputs. the result stays yours.' },
+  { name: 'the same deliverable every time.', body: 'a results spreadsheet, charts at final size, and a report.' },
+  { name: 'one documented method.', body: 'the same process on every study.' },
+  { name: 'your timezone.', body: 'same-day collaboration across the americas.' },
+];
+
+const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance', 'climatestudio'];
+
+const confidentiality = [
+  'entrópica signs an nda.',
+  'results can be anonymized: no client, building or product named.',
+  'your models and data are handled privately and never reused.',
+];
+
+// the glazing study below is the 2026 rerun (energyplus 24.2 through honeybee).
+// the values match src/content/projects/en/l12-ocean-reef.md. glass is named by
+// type only on this page, never by brand or supplier.
+const glass = {
+  categories: [
+    { label: 'north', sub: '25 m²' },
+    { label: 'east', sub: '50 m²' },
+    { label: 'south', sub: '69 m²' },
+    { label: 'west', sub: '29 m²' },
+  ],
+  bars: [
+    { label: 'single clear glass everywhere', values: [7.1, 35.8, 17.6, 12.6] },
+    { label: 'room-by-room mix', values: [3.5, 18.3, 8.9, 9.1] },
+  ],
+};
+---
+
+<BaseLayout
+  title="building-performance studies for product manufacturers · entrópica"
+  description="independent simulation studies that prove how your product performs in a real building and climate, in days, in your report format."
+  locale={locale}
+  bare
+>
+  <!-- 1 · hero -->
+  <section class="hero">
+    <div class="site-wrap">
+      <div class="eyebrow">// for building-product manufacturers</div>
+      <h1>numbers that win the specification.</h1>
+      <p class="lede">
+        when your sales team needs to prove what your product does in a real building,
+        entrópica models the project with your product and delivers a report your
+        specifier will accept, in days.
+      </p>
+      <div class="ctas">
+        <a class="btn amber" href="#start">start a study <span class="arrow-tail" aria-hidden="true"></span></a>
+        {hasSample ? (
+          <a class="btn" href={SAMPLE_REPORT_URL} download>see a sample report</a>
+        ) : (
+          <a class="btn" href="#proof">see a sample study</a>
+        )}
+      </div>
+      <ul class="strip" aria-label="in short">
+        <li>studies for a global glazing manufacturer</li>
+        <li>modeled in grasshopper / honeybee</li>
+        <li>delivered in your report format</li>
+        <li>in days</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2 · the problem -->
+  <section class="band problem">
+    <div class="site-wrap">
+      <div class="eyebrow">// the problem</div>
+      <h2>a datasheet doesn't win the argument. a project study does.</h2>
+      <div class="contrast" role="img" aria-label="a datasheet gives one number at standard conditions. a project study gives this building, this climate, every hour of the year.">
+        <div class="side">
+          <div class="side-k">the datasheet</div>
+          <div class="side-v">one number</div>
+          <div class="side-d">standard conditions, any building</div>
+          <div class="grid one" aria-hidden="true"><i></i></div>
+        </div>
+        <div class="side on">
+          <div class="side-k">the project study</div>
+          <div class="side-v">8,760 hours</div>
+          <div class="side-d">this building, this climate, a full year</div>
+          <div class="grid many" aria-hidden="true">{Array.from({ length: 96 }, (_, i) => <i style={`--o:${(0.25 + 0.75 * Math.abs(Math.sin(i * 0.9))).toFixed(2)}`}></i>)}</div>
+        </div>
+      </div>
+      <p class="body-p">
+        your reps lose specifications when they can't show, fast and credibly, what your
+        product does in <em>this</em> building, in <em>this</em> climate. entrópica turns
+        your product into that evidence.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3 · the offer -->
+  <section class="band">
+    <div class="site-wrap">
+      <div class="eyebrow">// the offer</div>
+      <h2>every number is built to hold up when a competitor checks it.</h2>
+      <ol class="tiers">
+        {tiers.map((t) => (
+          <li class={t.tag === 'in development' ? 'tier dev' : 'tier'}>
+            <div class="tier-n">{t.n}</div>
+            <h3>{t.name}</h3>
+            <p>{t.body}</p>
+            <div class="tier-tag">{t.tag}</div>
+          </li>
+        ))}
+      </ol>
+      <div class="scope">
+        <div class="scope-k">what a study models</div>
+        <p>
+          <strong>facade and glazing performance first:</strong> shgc and visible-transmittance
+          trade-offs, and shading. then whole-building energy, daylight and glare, and
+          thermal comfort.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · how entrópica works -->
+  <section class="band">
+    <div class="site-wrap">
+      <div class="eyebrow">// how it works</div>
+      <h2>four steps, the same on every study.</h2>
+      <ol class="steps">
+        {steps.map((s) => (
+          <li>
+            <div class="step-n">{s.n}</div>
+            <h3>{s.name}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))}
+      </ol>
+      <ul class="trust">
+        {trust.map((t) => (
+          <li><strong>{t.name}</strong> {t.body}</li>
+        ))}
+      </ul>
+      <ul class="tools" aria-label="tools">
+        {tools.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 · proof -->
+  <section class="band" id="proof">
+    <div class="site-wrap">
+      <div class="eyebrow">// the proof</div>
+      <h2>what a study looks like.</h2>
+
+      <article class="study">
+        <div class="study-meta">
+          <div class="study-k">glazing study · residential · tropical coast</div>
+          <dl>
+            <div><dt>the question</dt><dd>the supplier offered three glass types. which are worth paying for, and where?</dd></div>
+            <div><dt>what was modeled</dt><dd>a three-level house: 173 m² of glass in 29 windows, every room, a full year. single clear, double selective and double acoustic glass. energyplus through honeybee, rerun in 2026.</dd></div>
+          </dl>
+          <div class="headline">
+            <span class="num">−46<span class="u">%</span></span>
+            <span class="lab">heat through the glass in a year, with the right glass in each room</span>
+          </div>
+          <p class="study-note">
+            the mix keeps 91% of the saving of double glass everywhere, and the acoustic
+            glass stops the same heat as the plain double glass. the extra cost buys quiet.
+          </p>
+        </div>
+        <div class="study-chart">
+          <StudyBars
+            categories={glass.categories}
+            bars={glass.bars}
+            yLabel="heat through the glass, by facade (MWh a year)"
+            yUnit="MWh"
+            alt="bar chart of the heat through the glass in a year by facade, single clear glass everywhere against the room-by-room mix. north 7.1 to 3.5, east 35.8 to 18.3, south 17.6 to 8.9, west 12.6 to 9.1 MWh. total 73.1 to 39.8 MWh."
+            locale={locale}
+          />
+        </div>
+      </article>
+
+      <div class="sample">
+        <div>
+          <div class="study-k">sample sales-support report</div>
+          <p>
+            {hasSample
+              ? 'an anonymized report, as a manufacturer receives it. glass named by type, costs as ranges.'
+              : 'an anonymized report, as a manufacturer receives it, is sent on request with the first reply.'}
+          </p>
+        </div>
+        {hasSample ? (
+          <a class="btn" href={SAMPLE_REPORT_URL} download>download the sample</a>
+        ) : (
+          <a class="btn" href={`mailto:${EMAIL}?subject=sample%20report`}>ask for the sample</a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · confidentiality -->
+  <section class="band">
+    <div class="site-wrap">
+      <div class="eyebrow">// confidentiality</div>
+      <h2>your product, your project, kept private.</h2>
+      <ul class="conf">
+        {confidentiality.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 + 8 · close -->
+  <section class="band close" id="start">
+    <div class="site-wrap">
+      <div class="close-grid">
+        <div>
+          <div class="eyebrow amber">// start a study</div>
+          <h2>tell entrópica about the project and the product.</h2>
+          <p class="body-p">
+            send the project and the question. entrópica scopes the study and replies with
+            a fixed price and a turnaround. finding out what it takes costs nothing.
+          </p>
+          <ul class="direct">
+            <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
+            {BOOKING_URL && <li><a href={BOOKING_URL} target="_blank" rel="noopener">book a 20-minute call →</a></li>}
+          </ul>
+        </div>
+
+        <div class="form-col">
+          <div class="sent" id="study-sent" hidden tabindex="-1">
+            <div class="eyebrow amber">// received</div>
+            <h3>thanks. entrópica replies within one working day.</h3>
+          </div>
+
+          <form class="study-form" action={FORMSPREE_ENDPOINT} method="POST" data-ajax data-sent="study-sent" data-lead-type="manufacturer">
+            <div class="field">
+              <label for="m-name">name</label>
+              <input id="m-name" name="name" type="text" required autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="m-company">company</label>
+              <input id="m-company" name="company" type="text" required autocomplete="organization" />
+            </div>
+            <div class="field full">
+              <label for="m-email">work email</label>
+              <input id="m-email" name="email" type="email" required autocomplete="email" />
+            </div>
+            <div class="field full">
+              <label for="m-project">the project and the question</label>
+              <textarea id="m-project" name="project" rows="5" required placeholder="where it is, the product, and what the specifier needs to see"></textarea>
+            </div>
+            <div class="field full">
+              <label for="m-files">link to drawings <span class="opt">(optional)</span></label>
+              <input id="m-files" name="files" type="url" placeholder="https://" />
+            </div>
+
+            <input type="hidden" name="_subject" value="entropica-lab.com · manufacturer study request" />
+            <div class="honeypot" aria-hidden="true">
+              <label>do not fill this field</label>
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <p class="form-error" data-form-error hidden role="alert">
+              the message didn't go through. write to <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+            </p>
+
+            <button type="submit" class="btn amber">send <span class="arrow-tail" aria-hidden="true"></span></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bare-footer" slot="footer">
+    <div class="site-wrap">
+      <p>consultancies and architecture teams that need overflow modeling can also get in touch.</p>
+      <p class="fine">© {new Date().getFullYear()} entrópica · <a href="/en/privacy">privacy</a></p>
+    </div>
+  </footer>
+</BaseLayout>
+
+<script>
+  import '../../scripts/ajax-form';
+</script>
+
+<style>
+  .hero { padding: 104px 0 88px; }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-size: clamp(38px, 6.4vw, 84px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin: 0 0 32px;
+    max-width: 14ch;
+    text-wrap: balance;
+  }
+  .lede {
+    font-size: clamp(16px, 1.5vw, 20px);
+    line-height: 1.6;
+    color: var(--mute-on-paper);
+    max-width: 58ch;
+    margin: 0 0 40px;
+  }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 56px; }
+  .strip {
+    list-style: none; padding: 20px 0 0; margin: 0;
+    border-top: 1px solid var(--line-on-paper);
+    display: flex; flex-wrap: wrap; gap: 8px 0;
+    font-size: 12px; letter-spacing: 0.04em; color: var(--mute-on-paper);
+  }
+  .strip li:not(:last-child)::after { content: '·'; padding: 0 14px; color: var(--mute-on-paper-2); }
+
+  .band { padding: 88px 0; border-top: 1px solid var(--line-on-paper); }
+  h2 {
+    font-size: clamp(26px, 3.4vw, 42px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 48px;
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+  h3 { font-size: 18px; letter-spacing: -0.01em; margin: 0 0 10px; }
+  .body-p { font-size: 17px; line-height: 1.65; color: var(--mute-on-paper); max-width: 60ch; margin: 0; }
+  .body-p em { font-style: normal; color: var(--ink-on-paper); border-bottom: 1px solid var(--amber); }
+
+  /* the problem: one dot against a year of hours */
+  .contrast {
+    display: grid; grid-template-columns: 1fr 1.6fr; gap: 1px;
+    background: var(--line-on-paper); border: 1px solid var(--line-on-paper);
+    margin-bottom: 40px;
+  }
+  .side { background: var(--paper); padding: 28px; display: flex; flex-direction: column; }
+  .side.on { background: var(--paper-2); }
+  .side-k { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper-2); margin-bottom: 14px; }
+  .side-v { font-size: clamp(24px, 2.8vw, 34px); letter-spacing: -0.02em; font-weight: 300; text-transform: none; }
+  .side-d { font-size: 13px; color: var(--mute-on-paper); margin: 6px 0 28px; }
+  .grid { margin-top: auto; display: grid; gap: 3px; }
+  .grid i { display: block; aspect-ratio: 1; background: var(--ink-on-paper); }
+  .grid.one { grid-template-columns: repeat(24, 1fr); }
+  .grid.one i { opacity: 0.55; }
+  .grid.many { grid-template-columns: repeat(24, 1fr); }
+  .grid.many i { background: var(--amber); opacity: var(--o); }
+
+  /* the offer */
+  .tiers {
+    list-style: none; padding: 0; margin: 0 0 48px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--line-on-paper); border: 1px solid var(--line-on-paper);
+  }
+  .tier { background: var(--paper); padding: 28px; display: flex; flex-direction: column; }
+  .tier-n { font-size: 12px; color: var(--amber); margin-bottom: 28px; letter-spacing: 0.08em; }
+  .tier p { font-size: 15px; line-height: 1.6; color: var(--mute-on-paper); margin: 0 0 28px; }
+  .tier-tag { margin-top: auto; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-on-paper-2); }
+  .tier.dev { background: var(--paper-2); }
+  .tier.dev .tier-n { color: var(--mute-on-paper-2); }
+  .scope { display: grid; grid-template-columns: 220px 1fr; gap: 24px; max-width: 900px; }
+  .scope-k { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper-2); padding-top: 4px; }
+  .scope p { margin: 0; font-size: 16px; line-height: 1.65; color: var(--mute-on-paper); }
+  .scope strong { color: var(--ink-on-paper); font-weight: 400; }
+
+  /* how it works */
+  .steps {
+    list-style: none; padding: 0; margin: 0 0 56px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+    counter-reset: none;
+  }
+  .steps li { border-top: 1px solid var(--ink-on-paper); padding-top: 18px; }
+  .step-n { font-size: 12px; color: var(--amber); margin-bottom: 18px; }
+  .steps p { font-size: 14px; line-height: 1.6; color: var(--mute-on-paper); margin: 0; }
+  .trust {
+    list-style: none; padding: 0; margin: 0 0 40px;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 48px; max-width: 1000px;
+  }
+  .trust li { font-size: 15px; line-height: 1.6; color: var(--mute-on-paper); }
+  .trust strong { color: var(--ink-on-paper); font-weight: 400; }
+  .tools { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tools li {
+    font-size: 12px; padding: 6px 12px;
+    border: 1px solid var(--line-on-paper-2); color: var(--mute-on-paper);
+  }
+
+  /* proof */
+  .study {
+    display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px;
+    padding: 36px; border: 1px solid var(--line-on-paper); background: var(--paper-2);
+    margin-bottom: 24px;
+  }
+  .study-k { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper-2); margin-bottom: 20px; }
+  .study dl { margin: 0 0 28px; display: flex; flex-direction: column; gap: 16px; }
+  .study dt { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-on-paper-2); margin-bottom: 4px; }
+  .study dd { margin: 0; font-size: 14px; line-height: 1.6; }
+  .headline { display: flex; flex-direction: column; gap: 6px; padding: 20px 0; border-top: 1px solid var(--line-on-paper); }
+  .headline .num { font-size: clamp(44px, 5vw, 64px); font-weight: 300; letter-spacing: -0.03em; color: var(--amber); line-height: 1; }
+  .headline .u { font-size: 0.5em; text-transform: none; }
+  .headline .lab { font-size: 13px; color: var(--mute-on-paper); }
+  .study-note { font-size: 14px; line-height: 1.6; color: var(--mute-on-paper); margin: 0; }
+  .sample {
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+    padding: 28px 36px; border: 1px solid var(--line-on-paper);
+  }
+  .sample .study-k { margin-bottom: 8px; }
+  .sample p { margin: 0; font-size: 14px; color: var(--mute-on-paper); max-width: 60ch; }
+
+  /* confidentiality */
+  .conf { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .conf li { border-top: 1px solid var(--ink-on-paper); padding-top: 18px; font-size: 15px; line-height: 1.6; }
+
+  /* close */
+  .close { background: var(--paper-2); }
+  .close-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; }
+  .close h2 { margin-bottom: 24px; }
+  .direct { list-style: none; padding: 0; margin: 32px 0 0; display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+  .direct a, .form-error a, .bare-footer a { border-bottom: 1px solid var(--line-on-paper-2); }
+  .direct a:hover, .bare-footer a:hover { color: var(--amber); border-bottom-color: var(--amber); }
+  .study-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field.full { grid-column: 1 / -1; }
+  .field label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-on-paper); }
+  .field .opt { text-transform: none; letter-spacing: 0; color: var(--mute-on-paper-2); }
+  .field input, .field textarea {
+    font: inherit; font-size: 15px; padding: 12px 14px;
+    background: var(--paper); color: var(--ink-on-paper);
+    border: 1px solid var(--line-on-paper-2); border-radius: 0;
+  }
+  .field input:focus, .field textarea:focus { outline: 2px solid var(--amber); outline-offset: -1px; }
+  .field textarea { resize: vertical; }
+  .study-form .btn { justify-self: start; }
+  .honeypot { position: absolute; left: -9999px; }
+  .form-error { grid-column: 1 / -1; font-size: 14px; color: var(--mute-on-paper); margin: 0; }
+  .sent { padding: 32px; border: 1px solid var(--line-on-paper); background: var(--paper); }
+  .sent h3 { margin: 0; }
+
+  .bare-footer { padding: 40px 0 48px; border-top: 1px solid var(--line-on-paper); }
+  .bare-footer p { margin: 0 0 10px; font-size: 13px; color: var(--mute-on-paper); }
+  .bare-footer .fine { font-size: 11px; color: var(--mute-on-paper-2); margin: 0; }
+
+  @media (max-width: 900px) {
+    .hero { padding: 64px 0 56px; }
+    .band { padding: 64px 0; }
+    .contrast, .tiers, .study, .close-grid, .conf, .trust { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .scope { grid-template-columns: 1fr; gap: 8px; }
+    .study { padding: 24px; gap: 32px; }
+    .sample { flex-direction: column; align-items: flex-start; padding: 24px; }
+    .close-grid { gap: 48px; }
+  }
+  @media (max-width: 520px) {
+    .steps, .study-form { grid-template-columns: 1fr; }
+    .strip li:not(:last-child)::after { content: ''; padding: 0; }
+    .strip { flex-direction: column; }
+  }
+</style>

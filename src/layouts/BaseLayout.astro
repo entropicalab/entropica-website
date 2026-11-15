@@ -14,6 +14,10 @@ interface Props {
   locale?: Locale;
   ogImage?: string;
   noindex?: boolean;
+  // bare: a standalone landing page. logo only in the header, a one-line
+  // footer, no nav, no language toggle and no hreflang alternates, so the
+  // visitor stays on the page (used by /en/manufacturers).
+  bare?: boolean;
 }
 
 const pathname = Astro.url.pathname;
@@ -24,6 +28,7 @@ const {
   locale = detectedLocale,
   ogImage = '/entropica-og-gradient.jpg',
   noindex = false,
+  bare = false,
 } = Astro.props;
 
 const fullTitle = title.includes('entrópica') ? title : `${title} · entrópica`;
@@ -63,7 +68,7 @@ const hreflang = [
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
     <link rel="canonical" href={canonical} />
-    {hreflang.map((h) => (
+    {!bare && hreflang.map((h) => (
       <link rel="alternate" hreflang={h.lang} href={h.href} />
     ))}
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -101,21 +106,36 @@ const hreflang = [
   </head>
   <body>
     <a class="skip" href="#main">skip to content</a>
-    <Header locale={locale} pathname={pathname} />
+    {bare ? (
+      <header class="bare-header">
+        <div class="site-wrap">
+          <a href={pathname} aria-label="entrópica">
+            <img src="/entropica-dark.png" alt="entrópica" width="200" height="56" />
+          </a>
+        </div>
+      </header>
+    ) : (
+      <Header locale={locale} pathname={pathname} />
+    )}
     <main id="main">
       <slot />
     </main>
-    <div class="page-updated">
-      <div class="site-wrap">
-        <time datetime={lastmodIso}>{updatedText}: {lastmodLabel}</time>
+    {!bare && (
+      <div class="page-updated">
+        <div class="site-wrap">
+          <time datetime={lastmodIso}>{updatedText}: {lastmodLabel}</time>
+        </div>
       </div>
-    </div>
-    <Footer locale={locale} />
+    )}
+    {bare ? <slot name="footer" /> : <Footer locale={locale} />}
     <ConsentBanner locale={locale} />
   </body>
 </html>
 
 <style>
+  .bare-header { padding: 28px 0; border-bottom: 1px solid var(--line-on-paper); }
+  .bare-header img { height: 30px; width: auto; max-width: 100%; display: block; }
+  @media (max-width: 520px) { .bare-header img { height: 22px; } }
   .page-updated { padding: 14px 0 4px; }
   .page-updated time {
     font-size: 10px;
