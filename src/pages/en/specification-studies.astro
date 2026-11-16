@@ -1,4 +1,5 @@
 ---
+// specification studies page (was /en/manufacturers, which now redirects here).
 // manufacturer landing page. built from "261115 entrópica, manufacturer
 // landing page · build spec" and reworked per "261115 website rework, design
 // direction + fixes". english only, no spanish mirror, no site nav: the
@@ -70,26 +71,32 @@ const towerBox = `${(-W).toFixed(1)} ${towerTop.toFixed(1)} ${(W * 2).toFixed(1)
 const groundY = (HALF * 1.5).toFixed(1);
 
 // ---- results, one per product type ---------------------------------------
-// say = the sentence a rep can use. a = compared with, b = with the product.
-// ramp: 'calor' (cooling, heat) or 'sol' (sun).
+// say = the sentence a rep can use. num + numUnit = the headline figure, unit
+// in words. a = compared with, b = with the product. u = the unit on each bar.
+// ramp: 'calor' (cooling, heat) or 'sol' (sun). refrigeration tons to kW at
+// 3.517 kW per ton.
 const results = [
   {
     cat: 'glazing',
-    say: 'the right glass shrinks a 30-floor tower’s chiller by 232 tons.',
-    num: '−232 t',
+    say: 'the right glass cuts the chiller a 30-floor tower needs by 232 refrigeration tons.',
+    num: '−232',
+    numUnit: 'refrigeration tons of chiller capacity (816 kW)',
     a: { l: 'single clear', v: 852 },
     b: { l: 'double reflective', v: 620 },
-    unit: 'chiller size, tons of cooling',
+    u: ' tons',
+    unit: 'chiller capacity, refrigeration tons',
     src: 'office tower, sample study',
     ramp: 'calor',
   },
   {
     cat: 'facade systems',
-    say: 'a shaded glass band cuts the same tower’s chiller by 91 more tons.',
-    num: '−91 t',
+    say: 'a shaded glass band cuts the same tower’s chiller by another 91 refrigeration tons.',
+    num: '−91',
+    numUnit: 'refrigeration tons of chiller capacity (320 kW)',
     a: { l: 'glass wall', v: 620 },
     b: { l: 'shaded band', v: 529 },
-    unit: 'chiller size, tons of cooling',
+    u: ' tons',
+    unit: 'chiller capacity, refrigeration tons',
     src: 'office tower, sample study',
     ramp: 'calor',
   },
@@ -97,29 +104,35 @@ const results = [
     cat: 'dynamic glass',
     say: 'the desk by the window is too warm in under 2 of 10 working hours, down from 3.',
     num: '−40%',
+    numUnit: 'too-warm working hours at a desk 1 m from the glass',
     a: { l: 'double reflective', v: 29.4 },
     b: { l: 'electrochromic', v: 17.5 },
-    unit: '% of working hours too warm, desk 1 m from the glass',
+    u: '%',
+    unit: 'share of working hours too warm',
     src: 'office tower, sample study',
     ramp: 'calor',
   },
   {
     cat: 'louvers and shading',
-    say: 'louvers keep 71% of the sun off the glass.',
+    say: 'louvers cut the solar radiation reaching the glass by 71%.',
     num: '−71%',
+    numUnit: 'solar radiation on the glass, per year',
     a: { l: 'no louvers', v: 389 },
     b: { l: 'louvers', v: 114 },
-    unit: 'sun on the glass, kWh/m² a year',
+    u: ' kWh/m²',
+    unit: 'solar radiation on the glass, kWh/m² a year',
     src: 'office building, singapore',
     ramp: 'sol',
   },
   {
     cat: 'screens and breezeblock',
-    say: 'a roof and a block screen keep 94% of the sun off the new glass.',
+    say: 'a roof and a block screen cut the solar radiation on the new glass by 94%.',
     num: '−94%',
+    numUnit: 'solar radiation on the glass, per year',
     a: { l: 'no shade', v: 331 },
     b: { l: 'roof + screen', v: 21 },
-    unit: 'sun on the glass, kWh/m² a year',
+    u: ' kWh/m²',
+    unit: 'solar radiation on the glass, kWh/m² a year',
     src: 'bank branch, design stage',
     ramp: 'sol',
   },
@@ -127,27 +140,29 @@ const results = [
 
 // ---- judgment: same glass, two metrics (tor_cases.csv G3 / G6) ----------
 const metrics = [
-  { k: 'a/c electricity', unit: 'kWh/m² a year', a: 71.4, b: 66.8, change: '−7%' },
-  { k: 'too warm at a desk 1 m from the glass', unit: '% of working hours', a: 29.4, b: 17.5, change: '−40%' },
+  { k: 'a/c electricity', unit: 'kWh/m² of floor a year', u: ' kWh/m²', a: 71.4, b: 66.8, change: '−7%' },
+  { k: 'too warm at a desk 1 m from the glass', unit: 'share of working hours', u: '%', a: 29.4, b: 17.5, change: '−40%' },
 ];
 
+// the client sends only what they already have. no model, no template.
 const youSend = [
-  { icon: 'architecture', t: 'drawings, a sketch, or photos and a floor count' },
-  { icon: 'description', t: 'your product datasheet' },
-  { icon: 'help', t: 'the question your specifier is asking' },
+  { icon: 'architecture', t: 'a drawing or a sketch of the project' },
+  { icon: 'description', t: 'the product: its name or its datasheet' },
+  { icon: 'help', t: 'what your client needs to know' },
 ];
 
 const weDo = [
   { icon: 'view_in_ar', t: 'model the building with your product in it' },
-  { icon: 'bolt', t: 'run all 8,760 hours of the local climate' },
-  { icon: 'fact_check', t: 'check every result by hand' },
-  { icon: 'send', t: 'write the report in your template' },
+  { icon: 'bolt', t: 'run all requested simulations, 8,760 hours of the local climate' },
+  { icon: 'fact_check', t: 'review every result' },
+  { icon: 'send', t: 'send a report ready to forward, in days' },
 ];
 
+// tier 3 (sales tools) is off the page until it exists: a tool the client
+// runs contradicts "no added work".
 const tiers = [
-  { n: '01', name: 'project study', body: 'one project. fixed scope, fixed price, a report in days.' },
-  { n: '02', name: 'sales-evidence program', body: 'a set number of studies each quarter, a priority queue, reports in your template.' },
-  { n: '03', name: 'sales tools', body: 'a tool your team runs on routine projects. our modelers take the hard cases.', dev: true },
+  { n: '01', name: 'project study', price: 'from USD 2,500', body: 'one project, fixed scope, fixed price, a report in days. scoped and quoted free within one working day.' },
+  { n: '02', name: 'sales-evidence program', price: 'quoted on scope', body: 'a set number of studies each quarter, a priority queue, and reports that follow your own layout if you have one.' },
 ];
 
 const confidentiality = [
@@ -160,8 +175,8 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
 ---
 
 <BaseLayout
-  title="building-performance studies for product manufacturers · entrópica"
-  description="simulation studies that show how your product performs in a real building and climate. modeled and checked by people, in days, in your report format."
+  title="specification studies for building-product manufacturers · entrópica"
+  description="simulation studies that show how your product performs in a real building and climate. modeled and reviewed by people, in days."
   locale={locale}
   bare
 >
@@ -169,21 +184,24 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   <section class="hero" id="hero">
     <div class="site-wrap hero-grid">
       <div class="hero-copy">
-        <p class="kicker">building-performance studies for product manufacturers</p>
-        <h1>show the specifier what your product does in their building.</h1>
+        <p class="kicker">energy engineering for your sales team</p>
+        <h1>numbers that win the specification.</h1>
         <p class="lede">
-          you send the project and your product data. our team models it in the real
-          climate, checks every result by hand, and sends a report your rep can use.
-          in days.
+          we model the real project with your product in it, so your rep can show the
+          client what it does in their building. in days.
         </p>
         <div class="ctas">
           <a class="btn amber" href="#start">start a study <span class="arrow-tail" aria-hidden="true"></span></a>
           <a class="btn ghost" href="#results">see what a study shows</a>
         </div>
+        <p class="proof">
+          entrópica has run performance studies for a global glazing manufacturer, and
+          for projects on four continents.
+        </p>
         <ul class="strip" aria-label="in short">
-          <li>studies for a global glazing manufacturer</li>
-          <li>every result checked by a person</li>
-          <li>your report format</li>
+          <li>every result reviewed by an expert</li>
+          <li>a report ready to send</li>
+          <li>in your timezone, in days</li>
           <li class="caps">NDA on request</li>
         </ul>
       </div>
@@ -205,13 +223,13 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           </svg>
           <div class="sheet-result">
             <div class="sheet-label">30-floor office tower</div>
-            <div class="sheet-num">−232 t</div>
-            <p class="sheet-say">of chiller, with the right glass.</p>
+            <div class="sheet-num">−232</div>
+            <p class="sheet-numunit">refrigeration tons of chiller (816 kW), with the right glass</p>
             <div class="pair">
-              <div class="brow calor"><span class="bl">single clear</span><span class="btrack"><i style="width:100%"></i></span><span class="bv">852</span></div>
-              <div class="brow calor b"><span class="bl">double reflective</span><span class="btrack"><i style={`width:${(620 / 852) * 100}%`}></i></span><span class="bv">620</span></div>
+              <div class="brow calor"><span class="bl">single clear</span><span class="btrack"><i style="width:100%"></i></span><span class="bv">852 tons</span></div>
+              <div class="brow calor b"><span class="bl">double reflective</span><span class="btrack"><i style={`width:${(620 / 852) * 100}%`}></i></span><span class="bv">620 tons</span></div>
             </div>
-            <div class="sheet-unit">chiller size, tons of cooling</div>
+            <div class="sheet-unit">chiller capacity, refrigeration tons</div>
           </div>
         </div>
         <figcaption class="sheet-foot">
@@ -222,6 +240,17 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
     </div>
   </section>
 
+  <!-- 1b · the core message: a firm of people, no added work -->
+  <section class="core">
+    <div class="site-wrap">
+      <p class="core-p">
+        entrópica is not software your team has to learn and run. we are a firm of
+        people who do the energy engineering for you. you send a drawing and the
+        product. we do everything else.
+      </p>
+    </div>
+  </section>
+
   <!-- 2 · what, why it helps, why us -->
   <section class="band">
     <div class="site-wrap">
@@ -229,17 +258,17 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         <li>
           <span class="three-n">what it is</span>
           <h2 class="h3">a study of one real project, with your product in it.</h2>
-          <p>the building, its climate, your product’s data, and the one number the specifier needs to see.</p>
+          <p>the building, its climate, your product’s performance, and the one number the client needs to see.</p>
         </li>
         <li>
           <span class="three-n">why it helps you</span>
           <h2 class="h3">datasheets don’t win specifications. project numbers do.</h2>
-          <p>your rep walks in with what the product does in this building, in this climate, in a report the specifier can check.</p>
+          <p>your rep walks in with what the product does in this building, in this climate. and when value engineering comes, the study is what keeps your product in the specification.</p>
         </li>
         <li>
           <span class="three-n">why us</span>
-          <h2 class="h3">people who model buildings, checking every number.</h2>
-          <p>building-performance modeling since 2020, and studies for a global glazing manufacturer. software runs the physics. a person decides what to model and checks what comes out.</p>
+          <h2 class="h3">we have modeled buildings since 2020.</h2>
+          <p>we know which baseline is fair, which weather file is right, and which number your client will ask about. we read every result before you see it, and we tell you plainly what it means.</p>
         </li>
       </ol>
     </div>
@@ -249,7 +278,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   <section class="band tint">
     <div class="site-wrap">
       <p class="kicker">how it works</p>
-      <h2>you send three things. we handle the rest.</h2>
+      <h2>you send what you already have. we do the rest.</h2>
       <div class="handoff">
         <div class="side">
           <div class="side-h">you send</div>
@@ -258,7 +287,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
               <li><span class="material-symbols-outlined" aria-hidden="true">{s.icon}</span>{s.t}</li>
             ))}
           </ul>
-          <p class="no-problem">no energyplus model? no problem. we build it.</p>
+          <p class="no-problem">no energyplus model? no problem. no template, no data to collect. we build it all.</p>
         </div>
         <div class="arrow-mid" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></div>
         <div class="side we">
@@ -271,7 +300,13 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           <p class="days">a report in days</p>
         </div>
       </div>
-      <p class="aside">already have your own definition or template? we can work inside it and change only the inputs.</p>
+      <div class="tz">
+        <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+        <p>
+          we work from panamá, on <span class="caps">UTC−5</span> all year. that is the same working day as the
+          <span class="caps">US</span>, canada and latin america, so questions get answered today, not overnight.
+        </p>
+      </div>
       <ul class="tools" aria-label="tools">
         {tools.map((t) => <li>{t}</li>)}
       </ul>
@@ -282,18 +317,18 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   <section class="band dark">
     <div class="site-wrap">
       <p class="kicker">why a person checks every number</p>
-      <h2>in a high-value proposal, an unchecked number is a liability.</h2>
+      <h2>in a high-value proposal, an unchecked claim is a liability.</h2>
       <div class="why-grid">
         <p class="why-p">
           software and <span class="caps">AI</span> tools now produce energy numbers in seconds. an unchecked
           model can be wrong in ways that look right: the wrong baseline, the wrong
-          weather file, a metric that hides what the product does. one wrong number,
-          found by a competitor’s engineer, ends the conversation.
+          weather file, a metric that hides what the product does. an inaccurate claim
+          can sink the specification.
         </p>
         <p class="why-p">
-          every study we send is modeled, checked and explained by a person. part of
-          that work is finding the number your specifier cares about. here is one
-          glass, measured two ways.
+          every study we send is modeled, reviewed and explained by a person. part of
+          that work is finding the number your client cares about. here is one glass,
+          measured two ways.
         </p>
       </div>
       <div class="metrics">
@@ -302,8 +337,8 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
             <div class="m-change">{m.change}</div>
             <div class="m-k">{m.k}</div>
             <div class="pair">
-              <div class="brow calor"><span class="bl">double reflective</span><span class="btrack"><i style="width:100%"></i></span><span class="bv">{m.a}</span></div>
-              <div class="brow calor b"><span class="bl">electrochromic</span><span class="btrack"><i style={`width:${(m.b / m.a) * 100}%`}></i></span><span class="bv">{m.b}</span></div>
+              <div class="brow calor"><span class="bl">double reflective</span><span class="btrack"><i style="width:100%"></i></span><span class="bv">{m.a}{m.u}</span></div>
+              <div class="brow calor b"><span class="bl">electrochromic</span><span class="btrack"><i style={`width:${(m.b / m.a) * 100}%`}></i></span><span class="bv">{m.b}{m.u}</span></div>
             </div>
             <div class="m-unit">{m.unit}</div>
           </div>
@@ -314,8 +349,35 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
     </div>
   </section>
 
+  <!-- 4b · who runs the studies -->
+  <section class="band">
+    <div class="site-wrap who">
+      <img class="who-img" src="/jose.jpg" alt="josé barría" width="1500" height="1500" loading="lazy" />
+      <div>
+        <p class="kicker">who runs the studies</p>
+        <h2>josé barría reviews every result.</h2>
+        <p class="who-p">
+          josé founded entrópica and leads every study. he is an architect with a master
+          of environmental building design from the university of pennsylvania (2017),
+          and has modeled building performance since 2020.
+        </p>
+        <p class="who-p">
+          he has worked in panamá and the united states, at erdy mchenry architecture in
+          philadelphia, and has run studies for projects in the americas, europe, asia
+          and africa. he researched at the panamá green building council and taught at
+          the urban sustainable lab.
+        </p>
+        <ul class="who-facts">
+          <li><b class="caps">M.EBD</b><span>university of pennsylvania, 2017</span></li>
+          <li><b>2020</b><span>modeling building performance since</span></li>
+          <li><b>4</b><span>continents with studies</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- 5 · results by product -->
-  <section class="band" id="results">
+  <section class="band tint" id="results">
     <div class="site-wrap">
       <p class="kicker">results from past studies</p>
       <h2>one study, one sentence your rep can use.</h2>
@@ -327,9 +389,10 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
               <div class="r-cat">{r.cat}</div>
               <p class="r-say">{r.say}</p>
               <div class="r-num">{r.num}</div>
-              <div class="pair" aria-label={`${r.a.l}: ${r.a.v}. ${r.b.l}: ${r.b.v}. ${r.unit}.`}>
-                <div class={`brow ${r.ramp}`}><span class="bl">{r.a.l}</span><span class="btrack"><i style={`width:${(r.a.v / max) * 100}%`}></i></span><span class="bv">{r.a.v}</span></div>
-                <div class={`brow ${r.ramp} b`}><span class="bl">{r.b.l}</span><span class="btrack"><i style={`width:${(r.b.v / max) * 100}%`}></i></span><span class="bv">{r.b.v}</span></div>
+              <p class="r-numunit">{r.numUnit}</p>
+              <div class="pair" aria-label={`${r.a.l}: ${r.a.v}${r.u}. ${r.b.l}: ${r.b.v}${r.u}. ${r.unit}.`}>
+                <div class={`brow ${r.ramp}`}><span class="bl">{r.a.l}</span><span class="btrack"><i style={`width:${(r.a.v / max) * 100}%`}></i></span><span class="bv">{r.a.v}{r.u}</span></div>
+                <div class={`brow ${r.ramp} b`}><span class="bl">{r.b.l}</span><span class="btrack"><i style={`width:${(r.b.v / max) * 100}%`}></i></span><span class="bv">{r.b.v}{r.u}</span></div>
               </div>
               <div class="r-foot"><span>{r.unit}</span><span>{r.src}</span></div>
             </li>
@@ -346,7 +409,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   </section>
 
   <!-- 6 · what you receive -->
-  <section class="band tint">
+  <section class="band">
     <div class="site-wrap receive">
       <div class="fan" aria-hidden="true">
         <img src="/projects/new-chautauqua-institute/new-chautauqua-institute_05_trade.webp" alt="" width="2160" height="2200" loading="lazy" />
@@ -357,11 +420,12 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         <p class="kicker">what you receive</p>
         <h2>a report your rep can send the same day.</h2>
         <ul class="get">
-          <li><span class="material-symbols-outlined" aria-hidden="true">description</span>the report, in your template</li>
+          <li><span class="material-symbols-outlined" aria-hidden="true">description</span>the report, ready to forward</li>
           <li><span class="material-symbols-outlined" aria-hidden="true">bar_chart</span>charts at final size</li>
           <li><span class="material-symbols-outlined" aria-hidden="true">table_chart</span>the results spreadsheet</li>
           <li><span class="material-symbols-outlined" aria-hidden="true">chat</span>the result in one plain sentence</li>
         </ul>
+        <p class="aside">have a company report layout? we will use it. if not, ours is ready.</p>
         {hasSample ? (
           <a class="btn" href={SAMPLE_REPORT_URL} download>download a sample report</a>
         ) : (
@@ -372,24 +436,24 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   </section>
 
   <!-- 7 · offer -->
-  <section class="band">
+  <section class="band tint">
     <div class="site-wrap">
       <p class="kicker">the offer</p>
       <h2>start with one study.</h2>
       <ol class="tiers">
         {tiers.map((t) => (
-          <li class={t.dev ? 'tier dev' : 'tier'}>
+          <li class="tier">
             <div class="tier-n">{t.n}</div>
             <h3>{t.name}</h3>
+            <div class="tier-price">{t.price}</div>
             <p>{t.body}</p>
-            {t.dev && <div class="tier-tag">in development</div>}
           </li>
         ))}
       </ol>
     </div>
   </section>
 
-  <!-- 8 · confidentiality -->
+<!-- 8 · confidentiality -->
   <section class="band">
     <div class="site-wrap">
       <p class="kicker">confidentiality</p>
@@ -438,7 +502,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
             </div>
             <div class="field full">
               <label for="m-project">the project and the question</label>
-              <textarea id="m-project" name="project" rows="4" required placeholder="where it is, the product, and what the specifier needs to see"></textarea>
+              <textarea id="m-project" name="project" rows="4" required placeholder="where it is, the product, and what your client needs to see"></textarea>
             </div>
             <div class="field full">
               <label for="m-files">link to drawings <span class="opt">(optional)</span></label>
@@ -466,6 +530,22 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
 
   <footer class="bare-footer" slot="footer">
     <div class="site-wrap">
+      <div class="contact-info">
+        <div>
+          <div class="col-h">entrópica</div>
+          <p>building-performance studies</p>
+          <p>ph plaza mar · paitilla · panamá</p>
+        </div>
+        <div>
+          <div class="col-h">contact</div>
+          <p><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+          <p><a href="https://wa.me/50762006909" target="_blank" rel="noopener">+507 6200-6909 · whatsapp</a></p>
+        </div>
+        <div>
+          <div class="col-h">hours</div>
+          <p>monday to friday, panamá time (<span class="caps">UTC−5</span>)</p>
+        </div>
+      </div>
       <p>consultancies and architecture teams that need overflow modeling can also get in touch.</p>
       <p class="fine">© {new Date().getFullYear()} entrópica · <a href="/en/privacy">privacy</a></p>
     </div>
@@ -554,12 +634,12 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
 
   /* ---- bars ---- */
   .pair { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
-  .brow { display: grid; grid-template-columns: 10.5em 1fr 3em; align-items: center; gap: 10px; font-size: 11px; color: var(--ink-on-paper); }
+  .brow { display: grid; grid-template-columns: 10.5em 1fr 7em; align-items: center; gap: 10px; font-size: 11px; color: var(--ink-on-paper); }
   .bl { color: var(--mute-on-paper); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .btrack { height: 12px; }
   .btrack i { display: block; height: 100%; background: var(--a); }
   .brow.b .btrack i { background: var(--b); }
-  .bv { text-align: right; font-feature-settings: 'tnum' 1; }
+  .bv { text-align: right; font-feature-settings: 'tnum' 1; white-space: nowrap; text-transform: none; }
 
   /* ---- what / why / why us ---- */
   .three { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
@@ -636,13 +716,37 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   .get li { display: flex; align-items: center; gap: 14px; font-size: 16px; }
 
   /* ---- offer ---- */
-  .tiers { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .tiers { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 960px; }
+  .tier-price { font-size: 22px; letter-spacing: -0.02em; color: var(--ink-on-paper); margin: 4px 0 14px; text-transform: none; }
+
+  /* ---- core message ---- */
+  .core { background: var(--amber); padding: 40px 0; }
+  .core-p { margin: 0; max-width: 62ch; font-size: clamp(18px, 1.8vw, 23px); line-height: 1.5; color: var(--ink); }
+  .proof { font-size: 15px; line-height: 1.55; color: var(--ink-on-paper); max-width: 46ch; margin: 0 0 22px; padding-left: 14px; border-left: 2px solid var(--amber); }
+  .sheet-numunit, .r-numunit { font-size: 12px; line-height: 1.45; color: var(--mute-on-paper); margin: 8px 0 20px; text-transform: none; }
+  .sheet-numunit { color: var(--ink-on-paper); font-size: 13px; }
+
+  /* ---- timezone ---- */
+  .tz { display: flex; gap: 14px; align-items: flex-start; margin: 28px 0 22px; max-width: 70ch; }
+  .tz p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--ink-on-paper); }
+  .tz .material-symbols-outlined { color: var(--ink-on-paper); }
+
+  /* ---- who ---- */
+  .who { display: grid; grid-template-columns: 0.75fr 1.25fr; gap: 64px; align-items: start; }
+  .who-img { width: 100%; height: auto; display: block; filter: grayscale(1); }
+  .who h2 { margin-bottom: 26px; }
+  .who-p { font-size: 16px; line-height: 1.65; color: var(--mute-on-paper); margin: 0 0 16px; max-width: 58ch; }
+  .who-facts { list-style: none; padding: 0; margin: 30px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; border-top: 1px solid var(--line-on-paper); padding-top: 22px; }
+  .who-facts b { display: block; font-size: 30px; font-weight: 300; letter-spacing: -0.03em; color: var(--ink-on-paper); margin-bottom: 6px; }
+  .who-facts span { font-size: 12px; line-height: 1.45; color: var(--mute-on-paper); }
+
+  /* ---- colophon ---- */
+  .contact-info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding-bottom: 28px; margin-bottom: 24px; border-bottom: 1px solid var(--line-on-paper); }
+  .col-h { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper-2); margin-bottom: 10px; }
+  .contact-info p { color: var(--ink-on-paper); margin: 0 0 6px; }
   .tier { background: #fbfaf6; border: 1px solid var(--line-on-paper); padding: 28px; }
   .tier-n { font-size: 12px; color: var(--amber); margin-bottom: 22px; }
   .tier p { font-size: 14px; line-height: 1.6; color: var(--mute-on-paper); margin: 0; }
-  .tier.dev { background: transparent; border-style: dashed; }
-  .tier.dev .tier-n { color: var(--mute-on-paper-2); }
-  .tier-tag { margin-top: 18px; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-on-paper-2); }
 
   /* ---- confidentiality ---- */
   .conf { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
@@ -694,7 +798,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   @media (max-width: 900px) {
     .band { padding: 64px 0; }
     .hero { padding: 40px 0 56px; }
-    .hero-grid, .receive, .close-grid, .metrics, .tiers, .conf, .three, .why-grid { grid-template-columns: 1fr; }
+    .hero-grid, .receive, .close-grid, .metrics, .tiers, .conf, .three, .why-grid, .who, .contact-info { grid-template-columns: 1fr; }
     .hero-grid, .three { gap: 40px; }
     .why-grid { gap: 20px; }
     .handoff { grid-template-columns: 1fr; gap: 12px; }
@@ -702,11 +806,12 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
     .receive, .close-grid { gap: 40px; }
   }
   @media (max-width: 600px) {
-    .results, .study-form, .strip { grid-template-columns: 1fr; }
+    .results, .study-form, .strip, .who-facts { grid-template-columns: 1fr; }
+    .who-img { max-width: 220px; }
     .sheet-body { grid-template-columns: 1fr; }
     .tower { max-height: 220px; }
     .side, .metric, .result { padding: 22px; }
-    .brow { grid-template-columns: 8.5em 1fr 2.6em; }
+    .brow { grid-template-columns: 7.5em 1fr 6.5em; }
     .sticky-cta { left: 16px; right: 16px; bottom: 16px; text-align: center; }
   }
 </style>

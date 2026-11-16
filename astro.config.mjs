@@ -21,6 +21,8 @@ export default defineConfig({
     '/resources/los-cerros': '/blog',
     '/living-facade-elements': '/blog/living-facade-elements',
     '/projects/ministerio-pblico': '/projects/ministerio-publico',
+    // the manufacturer page was renamed; outbound emails may carry the old link
+    '/en/manufacturers': '/en/specification-studies',
   },
   integrations: [
     mdx(),
