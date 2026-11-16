@@ -1,0 +1,206 @@
+---
+// a slowly turning globe with a dot on every city where entrópica has done
+// work. the first frame is drawn at build time (works without javascript);
+// the script then turns it, and hovering a city in the list turns the globe
+// to that city. colors follow the data color system: land in sand, context
+// lines in line, the one call-out in amber.
+// city list from jose, 2026-11-16. only the city: no client, no project.
+import { geoOrthographic, geoPath, geoGraticule10 } from 'd3-geo';
+import { feature } from 'topojson-client';
+import land110 from 'world-atlas/land-110m.json';
+
+interface Place { city: string; country: string; lon: number; lat: number; note?: string }
+
+const places: Place[] = [
+  { city: 'medford, oregon', country: 'united states', lon: -122.87, lat: 42.33 },
+  { city: 'orange county, california', country: 'united states', lon: -117.83, lat: 33.68 },
+  { city: 'nevada', country: 'united states', lon: -116.6, lat: 39.3 },
+  { city: 'philadelphia', country: 'united states', lon: -75.17, lat: 39.95 },
+  { city: 'guadalajara', country: 'méxico', lon: -103.35, lat: 20.67 },
+  { city: 'panamá city', country: 'panamá', lon: -79.52, lat: 8.98 },
+  { city: 'dover', country: 'united kingdom', lon: 1.31, lat: 51.13 },
+  { city: 'linz', country: 'austria', lon: 14.29, lat: 48.31 },
+  { city: 'nairobi', country: 'kenya', lon: 36.82, lat: -1.29 },
+  { city: 'abu dhabi', country: 'united arab emirates', lon: 54.38, lat: 24.45 },
+  { city: 'singapore', country: 'singapore', lon: 103.82, lat: 1.35, note: 'academic' },
+  { city: 'melbourne', country: 'australia', lon: 144.96, lat: -37.81 },
+];
+
+const SIZE = 520;
+const START: [number, number, number] = [60, -15, 0];
+const projection = geoOrthographic().scale(SIZE / 2 - 6).translate([SIZE / 2, SIZE / 2]).rotate(START).clipAngle(90);
+const path = geoPath(projection);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const landGeo = feature(land110 as any, (land110 as any).objects.land);
+const sphereD = path({ type: 'Sphere' }) ?? '';
+const gratD = path(geoGraticule10()) ?? '';
+const landD = path(landGeo as any) ?? '';
+const visible = (lon: number, lat: number) => {
+  const r = projection.rotate();
+  const toRad = Math.PI / 180;
+  const l = (lon + r[0]) * toRad;
+  const p = lat * toRad;
+  const p0 = -r[1] * toRad;
+  return Math.sin(p0) * Math.sin(p) + Math.cos(p0) * Math.cos(p) * Math.cos(l) > 0.05;
+};
+const dots = places.map((p) => {
+  const xy = projection([p.lon, p.lat]) ?? [0, 0];
+  return { ...p, x: xy[0], y: xy[1], on: visible(p.lon, p.lat) };
+});
+const countries = [...new Set(places.map((p) => p.country))];
+---
+
+<div class="globe-wrap" data-globe>
+  <svg class="globe" viewBox={`0 0 ${SIZE} ${SIZE}`} role="img" aria-label={`a globe marking the places where entrópica has worked: ${places.map((p) => p.city).join(', ')}.`}>
+    <path class="g-sphere" d={sphereD} data-sphere />
+    <path class="g-grat" d={gratD} data-grat />
+    <path class="g-land" d={landD} data-land />
+    <g data-dots>
+      {dots.map((d, i) => (
+        <g class="g-dot" data-i={i} transform={`translate(${d.x.toFixed(1)} ${d.y.toFixed(1)})`} style={d.on ? '' : 'display:none'}>
+          <circle class="g-ring" r="11" />
+          <circle class="g-pt" r="5" />
+        </g>
+      ))}
+    </g>
+  </svg>
+  <ul class="places" aria-label="places">
+    {countries.map((c) => (
+      <li>
+        <span class="pl-country">{c}</span>
+        <span class="pl-cities">
+          {places.map((p, i) => p.country === c && (
+            <button type="button" class="pl-city" data-city={i}>
+              {p.city}{p.note && <em> · {p.note}</em>}
+            </button>
+          ))}
+        </span>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<script>
+  import { geoOrthographic, geoPath, geoGraticule10 } from 'd3-geo';
+  import { feature } from 'topojson-client';
+  import land110 from 'world-atlas/land-110m.json';
+
+  const root = document.querySelector<HTMLElement>('[data-globe]');
+  if (root) {
+    const SIZE = 520;
+    const svg = root.querySelector('svg')!;
+    const sphere = svg.querySelector('[data-sphere]')!;
+    const grat = svg.querySelector('[data-grat]')!;
+    const landEl = svg.querySelector('[data-land]')!;
+    const dotEls = [...svg.querySelectorAll<SVGGElement>('.g-dot')];
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-city]')];
+    // coordinates, same order as the server list
+    const coords: [number, number][] = [
+      [-122.87, 42.33], [-117.83, 33.68], [-116.6, 39.3], [-75.17, 39.95],
+      [-103.35, 20.67], [-79.52, 8.98], [1.31, 51.13], [14.29, 48.31],
+      [36.82, -1.29], [54.38, 24.45], [103.82, 1.35], [144.96, -37.81],
+    ];
+
+    const projection = geoOrthographic().scale(SIZE / 2 - 6).translate([SIZE / 2, SIZE / 2]).clipAngle(90);
+    const path = geoPath(projection);
+    const landGeo = feature(land110 as any, (land110 as any).objects.land) as any;
+    const gratGeo = geoGraticule10();
+
+    let rot: [number, number] = [60, -15];
+    let target: [number, number] | null = null;
+    let active = -1;
+    let hovering = false;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const draw = () => {
+      projection.rotate([rot[0], rot[1], 0]);
+      sphere.setAttribute('d', path({ type: 'Sphere' }) ?? '');
+      grat.setAttribute('d', path(gratGeo) ?? '');
+      landEl.setAttribute('d', path(landGeo) ?? '');
+      const r = projection.rotate();
+      const toRad = Math.PI / 180;
+      dotEls.forEach((el, i) => {
+        const [lon, lat] = coords[i];
+        const l = (lon + r[0]) * toRad;
+        const p = lat * toRad;
+        const p0 = -r[1] * toRad;
+        const on = Math.sin(p0) * Math.sin(p) + Math.cos(p0) * Math.cos(p) * Math.cos(l) > 0.05;
+        const xy = projection([lon, lat]);
+        el.style.display = on && xy ? '' : 'none';
+        if (xy) el.setAttribute('transform', `translate(${xy[0].toFixed(1)} ${xy[1].toFixed(1)})`);
+        el.classList.toggle('on', i === active);
+      });
+    };
+
+    const setActive = (i: number) => {
+      active = i;
+      buttons.forEach((b) => b.classList.toggle('on', Number(b.dataset.city) === i));
+      if (i >= 0) target = [-coords[i][0], -coords[i][1] * 0.6];
+      if (reduce && target) { rot = target; target = null; }
+      draw();
+    };
+
+    buttons.forEach((b) => {
+      const i = Number(b.dataset.city);
+      b.addEventListener('mouseenter', () => { hovering = true; setActive(i); });
+      b.addEventListener('focus', () => { hovering = true; setActive(i); });
+      b.addEventListener('click', () => { hovering = true; setActive(i); });
+      b.addEventListener('mouseleave', () => { hovering = false; });
+      b.addEventListener('blur', () => { hovering = false; });
+    });
+
+    // auto tour: visit each city in turn while nobody is pointing at the list
+    let tour = 0;
+    let lastHop = 0;
+    let visibleOnScreen = false;
+    new IntersectionObserver(([e]) => { visibleOnScreen = e.isIntersecting; }).observe(svg);
+
+    const tick = (t: number) => {
+      if (visibleOnScreen) {
+        if (!hovering && !reduce && t - lastHop > 2600) {
+          setActive(tour);
+          tour = (tour + 1) % coords.length;
+          lastHop = t;
+        }
+        if (target) {
+          let dx = target[0] - rot[0];
+          dx = ((dx + 540) % 360) - 180;
+          const dy = target[1] - rot[1];
+          if (Math.abs(dx) < 0.1 && Math.abs(dy) < 0.1) { rot = target; target = null; }
+          else rot = [rot[0] + dx * 0.07, rot[1] + dy * 0.07];
+          draw();
+        }
+      }
+      requestAnimationFrame(tick);
+    };
+    if (reduce) setActive(5);
+    requestAnimationFrame(tick);
+  }
+</script>
+
+<style>
+  .globe-wrap { display: grid; grid-template-columns: 1fr; gap: 28px; }
+  .globe { width: 100%; max-width: 460px; height: auto; display: block; margin: 0 auto; }
+  .g-sphere { fill: #fbfaf6; stroke: var(--ink-on-paper); stroke-width: 1; }
+  .g-grat { fill: none; stroke: #d8d1c2; stroke-width: 0.5; }
+  .g-land { fill: #e3ddd0; stroke: #b5ada0; stroke-width: 0.5; }
+  .g-pt { fill: var(--amber); stroke: var(--ink-on-paper); stroke-width: 1.2; }
+  .g-ring { fill: none; stroke: var(--ink-on-paper); stroke-width: 1; opacity: 0; transition: opacity 0.3s; }
+  .g-dot.on .g-ring { opacity: 1; }
+  .g-dot.on .g-pt { fill: var(--ink-on-paper); stroke: var(--amber); stroke-width: 2.5; }
+
+  .places { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line-on-paper); }
+  .places li { display: grid; grid-template-columns: 11em 1fr; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line-on-paper); font-size: 13px; }
+  .pl-country { color: var(--mute-on-paper); }
+  .pl-cities { display: flex; flex-wrap: wrap; gap: 2px 14px; }
+  .pl-city {
+    font: inherit; font-size: 13px; color: var(--ink-on-paper); background: none; border: 0; padding: 0;
+    cursor: pointer; text-transform: lowercase; border-bottom: 1px solid transparent;
+  }
+  .pl-city em { font-style: normal; color: var(--mute-on-paper-2); }
+  .pl-city:hover, .pl-city.on { border-bottom-color: var(--amber); }
+  .pl-city:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+  @media (max-width: 600px) {
+    .places li { grid-template-columns: 1fr; gap: 2px; }
+  }
+</style>

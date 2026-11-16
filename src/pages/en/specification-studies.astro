@@ -13,6 +13,7 @@
 // bar colors follow the data color system (brand guidelines 03b):
 // calor ramp for cooling and heat, sol ramp for sun.
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkGlobe from '../../components/WorkGlobe.astro';
 
 const locale = 'en' as const;
 
@@ -121,7 +122,7 @@ const results = [
     b: { l: 'louvers', v: 114 },
     u: ' kWh/m²',
     unit: 'solar radiation on the glass, kWh/m² a year',
-    src: 'office building, singapore',
+    src: 'academic study, singapore',
     ramp: 'sol',
   },
   {
@@ -196,7 +197,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         </div>
         <p class="proof">
           entrópica has run performance studies for a global glazing manufacturer, and
-          for projects on four continents.
+          for projects on five continents.
         </p>
         <ul class="strip" aria-label="in short">
           <li>every result reviewed by an expert</li>
@@ -349,34 +350,46 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
     </div>
   </section>
 
-  <!-- 4b · who runs the studies -->
+  <!-- 4b · who does the work, and where -->
   <section class="band">
-    <div class="site-wrap who">
-      <img class="who-img" src="/jose.jpg" alt="josé barría" width="1500" height="1500" loading="lazy" />
-      <div>
-        <p class="kicker">who runs the studies</p>
-        <h2>josé barría reviews every result.</h2>
-        <p class="who-p">
-          josé founded entrópica and leads every study. he is an architect with a master
-          of environmental building design from the university of pennsylvania (2017),
-          and has modeled building performance since 2020.
-        </p>
-        <p class="who-p">
-          he has worked in panamá and the united states, at erdy mchenry architecture in
-          philadelphia, and has run studies for projects in the americas, europe, asia
-          and africa. he researched at the panamá green building council and taught at
-          the urban sustainable lab.
-        </p>
-        <ul class="who-facts">
-          <li><b class="caps">M.EBD</b><span>university of pennsylvania, 2017</span></li>
-          <li><b>2020</b><span>modeling building performance since</span></li>
-          <li><b>4</b><span>continents with studies</span></li>
-        </ul>
+    <div class="site-wrap">
+      <p class="kicker">who does the work</p>
+      <h2>you talk to the person who checks your numbers.</h2>
+      <div class="who">
+        <div class="who-left">
+          <div class="who-head">
+            <img class="who-img" src="/jose.jpg" alt="josé barría" width="1500" height="1500" loading="lazy" />
+            <div class="who-name">
+              <b>josé barría</b>
+              <span>founder · lead modeler</span>
+            </div>
+          </div>
+          <blockquote class="who-note">
+            <p>
+              i trained as an architect and studied environmental building design at the
+              university of pennsylvania. since then i have modeled buildings in twelve
+              places on five continents.
+            </p>
+            <p>
+              the software gives an answer in minutes. my job is to know whether that
+              answer is right, and which number will matter to the person reading it.
+              every study we send crosses my desk before it reaches yours.
+            </p>
+          </blockquote>
+          <ul class="who-facts">
+            <li><b class="caps">M.EBD</b><span>university of pennsylvania, 2017</span></li>
+            <li><b>2020</b><span>modeling building performance since</span></li>
+            <li><b>5</b><span>continents with studies</span></li>
+          </ul>
+        </div>
+        <div class="who-right">
+          <WorkGlobe />
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 5 · results by product -->
+<!-- 5 · results by product -->
   <section class="band tint" id="results">
     <div class="site-wrap">
       <p class="kicker">results from past studies</p>
@@ -732,11 +745,17 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   .tz .material-symbols-outlined { color: var(--ink-on-paper); }
 
   /* ---- who ---- */
-  .who { display: grid; grid-template-columns: 0.75fr 1.25fr; gap: 64px; align-items: start; }
-  .who-img { width: 100%; height: auto; display: block; filter: grayscale(1); }
-  .who h2 { margin-bottom: 26px; }
-  .who-p { font-size: 16px; line-height: 1.65; color: var(--mute-on-paper); margin: 0 0 16px; max-width: 58ch; }
-  .who-facts { list-style: none; padding: 0; margin: 30px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; border-top: 1px solid var(--line-on-paper); padding-top: 22px; }
+  .who { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+  .who-head { display: flex; gap: 24px; align-items: flex-end; margin-bottom: 28px; }
+  .who-img {
+    width: 180px; aspect-ratio: 3 / 4; object-fit: cover; height: auto; display: block; flex: none;
+    background: var(--paper); border: 1px solid var(--line-on-paper);
+  }
+  .who-name b { display: block; font-weight: 400; font-size: 18px; color: var(--ink-on-paper); margin-bottom: 4px; }
+  .who-name span { font-size: 12px; color: var(--mute-on-paper); }
+  .who-note { margin: 0; padding: 0 0 0 18px; border-left: 2px solid var(--amber); }
+  .who-note p { font-size: 17px; line-height: 1.6; color: var(--ink-on-paper); margin: 0 0 14px; max-width: 50ch; }
+  .who-facts { list-style: none; padding: 22px 0 0; margin: 30px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; border-top: 1px solid var(--line-on-paper); }
   .who-facts b { display: block; font-size: 30px; font-weight: 300; letter-spacing: -0.03em; color: var(--ink-on-paper); margin-bottom: 6px; }
   .who-facts span { font-size: 12px; line-height: 1.45; color: var(--mute-on-paper); }
 
@@ -807,7 +826,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   }
   @media (max-width: 600px) {
     .results, .study-form, .strip, .who-facts { grid-template-columns: 1fr; }
-    .who-img { max-width: 220px; }
+    .who-img { width: 120px; }
     .sheet-body { grid-template-columns: 1fr; }
     .tower { max-height: 220px; }
     .side, .metric, .result { padding: 22px; }
