@@ -27,6 +27,8 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
+      // on hold until launch: keep the specification studies page out of the sitemap
+      filter: (page) => !page.includes('/en/specification-studies') && !page.includes('/en/manufacturers'),
       // stamp each url with its source file's last git-commit date
       serialize(item) {
         try {

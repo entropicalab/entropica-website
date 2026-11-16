@@ -1,5 +1,8 @@
 ---
 // specification studies page (was /en/manufacturers, which now redirects here).
+// ON HOLD (rev 3): noindex and out of the sitemap until saint-gobain clears
+// publication. at launch: remove `noindex` below and the sitemap filter in
+// astro.config.mjs.
 // manufacturer landing page. built from "261115 entrópica, manufacturer
 // landing page · build spec" and reworked per "261115 website rework, design
 // direction + fixes". english only, no spanish mirror, no site nav: the
@@ -112,6 +115,7 @@ const results = [
     unit: 'share of working hours too warm',
     src: 'office tower, sample study',
     ramp: 'calor',
+    note: 'comfort',
   },
   {
     cat: 'louvers and shading',
@@ -141,7 +145,7 @@ const results = [
 
 // ---- judgment: same glass, two metrics (tor_cases.csv G3 / G6) ----------
 const metrics = [
-  { k: 'a/c electricity', unit: 'kWh/m² of floor a year', u: ' kWh/m²', a: 71.4, b: 66.8, change: '−7%' },
+  { k: 'a/c electricity', unit: 'kWh/m² of floor a year', u: ' kWh/m²', a: 71.4, b: 66.8, change: '−6.5%' },
   { k: 'too warm at a desk 1 m from the glass', unit: 'share of working hours', u: '%', a: 29.4, b: 17.5, change: '−40%' },
 ];
 
@@ -156,21 +160,22 @@ const weDo = [
   { icon: 'view_in_ar', t: 'model the building with your product in it' },
   { icon: 'bolt', t: 'run all requested simulations, 8,760 hours of the local climate' },
   { icon: 'fact_check', t: 'review every result' },
-  { icon: 'send', t: 'send a report ready to forward, in days' },
+  { icon: 'send', t: 'send a report ready to forward, typically in 5 business days' },
 ];
 
-// tier 3 (sales tools) is off the page until it exists: a tool the client
-// runs contradicts "no added work".
-const tiers = [
-  { n: '01', name: 'project study', price: 'from USD 2,500', body: 'one project, fixed scope, fixed price, a report in days. scoped and quoted free within one working day.' },
-  { n: '02', name: 'sales-evidence program', price: 'quoted on scope', body: 'a set number of studies each quarter, a priority queue, and reports that follow your own layout if you have one.' },
+// the study datasheet (rev 3, 6b). replaces the offer, the icon list and the
+// confidentiality block.
+const datasheet = [
+  { k: 'you send', v: 'a drawing or sketch, the product (name or datasheet), the question' },
+  { k: 'you receive', v: 'a report ready to forward, charts at final size, the results spreadsheet, the result in one plain sentence' },
+  { k: 'turnaround', v: 'typically 5 business days' },
+  { k: 'price', v: 'from USD 2,500, fixed, and quoted free within one working day' },
+  { k: 'confidentiality', v: 'NDA on request · no client, building or product named, if you prefer · models and data never reused' },
+  { k: 'reviewed by', v: 'josé barría, lead modeler' },
 ];
 
-const confidentiality = [
-  { icon: 'contract', t: 'we sign an NDA.' },
-  { icon: 'visibility_off', t: 'no client, building or product named, if you prefer.' },
-  { icon: 'lock', t: 'your models and data stay private and are never reused.' },
-];
+const COMFORT = 'too warm: pmv above +0.5 (ashrae 55 pmv model; 1.1 met, 0.5 clo, air at 0.1 m/s). with the a/c at 24 °C and 53% humidity: operative temperature above 27 °C.';
+const SCALING = '3 typical floors simulated. every floor has the same plate, rotated 8.18°, so results are scaled to 30 floors.';
 
 const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance', 'climatestudio'];
 ---
@@ -180,6 +185,8 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   description="simulation studies that show how your product performs in a real building and climate. modeled and reviewed by people, in days."
   locale={locale}
   bare
+  noindex
+  ogImage="/og-specification-studies.jpg"
 >
   <!-- 1 · hero: what it is, for whom, and a real result -->
   <section class="hero" id="hero">
@@ -189,20 +196,20 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         <h1>numbers that win the specification.</h1>
         <p class="lede">
           we model the real project with your product in it, so your rep can show the
-          client what it does in their building. in days.
+          client what it does in their building. typically in 5 business days.
         </p>
         <div class="ctas">
           <a class="btn amber" href="#start">start a study <span class="arrow-tail" aria-hidden="true"></span></a>
           <a class="btn ghost" href="#results">see what a study shows</a>
         </div>
         <p class="proof">
-          entrópica has run performance studies for a global glazing manufacturer, and
-          for projects on five continents.
+          entrópica has run performance studies for a global glazing manufacturer. our
+          lead modeler has modeled buildings in nine places on five continents.
         </p>
         <ul class="strip" aria-label="in short">
           <li>every result reviewed by an expert</li>
-          <li>a report ready to send</li>
-          <li>in your timezone, in days</li>
+          <li>evidence that holds up in value engineering</li>
+          <li>in your timezone</li>
           <li class="caps">NDA on request</li>
         </ul>
       </div>
@@ -235,7 +242,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         </div>
         <figcaption class="sheet-foot">
           <span>energyplus · 8,760 hours</span>
-          <span><span class="dot" aria-hidden="true"></span>3 floors simulated</span>
+          <span><span class="dot" aria-hidden="true"></span>3 floors simulated, scaled to 30</span>
         </figcaption>
       </figure>
     </div>
@@ -245,9 +252,9 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   <section class="core">
     <div class="site-wrap">
       <p class="core-p">
-        entrópica is not software your team has to learn and run. we are a firm of
-        people who do the energy engineering for you. you send a drawing and the
-        product. we do everything else.
+        entrópica is not software your team has to learn and run. a person does the
+        energy engineering for you. you send a drawing and the product. we do
+        everything else.
       </p>
     </div>
   </section>
@@ -298,7 +305,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
               <li><span class="material-symbols-outlined" aria-hidden="true">{s.icon}</span>{s.t}</li>
             ))}
           </ol>
-          <p class="days">a report in days</p>
+          <p class="days">typically 5 business days</p>
         </div>
       </div>
       <div class="tz">
@@ -346,7 +353,8 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         ))}
       </div>
       <p class="dark-p">energy alone would undersell this glass. the desk by the window shows its value.</p>
-      <p class="dark-fine">sample study: a 30-floor office tower in a hot-humid climate, energyplus, 8,760 hours.</p>
+      <p class="dark-fine">sample study: a 30-floor office tower in a hot-humid climate, energyplus, 8,760 hours. {SCALING}</p>
+      <p class="dark-fine">{COMFORT}</p>
     </div>
   </section>
 
@@ -367,19 +375,27 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           <blockquote class="who-note">
             <p>
               i trained as an architect and studied environmental building design at the
-              university of pennsylvania. since then i have modeled buildings in twelve
-              places on five continents.
+              university of pennsylvania. i have modeled buildings in nine places on five
+              continents.
             </p>
             <p>
-              the software gives an answer in minutes. my job is to know whether that
-              answer is right, and which number will matter to the person reading it.
-              every study we send crosses my desk before it reaches yours.
+              a model always gives a number. most of my work is deciding which number is
+              fair: the baseline, the weather file, the metric. on the tower on this page,
+              the energy result said the electrochromic glass saved 6.5% of the a/c
+              electricity. the desk by the window said it cut the too-warm hours by 40%.
+              the second number is the one a client remembers, and it is the one i would
+              put in front of them.
             </p>
+            <p>
+              i read every study before it leaves. if a number does not hold up, it does
+              not go out.
+            </p>
+            <footer class="who-sign">josé barría, founder · lead modeler</footer>
           </blockquote>
           <ul class="who-facts">
             <li><b class="caps">M.EBD</b><span>university of pennsylvania, 2017</span></li>
             <li><b>2020</b><span>modeling building performance since</span></li>
-            <li><b>5</b><span>continents with studies</span></li>
+            <li><b>9</b><span>places on 5 continents</span></li>
           </ul>
         </div>
         <div class="who-right">
@@ -408,6 +424,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
                 <div class={`brow ${r.ramp} b`}><span class="bl">{r.b.l}</span><span class="btrack"><i style={`width:${(r.b.v / max) * 100}%`}></i></span><span class="bv">{r.b.v}{r.u}</span></div>
               </div>
               <div class="r-foot"><span>{r.unit}</span><span>{r.src}</span></div>
+              {r.note === 'comfort' && <p class="r-note">{COMFORT}</p>}
             </li>
           );
         })}
@@ -417,78 +434,81 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           <a class="btn amber" href="#start">start a study <span class="arrow-tail" aria-hidden="true"></span></a>
         </li>
       </ul>
-      <p class="fine-note">simulated, independent entrópica studies. each number is shown with what it was compared with. glass named by type, never by brand.</p>
-    </div>
-  </section>
-
-  <!-- 6 · what you receive -->
-  <section class="band">
-    <div class="site-wrap receive">
-      <div class="fan" aria-hidden="true">
-        <img src="/projects/new-chautauqua-institute/new-chautauqua-institute_05_trade.webp" alt="" width="2160" height="2200" loading="lazy" />
-        <img src="/projects/private-bank-offices/private-bank-offices_03_glass.webp" alt="" width="2160" height="2200" loading="lazy" />
-        <img src="/projects/l12-ocean-reef/l12-ocean-reef_01_glass.webp" alt="" width="2160" height="2200" loading="lazy" />
-      </div>
-      <div>
-        <p class="kicker">what you receive</p>
-        <h2>a report your rep can send the same day.</h2>
-        <ul class="get">
-          <li><span class="material-symbols-outlined" aria-hidden="true">description</span>the report, ready to forward</li>
-          <li><span class="material-symbols-outlined" aria-hidden="true">bar_chart</span>charts at final size</li>
-          <li><span class="material-symbols-outlined" aria-hidden="true">table_chart</span>the results spreadsheet</li>
-          <li><span class="material-symbols-outlined" aria-hidden="true">chat</span>the result in one plain sentence</li>
-        </ul>
-        <p class="aside">have a company report layout? we will use it. if not, ours is ready.</p>
-        {hasSample ? (
-          <a class="btn" href={SAMPLE_REPORT_URL} download>download a sample report</a>
-        ) : (
-          <a class="btn" href={`mailto:${EMAIL}?subject=sample%20report`}>ask for a sample report</a>
-        )}
+      <p class="fine-note">simulated, independent entrópica studies. each number is shown with what it was compared with. glass named by type, never by brand. office tower: {SCALING}</p>
+      <div class="ve">
+        <div class="ve-k">value engineering</div>
+        <p>
+          value engineering is when a contractor proposes a cheaper product in place of
+          yours. the study is your rep's answer: what your product does in this
+          building, in numbers the client already agreed to.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- 7 · offer -->
-  <section class="band tint">
-    <div class="site-wrap">
-      <p class="kicker">the offer</p>
-      <h2>start with one study.</h2>
-      <ol class="tiers">
-        {tiers.map((t) => (
-          <li class="tier">
-            <div class="tier-n">{t.n}</div>
-            <h3>{t.name}</h3>
-            <div class="tier-price">{t.price}</div>
-            <p>{t.body}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
-<!-- 8 · confidentiality -->
+  <!-- 6 · what you receive: the deliverable, then the study datasheet -->
   <section class="band">
     <div class="site-wrap">
-      <p class="kicker">confidentiality</p>
-      <ul class="conf">
-        {confidentiality.map((c) => (
-          <li><span class="material-symbols-outlined" aria-hidden="true">{c.icon}</span><span class="conf-t">{c.t}</span></li>
-        ))}
-      </ul>
+      <p class="kicker">what you receive</p>
+      <h2>a report your rep can forward the same day.</h2>
+      <div class="pages">
+        <figure class="pg pg-cover">
+          <div class="cv-top">
+            <span>entrópica</span>
+            <span>performance study</span>
+          </div>
+          <div class="cv-title">a 30-floor office tower, six glass types and a designed facade</div>
+          <div class="cv-meta">
+            <span>hot-humid climate</span>
+            <span>energyplus · 8,760 hours</span>
+            <span>reviewed by josé barría</span>
+          </div>
+          <figcaption>the cover</figcaption>
+        </figure>
+        <figure class="pg">
+          <img src="/studies/office-tower/desk.webp" alt="a report page from the office tower study: working hours too warm at a desk, by distance from the facade, for four glass and facade options" width="1080" height="1100" loading="lazy" />
+          <figcaption>a chart at final size</figcaption>
+        </figure>
+        <figure class="pg">
+          <img src="/studies/office-tower/chiller.webp" alt="a report page from the office tower study: cooling load for every hour of the year and the chiller size for four glass and facade options" width="1080" height="1100" loading="lazy" />
+          <figcaption>the numbers behind it</figcaption>
+        </figure>
+        <figure class="pg sentence">
+          <div class="st-k">the result, in one sentence</div>
+          <p>“a designed facade with 40% glass needs a chiller 91 refrigeration tons smaller than the glass tower as built.”</p>
+          <figcaption>for your rep to say</figcaption>
+        </figure>
+      </div>
+      <p class="fine-note">pages from the office tower sample study. the anonymized sample report is in preparation: {hasSample ? <a href={SAMPLE_REPORT_URL} download>download it</a> : <a href={`mailto:${EMAIL}?subject=sample%20report`}>ask for it by email</a>}.</p>
+
+      <table class="datasheet">
+        <caption>project study · datasheet</caption>
+        <tbody>
+          {datasheet.map((r) => (
+            <tr><th scope="row">{r.k}</th><td class="ds-v">{r.v}</td></tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="program">need studies every quarter? the sales-evidence program is quoted on scope.</p>
     </div>
   </section>
 
-  <!-- 9 · close -->
+<!-- 9 · close -->
   <section class="band close" id="start">
     <div class="site-wrap">
       <div class="close-grid">
         <div>
           <p class="kicker">start a study</p>
           <h2>send the project and the question.</h2>
-          <p class="body-p">
-            we reply within one working day with a fixed price and a turnaround.
-            finding out costs nothing.
-          </p>
+          <ol class="next">
+            <li><span>01</span><span>you send the project and the question.</span></li>
+            <li><span>02</span><span>within one working day, josé replies with a fixed price and a turnaround. <span class="caps-in">NDA</span> first, if you need one.</span></li>
+            <li><span>03</span><span>the report arrives, typically in 5 business days.</span></li>
+          </ol>
+          <div class="replier">
+            <img src="/jose.jpg" alt="josé barría" width="1500" height="1500" loading="lazy" />
+            <p>you hear back from josé.<br /><span>finding out costs nothing.</span></p>
+          </div>
           <ul class="direct">
             <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
           </ul>
@@ -497,7 +517,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         <div class="form-col">
           <div class="sent" id="study-sent" hidden tabindex="-1">
             <p class="kicker">received</p>
-            <h3>thanks. we reply within one working day.</h3>
+            <h3>thanks. josé replies within one working day.</h3>
           </div>
 
           <form class="study-form" action={FORMSPREE_ENDPOINT} method="POST" data-ajax data-sent="study-sent" data-lead-type="manufacturer">
@@ -712,25 +732,6 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   .result.ask .btn { align-self: flex-start; }
   .fine-note { margin: 18px 0 0; font-size: 11px; color: var(--mute-on-paper-2); }
 
-  /* ---- what you receive ---- */
-  .receive { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-  .fan { position: relative; aspect-ratio: 1 / 0.92; }
-  .fan img {
-    position: absolute; width: 62%; height: auto; top: 6%; left: 19%;
-    border: 1px solid var(--line-on-paper-2); box-shadow: 0 18px 40px -18px rgba(28, 28, 28, 0.35);
-    transform-origin: 50% 100%; transition: transform 0.35s ease;
-  }
-  .fan img:nth-child(1) { transform: rotate(-9deg) translateX(-14%); }
-  .fan img:nth-child(2) { transform: rotate(5deg) translateX(14%); }
-  .fan img:nth-child(3) { transform: translateY(-2%); }
-  .fan:hover img:nth-child(1) { transform: rotate(-13deg) translateX(-22%); }
-  .fan:hover img:nth-child(2) { transform: rotate(9deg) translateX(22%); }
-  .get { list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-direction: column; gap: 14px; }
-  .get li { display: flex; align-items: center; gap: 14px; font-size: 16px; }
-
-  /* ---- offer ---- */
-  .tiers { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 960px; }
-  .tier-price { font-size: 22px; letter-spacing: -0.02em; color: var(--ink-on-paper); margin: 4px 0 14px; text-transform: none; }
 
   /* ---- core message ---- */
   .core { background: var(--amber); padding: 40px 0; }
@@ -759,18 +760,54 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   .who-facts b { display: block; font-size: 30px; font-weight: 300; letter-spacing: -0.03em; color: var(--ink-on-paper); margin-bottom: 6px; }
   .who-facts span { font-size: 12px; line-height: 1.45; color: var(--mute-on-paper); }
 
+  /* ---- notes ---- */
+  .who-sign { margin-top: 6px; font-size: 13px; color: var(--mute-on-paper); }
+  .r-note { margin: 10px 0 0; font-size: 10px; line-height: 1.5; color: var(--mute-on-paper-2); text-transform: none; }
+  .dark-fine + .dark-fine { margin-top: 6px; }
+  .ve { margin-top: 40px; display: grid; grid-template-columns: 14em 1fr; gap: 24px; padding: 28px; background: var(--ink); color: var(--text); }
+  .ve-k { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); }
+  .ve p { margin: 0; font-size: 17px; line-height: 1.6; max-width: 62ch; }
+
+  /* ---- deliverable pages ---- */
+  .pages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: start; }
+  .pg { margin: 0; }
+  .pg img, .pg.pg-cover, .pg.sentence { box-shadow: 0 18px 40px -22px rgba(28, 28, 28, 0.4); border: 1px solid var(--line-on-paper-2); }
+  .pg img { width: 100%; height: auto; display: block; }
+  .pg figcaption { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-on-paper); margin-top: 12px; }
+  .pg.pg-cover, .pg.sentence { aspect-ratio: 1080 / 1100; padding: 22px; display: flex; flex-direction: column; }
+  .pg.pg-cover { background: var(--ink); color: var(--text); border-color: var(--ink); }
+  .pg.pg-cover figcaption, .pg.sentence figcaption { margin-top: auto; padding-top: 14px; }
+  .pg.pg-cover figcaption { color: var(--mute); }
+  .cv-top { display: flex; justify-content: space-between; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); }
+  .cv-title { margin-top: 16%; font-size: clamp(16px, 1.5vw, 21px); line-height: 1.3; }
+  .cv-meta { margin-top: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--mute); text-transform: none; }
+  .pg.sentence { background: #fbfaf6; }
+  .st-k { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); }
+  .pg.sentence p { margin: auto 0 0; font-size: clamp(15px, 1.35vw, 19px); line-height: 1.45; color: var(--ink-on-paper); }
+
+  /* ---- datasheet ---- */
+  .datasheet { width: 100%; max-width: 960px; margin: 56px 0 0; border-collapse: collapse; background: #fbfaf6; border: 1px solid var(--line-on-paper); }
+  .datasheet caption { text-align: left; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); padding: 0 0 12px; }
+  .datasheet th, .datasheet td { text-align: left; vertical-align: top; padding: 16px 22px; border-top: 1px solid var(--line-on-paper); font-size: 15px; line-height: 1.5; }
+  .datasheet th { width: 13em; font-weight: 400; color: var(--mute-on-paper); }
+  .ds-v { color: var(--ink-on-paper); text-transform: none; }
+  .program { margin: 18px 0 0; font-size: 15px; color: var(--ink-on-paper); }
+
+  /* ---- what happens next ---- */
+  .next { list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-direction: column; gap: 14px; max-width: 46ch; }
+  .next li { display: grid; grid-template-columns: 2.4em 1fr; font-size: 16px; line-height: 1.5; color: var(--ink-on-paper); }
+  .next li > span:first-child { color: var(--amber); font-size: 13px; padding-top: 2px; }
+  .caps-in { text-transform: none; }
+  .replier { display: flex; gap: 16px; align-items: center; }
+  .replier img { width: 64px; aspect-ratio: 3 / 4; object-fit: cover; height: auto; border: 1px solid var(--line-on-paper); }
+  .replier p { margin: 0; font-size: 15px; color: var(--ink-on-paper); }
+  .replier p span { color: var(--mute-on-paper); font-size: 13px; }
+
   /* ---- colophon ---- */
   .contact-info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding-bottom: 28px; margin-bottom: 24px; border-bottom: 1px solid var(--line-on-paper); }
   .col-h { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper-2); margin-bottom: 10px; }
   .contact-info p { color: var(--ink-on-paper); margin: 0 0 6px; }
-  .tier { background: #fbfaf6; border: 1px solid var(--line-on-paper); padding: 28px; }
-  .tier-n { font-size: 12px; color: var(--amber); margin-bottom: 22px; }
-  .tier p { font-size: 14px; line-height: 1.6; color: var(--mute-on-paper); margin: 0; }
 
-  /* ---- confidentiality ---- */
-  .conf { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-  .conf li { display: flex; flex-direction: column; gap: 14px; font-size: 16px; line-height: 1.5; max-width: 28ch; }
-  .conf .material-symbols-outlined { font-size: 32px; }
 
   /* ---- close ---- */
   .close { background: #ebe6db; }
@@ -812,12 +849,13 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   .bare-footer .fine { font-size: 11px; color: var(--mute-on-paper-2); margin: 0; }
 
   @media (max-width: 1000px) {
+    .pages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .results { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 900px) {
     .band { padding: 64px 0; }
     .hero { padding: 40px 0 56px; }
-    .hero-grid, .receive, .close-grid, .metrics, .tiers, .conf, .three, .why-grid, .who, .contact-info { grid-template-columns: 1fr; }
+    .hero-grid, .close-grid, .metrics, .three, .why-grid, .who, .contact-info, .ve { grid-template-columns: 1fr; }
     .hero-grid, .three { gap: 40px; }
     .why-grid { gap: 20px; }
     .handoff { grid-template-columns: 1fr; gap: 12px; }
@@ -832,5 +870,11 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
     .side, .metric, .result { padding: 22px; }
     .brow { grid-template-columns: 7.5em 1fr 6.5em; }
     .sticky-cta { left: 16px; right: 16px; bottom: 16px; text-align: center; }
+    .pages { grid-template-columns: minmax(0, 1fr); max-width: 340px; }
+    .pg.pg-cover, .pg.sentence { aspect-ratio: auto; min-height: 260px; }
+    .datasheet th, .datasheet td { display: block; width: auto; padding: 4px 18px; border-top: 0; }
+    .datasheet th { padding-top: 16px; border-top: 1px solid var(--line-on-paper); }
+    .datasheet td { padding-bottom: 16px; }
+    .ve { padding: 22px; gap: 10px; }
   }
 </style>

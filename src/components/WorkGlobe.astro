@@ -4,7 +4,10 @@
 // the script then turns it, and hovering a city in the list turns the globe
 // to that city. colors follow the data color system: land in sand, context
 // lines in line, the one call-out in amber.
-// city list from jose, 2026-11-16. only the city: no client, no project.
+// city list from jose, 2026-11-16 (rev 3): nine places, five continents.
+// only the city: no client, no project. the saint-gobain cities (medford,
+// orange county, nevada) stay off until saint-gobain clears publication.
+// nothing from the vyana market study.
 import { geoOrthographic, geoPath, geoGraticule10 } from 'd3-geo';
 import { feature } from 'topojson-client';
 import land110 from 'world-atlas/land-110m.json';
@@ -12,9 +15,6 @@ import land110 from 'world-atlas/land-110m.json';
 interface Place { city: string; country: string; lon: number; lat: number; note?: string }
 
 const places: Place[] = [
-  { city: 'medford, oregon', country: 'united states', lon: -122.87, lat: 42.33 },
-  { city: 'orange county, california', country: 'united states', lon: -117.83, lat: 33.68 },
-  { city: 'nevada', country: 'united states', lon: -116.6, lat: 39.3 },
   { city: 'philadelphia', country: 'united states', lon: -75.17, lat: 39.95 },
   { city: 'guadalajara', country: 'méxico', lon: -103.35, lat: 20.67 },
   { city: 'panamá city', country: 'panamá', lon: -79.52, lat: 8.98 },
@@ -27,7 +27,7 @@ const places: Place[] = [
 ];
 
 const SIZE = 520;
-const START: [number, number, number] = [60, -15, 0];
+const START: [number, number, number] = [40, -15, 0];
 const projection = geoOrthographic().scale(SIZE / 2 - 6).translate([SIZE / 2, SIZE / 2]).rotate(START).clipAngle(90);
 const path = geoPath(projection);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -64,6 +64,7 @@ const countries = [...new Set(places.map((p) => p.country))];
       ))}
     </g>
   </svg>
+  <p class="g-cap">places where our lead modeler has modeled buildings.</p>
   <ul class="places" aria-label="places">
     {countries.map((c) => (
       <li>
@@ -96,7 +97,7 @@ const countries = [...new Set(places.map((p) => p.country))];
     const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-city]')];
     // coordinates, same order as the server list
     const coords: [number, number][] = [
-      [-122.87, 42.33], [-117.83, 33.68], [-116.6, 39.3], [-75.17, 39.95],
+      [-75.17, 39.95],
       [-103.35, 20.67], [-79.52, 8.98], [1.31, 51.13], [14.29, 48.31],
       [36.82, -1.29], [54.38, 24.45], [103.82, 1.35], [144.96, -37.81],
     ];
@@ -173,7 +174,7 @@ const countries = [...new Set(places.map((p) => p.country))];
       }
       requestAnimationFrame(tick);
     };
-    if (reduce) setActive(5);
+    if (reduce) setActive(2);
     requestAnimationFrame(tick);
   }
 </script>
@@ -189,6 +190,7 @@ const countries = [...new Set(places.map((p) => p.country))];
   .g-dot.on .g-ring { opacity: 1; }
   .g-dot.on .g-pt { fill: var(--ink-on-paper); stroke: var(--amber); stroke-width: 2.5; }
 
+  .g-cap { margin: 0 0 -14px; font-size: 12px; color: var(--mute-on-paper); }
   .places { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line-on-paper); }
   .places li { display: grid; grid-template-columns: 11em 1fr; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line-on-paper); font-size: 13px; }
   .pl-country { color: var(--mute-on-paper); }
