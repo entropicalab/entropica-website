@@ -82,7 +82,7 @@ const groundY = (HALF * 1.5).toFixed(1);
 const results = [
   {
     cat: 'glazing',
-    say: 'the right glass cuts the chiller a 30-floor tower needs by 232 refrigeration tons.',
+    say: 'double reflective glass cuts the chiller a 30-floor tower needs by 232 refrigeration tons, against single clear.',
     num: '−232',
     numUnit: 'refrigeration tons of chiller capacity (816 kW)',
     a: { l: 'single clear', v: 852 },
@@ -106,20 +106,20 @@ const results = [
   },
   {
     cat: 'dynamic glass',
-    say: 'the desk by the window is too warm in under 2 of 10 working hours, down from 3.',
+    say: 'electrochromic glass cuts overheated working hours 1 m from the glass from 29.4% to 17.5%.',
     num: '−40%',
-    numUnit: 'too-warm working hours at a desk 1 m from the glass',
+    numUnit: 'overheated working hours at a desk 1 m from the glass',
     a: { l: 'double reflective', v: 29.4 },
     b: { l: 'electrochromic', v: 17.5 },
     u: '%',
-    unit: 'share of working hours too warm',
+    unit: 'share of working hours overheated',
     src: 'office tower, sample study',
     ramp: 'calor',
     note: 'comfort',
   },
   {
     cat: 'louvers and shading',
-    say: 'louvers cut the solar radiation reaching the glass by 71%.',
+    say: 'louvers cut the yearly solar radiation reaching the glass by 71%.',
     num: '−71%',
     numUnit: 'solar radiation on the glass, per year',
     a: { l: 'no louvers', v: 389 },
@@ -131,7 +131,7 @@ const results = [
   },
   {
     cat: 'screens and breezeblock',
-    say: 'a roof and a block screen cut the solar radiation on the new glass by 94%.',
+    say: 'a roof and a breezeblock screen block 94% of the yearly solar radiation on the glass.',
     num: '−94%',
     numUnit: 'solar radiation on the glass, per year',
     a: { l: 'no shade', v: 331 },
@@ -145,44 +145,44 @@ const results = [
 
 // ---- judgment: same glass, two metrics (tor_cases.csv G3 / G6) ----------
 const metrics = [
-  { k: 'a/c electricity', unit: 'kWh/m² of floor a year', u: ' kWh/m²', a: 71.4, b: 66.8, change: '−6.5%' },
-  { k: 'too warm at a desk 1 m from the glass', unit: 'share of working hours', u: '%', a: 29.4, b: 17.5, change: '−40%' },
+  { k: 'cooling electricity', unit: 'kWh/m² of floor a year', u: ' kWh/m²', a: 71.4, b: 66.8, change: '−6.5%' },
+  { k: 'overheated working hours, 1 m from the glass', unit: 'share of working hours', u: '%', a: 29.4, b: 17.5, change: '−40%' },
 ];
 
 // the client sends only what they already have. no model, no template.
 const youSend = [
-  { icon: 'architecture', t: 'a drawing or a sketch of the project' },
-  { icon: 'description', t: 'the product: its name or its datasheet' },
-  { icon: 'help', t: 'what your client needs to know' },
+  { icon: 'architecture', t: 'a plan set, an elevation, or an early massing sketch' },
+  { icon: 'description', t: 'your product cut sheet or performance specs' },
+  { icon: 'help', t: 'the baseline you’re competing against, or the metric the client cares about' },
 ];
 
 const weDo = [
-  { icon: 'view_in_ar', t: 'model the building with your product in it' },
-  { icon: 'bolt', t: 'run all requested simulations, 8,760 hours of the local climate' },
-  { icon: 'fact_check', t: 'review every result' },
-  { icon: 'send', t: 'send a report ready to forward, typically in 5 business days' },
+  { icon: 'view_in_ar', t: 'rebuild the building geometry and the local climate' },
+  { icon: 'bolt', t: 'run full-year, 8,760-hour simulations of your product against the baseline' },
+  { icon: 'fact_check', t: 'sanity-check every output for engineering accuracy' },
+  { icon: 'send', t: 'package the findings in a clear report, with a one-sentence sales takeaway' },
 ];
 
-// the study datasheet (rev 3, 6b). replaces the offer, the icon list and the
+// the study datasheet. replaces the offer, the icon list and the
 // confidentiality block.
 const datasheet = [
-  { k: 'you send', v: 'a drawing or sketch, the product (name or datasheet), the question' },
-  { k: 'you receive', v: 'a report ready to forward, charts at final size, the results spreadsheet, the result in one plain sentence' },
-  { k: 'turnaround', v: 'typically 5 business days' },
-  { k: 'price', v: 'from USD 2,500, fixed, and quoted free within one working day' },
-  { k: 'confidentiality', v: 'NDA on request · no client, building or product named, if you prefer · models and data never reused' },
-  { k: 'reviewed by', v: 'josé barría, lead modeler' },
+  { k: 'you send', v: 'project drawings or a massing sketch · product cut sheet · the baseline or metric to beat' },
+  { k: 'you receive', v: 'client-ready PDF report · slide-ready, high-resolution charts · full results spreadsheet · one-sentence sales takeaway' },
+  { k: 'turnaround', v: '5 business days, standard' },
+  { k: 'price', v: 'from USD 2,500 · fixed-fee quote within 1 business day' },
+  { k: 'confidentiality', v: 'NDA on request · anonymized, unbranded reporting if you prefer · geometry and data never reused' },
+  { k: 'reviewed by', v: 'josé barría, founder and lead modeler' },
 ];
 
-const COMFORT = 'too warm: pmv above +0.5 (ashrae 55 pmv model; 1.1 met, 0.5 clo, air at 0.1 m/s). with the a/c at 24 °C and 53% humidity: operative temperature above 27 °C.';
-const SCALING = '3 typical floors simulated. every floor has the same plate, rotated 8.18°, so results are scaled to 30 floors.';
+const COMFORT = 'overheated: pmv above +0.5 (ashrae 55 pmv model; 1.1 met, 0.5 clo, air at 0.1 m/s). with the a/c at 24 °C and 53% humidity: operative temperature above 27 °C.';
+const SCALING = '3 representative floors simulated. every floor has the same plate, rotated 8.18°, so results are scaled to 30 floors.';
 
 const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance', 'climatestudio'];
 ---
 
 <BaseLayout
   title="specification studies for building-product manufacturers · entrópica"
-  description="simulation studies that show how your product performs in a real building and climate. modeled and reviewed by people, in days."
+  description="building-performance studies for product manufacturers. we model your client’s actual building in its local climate and deliver project-specific performance data, checked by a human modeler."
   locale={locale}
   bare
   noindex
@@ -192,25 +192,26 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   <section class="hero" id="hero">
     <div class="site-wrap hero-grid">
       <div class="hero-copy">
-        <p class="kicker">energy engineering for your sales team</p>
+        <p class="kicker">building-performance studies for product manufacturers</p>
         <h1>numbers that win the specification.</h1>
         <p class="lede">
-          we model the real project with your product in it, so your rep can show the
-          client what it does in their building. typically in 5 business days.
+          we model your client’s actual building in its local climate, so your sales
+          team gets hard, project-specific performance data. typically in five
+          business days.
         </p>
         <div class="ctas">
           <a class="btn amber" href="#start">start a study <span class="arrow-tail" aria-hidden="true"></span></a>
-          <a class="btn ghost" href="#results">see what a study shows</a>
+          <a class="btn ghost" href="#results">see sample results</a>
         </div>
         <p class="proof">
-          entrópica has run performance studies for a global glazing manufacturer. our
-          lead modeler has modeled buildings in nine places on five continents.
+          trusted by a global glazing manufacturer. led by an architect who has
+          modeled buildings in nine cities on five continents.
         </p>
         <ul class="strip" aria-label="in short">
-          <li>every result reviewed by an expert</li>
-          <li>evidence that holds up in value engineering</li>
-          <li>in your timezone</li>
-          <li class="caps">NDA on request</li>
+          <li>built and checked by a human modeler</li>
+          <li>numbers that hold up in value engineering</li>
+          <li>live collaboration in americas time zones</li>
+          <li><span><span class="caps">NDA</span> on request · models never reused</span></li>
         </ul>
       </div>
 
@@ -232,7 +233,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           <div class="sheet-result">
             <div class="sheet-label">30-floor office tower</div>
             <div class="sheet-num">−232</div>
-            <p class="sheet-numunit">refrigeration tons of chiller (816 kW), with the right glass</p>
+            <p class="sheet-numunit">refrigeration tons of chiller capacity (816 kW) saved with double reflective glass, against single clear</p>
             <div class="pair">
               <div class="brow calor"><span class="bl">single clear</span><span class="btrack"><i style="width:100%"></i></span><span class="bv">852 tons</span></div>
               <div class="brow calor b"><span class="bl">double reflective</span><span class="btrack"><i style={`width:${(620 / 852) * 100}%`}></i></span><span class="bv">620 tons</span></div>
@@ -248,13 +249,14 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
     </div>
   </section>
 
-  <!-- 1b · the core message: a firm of people, no added work -->
+  <!-- 1b · the core message: done for you, by a person -->
   <section class="core">
     <div class="site-wrap">
       <p class="core-p">
-        entrópica is not software your team has to learn and run. a person does the
-        energy engineering for you. you send a drawing and the product. we do
-        everything else.
+        software still leaves your team doing the modeling. entrópica is a
+        <b>done-for-you simulation service</b>: you hand off the project drawings and
+        product data, and an experienced modeler builds, runs and interprets the
+        simulation for you.
       </p>
     </div>
   </section>
@@ -265,28 +267,28 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
       <ol class="three">
         <li>
           <span class="three-n">what it is</span>
-          <h2 class="h3">a study of one real project, with your product in it.</h2>
-          <p>the building, its climate, your product’s performance, and the one number the client needs to see.</p>
+          <h2 class="h3">a dedicated performance study for a live project.</h2>
+          <p>we model the actual building geometry, the local climate and your product’s exact thermal or optical properties, then isolate the metric that matters most to the decision-maker.</p>
         </li>
         <li>
           <span class="three-n">why it helps you</span>
           <h2 class="h3">datasheets don’t win specifications. project numbers do.</h2>
-          <p>your rep walks in with what the product does in this building, in this climate. and when value engineering comes, the study is what keeps your product in the specification.</p>
+          <p>generic catalog specs are easy to substitute. project-specific physics are not. your rep gets hard evidence tailored to the building, so architects and engineers have the numbers to push back on cheaper "or-equal" swaps in value engineering.</p>
         </li>
         <li>
           <span class="three-n">why us</span>
-          <h2 class="h3">we have modeled buildings since 2020.</h2>
-          <p>we know which baseline is fair, which weather file is right, and which number your client will ask about. we read every result before you see it, and we tell you plainly what it means.</p>
+          <h2 class="h3">experienced judgment on every model.</h2>
+          <p>a simulation is only as credible as its assumptions. we build a fair baseline, isolate your product’s real effect, and stress-test the numbers before a skeptical engineer sees them. every study is reviewed personally and written in plain language, not academic jargon.</p>
         </li>
       </ol>
     </div>
   </section>
 
-  <!-- 3 · you send almost nothing -->
+  <!-- 3 · the process -->
   <section class="band tint">
     <div class="site-wrap">
-      <p class="kicker">how it works</p>
-      <h2>you send what you already have. we do the rest.</h2>
+      <p class="kicker">the process</p>
+      <h2>you bring the project files. we build the proof.</h2>
       <div class="handoff">
         <div class="side">
           <div class="side-h">you send</div>
@@ -295,7 +297,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
               <li><span class="material-symbols-outlined" aria-hidden="true">{s.icon}</span>{s.t}</li>
             ))}
           </ul>
-          <p class="no-problem">no energyplus model? no problem. no template, no data to collect. we build it all.</p>
+          <p class="no-problem">you don’t need an energyplus file, a <span class="caps">BIM</span> model or a long questionnaire. send whatever is already in your inbox.</p>
         </div>
         <div class="arrow-mid" aria-hidden="true"><span class="material-symbols-outlined">arrow_forward</span></div>
         <div class="side we">
@@ -305,14 +307,15 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
               <li><span class="material-symbols-outlined" aria-hidden="true">{s.icon}</span>{s.t}</li>
             ))}
           </ol>
-          <p class="days">typically 5 business days</p>
+          <p class="days">typically delivered in 5 business days</p>
         </div>
       </div>
       <div class="tz">
         <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
         <p>
-          we work from panamá, on <span class="caps">UTC−5</span> all year. that is the same working day as the
-          <span class="caps">US</span>, canada and latin america, so questions get answered today, not overnight.
+          we work from panamá, on <span class="caps">UTC−5</span> all year, inside north and south
+          american business hours. when a bid deadline is tight, you get answers the
+          same day.
         </p>
       </div>
       <ul class="tools" aria-label="tools">
@@ -321,22 +324,24 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
     </div>
   </section>
 
-  <!-- 4 · why a person -->
+  <!-- 4 · why human judgment matters -->
   <section class="band dark">
     <div class="site-wrap">
-      <p class="kicker">why a person checks every number</p>
+      <p class="kicker">why human judgment matters</p>
       <h2>in a high-value proposal, an unchecked claim is a liability.</h2>
       <div class="why-grid">
         <p class="why-p">
-          software and <span class="caps">AI</span> tools now produce energy numbers in seconds. an unchecked
-          model can be wrong in ways that look right: the wrong baseline, the wrong
-          weather file, a metric that hides what the product does. an inaccurate claim
-          can sink the specification.
+          automated tools and <span class="caps">AI</span> wrappers produce energy numbers in seconds.
+          the real risk is a model that looks plausible on paper and falls apart under
+          scrutiny: an unfair baseline, sloppy zoning assumptions, or a metric that
+          misses the point. if an <span class="caps">MEP</span> engineer finds a hole in your numbers,
+          you can lose the spec.
         </p>
         <p class="why-p">
-          every study we send is modeled, reviewed and explained by a person. part of
-          that work is finding the number your client cares about. here is one glass,
-          measured two ways.
+          every entrópica study is built, checked and interpreted by an experienced
+          modeler. half the job is finding the metric that actually proves your
+          product’s value. here is one glazing comparison from our sample tower, the
+          same glass measured two ways:
         </p>
       </div>
       <div class="metrics">
@@ -352,7 +357,11 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           </div>
         ))}
       </div>
-      <p class="dark-p">energy alone would undersell this glass. the desk by the window shows its value.</p>
+      <p class="dark-p">
+        whole-building energy alone would undersell this glass. comfort at the
+        perimeter tells the real story, and gives your rep a concrete reason to
+        justify the upgrade.
+      </p>
       <p class="dark-fine">sample study: a 30-floor office tower in a hot-humid climate, energyplus, 8,760 hours. {SCALING}</p>
       <p class="dark-fine">{COMFORT}</p>
     </div>
@@ -362,7 +371,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   <section class="band">
     <div class="site-wrap">
       <p class="kicker">who does the work</p>
-      <h2>you talk to the person who checks your numbers.</h2>
+      <h2>you talk directly to the person behind the numbers.</h2>
       <div class="who">
         <div class="who-left">
           <div class="who-head">
@@ -374,28 +383,26 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           </div>
           <blockquote class="who-note">
             <p>
-              i trained as an architect and studied environmental building design at the
-              university of pennsylvania. i have modeled buildings in nine places on five
-              continents.
+              i’m an architect with a master’s in environmental building design from the
+              university of pennsylvania, and i’ve modeled buildings in nine cities on
+              five continents.
             </p>
             <p>
-              a model always gives a number. most of my work is deciding which number is
-              fair: the baseline, the weather file, the metric. on the tower on this page,
-              the energy result said the electrochromic glass saved 6.5% of the a/c
-              electricity. the desk by the window said it cut the too-warm hours by 40%.
-              the second number is the one a client remembers, and it is the one i would
-              put in front of them.
+              software will always give you an answer, even when the setup is flawed. my
+              job is to make sure the baseline is fair, the physics hold up under
+              design-team pushback, and the final metric speaks directly to the
+              decision-maker.
             </p>
             <p>
-              i read every study before it leaves. if a number does not hold up, it does
-              not go out.
+              every report goes through my hands before it reaches yours. if a number
+              doesn’t hold up, it doesn’t go out.
             </p>
             <footer class="who-sign">josé barría, founder · lead modeler</footer>
           </blockquote>
           <ul class="who-facts">
             <li><b class="caps">M.EBD</b><span>university of pennsylvania, 2017</span></li>
             <li><b>2020</b><span>modeling building performance since</span></li>
-            <li><b>9</b><span>places on 5 continents</span></li>
+            <li><b>9</b><span>cities across 5 continents</span></li>
           </ul>
         </div>
         <div class="who-right">
@@ -405,11 +412,11 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
     </div>
   </section>
 
-<!-- 5 · results by product -->
+  <!-- 5 · results by product -->
   <section class="band tint" id="results">
     <div class="site-wrap">
       <p class="kicker">results from past studies</p>
-      <h2>one study, one sentence your rep can use.</h2>
+      <h2>hard numbers your rep can put straight into the pitch.</h2>
       <ul class="results">
         {results.map((r) => {
           const max = Math.max(r.a.v, r.b.v);
@@ -430,27 +437,28 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         })}
         <li class="result ask">
           <div class="r-cat">your product</div>
-          <p class="r-say">roofing, coatings, insulation, or something else? send the datasheet and the project.</p>
+          <p class="r-say">working with another envelope system? send the datasheet and the project drawings to scope a study.</p>
           <a class="btn amber" href="#start">start a study <span class="arrow-tail" aria-hidden="true"></span></a>
         </li>
       </ul>
-      <p class="fine-note">simulated, independent entrópica studies. each number is shown with what it was compared with. glass named by type, never by brand. office tower: {SCALING}</p>
+      <p class="fine-note">independent performance studies, simulated by entrópica against clear baselines. glass is named by generic type, never by brand. office tower: {SCALING}</p>
       <div class="ve">
-        <div class="ve-k">value engineering</div>
+        <div class="ve-k">built for value engineering</div>
         <p>
-          value engineering is when a contractor proposes a cheaper product in place of
-          yours. the study is your rep's answer: what your product does in this
-          building, in numbers the client already agreed to.
+          every manufacturer knows the drill: you win the architectural spec, then a
+          contractor tries to value-engineer you out before procurement. the report
+          gives your rep the evidence to hold the line: your product’s value, in the
+          building metrics the owner and engineer already work with.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- 6 · what you receive: the deliverable, then the study datasheet -->
+  <!-- 6 · deliverables: the report pages, then the study datasheet -->
   <section class="band">
     <div class="site-wrap">
-      <p class="kicker">what you receive</p>
-      <h2>a report your rep can forward the same day.</h2>
+      <p class="kicker">deliverables</p>
+      <h2>a client-ready report your rep can forward the same day.</h2>
       <div class="pages">
         <figure class="pg pg-cover">
           <div class="cv-top">
@@ -466,20 +474,20 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           <figcaption>the cover</figcaption>
         </figure>
         <figure class="pg">
-          <img src="/studies/office-tower/desk.webp" alt="a report page from the office tower study: working hours too warm at a desk, by distance from the facade, for four glass and facade options" width="1080" height="1100" loading="lazy" />
-          <figcaption>a chart at final size</figcaption>
+          <img src="/studies/office-tower/desk.webp" alt="a report page from the office tower study: overheated working hours at a desk, by distance from the facade, for four glass and facade options" width="1080" height="1100" loading="lazy" />
+          <figcaption>slide-ready charts</figcaption>
         </figure>
         <figure class="pg">
           <img src="/studies/office-tower/chiller.webp" alt="a report page from the office tower study: cooling load for every hour of the year and the chiller size for four glass and facade options" width="1080" height="1100" loading="lazy" />
-          <figcaption>the numbers behind it</figcaption>
+          <figcaption>hourly load and sizing data</figcaption>
         </figure>
         <figure class="pg sentence">
-          <div class="st-k">the result, in one sentence</div>
+          <div class="st-k">the executive summary, in one line</div>
           <p>“a designed facade with 40% glass needs a chiller 91 refrigeration tons smaller than the glass tower as built.”</p>
-          <figcaption>for your rep to say</figcaption>
+          <figcaption>the pitch takeaway</figcaption>
         </figure>
       </div>
-      <p class="fine-note">pages from the office tower sample study. the anonymized sample report is in preparation: {hasSample ? <a href={SAMPLE_REPORT_URL} download>download it</a> : <a href={`mailto:${EMAIL}?subject=sample%20report`}>ask for it by email</a>}.</p>
+      <p class="fine-note">excerpts from our 30-floor office tower study. the full anonymized sample report is in preparation: {hasSample ? <a href={SAMPLE_REPORT_URL} download>download it</a> : <a href={`mailto:${EMAIL}?subject=sample%20report`}>email us and we’ll send it when it’s ready</a>}.</p>
 
       <table class="datasheet">
         <caption>project study · datasheet</caption>
@@ -489,25 +497,25 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           ))}
         </tbody>
       </table>
-      <p class="program">need studies every quarter? the sales-evidence program is quoted on scope.</p>
+      <p class="program">supporting several active bids each quarter? ask about a quarterly retainer scoped to your pipeline.</p>
     </div>
   </section>
 
-<!-- 9 · close -->
+  <!-- 7 · close -->
   <section class="band close" id="start">
     <div class="site-wrap">
       <div class="close-grid">
         <div>
           <p class="kicker">start a study</p>
-          <h2>send the project and the question.</h2>
+          <h2>send the project. get a fixed quote in one business day.</h2>
           <ol class="next">
-            <li><span>01</span><span>you send the project and the question.</span></li>
-            <li><span>02</span><span>within one working day, josé replies with a fixed price and a turnaround. <span class="caps-in">NDA</span> first, if you need one.</span></li>
-            <li><span>03</span><span>the report arrives, typically in 5 business days.</span></li>
+            <li><span>01</span><span>send the drawings you have, your product data and the performance question.</span></li>
+            <li><span>02</span><span>josé reviews the scope and replies within one business day with a fixed price and a schedule. <span class="caps-in">NDA</span> first, on request.</span></li>
+            <li><span>03</span><span>your checked, client-ready report arrives, typically in 5 business days.</span></li>
           </ol>
           <div class="replier">
             <img src="/jose.jpg" alt="josé barría" width="1500" height="1500" loading="lazy" />
-            <p>you hear back from josé.<br /><span>finding out costs nothing.</span></p>
+            <p>a direct reply from josé barría.<br /><span>no commitment · fixed-fee quotes</span></p>
           </div>
           <ul class="direct">
             <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
@@ -517,7 +525,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         <div class="form-col">
           <div class="sent" id="study-sent" hidden tabindex="-1">
             <p class="kicker">received</p>
-            <h3>thanks. josé replies within one working day.</h3>
+            <h3>thanks. josé will review your project and reply within one working day.</h3>
           </div>
 
           <form class="study-form" action={FORMSPREE_ENDPOINT} method="POST" data-ajax data-sent="study-sent" data-lead-type="manufacturer">
@@ -534,8 +542,8 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
               <input id="m-email" name="email" type="email" required autocomplete="email" />
             </div>
             <div class="field full">
-              <label for="m-project">the project and the question</label>
-              <textarea id="m-project" name="project" rows="4" required placeholder="where it is, the product, and what your client needs to see"></textarea>
+              <label for="m-project">project and performance question</label>
+              <textarea id="m-project" name="project" rows="4" required placeholder="city or climate, product specs, and what the design team or owner needs to see"></textarea>
             </div>
             <div class="field full">
               <label for="m-files">link to drawings <span class="opt">(optional)</span></label>
@@ -552,14 +560,14 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
               the message didn't go through. write to <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
             </p>
 
-            <button type="submit" class="btn amber">send <span class="arrow-tail" aria-hidden="true"></span></button>
+            <button type="submit" class="btn amber">send for quote <span class="arrow-tail" aria-hidden="true"></span></button>
           </form>
         </div>
       </div>
     </div>
   </section>
 
-  <a class="sticky-cta" href="#start" data-sticky hidden>start a study <span aria-hidden="true">→</span></a>
+<a class="sticky-cta" href="#start" data-sticky hidden>start a study <span aria-hidden="true">→</span></a>
 
   <footer class="bare-footer" slot="footer">
     <div class="site-wrap">
@@ -579,7 +587,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           <p>monday to friday, panamá time (<span class="caps">UTC−5</span>)</p>
         </div>
       </div>
-      <p>consultancies and architecture teams that need overflow modeling can also get in touch.</p>
+      <p>architecture firms and <span class="caps">MEP</span> or sustainability consultancies that need overflow simulation support can also get in touch.</p>
       <p class="fine">© {new Date().getFullYear()} entrópica · <a href="/en/privacy">privacy</a></p>
     </div>
   </footer>
@@ -734,8 +742,9 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
 
 
   /* ---- core message ---- */
-  .core { background: var(--amber); padding: 40px 0; }
-  .core-p { margin: 0; max-width: 62ch; font-size: clamp(18px, 1.8vw, 23px); line-height: 1.5; color: var(--ink); }
+  .core { background: var(--ink); padding: 48px 0; }
+  .core-p { margin: 0; max-width: 64ch; font-size: clamp(18px, 1.8vw, 23px); line-height: 1.5; color: var(--text); }
+  .core-p b { font-weight: 400; color: var(--amber); }
   .proof { font-size: 15px; line-height: 1.55; color: var(--ink-on-paper); max-width: 46ch; margin: 0 0 22px; padding-left: 14px; border-left: 2px solid var(--amber); }
   .sheet-numunit, .r-numunit { font-size: 12px; line-height: 1.45; color: var(--mute-on-paper); margin: 8px 0 20px; text-transform: none; }
   .sheet-numunit { color: var(--ink-on-paper); font-size: 13px; }
