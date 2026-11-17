@@ -119,7 +119,7 @@ const results = [
   },
   {
     cat: 'louvers and shading',
-    say: 'louvers cut the yearly solar radiation reaching the glass by 71%.',
+    say: 'fixed louvers cut the yearly solar radiation reaching the glass by 71%.',
     num: '−71%',
     numUnit: 'solar radiation on the glass, per year',
     a: { l: 'no louvers', v: 389 },
@@ -141,7 +141,31 @@ const results = [
     src: 'bank branch, design stage',
     ramp: 'sol',
   },
+  {
+    // 016-GlobalChitre, gbc_findings_02.md addendum; sim_export/opb_summary.csv
+    // (after_2m, after_2m_cool, after_2m_coolaged, after_full). shares of the
+    // full-roof saving: new 87.7%, aged 60.8%. no cost claim: the study is not costed.
+    cat: 'roof coatings',
+    say: 'a white coating on the old roof gets 88% of the a/c saving of a whole new roof. 61% once it ages.',
+    num: '88%',
+    numUnit: 'of the a/c saving of a new roof, with a new white coating',
+    a: { l: 'old roof as is', v: 75.5 },
+    b: { l: 'white coating', v: 69.0 },
+    rows: [
+      { l: 'old roof as is', v: 75.5 },
+      { l: 'coating, aged', v: 71.0 },
+      { l: 'coating, new', v: 69.0 },
+      { l: 'new roof', v: 68.1 },
+    ],
+    u: ' kWh/m²',
+    unit: 'a/c electricity, kWh/m² a year',
+    src: 'bank branch, design stage',
+    ramp: 'calor',
+    note: 'roof',
+  },
 ];
+
+const ROOF = 'solar absorptance: grey membrane 0.70, white coating 0.25 new, 0.40 aged. roof surface peaks at 35 °C (39 °C aged) instead of 45 °C. insulation under the white roof makes it worse (71.1 kWh/m²): the roof stops losing heat at night.';
 
 // ---- judgment: same glass, two metrics (tor_cases.csv G3 / G6) ----------
 const metrics = [
@@ -426,12 +450,21 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
               <p class="r-say">{r.say}</p>
               <div class="r-num">{r.num}</div>
               <p class="r-numunit">{r.numUnit}</p>
-              <div class="pair" aria-label={`${r.a.l}: ${r.a.v}${r.u}. ${r.b.l}: ${r.b.v}${r.u}. ${r.unit}.`}>
-                <div class={`brow ${r.ramp}`}><span class="bl">{r.a.l}</span><span class="btrack"><i style={`width:${(r.a.v / max) * 100}%`}></i></span><span class="bv">{r.a.v}{r.u}</span></div>
-                <div class={`brow ${r.ramp} b`}><span class="bl">{r.b.l}</span><span class="btrack"><i style={`width:${(r.b.v / max) * 100}%`}></i></span><span class="bv">{r.b.v}{r.u}</span></div>
-              </div>
+              {r.rows ? (
+                <div class="pair" aria-label={`${r.rows.map((x) => `${x.l}: ${x.v.toFixed(1)}${r.u}`).join('. ')}. ${r.unit}.`}>
+                  {r.rows.map((x, k) => (
+                    <div class={`brow ${r.ramp}${k > 0 ? ' b' : ''}`}><span class="bl">{x.l}</span><span class="btrack"><i style={`width:${(x.v / r.rows[0].v) * 100}%`}></i></span><span class="bv">{x.v.toFixed(1)}{r.u}</span></div>
+                  ))}
+                </div>
+              ) : (
+                <div class="pair" aria-label={`${r.a.l}: ${r.a.v}${r.u}. ${r.b.l}: ${r.b.v}${r.u}. ${r.unit}.`}>
+                  <div class={`brow ${r.ramp}`}><span class="bl">{r.a.l}</span><span class="btrack"><i style={`width:${(r.a.v / max) * 100}%`}></i></span><span class="bv">{r.a.v}{r.u}</span></div>
+                  <div class={`brow ${r.ramp} b`}><span class="bl">{r.b.l}</span><span class="btrack"><i style={`width:${(r.b.v / max) * 100}%`}></i></span><span class="bv">{r.b.v}{r.u}</span></div>
+                </div>
+              )}
               <div class="r-foot"><span>{r.unit}</span><span>{r.src}</span></div>
               {r.note === 'comfort' && <p class="r-note">{COMFORT}</p>}
+              {r.note === 'roof' && <p class="r-note">{ROOF}</p>}
             </li>
           );
         })}
@@ -737,7 +770,10 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   }
   .result.ask { background: transparent; border-style: dashed; border-color: var(--line-on-paper-2); justify-content: center; }
   .result.ask .r-say { min-height: 0; }
-  .result.ask .btn { align-self: flex-start; }
+  .result.ask .btn { align-self: center; }
+  .result.ask { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .result.ask .r-cat { margin: 0; }
+  .result.ask .r-say { margin: 0; flex: 1 1 24ch; }
   .fine-note { margin: 18px 0 0; font-size: 11px; color: var(--mute-on-paper-2); }
 
 
