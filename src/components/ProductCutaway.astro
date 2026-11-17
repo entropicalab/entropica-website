@@ -1,0 +1,161 @@
+---
+// one building, four products: an axo of the bank branch (2021 design,
+// simulated 2026) with four hotspots. each hotspot is one product type, the
+// question its buyer would ask, the number, and the condition where it holds.
+// source: C:\Entropica\00-Inactivos\016-GlobalChitre\posters\web-interactive
+// (hotspots.json, axo_transparent.webp, mask_*.png, by claudia, 2026-11-17).
+// a/c numbers: sim_export/opb_summary.csv. sun, daylight, utci:
+// posters/opb_numbers.csv. positions come from the 3D model: ask claudia to
+// move or add a hotspot. rules from that readme: the bank is never named,
+// products by type only, keep each condition line, no costs.
+// all four cards are in the html; the script only switches which one shows.
+// hotspot 01 is open by default, so a phone visitor sees a number first.
+
+const BASE = '/studies/bank-branch';
+
+const hotspots = [
+  {
+    id: 'roof', n: '01', x: 42.9, y: 38.48, value: '−95', unit: '%',
+    product: 'large shade roof',
+    question: 'can one roof protect the glass and the street?',
+    label: 'sun on the plaza glass',
+    lines: [
+      'street side: strong heat stress 68% → 36% of bank hours (63% with the glass block alone)',
+      'useful daylight in the glass block: 28% → 77% of bank hours',
+      'roof, fold and breezeblock together: −8.2% a/c electricity',
+    ],
+    condition: 'strong heat stress: utci 32 °C or more, 8:00–17:00. the wnw neighbour (7 m) stays as it is.',
+  },
+  {
+    id: 'coating', n: '02', x: 65.49, y: 54.01, value: '−8.6', unit: '%',
+    product: 'white roof coating',
+    question: 'paint the old roof, or build a new one?',
+    label: 'a/c electricity, whole branch',
+    lines: [
+      '88% of the saving of a new roof over the old building',
+      '61% when the coating ages (−6.0%)',
+      'roof surface: 35 °C at most, not 45 °C',
+    ],
+    condition: 'old 200 mm concrete roof without insulation. a/c in bank hours only.',
+  },
+  {
+    id: 'breezeblock', n: '03', x: 23.52, y: 75.04, value: '−80', unit: '%',
+    product: 'concrete breezeblock',
+    question: 'how open can the breezeblock be?',
+    label: 'sun on the street glass, under the roof',
+    lines: [
+      'any open share from 15% to 55% works: 22–30 kWh/m² a year',
+      'hours above 3,000 lx in the glass block: 15% → 0.2%',
+      'the street glass faces nne: its sun comes from april to august',
+    ],
+    condition: '27% open, 0.10 m deep, in front of the street glass. sun: radiance, sky only.',
+  },
+  {
+    id: 'lowe', n: '04', x: 35.91, y: 77.76, value: '−1.5', unit: '%',
+    product: 'low-e glass',
+    question: 'is better glass worth it once the glass is shaded?',
+    label: 'a/c electricity, whole branch',
+    lines: [
+      'the roof and the breezeblock already cut the sun on the new glass by 94%',
+      'with a new roof over the old building too: −1.7%',
+      'base: single clear glass, 226 m²',
+    ],
+    condition: 'the shade does the work first. the glass upgrade comes after.',
+  },
+];
+
+const caption = 'unbuilt design (2021), simulated in 2026. a bank branch in chitré, panamá, 705 m².';
+const method = 'energy: energyplus 24.2, a/c 24 °C in bank hours, cop 3.2. sun and daylight: radiance 5.3. street: utci. products by type, typical values. base for the a/c numbers: the 2021 design, 75.5 kWh/m² a year. the roof is drawn lifted.';
+---
+
+<div class="cut" data-cut>
+  <div class="cut-fig">
+    <img src={`${BASE}/axo.webp`} width="2400" height="1500" loading="lazy" decoding="async"
+      alt="cutaway drawing of a single-storey bank branch with a new glass block in front, under a large flat roof drawn lifted above it. four numbered markers: the shade roof, the old roof, the breezeblock screen on the street glass, and the glass itself." />
+    {hotspots.map((h, i) => (
+      <span class:list={['cut-hl', { on: i === 0 }]} data-hl={h.id}
+        style={`-webkit-mask-image:url(${BASE}/mask-${h.id}.png);mask-image:url(${BASE}/mask-${h.id}.png)`}></span>
+    ))}
+    {hotspots.map((h, i) => (
+      <button type="button" class:list={['cut-dot', { on: i === 0 }]} data-dot={h.id}
+        style={`left:${h.x}%;top:${h.y}%`} aria-label={`${h.n}, ${h.product}`} aria-pressed={i === 0 ? 'true' : 'false'}>
+        {h.n}
+      </button>
+    ))}
+  </div>
+
+  <div class="cut-panel" aria-live="polite">
+    {hotspots.map((h, i) => (
+      <article class:list={['cut-card', { on: i === 0 }]} data-card={h.id}>
+        <div class="cc-k">{h.n} · {h.product}</div>
+        <p class="cc-q">{h.question}</p>
+        <div class="cc-big">{h.value}<small>{h.unit}</small></div>
+        <p class="cc-lab">{h.label}</p>
+        <ul>{h.lines.map((l) => <li>{l}</li>)}</ul>
+        <p class="cc-cond">{h.condition}</p>
+      </article>
+    ))}
+  </div>
+
+  <p class="cut-foot">{caption}<br />{method}</p>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-cut]');
+  if (root) {
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-dot]')];
+    const set = (id: string) => {
+      root.querySelectorAll<HTMLElement>('[data-hl]').forEach((el) => el.classList.toggle('on', el.dataset.hl === id));
+      root.querySelectorAll<HTMLElement>('[data-card]').forEach((el) => el.classList.toggle('on', el.dataset.card === id));
+      dots.forEach((d) => {
+        const on = d.dataset.dot === id;
+        d.classList.toggle('on', on);
+        d.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    };
+    dots.forEach((d) => {
+      const id = d.dataset.dot!;
+      d.addEventListener('mouseenter', () => set(id));
+      d.addEventListener('focus', () => set(id));
+      d.addEventListener('click', () => set(id));
+    });
+  }
+</script>
+
+<style>
+  .cut, .cut :global(*) { text-transform: none; }
+  .cut { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px 40px; align-items: start; }
+  .cut-fig { position: relative; aspect-ratio: 2400 / 1500; }
+  .cut-fig img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .cut-hl {
+    position: absolute; inset: 0; background: var(--amber); opacity: 0; transition: opacity 0.2s; pointer-events: none;
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  }
+  .cut-hl.on { opacity: 0.45; }
+  .cut-dot {
+    position: absolute; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 50%;
+    background: var(--ink-on-paper); color: #f4f1ea; border: 0; padding: 0; cursor: pointer;
+    font: inherit; font-size: 14px; font-weight: 500; display: flex; align-items: center; justify-content: center;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .cut-dot:hover, .cut-dot.on { transform: translate(-50%, -50%) scale(1.12); box-shadow: 0 0 0 6px rgba(250, 179, 30, 0.55); }
+  .cut-dot:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; }
+
+  .cut-panel { display: grid; padding-top: 4%; }
+  .cut-card { grid-area: 1 / 1; align-self: start; visibility: hidden; opacity: 0; transition: opacity 0.15s; background: #fbfaf6; border: 1px solid var(--line-on-paper); padding: 26px; }
+  .cut-card.on { visibility: visible; opacity: 1; }
+  .cc-k { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); }
+  .cc-q { font-size: 17px; line-height: 1.4; margin: 14px 0 22px; color: var(--ink-on-paper); }
+  .cc-big { font-size: clamp(40px, 3.8vw, 54px); font-weight: 300; letter-spacing: -0.045em; line-height: 1; color: var(--ink-on-paper); }
+  .cc-big small { font-size: 0.5em; letter-spacing: 0; margin-left: 2px; }
+  .cc-lab { font-size: 13px; color: var(--mute-on-paper); margin: 8px 0 14px; }
+  .cut-card ul { list-style: none; margin: 0; padding: 0; font-size: 13px; line-height: 1.5; }
+  .cut-card li { padding: 5px 0; border-top: 1px solid var(--line-on-paper); }
+  .cc-cond { font-size: 12px; line-height: 1.5; color: var(--mute-on-paper-2); margin: 12px 0 0; }
+  .cut-foot { grid-column: 1 / -1; margin: 0; padding-top: 14px; border-top: 1px solid var(--line-on-paper); font-size: 12px; line-height: 1.6; color: var(--mute-on-paper-2); }
+
+  @media (max-width: 960px) {
+    .cut { grid-template-columns: 1fr; }
+    .cut-dot { width: 34px; height: 34px; font-size: 12px; }
+  }
+</style>

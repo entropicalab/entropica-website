@@ -17,6 +17,7 @@
 // calor ramp for cooling and heat, sol ramp for sun.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkGlobe from '../../components/WorkGlobe.astro';
+import ProductCutaway from '../../components/ProductCutaway.astro';
 
 const locale = 'en' as const;
 
@@ -130,42 +131,35 @@ const results = [
     ramp: 'sol',
   },
   {
-    cat: 'screens and breezeblock',
-    say: 'a roof and a breezeblock screen block 94% of the yearly solar radiation on the glass.',
-    num: '−94%',
-    numUnit: 'solar radiation on the glass, per year',
-    a: { l: 'no shade', v: 331 },
-    b: { l: 'roof + screen', v: 21 },
-    u: ' kWh/m²',
-    unit: 'solar radiation on the glass, kWh/m² a year',
-    src: 'bank branch, design stage',
-    ramp: 'sol',
+    // l12 ocean reef (published project page): three glass options from the
+    // supplier, placed room by room. heat through the glass 73.1 -> 39.8 MWh.
+    cat: 'glass selection',
+    say: 'putting each glass where it pays keeps 91% of the saving of double glass everywhere, with single glass left in the service rooms.',
+    num: '91%',
+    numUnit: 'of the saving of double glass everywhere, with the room-by-room mix',
+    a: { l: 'single glass', v: 73.1 },
+    b: { l: 'room-by-room mix', v: 39.8 },
+    u: ' MWh',
+    unit: 'heat through the glass, MWh a year',
+    src: 'house, panamá',
+    ramp: 'calor',
   },
   {
-    // 016-GlobalChitre, gbc_findings_02.md addendum; sim_export/opb_summary.csv
-    // (after_2m, after_2m_cool, after_2m_coolaged, after_full). shares of the
-    // full-roof saving: new 87.7%, aged 60.8%. no cost claim: the study is not costed.
-    cat: 'roof coatings',
-    say: 'a white coating on the old roof gets 88% of the a/c saving of a whole new roof. 61% once it ages.',
-    num: '88%',
-    numUnit: 'of the a/c saving of a new roof, with a new white coating',
-    a: { l: 'old roof as is', v: 75.5 },
-    b: { l: 'white coating', v: 69.0 },
-    rows: [
-      { l: 'old roof as is', v: 75.5 },
-      { l: 'coating, aged', v: 71.0 },
-      { l: 'coating, new', v: 69.0 },
-      { l: 'new roof', v: 68.1 },
-    ],
+    // casa castillo (published project page): a parasol roof 0.30 m above the
+    // roof. temperature and radiation only, no percentage (jose, 2026-11-17).
+    cat: 'roof shading',
+    say: 'a second roof 0.30 m above the first keeps the roof surface at 35 °C in its hottest hour, instead of 60 °C.',
+    num: '−25 °C',
+    numUnit: 'on the roof surface in its hottest hour (60.4 to 35.2 °C)',
+    a: { l: 'one roof', v: 1900 },
+    b: { l: 'two roofs', v: 16 },
     u: ' kWh/m²',
-    unit: 'a/c electricity, kWh/m² a year',
-    src: 'bank branch, design stage',
-    ramp: 'calor',
-    note: 'roof',
+    unit: 'sun on the roof, kWh/m² a year',
+    src: 'house, panamá',
+    ramp: 'sol',
   },
 ];
 
-const ROOF = 'solar absorptance: grey membrane 0.70, white coating 0.25 new, 0.40 aged. roof surface peaks at 35 °C (39 °C aged) instead of 45 °C. insulation under the white roof makes it worse (71.1 kWh/m²): the roof stops losing heat at night.';
 
 // ---- judgment: same glass, two metrics (tor_cases.csv G3 / G6) ----------
 const metrics = [
@@ -198,6 +192,7 @@ const datasheet = [
   { k: 'reviewed by', v: 'josé barría, founder and lead modeler' },
 ];
 
+const num = (v: number) => v.toLocaleString('en-US');
 const COMFORT = 'overheated: pmv above +0.5 (ashrae 55 pmv model; 1.1 met, 0.5 clo, air at 0.1 m/s). with the a/c at 24 °C and 53% humidity: operative temperature above 27 °C.';
 const SCALING = '3 representative floors simulated. every floor has the same plate, rotated 8.18°, so results are scaled to 30 floors.';
 
@@ -305,6 +300,16 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           <p>a simulation is only as credible as its assumptions. we build a fair baseline, isolate your product’s real effect, and stress-test the numbers before a skeptical engineer sees them. every study is reviewed personally and written in plain language, not academic jargon.</p>
         </li>
       </ol>
+    </div>
+  </section>
+
+  <!-- 2b · one study, up close: the bank branch cutaway -->
+  <section class="band cutaway">
+    <div class="site-wrap">
+      <p class="kicker">one study, up close</p>
+      <h2>one building. four products. four answers.</h2>
+      <p class="lede">each product gets the question its buyer asks, the number, and the condition where the number holds.</p>
+      <ProductCutaway />
     </div>
   </section>
 
@@ -450,21 +455,12 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
               <p class="r-say">{r.say}</p>
               <div class="r-num">{r.num}</div>
               <p class="r-numunit">{r.numUnit}</p>
-              {r.rows ? (
-                <div class="pair" aria-label={`${r.rows.map((x) => `${x.l}: ${x.v.toFixed(1)}${r.u}`).join('. ')}. ${r.unit}.`}>
-                  {r.rows.map((x, k) => (
-                    <div class={`brow ${r.ramp}${k > 0 ? ' b' : ''}`}><span class="bl">{x.l}</span><span class="btrack"><i style={`width:${(x.v / r.rows[0].v) * 100}%`}></i></span><span class="bv">{x.v.toFixed(1)}{r.u}</span></div>
-                  ))}
-                </div>
-              ) : (
-                <div class="pair" aria-label={`${r.a.l}: ${r.a.v}${r.u}. ${r.b.l}: ${r.b.v}${r.u}. ${r.unit}.`}>
-                  <div class={`brow ${r.ramp}`}><span class="bl">{r.a.l}</span><span class="btrack"><i style={`width:${(r.a.v / max) * 100}%`}></i></span><span class="bv">{r.a.v}{r.u}</span></div>
-                  <div class={`brow ${r.ramp} b`}><span class="bl">{r.b.l}</span><span class="btrack"><i style={`width:${(r.b.v / max) * 100}%`}></i></span><span class="bv">{r.b.v}{r.u}</span></div>
-                </div>
-              )}
+              <div class="pair" aria-label={`${r.a.l}: ${num(r.a.v)}${r.u}. ${r.b.l}: ${num(r.b.v)}${r.u}. ${r.unit}.`}>
+                <div class={`brow ${r.ramp}`}><span class="bl">{r.a.l}</span><span class="btrack"><i style={`width:${(r.a.v / max) * 100}%`}></i></span><span class="bv">{num(r.a.v)}{r.u}</span></div>
+                <div class={`brow ${r.ramp} b`}><span class="bl">{r.b.l}</span><span class="btrack"><i style={`width:${(r.b.v / max) * 100}%`}></i></span><span class="bv">{num(r.b.v)}{r.u}</span></div>
+              </div>
               <div class="r-foot"><span>{r.unit}</span><span>{r.src}</span></div>
               {r.note === 'comfort' && <p class="r-note">{COMFORT}</p>}
-              {r.note === 'roof' && <p class="r-note">{ROOF}</p>}
             </li>
           );
         })}
@@ -658,6 +654,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   h3, .h3 { font-size: 18px; line-height: 1.3; letter-spacing: -0.01em; margin: 0 0 10px; }
   .band { padding: 88px 0; }
   .band.tint { background: #ebe6db; }
+  .band.cutaway { border-top: 1px solid var(--line-on-paper); }
   .caps, .r-foot, .m-unit, .m-k, .dark-fine, .sheet-unit, .sheet-foot, .conf-t, .r-num, .sheet-num { text-transform: none; }
 
   /* ---- hero ---- */
@@ -762,6 +759,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   .results { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .result { background: #fbfaf6; border: 1px solid var(--line-on-paper); padding: 26px; display: flex; flex-direction: column; }
   .r-cat { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); margin-bottom: 14px; }
+  .r-say, .r-numunit { text-transform: none; }
   .r-say { font-size: 17px; line-height: 1.4; color: var(--ink-on-paper); margin: 0 0 22px; min-height: 4.2em; }
   .r-num { font-size: clamp(40px, 3.8vw, 54px); font-weight: 300; letter-spacing: -0.045em; line-height: 1; color: var(--ink-on-paper); margin-bottom: 18px; }
   .r-foot {
