@@ -1,0 +1,70 @@
+---
+// a slow moving list of the firms entrópica has run building simulations for.
+// names are set in type (wordmarks), not logos: one look, no logo files to
+// clear. to use a logo for a client, add `logo: '/clients/<file>.svg'` and it
+// replaces the name. list from jose, 2026-11-18.
+// saint-gobain goes in only after ahoo clears it (see project-status).
+// the list is drawn twice so the loop has no seam; the copy is hidden from
+// screen readers. hover or focus pauses it; reduced motion shows a still list.
+
+interface Client { name: string; place: string; logo?: string }
+
+const clients: Client[] = [
+  { name: 'labhaus studio', place: 'panamá' },
+  { name: 'forza creativa', place: 'panamá' },
+  { name: 'george moreno & partners', place: 'panamá' },
+  { name: 'rancho grande', place: 'méxico' },
+  { name: 'sousa design architects', place: 'boston' },
+  { name: 'wirtschaftsuniversität wien', place: 'austria' },
+  { name: 'SoBa design', place: 'china' },
+];
+
+const { label = 'building simulations for' } = Astro.props;
+---
+
+<div class="clients" tabindex="0" aria-label={`${label}: ${clients.map((c) => `${c.name} (${c.place})`).join(', ')}.`}>
+  <p class="cl-k">{label}</p>
+  <div class="cl-view">
+    {[0, 1].map((copy) => (
+      <ul class="cl-track" aria-hidden={copy === 1 ? 'true' : undefined}>
+        {clients.map((c) => (
+          <li>
+            {c.logo ? <img src={c.logo} alt={copy === 0 ? c.name : ''} /> : <span class="cl-name">{c.name}</span>}
+            <span class="cl-place">{c.place}</span>
+          </li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</div>
+
+<style>
+  .clients { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 32px; outline: none; }
+  .cl-k { margin: 0; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); white-space: nowrap; }
+  .cl-view {
+    display: flex; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .cl-track {
+    display: flex; flex: none; align-items: baseline; list-style: none; margin: 0; padding: 0;
+    animation: cl-roll 48s linear infinite;
+  }
+  .cl-track li { display: flex; align-items: baseline; gap: 10px; padding-right: 64px; white-space: nowrap; }
+  .cl-name { font-size: clamp(17px, 1.6vw, 21px); color: var(--ink-on-paper); text-transform: none; letter-spacing: -0.01em; }
+  .cl-place { font-size: 11px; color: var(--mute-on-paper-2); }
+  .cl-track img { height: 28px; width: auto; display: block; filter: grayscale(1); opacity: 0.85; }
+  .clients:hover .cl-track, .clients:focus-within .cl-track, .clients:focus .cl-track { animation-play-state: paused; }
+  .clients:focus-visible { outline: 2px solid var(--amber); outline-offset: 6px; }
+  @keyframes cl-roll { to { transform: translateX(-100%); } }
+
+  @media (max-width: 760px) {
+    .clients { grid-template-columns: 1fr; gap: 14px; }
+    .cl-track { animation-duration: 36s; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cl-view { -webkit-mask-image: none; mask-image: none; }
+    .cl-track { animation: none; flex-wrap: wrap; flex: 1; row-gap: 10px; }
+    .cl-track[aria-hidden] { display: none; }
+  }
+</style>

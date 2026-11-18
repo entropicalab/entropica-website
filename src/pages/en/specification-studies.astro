@@ -18,6 +18,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WorkGlobe from '../../components/WorkGlobe.astro';
 import ProductCutaway from '../../components/ProductCutaway.astro';
+import ClientBand from '../../components/ClientBand.astro';
 
 const locale = 'en' as const;
 
@@ -268,6 +269,11 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         </figcaption>
       </figure>
     </div>
+  </section>
+
+  <!-- 1a · clients: firms we've run building simulations for -->
+  <section class="clients-band" aria-label="clients">
+    <div class="site-wrap"><ClientBand /></div>
   </section>
 
   <!-- 1b · the core message: done for you, by a person -->
@@ -778,6 +784,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
 
 
   /* ---- core message ---- */
+  .clients-band { padding: 30px 0; border-top: 1px solid var(--line-on-paper); }
   .core { background: var(--ink); padding: 48px 0; }
   .core-p { margin: 0; max-width: 64ch; font-size: clamp(18px, 1.8vw, 23px); line-height: 1.5; color: var(--text); }
   .core-p b { font-weight: 400; color: var(--amber); }
