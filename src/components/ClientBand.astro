@@ -14,7 +14,7 @@ const clients: Client[] = [
   { name: 'forza creativa', place: 'panamá' },
   { name: 'george moreno & partners', place: 'panamá' },
   { name: 'rancho grande', place: 'méxico' },
-  { name: 'sousa design architects', place: 'boston' },
+  { name: 'sousa design architects', place: 'USA' },
   { name: 'wirtschaftsuniversität wien', place: 'austria' },
   { name: 'SoBa design', place: 'china' },
 ];
@@ -52,7 +52,7 @@ const { label = 'building simulations for' } = Astro.props;
   }
   .cl-track li { display: flex; align-items: baseline; gap: 10px; padding-right: 64px; white-space: nowrap; }
   .cl-name { font-size: clamp(17px, 1.6vw, 21px); color: var(--ink-on-paper); text-transform: none; letter-spacing: -0.01em; }
-  .cl-place { font-size: 11px; color: var(--mute-on-paper-2); }
+  .cl-place { text-transform: none; font-size: 11px; color: var(--mute-on-paper-2); }
   .cl-track img { height: 28px; width: auto; display: block; filter: grayscale(1); opacity: 0.85; }
   .clients:hover .cl-track, .clients:focus-within .cl-track, .clients:focus .cl-track { animation-play-state: paused; }
   .clients:focus-visible { outline: 2px solid var(--amber); outline-offset: 6px; }
