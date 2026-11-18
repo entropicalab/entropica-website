@@ -27,6 +27,8 @@ const EMAIL = 'info@entropica-lab.com';
 
 // fill when the anonymized sample report exists. while empty, the page
 // offers it by email.
+// the line under the report pages offers the full sample report by email.
+// it must exist before launch (jose, 2026-11-17: page is under construction).
 const SAMPLE_REPORT_URL = ''; // e.g. '/manufacturers/sample-report.pdf'
 const hasSample = SAMPLE_REPORT_URL !== '';
 
@@ -83,7 +85,7 @@ const groundY = (HALF * 1.5).toFixed(1);
 const results = [
   {
     cat: 'glazing',
-    say: 'double reflective glass cuts the chiller a 30-floor tower needs by 232 refrigeration tons, against single clear.',
+    say: 'double reflective glass cuts the chiller capacity a 30-floor tower needs by 232 refrigeration tons, compared with single clear.',
     num: '−232',
     numUnit: 'refrigeration tons of chiller capacity (816 kW)',
     a: { l: 'single clear', v: 852 },
@@ -134,7 +136,7 @@ const results = [
     // l12 ocean reef (published project page): three glass options from the
     // supplier, placed room by room. heat through the glass 73.1 -> 39.8 MWh.
     cat: 'glass selection',
-    say: 'putting each glass where it pays keeps 91% of the saving of double glass everywhere, with single glass left in the service rooms.',
+    say: 'choosing the glass room by room keeps 91% of the saving of double glass everywhere, with single glass left in the kitchen and service rooms.',
     num: '91%',
     numUnit: 'of the saving of double glass everywhere, with the room-by-room mix',
     a: { l: 'single glass', v: 73.1 },
@@ -148,7 +150,7 @@ const results = [
     // casa castillo (published project page): a parasol roof 0.30 m above the
     // roof. temperature and radiation only, no percentage (jose, 2026-11-17).
     cat: 'roof shading',
-    say: 'a second roof 0.30 m above the first keeps the roof surface at 35 °C in its hottest hour, instead of 60 °C.',
+    say: 'a second roof with a 0.30 m open air gap drops the roof surface from 60 °C to 35 °C in its hottest hour.',
     num: '−25 °C',
     numUnit: 'on the roof surface in its hottest hour (60.4 to 35.2 °C)',
     a: { l: 'one roof', v: 1900 },
@@ -297,7 +299,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         <li>
           <span class="three-n">why us</span>
           <h2 class="h3">experienced judgment on every model.</h2>
-          <p>a simulation is only as credible as its assumptions. we build a fair baseline, isolate your product’s real effect, and stress-test the numbers before a skeptical engineer sees them. every study is reviewed personally and written in plain language, not academic jargon.</p>
+          <p>a simulation is only as credible as its assumptions. we build a fair baseline, isolate your product’s real effect, and stress-test the numbers before a skeptical engineer sees them. every study is reviewed personally and written in plain language, not academic jargon. if your own simulation team is busy with live bids, we take the overflow.</p>
         </li>
       </ol>
     </div>
@@ -308,7 +310,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
     <div class="site-wrap">
       <p class="kicker">one study, up close</p>
       <h2>one building. four products. four answers.</h2>
-      <p class="lede">each product gets the question its buyer asks, the number, and the condition where the number holds.</p>
+      <p class="lede">four products on one building. for each: the question a buyer asks, the number, and when it holds.</p>
       <ProductCutaway />
     </div>
   </section>
@@ -516,7 +518,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           <figcaption>the pitch takeaway</figcaption>
         </figure>
       </div>
-      <p class="fine-note">excerpts from our 30-floor office tower study. the full anonymized sample report is in preparation: {hasSample ? <a href={SAMPLE_REPORT_URL} download>download it</a> : <a href={`mailto:${EMAIL}?subject=sample%20report`}>email us and we’ll send it when it’s ready</a>}.</p>
+      <p class="fine-note">excerpts from our 30-floor office tower study. {hasSample ? <a href={SAMPLE_REPORT_URL} download>download the full anonymized sample report</a> : <a href={`mailto:${EMAIL}?subject=sample%20report`}>email us for the full anonymized sample report</a>}.</p>
 
       <table class="datasheet">
         <caption>project study · datasheet</caption>
@@ -554,7 +556,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         <div class="form-col">
           <div class="sent" id="study-sent" hidden tabindex="-1">
             <p class="kicker">received</p>
-            <h3>thanks. josé will review your project and reply within one working day.</h3>
+            <h3>thanks. josé will review your project and reply within one business day.</h3>
           </div>
 
           <form class="study-form" action={FORMSPREE_ENDPOINT} method="POST" data-ajax data-sent="study-sent" data-lead-type="manufacturer">

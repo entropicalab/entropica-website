@@ -18,11 +18,11 @@ const hotspots = [
     id: 'roof', n: '01', x: 42.9, y: 38.48, value: '−95', unit: '%',
     product: 'large shade roof',
     question: 'can one roof protect the glass and the street?',
-    label: 'sun on the plaza glass',
+    label: 'solar radiation on the plaza glass',
     lines: [
       'street side: strong heat stress 68% → 36% of bank hours (63% with the glass block alone)',
       'useful daylight in the glass block: 28% → 77% of bank hours',
-      'roof, fold and breezeblock together: −8.2% a/c electricity',
+      'shade roof, its folded edge and the breezeblock together: −8.2% a/c electricity',
     ],
     condition: 'strong heat stress: utci 32 °C or more, 8:00–17:00. the wnw neighbour (7 m) stays as it is.',
   },
@@ -32,8 +32,8 @@ const hotspots = [
     question: 'paint the old roof, or build a new one?',
     label: 'a/c electricity, whole branch',
     lines: [
-      '88% of the saving of a new roof over the old building',
-      '61% when the coating ages (−6.0%)',
+      'gets 88% of the a/c saving of a new roof',
+      'keeps 61% of that once it ages (−6.0%)',
       'roof surface: 35 °C at most, not 45 °C',
     ],
     condition: 'old 200 mm concrete roof without insulation. a/c in bank hours only.',
@@ -42,11 +42,11 @@ const hotspots = [
     id: 'breezeblock', n: '03', x: 23.52, y: 75.04, value: '−80', unit: '%',
     product: 'concrete breezeblock',
     question: 'how open can the breezeblock be?',
-    label: 'sun on the street glass, under the roof',
+    label: 'solar radiation on the street glass, under the roof',
     lines: [
-      'any open share from 15% to 55% works: 22–30 kWh/m² a year',
+      'any open area from 15% to 55% keeps it at 22–30 kWh/m² a year',
       'hours above 3,000 lx in the glass block: 15% → 0.2%',
-      'the street glass faces nne: its sun comes from april to august',
+      'the street glass faces NNE and gets direct sun from april to august',
     ],
     condition: '27% open, 0.10 m deep, in front of the street glass. sun: radiance, sky only.',
   },
@@ -60,7 +60,7 @@ const hotspots = [
       'with a new roof over the old building too: −1.7%',
       'base: single clear glass, 226 m²',
     ],
-    condition: 'the shade does the work first. the glass upgrade comes after.',
+    condition: 'with the shade doing the work, the glass can be chosen for light and view.',
   },
 ];
 

@@ -51,7 +51,7 @@ const countries = [...new Set(places.map((p) => p.country))];
 ---
 
 <div class="globe-wrap" data-globe>
-  <svg class="globe" viewBox={`0 0 ${SIZE} ${SIZE}`} role="img" aria-label={`a globe marking the places where entrópica has worked: ${places.map((p) => p.city).join(', ')}.`}>
+  <svg class="globe" viewBox={`0 0 ${SIZE} ${SIZE}`} role="img" aria-label={`a globe of the climates and cities where i’ve modeled buildings: ${places.map((p) => p.city).join(', ')}.`}>
     <path class="g-sphere" d={sphereD} data-sphere />
     <path class="g-grat" d={gratD} data-grat />
     <path class="g-land" d={landD} data-land />
