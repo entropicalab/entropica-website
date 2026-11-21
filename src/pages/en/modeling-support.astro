@@ -34,17 +34,17 @@ const lanes = [
   {
     who: 'energy and sustainability consultancies',
     h: 'overflow and white-label modeling.',
-    p: 'entrópica works in your templates, your report format and your QA rules. you keep the client relationship; we can stay invisible.',
+    p: 'entrópica provides white-label energy modeling services inside your templates, report format and QA rules. you keep the client relationship; we can stay behind the scenes.',
   },
   {
     who: 'facade and enclosure consultants',
     h: 'glazing, shading and solar studies.',
-    p: 'solar radiation on the facade, glass-by-glass comparisons, shading depth, the effect on peak cooling and chiller size, and comfort at the desk next to the glass.',
+    p: 'we quantify solar radiation on the facade, compare glass types, test shading depths, and trace how each choice affects peak cooling, chiller size and comfort at the desk next to the glass.',
   },
   {
     who: 'architecture firms',
     h: 'answers while the design can still change.',
-    p: 'massing, window-to-wall ratio, shading, daylight and comfort studies at concept and schematic design. a number before the decision, not after it.',
+    p: 'we run massing, window-to-wall ratio, shading, daylight analysis and thermal comfort studies during concept and schematic design, so you have numbers while the options are still open.',
   },
 ];
 
@@ -62,8 +62,8 @@ const scope = [
 const steps = [
   { b: 'you send', t: 'the drawings you have (plans, elevations or a massing model), the question, the deadline, and your template if you have one.' },
   { b: 'within one business day,', t: 'josé replies with a fixed price and a schedule. NDA first, if you need one.' },
-  { b: 'entrópica models, runs and checks', t: 'the study.' },
-  { b: 'you receive', t: 'the results in your format: a results spreadsheet, charts at final size, a short method note, and the result in one plain sentence.' },
+  { b: 'entrópica builds the geometry,', t: 'sets up the thermal zones and schedules, runs the simulations and checks every output against the physics.' },
+  { b: 'you receive', t: 'the deliverables in your format: a results spreadsheet, slide-ready charts, a short method note, and the takeaway in one plain sentence.' },
 ];
 
 // jose confirms each step is done on every study before launch.
@@ -71,7 +71,7 @@ const checks = [
   { b: 'one fair baseline.', t: 'every result names what it is compared with.' },
   { b: 'inputs written down.', t: 'weather file, schedules, set points and materials go in the method note.' },
   { b: 'physics checks.', t: 'loads, temperatures and hours are checked against what the building can physically do before any chart is made.' },
-  { b: 'one person reviews every study.', t: 'josé barría reads every study before it leaves. if a number does not hold up, it does not go out.' },
+  { b: 'one person reviews every study.', t: 'josé barría checks every model and its results before delivery. if a number doesn’t hold up, it doesn’t go out.' },
 ];
 
 // [D1] jose, 2026-11-21: option (b), a lower entry than the manufacturer page,
@@ -106,9 +106,9 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         <p class="kicker">simulation capacity for consultancies and design teams</p>
         <h1>your deadline. our modeler.</h1>
         <p class="lede">
-          entrópica builds and runs energy, daylight, comfort and facade simulations
-          for consultancies, facade engineers and architects who have more projects
-          than modelers. your format, your name on the report if you want it, and a
+          when your practice has more projects than modelers, outsource the energy
+          modeling, daylight, thermal comfort and facade solar studies to entrópica.
+          we work in your report format, under your name if you want it, and send a
           fixed quote in one business day.
         </p>
         <div class="ctas">
@@ -122,10 +122,10 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           five continents.
         </p>
         <ul class="strip" aria-label="in short">
-          <li>built and checked by a person, not a software wrapper</li>
-          <li><span>white-label on request · <span class="caps">NDA</span> before files</span></li>
-          <li><span><span class="caps">UTC−5</span> all year, inside north american business hours</span></li>
-          <li>fixed fee per study, quoted in one business day</li>
+          <li>modeled and checked by a person</li>
+          <li><span>white-label on request · <span class="caps">NDA</span> before file transfer</span></li>
+          <li><span><span class="caps">UTC−5</span> all year, in north american business hours</span></li>
+          <li>fixed fee per study</li>
         </ul>
       </div>
       <TowerSheet />
@@ -145,8 +145,8 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         land in the same month, the models wait or the checks get skipped.
       </p>
       <p class="core-p core-2">
-        entrópica is <b>the modeler you call for the peak</b>, and don’t pay for
-        between peaks.
+        entrópica <b>absorbs your peak workload</b>, without the cost of a full-time
+        modeler between projects.
       </p>
     </div>
   </section>
@@ -154,8 +154,8 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   <!-- 3 · three ways to work with entrópica -->
   <section class="band">
     <div class="site-wrap">
-      <p class="kicker">three ways to work with entrópica</p>
-      <h2>one modeler, three kinds of client.</h2>
+      <p class="kicker">who we work with</p>
+      <h2>modeling support for three kinds of practice.</h2>
       <ol class="three">
         {lanes.map((l) => (
           <li>
@@ -177,7 +177,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   <section class="band tint">
     <div class="site-wrap">
       <p class="kicker">what a study can model</p>
-      <h2>the questions behind most design decisions.</h2>
+      <h2>the simulations and metrics we deliver.</h2>
       <dl class="scope">
         {scope.map((s) => (
           <div>
@@ -198,7 +198,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
       <div class="job">
         <div>
           <p class="kicker">how a job works</p>
-          <h2>four steps, one person to talk to.</h2>
+          <h2>from your files to checked results.</h2>
           <ol class="next steps4">
             {steps.map((s, i) => (
               <li><span>0{i + 1}</span><span><b>{s.b}</b> <span set:html={s.t.replace('NDA', '<span class="caps-in">NDA</span>')} /></span></li>
@@ -207,8 +207,8 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           <div class="tz">
             <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
             <p>
-              we work from panamá, on <span class="caps">UTC−5</span> all year, inside north
-              american business hours.
+              we work from panamá, on <span class="caps">UTC−5</span> all year with no daylight
+              saving change, so our day overlaps north and south american business hours.
             </p>
           </div>
         </div>
@@ -230,7 +230,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
       <ResultCards>
         <li class="result ask">
           <div class="r-cat">your project</div>
-          <p class="r-say">a different question? send the drawings and the deadline, and we’ll scope the study.</p>
+          <p class="r-say">working on a different envelope or load question? send the drawings you have and your deadline, and we’ll scope the study.</p>
           <a class="btn amber" href="#start">send a project <span class="arrow-tail" aria-hidden="true"></span></a>
         </li>
       </ResultCards>
@@ -240,8 +240,8 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
 
   <section class="band cutaway">
     <div class="site-wrap">
-      <p class="kicker">one building, four design questions</p>
-      <h2>four questions, one model, four plain answers.</h2>
+      <p class="kicker">one study, up close</p>
+      <h2>four envelope questions tested on a single building.</h2>
       <ProductCutaway />
     </div>
   </section>
@@ -273,12 +273,12 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           <h2>send the project. get a fixed quote in one business day.</h2>
           <ol class="next">
             <li><span>01</span><span>send the drawings you have, the question and the deadline.</span></li>
-            <li><span>02</span><span>josé replies within one business day with a fixed price and a schedule. <span class="caps-in">NDA</span> first, on request.</span></li>
-            <li><span>03</span><span>your checked results arrive in your format, typically in 5 business days.</span></li>
+            <li><span>02</span><span>josé reviews the scope and sends a fixed price and a schedule. <span class="caps-in">NDA</span> first, if needed.</span></li>
+            <li><span>03</span><span>we run the model and deliver checked results in your format, typically in 5 business days.</span></li>
           </ol>
           <div class="replier">
             <img src="/jose.jpg" alt="josé barría" width="1500" height="1500" loading="lazy" />
-            <p>you hear back from josé.<br /><span>no commitment · fixed-fee quotes</span></p>
+            <p>josé reviews every inquiry personally.<br /><span>no obligation · fixed-fee quotes</span></p>
           </div>
           <ul class="direct">
             <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
@@ -305,7 +305,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
               <input id="s-email" name="email" type="email" required autocomplete="email" />
             </div>
             <div class="field full">
-              <label for="s-project">project and question</label>
+              <label for="s-project">project scope and question</label>
               <textarea id="s-project" name="project" rows="4" required placeholder="building type and location, what you need to know, and your template if you have one"></textarea>
             </div>
             <div class="field">
