@@ -4,8 +4,9 @@
 // "261121 modeling support page (tiers 2-4) · build spec" (#tasks).
 // english only, no site nav: the outbound email links here.
 //
-// NOT LAUNCHED: noindex and out of the sitemap until jose answers [D1]-[D4]
-// in the spec. at launch: remove `noindex` below and this page's line in the
+// NOT LAUNCHED: noindex and out of the sitemap until jose and claude workshop
+// the page (D1-D4 answered 2026-11-21: D1 b, D2 off, D3 kept, D4 not
+// mentioned). at launch: remove `noindex` below and this page's line in the
 // sitemap filter in astro.config.mjs. the page is meant to be indexable.
 //
 // hard rules (spec section 3): no saint-gobain, no "global glazing
@@ -47,14 +48,14 @@ const lanes = [
   },
 ];
 
-// what a study can model. jose checks this list before launch: only metrics
-// delivered on a real or sample study. no sDA/ASE, DGP, CFD or thermal
-// bridging unless jose confirms them.
+// what a study can model. confirmed by jose, 2026-11-21: the spec's list plus
+// sDA/ASE and CFD. glare (DGP) and thermal bridging stay off for now.
 const scope = [
   { k: 'energy', v: 'annual energy use, peak cooling load and chiller size.', tool: 'energyplus, 8,760 hours' },
   { k: 'sun', v: 'solar radiation on facades and roofs.', tool: 'radiance' },
-  { k: 'daylight', v: 'annual illuminance and useful daylight hours.', tool: 'radiance' },
+  { k: 'daylight', v: 'annual illuminance, useful daylight hours, sDA and ASE.', tool: 'radiance' },
   { k: 'comfort', v: 'indoor pmv (ashrae 55) and outdoor utci.', tool: 'energyplus, ladybug tools' },
+  { k: 'airflow', v: 'wind around the building and air movement inside it, with CFD.', tool: '' },
   { k: 'facade options', v: 'glass types, louvers, screens and overhangs, compared against one fair baseline.', tool: '' },
 ];
 
@@ -73,13 +74,14 @@ const checks = [
   { b: 'one person reviews every study.', t: 'josé barría reads every study before it leaves. if a number does not hold up, it does not go out.' },
 ];
 
-// [D1] price and the overflow block wait for jose. placeholder: no public
-// price, fixed quote only (option c in the spec).
+// [D1] jose, 2026-11-21: option (b), a lower entry than the manufacturer page,
+// because a consultancy resells the work. the overflow block has no public
+// price yet.
 const datasheet = [
   { k: 'you send', v: ['drawings or a massing model · the question · the deadline · your template, if any', 'a list of projects and deadlines for the month'] },
   { k: 'you receive', v: ['results spreadsheet · charts at final size · method note · the result in one sentence', 'the same, per project, in your format'] },
   { k: 'turnaround', v: ['typically 5 business days', 'agreed per project'] },
-  { k: 'price', v: ['fixed fee, quoted free within one business day', 'fixed fee per block, quoted free within one business day'] },
+  { k: 'price', v: ['from USD 1,500 · fixed-fee quote within 1 business day', 'fixed fee per block · quoted within 1 business day'] },
   { k: 'white-label', v: ['yes, on request', 'yes, on request'] },
   { k: 'confidentiality', v: ['NDA on request · models and data never reused', 'the same'] },
   { k: 'reviewed by', v: ['josé barría, founder and lead modeler', 'josé barría, founder and lead modeler'] },
@@ -162,7 +164,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
           </li>
         ))}
       </ol>
-      <!-- [D3] keep or remove: jose decides -->
+      <!-- [D3] kept (jose, 2026-11-21) -->
       <p class="lbt">
         already working in ladybug tools? entrópica builds, fixes and reviews
         grasshopper / honeybee definitions for teams that run their own models.
@@ -367,7 +369,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   .scope { margin: 0 0 32px; border-top: 1px solid var(--line-on-paper); max-width: 960px; }
   .scope > div { display: grid; grid-template-columns: 11em 1fr; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--line-on-paper); }
   .scope dt { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); padding-top: 3px; }
-  .scope dd { margin: 0; font-size: 17px; line-height: 1.5; color: var(--ink-on-paper); }
+  .scope dd { text-transform: none; margin: 0; font-size: 17px; line-height: 1.5; color: var(--ink-on-paper); }
   .sc-tool { display: block; margin-top: 4px; font-size: 12px; color: var(--mute-on-paper-2); }
 
   .job { display: grid; grid-template-columns: 1.3fr 1fr; gap: 72px; align-items: start; }
