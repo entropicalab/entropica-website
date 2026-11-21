@@ -1,0 +1,30 @@
+---
+// markup only: styles live in src/styles/study-page.css, which both study
+// pages import. shared by /en/specification-studies and /en/modeling-support.
+// the result cards. numbers come from src/data/studies.ts. the default slot
+// adds a last card (the "your product" ask) after the results.
+import { results as all, num, COMFORT, type Result } from '../data/studies';
+interface Props { results?: Result[] }
+const { results = all } = Astro.props;
+---
+
+<ul class="results">
+  {results.map((r) => {
+    const max = Math.max(r.a.v, r.b.v);
+    return (
+      <li class="result">
+        <div class="r-cat">{r.cat}</div>
+        <p class="r-say">{r.say}</p>
+        <div class="r-num">{r.num}</div>
+        <p class="r-numunit">{r.numUnit}</p>
+        <div class="pair" aria-label={`${r.a.l}: ${num(r.a.v)}${r.u}. ${r.b.l}: ${num(r.b.v)}${r.u}. ${r.unit}.`}>
+          <div class={`brow ${r.ramp}`}><span class="bl">{r.a.l}</span><span class="btrack"><i style={`width:${(r.a.v / max) * 100}%`}></i></span><span class="bv">{num(r.a.v)}{r.u}</span></div>
+          <div class={`brow ${r.ramp} b`}><span class="bl">{r.b.l}</span><span class="btrack"><i style={`width:${(r.b.v / max) * 100}%`}></i></span><span class="bv">{num(r.b.v)}{r.u}</span></div>
+        </div>
+        <div class="r-foot"><span>{r.unit}</span><span>{r.src}</span></div>
+        {r.note === 'comfort' && <p class="r-note">{COMFORT}</p>}
+      </li>
+    );
+  })}
+  <slot />
+</ul>

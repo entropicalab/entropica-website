@@ -1,0 +1,34 @@
+---
+// markup only: styles live in src/styles/study-page.css, which both study
+// pages import. shared by /en/specification-studies and /en/modeling-support.
+// the bare footer: address, contact, hours. `overflowLink` adds the line that
+// sends consultancies to the modeling support page (left off on that page).
+interface Props { overflowLink?: string }
+const { overflowLink } = Astro.props;
+const EMAIL = 'info@entropica-lab.com';
+---
+
+<footer class="bare-footer">
+  <div class="site-wrap">
+    <div class="contact-info">
+      <div>
+        <div class="col-h">entrópica</div>
+        <p>building-performance studies</p>
+        <p>ph plaza mar · paitilla · panamá</p>
+      </div>
+      <div>
+        <div class="col-h">contact</div>
+        <p><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+        <p><a href="https://wa.me/50762006909" target="_blank" rel="noopener">+507 6200-6909 · whatsapp</a></p>
+      </div>
+      <div>
+        <div class="col-h">hours</div>
+        <p>monday to friday, panamá time (<span class="caps">UTC−5</span>)</p>
+      </div>
+    </div>
+    {overflowLink && (
+      <p><a href={overflowLink}>architecture firms and <span class="caps">MEP</span> or sustainability consultancies that need overflow simulation support can also get in touch.</a></p>
+    )}
+    <p class="fine">© {new Date().getFullYear()} entrópica · <a href="/en/privacy">privacy</a></p>
+  </div>
+</footer>

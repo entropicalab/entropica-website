@@ -1,0 +1,45 @@
+---
+// markup only: styles live in src/styles/study-page.css, which both study
+// pages import. shared by /en/specification-studies and /en/modeling-support.
+// josé's photo, signed note, credential strip and the globe. jose reads the
+// note before it changes: one wording on both pages.
+import WorkGlobe from './WorkGlobe.astro';
+---
+
+<div class="who">
+  <div class="who-left">
+    <div class="who-head">
+      <img class="who-img" src="/jose.jpg" alt="josé barría" width="1500" height="1500" loading="lazy" />
+      <div class="who-name">
+        <b>josé barría</b>
+        <span>founder · lead modeler</span>
+      </div>
+    </div>
+    <blockquote class="who-note">
+      <p>
+        i’m a licensed architect with a master’s in environmental building design from the
+        university of pennsylvania, and i’ve modeled buildings in nine cities on
+        five continents.
+      </p>
+      <p>
+        software will always give you an answer, even when the setup is flawed. my
+        job is to make sure the baseline is fair, the physics hold up under
+        design-team pushback, and the final metric speaks directly to the
+        decision-maker.
+      </p>
+      <p>
+        every report goes through my hands before it reaches yours. if a number
+        doesn’t hold up, it doesn’t go out.
+      </p>
+      <footer class="who-sign">josé barría, founder · lead modeler</footer>
+    </blockquote>
+    <ul class="who-facts">
+      <li><b class="caps">M.EBD</b><span>university of pennsylvania, 2017</span></li>
+      <li><b>2020</b><span>modeling building performance since</span></li>
+      <li><b>9</b><span>cities across 5 continents</span></li>
+    </ul>
+  </div>
+  <div class="who-right">
+    <WorkGlobe />
+  </div>
+</div>

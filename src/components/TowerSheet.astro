@@ -1,0 +1,81 @@
+---
+// markup only: styles live in src/styles/study-page.css, which both study
+// pages import. shared by /en/specification-studies and /en/modeling-support.
+// the hero result sheet: the sample-study tower drawn from its real geometry.
+// ---- hero: the sample-study tower, drawn from its real geometry ----------
+// 30 typical floors, plate 26.94 m square, 4.04 m floor to floor, 8.18° twist
+// per floor, counterclockwise going up. floors 10, 14 and 17 were simulated.
+const FLOORS = 30;
+const HALF = 26.94 / 2;
+const STEP = 4.04;
+const TWIST = (8.18 * Math.PI) / 180;
+const SIMULATED = [10, 14, 17];
+const C30 = Math.cos(Math.PI / 6);
+const S30 = Math.sin(Math.PI / 6);
+// each floor is drawn as a solid: the two side faces that face the viewer,
+// then the roof plate. drawn bottom to top, so upper floors cover lower ones.
+const fmt = (pts: number[][]) => pts.map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(' ');
+const plates = Array.from({ length: FLOORS }, (_, i) => {
+  const a = i * TWIST;
+  const z0 = i * STEP;
+  const z1 = z0 + STEP;
+  const corners = [
+    [-HALF, -HALF],
+    [HALF, -HALF],
+    [HALF, HALF],
+    [-HALF, HALF],
+  ].map(([x, y]) => [x * Math.cos(a) - y * Math.sin(a), x * Math.sin(a) + y * Math.cos(a)]);
+  const proj = (rx: number, ry: number, z: number) => [(rx - ry) * C30, (rx + ry) * S30 - z];
+  // depth: larger rx + ry sits nearer the viewer. keep the two nearest faces.
+  const faces = corners
+    .map((c, k) => {
+      const d = corners[(k + 1) % 4];
+      return { depth: c[0] + c[1] + d[0] + d[1], pts: [proj(c[0], c[1], z0), proj(d[0], d[1], z0), proj(d[0], d[1], z1), proj(c[0], c[1], z1)] };
+    })
+    .sort((p, q) => p.depth - q.depth)
+    .slice(2)
+    .map((f, k) => ({ points: fmt(f.pts), shade: k }));
+  return {
+    i,
+    sim: SIMULATED.includes(i + 1),
+    faces,
+    roof: fmt(corners.map(([rx, ry]) => proj(rx, ry, z1))),
+  };
+});
+const W = HALF * 1.5;
+const towerTop = -(FLOORS - 1) * STEP - HALF * 1.45;
+const towerBox = `${(-W).toFixed(1)} ${towerTop.toFixed(1)} ${(W * 2).toFixed(1)} ${(-towerTop + HALF * 1.6).toFixed(1)}`;
+const groundY = (HALF * 1.5).toFixed(1);
+---
+
+<figure class="sheet" aria-label="a result from the sample study">
+  <div class="sheet-head">
+    <span>sample study</span>
+    <span>hot-humid climate</span>
+  </div>
+  <div class="sheet-body">
+    <svg class="tower" viewBox={towerBox} role="img" aria-label="a 30-floor office tower, each floor turned 8.18° from the one below. the three simulated floors are highlighted.">
+      <line class="ground" x1={(-W).toFixed(1)} x2={W.toFixed(1)} y1={groundY} y2={groundY} />
+      {plates.map((p) => (
+        <g class={p.sim ? 'floor sim' : 'floor'} style={`--d:${p.i * 40}ms`}>
+          {p.faces.map((f) => <polygon class={`face f${f.shade}`} points={f.points} />)}
+          <polygon class="roof" points={p.roof} />
+        </g>
+      ))}
+    </svg>
+    <div class="sheet-result">
+      <div class="sheet-label">30-floor office tower</div>
+      <div class="sheet-num">−232</div>
+      <p class="sheet-numunit">refrigeration tons of chiller capacity (816 kW) saved with double reflective glass, against single clear</p>
+      <div class="pair">
+        <div class="brow calor"><span class="bl">single clear</span><span class="btrack"><i style="width:100%"></i></span><span class="bv">852 tons</span></div>
+        <div class="brow calor b"><span class="bl">double reflective</span><span class="btrack"><i style={`width:${(620 / 852) * 100}%`}></i></span><span class="bv">620 tons</span></div>
+      </div>
+      <div class="sheet-unit">chiller capacity, refrigeration tons</div>
+    </div>
+  </div>
+  <figcaption class="sheet-foot">
+    <span>energyplus · 8,760 hours</span>
+    <span><span class="dot" aria-hidden="true"></span>3 floors simulated, scaled to 30</span>
+  </figcaption>
+</figure>

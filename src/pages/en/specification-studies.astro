@@ -16,9 +16,15 @@
 // bar colors follow the data color system (brand guidelines 03b):
 // calor ramp for cooling and heat, sol ramp for sun.
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import WorkGlobe from '../../components/WorkGlobe.astro';
 import ProductCutaway from '../../components/ProductCutaway.astro';
 import ClientBand from '../../components/ClientBand.astro';
+import TowerSheet from '../../components/TowerSheet.astro';
+import ResultCards from '../../components/ResultCards.astro';
+import StudyDatasheet from '../../components/StudyDatasheet.astro';
+import WhoDoesTheWork from '../../components/WhoDoesTheWork.astro';
+import StudyFooter from '../../components/StudyFooter.astro';
+import { COMFORT, SCALING } from '../../data/studies';
+import '../../styles/study-page.css';
 
 const locale = 'en' as const;
 
@@ -32,136 +38,6 @@ const EMAIL = 'info@entropica-lab.com';
 // it must exist before launch (jose, 2026-11-17: page is under construction).
 const SAMPLE_REPORT_URL = ''; // e.g. '/manufacturers/sample-report.pdf'
 const hasSample = SAMPLE_REPORT_URL !== '';
-
-// ---- hero: the sample-study tower, drawn from its real geometry ----------
-// 30 typical floors, plate 26.94 m square, 4.04 m floor to floor, 8.18° twist
-// per floor, counterclockwise going up. floors 10, 14 and 17 were simulated.
-const FLOORS = 30;
-const HALF = 26.94 / 2;
-const STEP = 4.04;
-const TWIST = (8.18 * Math.PI) / 180;
-const SIMULATED = [10, 14, 17];
-const C30 = Math.cos(Math.PI / 6);
-const S30 = Math.sin(Math.PI / 6);
-// each floor is drawn as a solid: the two side faces that face the viewer,
-// then the roof plate. drawn bottom to top, so upper floors cover lower ones.
-const fmt = (pts: number[][]) => pts.map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(' ');
-const plates = Array.from({ length: FLOORS }, (_, i) => {
-  const a = i * TWIST;
-  const z0 = i * STEP;
-  const z1 = z0 + STEP;
-  const corners = [
-    [-HALF, -HALF],
-    [HALF, -HALF],
-    [HALF, HALF],
-    [-HALF, HALF],
-  ].map(([x, y]) => [x * Math.cos(a) - y * Math.sin(a), x * Math.sin(a) + y * Math.cos(a)]);
-  const proj = (rx: number, ry: number, z: number) => [(rx - ry) * C30, (rx + ry) * S30 - z];
-  // depth: larger rx + ry sits nearer the viewer. keep the two nearest faces.
-  const faces = corners
-    .map((c, k) => {
-      const d = corners[(k + 1) % 4];
-      return { depth: c[0] + c[1] + d[0] + d[1], pts: [proj(c[0], c[1], z0), proj(d[0], d[1], z0), proj(d[0], d[1], z1), proj(c[0], c[1], z1)] };
-    })
-    .sort((p, q) => p.depth - q.depth)
-    .slice(2)
-    .map((f, k) => ({ points: fmt(f.pts), shade: k }));
-  return {
-    i,
-    sim: SIMULATED.includes(i + 1),
-    faces,
-    roof: fmt(corners.map(([rx, ry]) => proj(rx, ry, z1))),
-  };
-});
-const W = HALF * 1.5;
-const towerTop = -(FLOORS - 1) * STEP - HALF * 1.45;
-const towerBox = `${(-W).toFixed(1)} ${towerTop.toFixed(1)} ${(W * 2).toFixed(1)} ${(-towerTop + HALF * 1.6).toFixed(1)}`;
-const groundY = (HALF * 1.5).toFixed(1);
-
-// ---- results, one per product type ---------------------------------------
-// say = the sentence a rep can use. num + numUnit = the headline figure, unit
-// in words. a = compared with, b = with the product. u = the unit on each bar.
-// ramp: 'calor' (cooling, heat) or 'sol' (sun). refrigeration tons to kW at
-// 3.517 kW per ton.
-const results = [
-  {
-    cat: 'glazing',
-    say: 'double reflective glass cuts the chiller capacity a 30-floor tower needs by 232 refrigeration tons, compared with single clear.',
-    num: '−232',
-    numUnit: 'refrigeration tons of chiller capacity (816 kW)',
-    a: { l: 'single clear', v: 852 },
-    b: { l: 'double reflective', v: 620 },
-    u: ' tons',
-    unit: 'chiller capacity, refrigeration tons',
-    src: 'office tower, sample study',
-    ramp: 'calor',
-  },
-  {
-    cat: 'facade systems',
-    say: 'a shaded glass band cuts the same tower’s chiller by another 91 refrigeration tons.',
-    num: '−91',
-    numUnit: 'refrigeration tons of chiller capacity (320 kW)',
-    a: { l: 'glass wall', v: 620 },
-    b: { l: 'shaded band', v: 529 },
-    u: ' tons',
-    unit: 'chiller capacity, refrigeration tons',
-    src: 'office tower, sample study',
-    ramp: 'calor',
-  },
-  {
-    cat: 'dynamic glass',
-    say: 'electrochromic glass cuts overheated working hours 1 m from the glass from 29.4% to 17.5%.',
-    num: '−40%',
-    numUnit: 'overheated working hours at a desk 1 m from the glass',
-    a: { l: 'double reflective', v: 29.4 },
-    b: { l: 'electrochromic', v: 17.5 },
-    u: '%',
-    unit: 'share of working hours overheated',
-    src: 'office tower, sample study',
-    ramp: 'calor',
-    note: 'comfort',
-  },
-  {
-    cat: 'louvers and shading',
-    say: 'fixed louvers cut the yearly solar radiation reaching the glass by 71%.',
-    num: '−71%',
-    numUnit: 'solar radiation on the glass, per year',
-    a: { l: 'no louvers', v: 389 },
-    b: { l: 'louvers', v: 114 },
-    u: ' kWh/m²',
-    unit: 'solar radiation on the glass, kWh/m² a year',
-    src: 'academic study, singapore',
-    ramp: 'sol',
-  },
-  {
-    // l12 ocean reef (published project page): three glass options from the
-    // supplier, placed room by room. heat through the glass 73.1 -> 39.8 MWh.
-    cat: 'glass selection',
-    say: 'choosing the glass room by room keeps 91% of the saving of double glass everywhere, with single glass left in the kitchen and service rooms.',
-    num: '91%',
-    numUnit: 'of the saving of double glass everywhere, with the room-by-room mix',
-    a: { l: 'single glass', v: 73.1 },
-    b: { l: 'room-by-room mix', v: 39.8 },
-    u: ' MWh',
-    unit: 'heat through the glass, MWh a year',
-    src: 'house, panamá',
-    ramp: 'calor',
-  },
-  {
-    // casa castillo (published project page): a parasol roof 0.30 m above the
-    // roof. temperature and radiation only, no percentage (jose, 2026-11-17).
-    cat: 'roof shading',
-    say: 'a second roof with a 0.30 m open air gap drops the roof surface from 60 °C to 35 °C in its hottest hour.',
-    num: '−25 °C',
-    numUnit: 'on the roof surface in its hottest hour (60.4 to 35.2 °C)',
-    a: { l: 'one roof', v: 1900 },
-    b: { l: 'two roofs', v: 16 },
-    u: ' kWh/m²',
-    unit: 'sun on the roof, kWh/m² a year',
-    src: 'house, panamá',
-    ramp: 'sol',
-  },
-];
 
 
 // ---- judgment: same glass, two metrics (tor_cases.csv G3 / G6) ----------
@@ -194,10 +70,6 @@ const datasheet = [
   { k: 'confidentiality', v: 'NDA on request · anonymized, unbranded reporting if you prefer · geometry and data never reused' },
   { k: 'reviewed by', v: 'josé barría, founder and lead modeler' },
 ];
-
-const num = (v: number) => v.toLocaleString('en-US');
-const COMFORT = 'overheated: pmv above +0.5 (ashrae 55 pmv model; 1.1 met, 0.5 clo, air at 0.1 m/s). with the a/c at 24 °C and 53% humidity: operative temperature above 27 °C.';
-const SCALING = '3 representative floors simulated. every floor has the same plate, rotated 8.18°, so results are scaled to 30 floors.';
 
 const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance', 'climatestudio'];
 ---
@@ -237,37 +109,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         </ul>
       </div>
 
-      <figure class="sheet" aria-label="a result from the sample study">
-        <div class="sheet-head">
-          <span>sample study</span>
-          <span>hot-humid climate</span>
-        </div>
-        <div class="sheet-body">
-          <svg class="tower" viewBox={towerBox} role="img" aria-label="a 30-floor office tower, each floor turned 8.18° from the one below. the three simulated floors are highlighted.">
-            <line class="ground" x1={(-W).toFixed(1)} x2={W.toFixed(1)} y1={groundY} y2={groundY} />
-            {plates.map((p) => (
-              <g class={p.sim ? 'floor sim' : 'floor'} style={`--d:${p.i * 40}ms`}>
-                {p.faces.map((f) => <polygon class={`face f${f.shade}`} points={f.points} />)}
-                <polygon class="roof" points={p.roof} />
-              </g>
-            ))}
-          </svg>
-          <div class="sheet-result">
-            <div class="sheet-label">30-floor office tower</div>
-            <div class="sheet-num">−232</div>
-            <p class="sheet-numunit">refrigeration tons of chiller capacity (816 kW) saved with double reflective glass, against single clear</p>
-            <div class="pair">
-              <div class="brow calor"><span class="bl">single clear</span><span class="btrack"><i style="width:100%"></i></span><span class="bv">852 tons</span></div>
-              <div class="brow calor b"><span class="bl">double reflective</span><span class="btrack"><i style={`width:${(620 / 852) * 100}%`}></i></span><span class="bv">620 tons</span></div>
-            </div>
-            <div class="sheet-unit">chiller capacity, refrigeration tons</div>
-          </div>
-        </div>
-        <figcaption class="sheet-foot">
-          <span>energyplus · 8,760 hours</span>
-          <span><span class="dot" aria-hidden="true"></span>3 floors simulated, scaled to 30</span>
-        </figcaption>
-      </figure>
+      <TowerSheet />
     </div>
   </section>
 
@@ -409,43 +251,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
     <div class="site-wrap">
       <p class="kicker">who does the work</p>
       <h2>you talk directly to the person behind the numbers.</h2>
-      <div class="who">
-        <div class="who-left">
-          <div class="who-head">
-            <img class="who-img" src="/jose.jpg" alt="josé barría" width="1500" height="1500" loading="lazy" />
-            <div class="who-name">
-              <b>josé barría</b>
-              <span>founder · lead modeler</span>
-            </div>
-          </div>
-          <blockquote class="who-note">
-            <p>
-              i’m a licensed architect with a master’s in environmental building design from the
-              university of pennsylvania, and i’ve modeled buildings in nine cities on
-              five continents.
-            </p>
-            <p>
-              software will always give you an answer, even when the setup is flawed. my
-              job is to make sure the baseline is fair, the physics hold up under
-              design-team pushback, and the final metric speaks directly to the
-              decision-maker.
-            </p>
-            <p>
-              every report goes through my hands before it reaches yours. if a number
-              doesn’t hold up, it doesn’t go out.
-            </p>
-            <footer class="who-sign">josé barría, founder · lead modeler</footer>
-          </blockquote>
-          <ul class="who-facts">
-            <li><b class="caps">M.EBD</b><span>university of pennsylvania, 2017</span></li>
-            <li><b>2020</b><span>modeling building performance since</span></li>
-            <li><b>9</b><span>cities across 5 continents</span></li>
-          </ul>
-        </div>
-        <div class="who-right">
-          <WorkGlobe />
-        </div>
-      </div>
+      <WhoDoesTheWork />
     </div>
   </section>
 
@@ -454,30 +260,13 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
     <div class="site-wrap">
       <p class="kicker">results from past studies</p>
       <h2>hard numbers your rep can put straight into the pitch.</h2>
-      <ul class="results">
-        {results.map((r) => {
-          const max = Math.max(r.a.v, r.b.v);
-          return (
-            <li class="result">
-              <div class="r-cat">{r.cat}</div>
-              <p class="r-say">{r.say}</p>
-              <div class="r-num">{r.num}</div>
-              <p class="r-numunit">{r.numUnit}</p>
-              <div class="pair" aria-label={`${r.a.l}: ${num(r.a.v)}${r.u}. ${r.b.l}: ${num(r.b.v)}${r.u}. ${r.unit}.`}>
-                <div class={`brow ${r.ramp}`}><span class="bl">{r.a.l}</span><span class="btrack"><i style={`width:${(r.a.v / max) * 100}%`}></i></span><span class="bv">{num(r.a.v)}{r.u}</span></div>
-                <div class={`brow ${r.ramp} b`}><span class="bl">{r.b.l}</span><span class="btrack"><i style={`width:${(r.b.v / max) * 100}%`}></i></span><span class="bv">{num(r.b.v)}{r.u}</span></div>
-              </div>
-              <div class="r-foot"><span>{r.unit}</span><span>{r.src}</span></div>
-              {r.note === 'comfort' && <p class="r-note">{COMFORT}</p>}
-            </li>
-          );
-        })}
+      <ResultCards>
         <li class="result ask">
           <div class="r-cat">your product</div>
           <p class="r-say">working with another envelope system? send the datasheet and the project drawings to scope a study.</p>
           <a class="btn amber" href="#start">start a study <span class="arrow-tail" aria-hidden="true"></span></a>
         </li>
-      </ul>
+      </ResultCards>
       <p class="fine-note">independent performance studies, simulated by entrópica against clear baselines. glass is named by generic type, never by brand. office tower: {SCALING}</p>
       <div class="ve">
         <div class="ve-k">built for value engineering</div>
@@ -526,14 +315,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
       </div>
       <p class="fine-note">excerpts from our 30-floor office tower study. {hasSample ? <a href={SAMPLE_REPORT_URL} download>download the full anonymized sample report</a> : <a href={`mailto:${EMAIL}?subject=sample%20report`}>email us for the full anonymized sample report</a>}.</p>
 
-      <table class="datasheet">
-        <caption>project study · datasheet</caption>
-        <tbody>
-          {datasheet.map((r) => (
-            <tr><th scope="row">{r.k}</th><td class="ds-v">{r.v}</td></tr>
-          ))}
-        </tbody>
-      </table>
+      <StudyDatasheet caption="project study · datasheet" rows={datasheet} />
       <p class="program">supporting several active bids each quarter? ask about a quarterly retainer scoped to your pipeline.</p>
     </div>
   </section>
@@ -606,28 +388,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
 
 <a class="sticky-cta" href="#start" data-sticky hidden>start a study <span aria-hidden="true">→</span></a>
 
-  <footer class="bare-footer" slot="footer">
-    <div class="site-wrap">
-      <div class="contact-info">
-        <div>
-          <div class="col-h">entrópica</div>
-          <p>building-performance studies</p>
-          <p>ph plaza mar · paitilla · panamá</p>
-        </div>
-        <div>
-          <div class="col-h">contact</div>
-          <p><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
-          <p><a href="https://wa.me/50762006909" target="_blank" rel="noopener">+507 6200-6909 · whatsapp</a></p>
-        </div>
-        <div>
-          <div class="col-h">hours</div>
-          <p>monday to friday, panamá time (<span class="caps">UTC−5</span>)</p>
-        </div>
-      </div>
-      <p>architecture firms and <span class="caps">MEP</span> or sustainability consultancies that need overflow simulation support can also get in touch.</p>
-      <p class="fine">© {new Date().getFullYear()} entrópica · <a href="/en/privacy">privacy</a></p>
-    </div>
-  </footer>
+  <StudyFooter slot="footer" overflowLink="/en/modeling-support" />
 </BaseLayout>
 
 <script>
@@ -646,287 +407,4 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   }
 </script>
 
-<style>
-  /* data color system (brand guidelines 03b) */
-  .calor { --a: #d36b56; --b: #f6c0a8; }
-  .sol { --a: #fab31e; --b: #f8d59d; }
 
-  .kicker {
-    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--mute-on-paper); margin: 0 0 18px;
-  }
-  h2 {
-    font-size: clamp(26px, 3.2vw, 42px); line-height: 1.12; letter-spacing: -0.02em;
-    margin: 0 0 44px; max-width: 24ch; text-wrap: balance; color: var(--ink-on-paper);
-  }
-  h3, .h3 { font-size: 18px; line-height: 1.3; letter-spacing: -0.01em; margin: 0 0 10px; }
-  .band { padding: 88px 0; }
-  .band.tint { background: #ebe6db; }
-  .band.cutaway { border-top: 1px solid var(--line-on-paper); }
-  .caps, .r-foot, .m-unit, .m-k, .dark-fine, .sheet-unit, .sheet-foot, .conf-t, .r-num, .sheet-num { text-transform: none; }
-
-  /* ---- hero ---- */
-  .hero { padding: 64px 0 88px; border-bottom: 1px solid var(--line-on-paper); }
-  .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; }
-  .hero h1 {
-    font-size: clamp(36px, 5vw, 68px); line-height: 1.04; letter-spacing: -0.035em;
-    margin: 0 0 26px; max-width: 16ch; color: var(--ink-on-paper); text-wrap: balance;
-  }
-  .lede { font-size: clamp(16px, 1.45vw, 19px); line-height: 1.6; color: var(--mute-on-paper); max-width: 46ch; margin: 0 0 34px; }
-  .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
-  .btn.ghost { border-color: var(--line-on-paper-2); }
-  .strip {
-    list-style: none; padding: 0; margin: 0;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; font-size: 13px; color: var(--ink-on-paper);
-  }
-  .strip li { display: flex; gap: 10px; align-items: baseline; }
-  .strip li::before { content: ''; flex: none; width: 8px; height: 8px; background: var(--amber); transform: translateY(-1px); }
-
-  /* the result sheet: reads as a page from a report */
-  .sheet {
-    margin: 0; background: #fbfaf6; border: 1px solid var(--line-on-paper-2);
-    box-shadow: 0 30px 60px -30px rgba(28, 28, 28, 0.3);
-  }
-  .sheet-head, .sheet-foot {
-    display: flex; justify-content: space-between; gap: 12px; padding: 14px 22px;
-    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute-on-paper);
-  }
-  .sheet-head { border-bottom: 1px solid var(--line-on-paper); }
-  .sheet-foot { border-top: 1px solid var(--line-on-paper); letter-spacing: 0.02em; }
-  .sheet-body { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 20px; padding: 26px 22px; align-items: end; }
-  .tower { width: 100%; height: auto; max-height: 380px; overflow: visible; }
-  .ground { stroke: var(--ink-on-paper); stroke-width: 0.5; }
-  .floor { animation: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--d); }
-  .floor polygon { stroke: var(--ink-on-paper); stroke-width: 0.18; stroke-linejoin: round; }
-  .face.f0 { fill: #d3cdc2; }
-  .face.f1 { fill: #e3ddd0; }
-  .roof { fill: #fbfaf6; }
-  .floor.sim .face.f0 { fill: #d6871f; }
-  .floor.sim .face.f1, .floor.sim .roof { fill: var(--amber); }
-  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  @media (prefers-reduced-motion: reduce) { .floor { animation: none; } }
-  .sheet-label { font-size: 12px; color: var(--mute-on-paper); margin-bottom: 10px; }
-  .sheet-num { font-size: clamp(52px, 5.4vw, 80px); font-weight: 300; letter-spacing: -0.05em; line-height: 0.95; color: var(--ink-on-paper); }
-  .sheet-say { font-size: 14px; color: var(--ink-on-paper); margin: 8px 0 22px; }
-  .sheet-unit { font-size: 11px; color: var(--mute-on-paper-2); margin-top: 4px; }
-  .dot { display: inline-block; width: 8px; height: 8px; background: var(--amber); margin-right: 8px; }
-
-  /* ---- bars ---- */
-  .pair { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
-  .brow { display: grid; grid-template-columns: 10.5em 1fr 7em; align-items: center; gap: 10px; font-size: 11px; color: var(--ink-on-paper); }
-  .bl { color: var(--mute-on-paper); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .btrack { height: 12px; }
-  .btrack i { display: block; height: 100%; background: var(--a); }
-  .brow.b .btrack i { background: var(--b); }
-  .bv { text-align: right; font-feature-settings: 'tnum' 1; white-space: nowrap; text-transform: none; }
-
-  /* ---- what / why / why us ---- */
-  .three { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
-  .three li { border-top: 2px solid var(--ink-on-paper); padding-top: 22px; }
-  .three-n { display: block; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); margin-bottom: 18px; }
-  .three .h3 { font-size: clamp(19px, 1.7vw, 23px); max-width: none; margin-bottom: 14px; }
-  .three p { font-size: 15px; line-height: 1.6; color: var(--mute-on-paper); margin: 0; }
-
-  /* ---- you send / we do ---- */
-  .handoff { display: grid; grid-template-columns: 1fr auto 1.25fr; gap: 28px; align-items: stretch; }
-  .side { background: #fbfaf6; border: 1px solid var(--line-on-paper); padding: 30px; display: flex; flex-direction: column; }
-  .side.we { background: var(--ink); color: var(--text); border-color: var(--ink); }
-  .side-h { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); margin-bottom: 22px; }
-  .side.we .side-h { color: var(--mute); }
-  .steps { list-style: none; padding: 0; margin: 0 0 26px; display: flex; flex-direction: column; gap: 16px; }
-  .steps li { display: flex; gap: 14px; align-items: flex-start; font-size: 16px; line-height: 1.45; }
-  .no-problem { margin: auto 0 0; padding-top: 18px; border-top: 1px solid var(--line-on-paper); font-size: 16px; color: var(--ink-on-paper); }
-  .days { margin: auto 0 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: 16px; color: var(--amber); }
-  .arrow-mid { display: grid; place-items: center; }
-  .arrow-mid .material-symbols-outlined { font-size: 32px; color: var(--ink-on-paper); }
-  .aside { font-size: 14px; color: var(--mute-on-paper); margin: 28px 0 20px; max-width: 60ch; }
-  .tools { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .tools li { font-size: 12px; padding: 6px 12px; border: 1px solid var(--line-on-paper-2); color: var(--mute-on-paper); }
-
-  .material-symbols-outlined { font-size: 22px; color: var(--amber); text-transform: none; letter-spacing: 0; flex: none; }
-  .side:not(.we) .material-symbols-outlined { color: var(--ink-on-paper); }
-
-  /* ---- why a person, on ink ---- */
-  .band.dark { background: var(--ink); color: var(--text); }
-  .band.dark .kicker { color: var(--mute); }
-  .band.dark h2 { color: var(--text); max-width: 22ch; }
-  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 48px; }
-  .why-p { font-size: 16px; line-height: 1.65; color: var(--mute); margin: 0; }
-  .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 32px; }
-  .metric { background: var(--ink); padding: 32px; }
-  .m-change { font-size: clamp(56px, 7vw, 104px); font-weight: 300; letter-spacing: -0.05em; line-height: 0.95; color: var(--mute); margin-bottom: 14px; }
-  .metric:last-child .m-change { color: var(--amber); }
-  .m-k { font-size: 14px; color: var(--mute); margin-bottom: 24px; min-height: 2.6em; }
-  .metric .bl { color: var(--mute); }
-  .metric .bv { color: var(--text); }
-  .m-unit { font-size: 11px; color: var(--mute-2); }
-  .dark-p { font-size: clamp(17px, 1.6vw, 21px); line-height: 1.5; color: var(--text); max-width: 52ch; margin: 0 0 12px; }
-  .dark-fine { font-size: 11px; color: var(--mute-2); margin: 0; }
-
-  /* ---- results ---- */
-  .results { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .result { background: #fbfaf6; border: 1px solid var(--line-on-paper); padding: 26px; display: flex; flex-direction: column; }
-  .r-cat { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); margin-bottom: 14px; }
-  .r-say, .r-numunit { text-transform: none; }
-  .r-say { font-size: 17px; line-height: 1.4; color: var(--ink-on-paper); margin: 0 0 22px; min-height: 4.2em; }
-  .r-num { font-size: clamp(40px, 3.8vw, 54px); font-weight: 300; letter-spacing: -0.045em; line-height: 1; color: var(--ink-on-paper); margin-bottom: 18px; }
-  .r-foot {
-    margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line-on-paper);
-    display: flex; justify-content: space-between; gap: 12px; font-size: 10.5px; color: var(--mute-on-paper-2);
-  }
-  .result.ask { background: transparent; border-style: dashed; border-color: var(--line-on-paper-2); justify-content: center; }
-  .result.ask .r-say { min-height: 0; }
-  .result.ask .btn { align-self: center; }
-  .result.ask { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 28px; flex-wrap: wrap; }
-  .result.ask .r-cat { margin: 0; }
-  .result.ask .r-say { margin: 0; flex: 1 1 24ch; }
-  .fine-note { margin: 18px 0 0; font-size: 11px; color: var(--mute-on-paper-2); }
-
-
-  /* ---- core message ---- */
-  .clients-band { padding: 30px 0; border-top: 1px solid var(--line-on-paper); }
-  .core { background: var(--ink); padding: 48px 0; }
-  .core-p { margin: 0; max-width: 64ch; font-size: clamp(18px, 1.8vw, 23px); line-height: 1.5; color: var(--text); }
-  .core-p b { font-weight: 400; color: var(--amber); }
-  .proof { font-size: 15px; line-height: 1.55; color: var(--ink-on-paper); max-width: 46ch; margin: 0 0 22px; padding-left: 14px; border-left: 2px solid var(--amber); }
-  .sheet-numunit, .r-numunit { font-size: 12px; line-height: 1.45; color: var(--mute-on-paper); margin: 8px 0 20px; text-transform: none; }
-  .sheet-numunit { color: var(--ink-on-paper); font-size: 13px; }
-
-  /* ---- timezone ---- */
-  .tz { display: flex; gap: 14px; align-items: flex-start; margin: 28px 0 22px; max-width: 70ch; }
-  .tz p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--ink-on-paper); }
-  .tz .material-symbols-outlined { color: var(--ink-on-paper); }
-
-  /* ---- who ---- */
-  .who { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
-  .who-head { display: flex; gap: 24px; align-items: flex-end; margin-bottom: 28px; }
-  .who-img {
-    width: 180px; aspect-ratio: 3 / 4; object-fit: cover; height: auto; display: block; flex: none;
-    background: var(--paper); border: 1px solid var(--line-on-paper);
-  }
-  .who-name b { display: block; font-weight: 400; font-size: 18px; color: var(--ink-on-paper); margin-bottom: 4px; }
-  .who-name span { font-size: 12px; color: var(--mute-on-paper); }
-  .who-note { margin: 0; padding: 0 0 0 18px; border-left: 2px solid var(--amber); }
-  .who-note p { font-size: 17px; line-height: 1.6; color: var(--ink-on-paper); margin: 0 0 14px; max-width: 50ch; }
-  .who-facts { list-style: none; padding: 22px 0 0; margin: 30px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; border-top: 1px solid var(--line-on-paper); }
-  .who-facts b { display: block; font-size: 30px; font-weight: 300; letter-spacing: -0.03em; color: var(--ink-on-paper); margin-bottom: 6px; }
-  .who-facts span { font-size: 12px; line-height: 1.45; color: var(--mute-on-paper); }
-
-  /* ---- notes ---- */
-  .who-sign { margin-top: 6px; font-size: 13px; color: var(--mute-on-paper); }
-  .r-note { margin: 10px 0 0; font-size: 10px; line-height: 1.5; color: var(--mute-on-paper-2); text-transform: none; }
-  .dark-fine + .dark-fine { margin-top: 6px; }
-  .ve { margin-top: 40px; display: grid; grid-template-columns: 14em 1fr; gap: 24px; padding: 28px; background: var(--ink); color: var(--text); }
-  .ve-k { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); }
-  .ve p { margin: 0; font-size: 17px; line-height: 1.6; max-width: 62ch; }
-
-  /* ---- deliverable pages ---- */
-  .pages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: start; }
-  .pg { margin: 0; }
-  .pg img, .pg.pg-cover, .pg.sentence { box-shadow: 0 18px 40px -22px rgba(28, 28, 28, 0.4); border: 1px solid var(--line-on-paper-2); }
-  .pg img { width: 100%; height: auto; display: block; }
-  .pg figcaption { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-on-paper); margin-top: 12px; }
-  .pg.pg-cover, .pg.sentence { aspect-ratio: 1080 / 1100; padding: 22px; display: flex; flex-direction: column; }
-  .pg.pg-cover { background: var(--ink); color: var(--text); border-color: var(--ink); }
-  .pg.pg-cover figcaption, .pg.sentence figcaption { margin-top: auto; padding-top: 14px; }
-  .pg.pg-cover figcaption { color: var(--mute); }
-  .cv-top { display: flex; justify-content: space-between; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); }
-  .cv-title { margin-top: 16%; font-size: clamp(16px, 1.5vw, 21px); line-height: 1.3; }
-  .cv-meta { margin-top: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--mute); text-transform: none; }
-  .pg.sentence { background: #fbfaf6; }
-  .st-k { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); }
-  .pg.sentence p { margin: auto 0 0; font-size: clamp(15px, 1.35vw, 19px); line-height: 1.45; color: var(--ink-on-paper); }
-
-  /* ---- datasheet ---- */
-  .datasheet { width: 100%; max-width: 960px; margin: 56px 0 0; border-collapse: collapse; background: #fbfaf6; border: 1px solid var(--line-on-paper); }
-  .datasheet caption { text-align: left; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); padding: 0 0 12px; }
-  .datasheet th, .datasheet td { text-align: left; vertical-align: top; padding: 16px 22px; border-top: 1px solid var(--line-on-paper); font-size: 15px; line-height: 1.5; }
-  .datasheet th { width: 13em; font-weight: 400; color: var(--mute-on-paper); }
-  .ds-v { color: var(--ink-on-paper); text-transform: none; }
-  .program { margin: 18px 0 0; font-size: 15px; color: var(--ink-on-paper); }
-
-  /* ---- what happens next ---- */
-  .next { list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-direction: column; gap: 14px; max-width: 46ch; }
-  .next li { display: grid; grid-template-columns: 2.4em 1fr; font-size: 16px; line-height: 1.5; color: var(--ink-on-paper); }
-  .next li > span:first-child { color: var(--amber); font-size: 13px; padding-top: 2px; }
-  .caps-in { text-transform: none; }
-  .replier { display: flex; gap: 16px; align-items: center; }
-  .replier img { width: 64px; aspect-ratio: 3 / 4; object-fit: cover; height: auto; border: 1px solid var(--line-on-paper); }
-  .replier p { margin: 0; font-size: 15px; color: var(--ink-on-paper); }
-  .replier p span { color: var(--mute-on-paper); font-size: 13px; }
-
-  /* ---- colophon ---- */
-  .contact-info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding-bottom: 28px; margin-bottom: 24px; border-bottom: 1px solid var(--line-on-paper); }
-  .col-h { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper-2); margin-bottom: 10px; }
-  .contact-info p { color: var(--ink-on-paper); margin: 0 0 6px; }
-
-
-  /* ---- close ---- */
-  .close { background: #ebe6db; }
-  .close-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px; }
-  .close h2 { margin-bottom: 20px; }
-  .body-p { font-size: 17px; line-height: 1.6; color: var(--mute-on-paper); max-width: 44ch; margin: 0; }
-  .direct { list-style: none; padding: 0; margin: 28px 0 0; font-size: 14px; }
-  .direct a, .form-error a, .bare-footer a { border-bottom: 1px solid var(--line-on-paper-2); }
-  .direct a:hover, .bare-footer a:hover { color: var(--amber); border-bottom-color: var(--amber); }
-  .study-form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .field { display: flex; flex-direction: column; gap: 6px; }
-  .field.full { grid-column: 1 / -1; }
-  .field label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-on-paper); }
-  .field .opt { text-transform: none; letter-spacing: 0; color: var(--mute-on-paper-2); }
-  .field input, .field textarea {
-    font: inherit; font-size: 15px; padding: 12px 14px; background: #fbfaf6; color: var(--ink-on-paper);
-    border: 1px solid var(--line-on-paper-2); border-radius: 0;
-  }
-  .field input:focus, .field textarea:focus { outline: 2px solid var(--amber); outline-offset: -1px; }
-  .field textarea { resize: vertical; }
-  .study-form .btn { justify-self: start; }
-  .honeypot { position: absolute; left: -9999px; }
-  .form-error { grid-column: 1 / -1; font-size: 14px; color: var(--mute-on-paper); margin: 0; }
-  .sent { padding: 32px; border: 1px solid var(--line-on-paper); background: #fbfaf6; }
-  .sent h3 { margin: 0; }
-
-  /* ---- sticky button ---- */
-  .sticky-cta {
-    position: fixed; right: 24px; bottom: 24px; z-index: 40;
-    background: var(--amber); color: var(--ink); padding: 14px 20px;
-    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
-    box-shadow: 0 10px 30px -10px rgba(28, 28, 28, 0.45);
-  }
-  .sticky-cta:hover { background: var(--ink-on-paper); color: var(--paper); }
-  .sticky-cta[hidden] { display: none; }
-
-  .bare-footer { padding: 40px 0 48px; border-top: 1px solid var(--line-on-paper); }
-  .bare-footer p { margin: 0 0 10px; font-size: 13px; color: var(--mute-on-paper); }
-  .bare-footer .fine { font-size: 11px; color: var(--mute-on-paper-2); margin: 0; }
-
-  @media (max-width: 1000px) {
-    .pages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .results { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 900px) {
-    .band { padding: 64px 0; }
-    .hero { padding: 40px 0 56px; }
-    .hero-grid, .close-grid, .metrics, .three, .why-grid, .who, .contact-info, .ve { grid-template-columns: 1fr; }
-    .hero-grid, .three { gap: 40px; }
-    .why-grid { gap: 20px; }
-    .handoff { grid-template-columns: 1fr; gap: 12px; }
-    .arrow-mid .material-symbols-outlined { transform: rotate(90deg); }
-    .receive, .close-grid { gap: 40px; }
-  }
-  @media (max-width: 600px) {
-    .results, .study-form, .strip, .who-facts { grid-template-columns: 1fr; }
-    .who-img { width: 120px; }
-    .sheet-body { grid-template-columns: 1fr; }
-    .tower { max-height: 220px; }
-    .side, .metric, .result { padding: 22px; }
-    .brow { grid-template-columns: 7.5em 1fr 6.5em; }
-    .sticky-cta { left: 16px; right: 16px; bottom: 16px; text-align: center; }
-    .pages { grid-template-columns: minmax(0, 1fr); max-width: 340px; }
-    .pg.pg-cover, .pg.sentence { aspect-ratio: auto; min-height: 260px; }
-    .datasheet th, .datasheet td { display: block; width: auto; padding: 4px 18px; border-top: 0; }
-    .datasheet th { padding-top: 16px; border-top: 1px solid var(--line-on-paper); }
-    .datasheet td { padding-bottom: 16px; }
-    .ve { padding: 22px; gap: 10px; }
-  }
-</style>
