@@ -28,7 +28,8 @@ export default defineConfig({
     mdx(),
     sitemap({
       // on hold until launch: keep the specification studies page out of the sitemap
-      filter: (page) => !page.includes('/en/specification-studies') && !page.includes('/en/manufacturers'),
+      // modeling-support: out only until launch ([D1]-[D4] in its build spec); it is meant to be indexed.
+      filter: (page) => !page.includes('/en/specification-studies') && !page.includes('/en/manufacturers') && !page.includes('/en/modeling-support'),
       // stamp each url with its source file's last git-commit date
       serialize(item) {
         try {

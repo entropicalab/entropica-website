@@ -203,6 +203,10 @@ main h3, main .h3 { font-size: 18px; line-height: 1.3; letter-spacing: -0.01em; 
 .datasheet th, .datasheet td { text-align: left; vertical-align: top; padding: 16px 22px; border-top: 1px solid var(--line-on-paper); font-size: 15px; line-height: 1.5; }
 .datasheet th { width: 13em; font-weight: 400; color: var(--mute-on-paper); }
 .ds-v { color: var(--ink-on-paper); text-transform: none; }
+/* two or more value columns (modeling support: single study | overflow block) */
+.datasheet.multi thead th { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-on-paper); font-weight: 500; border-top: 0; width: auto; }
+.datasheet.multi thead td { border-top: 0; }
+.datasheet.multi tbody th { width: 11em; }
 .program { margin: 18px 0 0; font-size: 15px; color: var(--ink-on-paper); }
 
 /* ---- what happens next ---- */
@@ -287,5 +291,9 @@ main h3, main .h3 { font-size: 18px; line-height: 1.3; letter-spacing: -0.01em; 
   .datasheet th, .datasheet td { display: block; width: auto; padding: 4px 18px; border-top: 0; }
   .datasheet th { padding-top: 16px; border-top: 1px solid var(--line-on-paper); }
   .datasheet td { padding-bottom: 16px; }
+  .datasheet.multi thead { display: none; }
+  .datasheet.multi tbody th { width: auto; }
+  .datasheet.multi td[data-col]::before { content: attr(data-col); display: block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute-on-paper-2); margin-bottom: 2px; }
+  .datasheet.multi td + td { padding-top: 0; }
   .ve { padding: 22px; gap: 10px; }
 }

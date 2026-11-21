@@ -1,0 +1,392 @@
+---
+// modeling support page (tiers 2-4): consultancies, facade consultants and
+// architecture firms that need simulation work done for them. built from
+// "261121 modeling support page (tiers 2-4) · build spec" (#tasks).
+// english only, no site nav: the outbound email links here.
+//
+// NOT LAUNCHED: noindex and out of the sitemap until jose answers [D1]-[D4]
+// in the spec. at launch: remove `noindex` below and this page's line in the
+// sitemap filter in astro.config.mjs. the page is meant to be indexable.
+//
+// hard rules (spec section 3): no saint-gobain, no "global glazing
+// manufacturer", no medford / orange county / nevada. no LEED, appendix g,
+// title 24, EDGE, BREEAM or compliance offered. no payback. no vyana. one
+// modeler: never "our team". numbers only from src/data/studies.ts.
+// never "engineering" or "signed off" for our own work (claim rules).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCutaway from '../../components/ProductCutaway.astro';
+import ClientBand from '../../components/ClientBand.astro';
+import TowerSheet from '../../components/TowerSheet.astro';
+import ResultCards from '../../components/ResultCards.astro';
+import StudyDatasheet from '../../components/StudyDatasheet.astro';
+import WhoDoesTheWork from '../../components/WhoDoesTheWork.astro';
+import StudyFooter from '../../components/StudyFooter.astro';
+import { SCALING } from '../../data/studies';
+import '../../styles/study-page.css';
+
+const locale = 'en' as const;
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkoerobb';
+const EMAIL = 'info@entropica-lab.com';
+
+// three buyers, in the spec's order: consultancies lead.
+const lanes = [
+  {
+    who: 'energy and sustainability consultancies',
+    h: 'overflow and white-label modeling.',
+    p: 'entrópica works in your templates, your report format and your QA rules. you keep the client relationship; we can stay invisible.',
+  },
+  {
+    who: 'facade and enclosure consultants',
+    h: 'glazing, shading and solar studies.',
+    p: 'solar radiation on the facade, glass-by-glass comparisons, shading depth, the effect on peak cooling and chiller size, and comfort at the desk next to the glass.',
+  },
+  {
+    who: 'architecture firms',
+    h: 'answers while the design can still change.',
+    p: 'massing, window-to-wall ratio, shading, daylight and comfort studies at concept and schematic design. a number before the decision, not after it.',
+  },
+];
+
+// what a study can model. jose checks this list before launch: only metrics
+// delivered on a real or sample study. no sDA/ASE, DGP, CFD or thermal
+// bridging unless jose confirms them.
+const scope = [
+  { k: 'energy', v: 'annual energy use, peak cooling load and chiller size.', tool: 'energyplus, 8,760 hours' },
+  { k: 'sun', v: 'solar radiation on facades and roofs.', tool: 'radiance' },
+  { k: 'daylight', v: 'annual illuminance and useful daylight hours.', tool: 'radiance' },
+  { k: 'comfort', v: 'indoor pmv (ashrae 55) and outdoor utci.', tool: 'energyplus, ladybug tools' },
+  { k: 'facade options', v: 'glass types, louvers, screens and overhangs, compared against one fair baseline.', tool: '' },
+];
+
+const steps = [
+  { b: 'you send', t: 'the drawings you have (plans, elevations or a massing model), the question, the deadline, and your template if you have one.' },
+  { b: 'within one business day,', t: 'josé replies with a fixed price and a schedule. NDA first, if you need one.' },
+  { b: 'entrópica models, runs and checks', t: 'the study.' },
+  { b: 'you receive', t: 'the results in your format: a results spreadsheet, charts at final size, a short method note, and the result in one plain sentence.' },
+];
+
+// jose confirms each step is done on every study before launch.
+const checks = [
+  { b: 'one fair baseline.', t: 'every result names what it is compared with.' },
+  { b: 'inputs written down.', t: 'weather file, schedules, set points and materials go in the method note.' },
+  { b: 'physics checks.', t: 'loads, temperatures and hours are checked against what the building can physically do before any chart is made.' },
+  { b: 'one person reviews every study.', t: 'josé barría reads every study before it leaves. if a number does not hold up, it does not go out.' },
+];
+
+// [D1] price and the overflow block wait for jose. placeholder: no public
+// price, fixed quote only (option c in the spec).
+const datasheet = [
+  { k: 'you send', v: ['drawings or a massing model · the question · the deadline · your template, if any', 'a list of projects and deadlines for the month'] },
+  { k: 'you receive', v: ['results spreadsheet · charts at final size · method note · the result in one sentence', 'the same, per project, in your format'] },
+  { k: 'turnaround', v: ['typically 5 business days', 'agreed per project'] },
+  { k: 'price', v: ['fixed fee, quoted free within one business day', 'fixed fee per block, quoted free within one business day'] },
+  { k: 'white-label', v: ['yes, on request', 'yes, on request'] },
+  { k: 'confidentiality', v: ['NDA on request · models and data never reused', 'the same'] },
+  { k: 'reviewed by', v: ['josé barría, founder and lead modeler', 'josé barría, founder and lead modeler'] },
+];
+
+const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance', 'climatestudio'];
+---
+
+<BaseLayout
+  title="outsourced energy, daylight and comfort modeling · entrópica"
+  description="simulation capacity for consultancies, facade engineers and architects. energyplus and radiance studies, built and checked by a person, in your format. fixed quote in one business day."
+  locale={locale}
+  bare
+  noindex
+  ogImage="/og-modeling-support.jpg"
+>
+  <!-- 1 · hero -->
+  <section class="hero" id="hero">
+    <div class="site-wrap hero-grid">
+      <div class="hero-copy">
+        <p class="kicker">simulation capacity for consultancies and design teams</p>
+        <h1>your deadline. our modeler.</h1>
+        <p class="lede">
+          entrópica builds and runs energy, daylight, comfort and facade simulations
+          for consultancies, facade engineers and architects who have more projects
+          than modelers. your format, your name on the report if you want it, and a
+          fixed quote in one business day.
+        </p>
+        <div class="ctas">
+          <a class="btn amber" href="#start">send a project <span class="arrow-tail" aria-hidden="true"></span></a>
+          <a class="btn ghost" href="#results">see sample results</a>
+        </div>
+        <!-- credential line. a client credential goes in front of this
+             sentence only after written clearance (spec section 3). -->
+        <p class="proof">
+          led by a licensed architect who has modeled buildings in nine cities on
+          five continents.
+        </p>
+        <ul class="strip" aria-label="in short">
+          <li>built and checked by a person, not a software wrapper</li>
+          <li><span>white-label on request · <span class="caps">NDA</span> before files</span></li>
+          <li><span><span class="caps">UTC−5</span> all year, inside north american business hours</span></li>
+          <li>fixed fee per study, quoted in one business day</li>
+        </ul>
+      </div>
+      <TowerSheet />
+    </div>
+  </section>
+
+  <!-- 1a · clients -->
+  <section class="clients-band" aria-label="clients">
+    <div class="site-wrap"><ClientBand /></div>
+  </section>
+
+  <!-- 2 · the problem -->
+  <section class="core">
+    <div class="site-wrap">
+      <p class="core-p">
+        a good modeler is hard to hire and hard to keep busy. when three projects
+        land in the same month, the models wait or the checks get skipped.
+      </p>
+      <p class="core-p core-2">
+        entrópica is <b>the modeler you call for the peak</b>, and don’t pay for
+        between peaks.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3 · three ways to work with entrópica -->
+  <section class="band">
+    <div class="site-wrap">
+      <p class="kicker">three ways to work with entrópica</p>
+      <h2>one modeler, three kinds of client.</h2>
+      <ol class="three">
+        {lanes.map((l) => (
+          <li>
+            <span class="three-n">for {l.who}</span>
+            <h3 class="h3">{l.h}</h3>
+            <p set:html={l.p.replace('QA', '<span class="caps">QA</span>')} />
+          </li>
+        ))}
+      </ol>
+      <!-- [D3] keep or remove: jose decides -->
+      <p class="lbt">
+        already working in ladybug tools? entrópica builds, fixes and reviews
+        grasshopper / honeybee definitions for teams that run their own models.
+      </p>
+    </div>
+  </section>
+
+  <!-- 4 · what a study can model -->
+  <section class="band tint">
+    <div class="site-wrap">
+      <p class="kicker">what a study can model</p>
+      <h2>the questions behind most design decisions.</h2>
+      <dl class="scope">
+        {scope.map((s) => (
+          <div>
+            <dt>{s.k}</dt>
+            <dd>{s.v}{s.tool && <span class="sc-tool">{s.tool}</span>}</dd>
+          </div>
+        ))}
+      </dl>
+      <ul class="tools" aria-label="tools">
+        {tools.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 · how a job works, and how every study is checked -->
+  <section class="band">
+    <div class="site-wrap">
+      <div class="job">
+        <div>
+          <p class="kicker">how a job works</p>
+          <h2>four steps, one person to talk to.</h2>
+          <ol class="next steps4">
+            {steps.map((s, i) => (
+              <li><span>0{i + 1}</span><span><b>{s.b}</b> <span set:html={s.t.replace('NDA', '<span class="caps-in">NDA</span>')} /></span></li>
+            ))}
+          </ol>
+          <div class="tz">
+            <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+            <p>
+              we work from panamá, on <span class="caps">UTC−5</span> all year, inside north
+              american business hours.
+            </p>
+          </div>
+        </div>
+        <div class="qa">
+          <p class="kicker">how every study is checked</p>
+          <ul>
+            {checks.map((c) => <li><b>{c.b}</b> {c.t}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · sample results, then the cutaway -->
+  <section class="band tint" id="results">
+    <div class="site-wrap">
+      <p class="kicker">results from past studies</p>
+      <h2>the kind of answer you get back.</h2>
+      <ResultCards>
+        <li class="result ask">
+          <div class="r-cat">your project</div>
+          <p class="r-say">a different question? send the drawings and the deadline, and we’ll scope the study.</p>
+          <a class="btn amber" href="#start">send a project <span class="arrow-tail" aria-hidden="true"></span></a>
+        </li>
+      </ResultCards>
+      <p class="fine-note">simulated by entrópica against clear baselines. glass is named by generic type, never by brand. office tower: {SCALING}</p>
+    </div>
+  </section>
+
+  <section class="band cutaway">
+    <div class="site-wrap">
+      <p class="kicker">one building, four design questions</p>
+      <h2>four questions, one model, four plain answers.</h2>
+      <ProductCutaway />
+    </div>
+  </section>
+
+  <!-- 7 · who does the work -->
+  <section class="band tint">
+    <div class="site-wrap">
+      <p class="kicker">who does the work</p>
+      <h2>you talk directly to the person behind the numbers.</h2>
+      <WhoDoesTheWork />
+    </div>
+  </section>
+
+  <!-- 8 · the datasheet -->
+  <section class="band">
+    <div class="site-wrap">
+      <p class="kicker">the offer</p>
+      <h2>one study, or a block of them.</h2>
+      <StudyDatasheet caption="modeling support · datasheet" head={['single study', 'overflow block']} rows={datasheet} />
+    </div>
+  </section>
+
+  <!-- 9 · start a project -->
+  <section class="band close" id="start">
+    <div class="site-wrap">
+      <div class="close-grid">
+        <div>
+          <p class="kicker">start a project</p>
+          <h2>send the project. get a fixed quote in one business day.</h2>
+          <ol class="next">
+            <li><span>01</span><span>send the drawings you have, the question and the deadline.</span></li>
+            <li><span>02</span><span>josé replies within one business day with a fixed price and a schedule. <span class="caps-in">NDA</span> first, on request.</span></li>
+            <li><span>03</span><span>your checked results arrive in your format, typically in 5 business days.</span></li>
+          </ol>
+          <div class="replier">
+            <img src="/jose.jpg" alt="josé barría" width="1500" height="1500" loading="lazy" />
+            <p>you hear back from josé.<br /><span>no commitment · fixed-fee quotes</span></p>
+          </div>
+          <ul class="direct">
+            <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
+          </ul>
+        </div>
+
+        <div class="form-col">
+          <div class="sent" id="project-sent" hidden tabindex="-1">
+            <p class="kicker">received</p>
+            <h3>thanks. josé will review your project and reply within one business day.</h3>
+          </div>
+
+          <form class="study-form" action={FORMSPREE_ENDPOINT} method="POST" data-ajax data-sent="project-sent" data-lead-type="modeling-support">
+            <div class="field">
+              <label for="s-name">name</label>
+              <input id="s-name" name="name" type="text" required autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="s-company">company</label>
+              <input id="s-company" name="company" type="text" required autocomplete="organization" />
+            </div>
+            <div class="field full">
+              <label for="s-email">work email</label>
+              <input id="s-email" name="email" type="email" required autocomplete="email" />
+            </div>
+            <div class="field full">
+              <label for="s-project">project and question</label>
+              <textarea id="s-project" name="project" rows="4" required placeholder="building type and location, what you need to know, and your template if you have one"></textarea>
+            </div>
+            <div class="field">
+              <label for="s-deadline">deadline</label>
+              <input id="s-deadline" name="deadline" type="text" placeholder="e.g. 12 december" />
+            </div>
+            <div class="field">
+              <label for="s-wl">white-label?</label>
+              <select id="s-wl" name="white_label">
+                <option value="not sure">not sure</option>
+                <option value="yes">yes</option>
+                <option value="no">no</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="s-files">link to drawings <span class="opt">(optional)</span></label>
+              <input id="s-files" name="files" type="url" placeholder="https://" />
+            </div>
+
+            <input type="hidden" name="page" value="modeling-support" />
+            <input type="hidden" name="_subject" value="entropica-lab.com · modeling support request" />
+            <div class="honeypot" aria-hidden="true">
+              <label>do not fill this field</label>
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <p class="form-error" data-form-error hidden role="alert">
+              the message didn't go through. write to <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+            </p>
+
+            <button type="submit" class="btn amber">send for quote <span class="arrow-tail" aria-hidden="true"></span></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <a class="sticky-cta" href="#start" data-sticky hidden>send a project <span aria-hidden="true">→</span></a>
+
+  <StudyFooter slot="footer" />
+</BaseLayout>
+
+<script>
+  import '../../scripts/ajax-form';
+
+  const sticky = document.querySelector<HTMLElement>('[data-sticky]');
+  const hero = document.getElementById('hero');
+  const start = document.getElementById('start');
+  if (sticky && hero && start && 'IntersectionObserver' in window) {
+    let heroOn = true;
+    let startOn = false;
+    const update = () => { sticky.hidden = heroOn || startOn; };
+    new IntersectionObserver(([e]) => { heroOn = e.isIntersecting; update(); }).observe(hero);
+    new IntersectionObserver(([e]) => { startOn = e.isIntersecting; update(); }, { threshold: 0.15 }).observe(start);
+  }
+</script>
+
+<style>
+  .core-2 { margin-top: 18px; }
+  .lbt { margin: 40px 0 0; padding: 16px 20px; border: 1px dashed var(--line-on-paper-2); font-size: 15px; line-height: 1.55; color: var(--ink-on-paper); max-width: 80ch; }
+
+  .scope { margin: 0 0 32px; border-top: 1px solid var(--line-on-paper); max-width: 960px; }
+  .scope > div { display: grid; grid-template-columns: 11em 1fr; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--line-on-paper); }
+  .scope dt { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); padding-top: 3px; }
+  .scope dd { margin: 0; font-size: 17px; line-height: 1.5; color: var(--ink-on-paper); }
+  .sc-tool { display: block; margin-top: 4px; font-size: 12px; color: var(--mute-on-paper-2); }
+
+  .job { display: grid; grid-template-columns: 1.3fr 1fr; gap: 72px; align-items: start; }
+  .steps4 { max-width: 56ch; }
+  .steps4 b { font-weight: 500; }
+  .qa { background: var(--ink); color: var(--text); padding: 32px; }
+  .qa .kicker { color: var(--amber); }
+  .qa ul { list-style: none; margin: 0; padding: 0; }
+  .qa li { padding: 14px 0; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 15px; line-height: 1.55; color: var(--mute); }
+  .qa li b { display: block; font-weight: 400; color: var(--text); margin-bottom: 2px; }
+
+  .field select {
+    font: inherit; font-size: 15px; padding: 12px 14px; border: 1px solid var(--line-on-paper-2);
+    background: #fbfaf6; color: var(--ink-on-paper); border-radius: 0;
+  }
+  .field select:focus { outline: 2px solid var(--amber); outline-offset: -1px; }
+
+  @media (max-width: 900px) {
+    .job { grid-template-columns: 1fr; gap: 48px; }
+    .scope > div { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
