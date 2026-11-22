@@ -55,13 +55,13 @@ const scope = [
   { k: 'sun', v: 'solar radiation on facades and roofs.', tool: 'radiance' },
   { k: 'daylight', v: 'annual illuminance, useful daylight hours, sDA and ASE.', tool: 'radiance' },
   { k: 'comfort', v: 'indoor pmv (ashrae 55) and outdoor utci.', tool: 'energyplus, ladybug tools' },
-  { k: 'airflow', v: 'wind around the building and air movement inside it, with CFD.', tool: '' },
+  { k: 'airflow', v: 'wind around the building and air movement inside it, with CFD.', tool: 'butterfly, openfoam' },
   { k: 'facade options', v: 'glass types, louvers, screens and overhangs, compared against one fair baseline.', tool: '' },
 ];
 
 const steps = [
   { b: 'you send', t: 'the drawings you have (plans, elevations or a massing model), the question, the deadline, and your template if you have one.' },
-  { b: 'within one business day,', t: 'josé replies with a fixed price and a schedule. NDA first, if you need one.' },
+  { b: 'josé replies', t: 'with a fixed price and a schedule. NDA first, if you need one.' },
   { b: 'entrópica builds the geometry,', t: 'sets up the thermal zones and schedules, runs the simulations and checks every output against the physics.' },
   { b: 'you receive', t: 'the deliverables in your format: a results spreadsheet, slide-ready charts, a short method note, and the takeaway in one plain sentence.' },
 ];
@@ -82,13 +82,14 @@ const datasheet = [
   { k: 'you send', v: ['drawings or a massing model · the question · the deadline · your template, if any', 'a list of projects and deadlines for the month'] },
   { k: 'you receive', v: ['results spreadsheet · charts at final size · method note · the result in one sentence', 'the same, per project, in your format'] },
   { k: 'turnaround', v: ['typically 5 business days', 'agreed per project'] },
-  { k: 'price', v: ['from USD 800 for a one-question study · fixed-fee quote within 1 business day', 'fixed fee per block · quoted within 1 business day'] },
+  { k: 'scope', v: ['one building · one question · up to three options against one baseline', 'agreed per project'] },
+  { k: 'price', v: ['from USD 800 for a one-question study · fixed-fee quote', 'fixed fee per block'] },
   { k: 'white-label', v: ['yes, on request', 'yes, on request'] },
   { k: 'confidentiality', v: ['NDA on request · models and data never reused', 'the same'] },
   { k: 'reviewed by', v: ['josé barría, founder and lead modeler', 'josé barría, founder and lead modeler'] },
 ];
 
-const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance', 'climatestudio'];
+const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance', 'climatestudio', 'butterfly / openfoam'];
 ---
 
 <BaseLayout
@@ -118,13 +119,13 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
         <!-- credential line. a client credential goes in front of this
              sentence only after written clearance (spec section 3). -->
         <p class="proof">
-          led by a licensed architect who has modeled buildings in nine cities on
-          five continents.
+          led by an architect licensed in panamá, who has modeled buildings in nine
+          cities on five continents.
         </p>
         <ul class="strip" aria-label="in short">
           <li>modeled and checked by a person</li>
-          <li><span>white-label on request · <span class="caps">NDA</span> before file transfer</span></li>
-          <li><span><span class="caps">UTC−5</span> all year, in north american business hours</span></li>
+          <li><span><span class="caps">NDA</span> before file transfer</span></li>
+          <li>typically 5 business days per study</li>
           <li>fixed fee per study</li>
         </ul>
       </div>
@@ -147,6 +148,9 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
       <p class="core-p core-2">
         entrópica <b>absorbs your peak workload</b>, without the cost of a full-time
         modeler between projects.
+      </p>
+      <p class="core-hook">
+        hiring an energy modeler? <a href="#start">entrópica covers your projects</a> while you hire.
       </p>
     </div>
   </section>
@@ -261,6 +265,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
       <p class="kicker">the offer</p>
       <h2>one study, or a block of them.</h2>
       <StudyDatasheet caption="modeling support · datasheet" head={['single study', 'overflow block']} rows={datasheet} />
+      <p class="fine-note">larger scopes get a fixed quote.</p>
     </div>
   </section>
 
@@ -365,6 +370,9 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
 
 <style>
   .core-2 { margin-top: 18px; }
+  .core-hook { margin: 28px 0 0; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.5; color: var(--text); }
+  .core-hook a { color: var(--amber); text-decoration: underline; text-underline-offset: 3px; }
+  .core-hook a:hover { text-decoration-thickness: 2px; }
   .lbt { margin: 40px 0 0; padding: 16px 20px; border: 1px dashed var(--line-on-paper-2); font-size: 15px; line-height: 1.55; color: var(--ink-on-paper); max-width: 80ch; }
 
   .scope { margin: 0 0 32px; border-top: 1px solid var(--line-on-paper); max-width: 960px; }
