@@ -22,13 +22,12 @@ export function stripLocale(pathname: string): string {
 }
 
 // build the URL for a given path under a given locale.
-// localized('/about', 'es') → '/es/about' · localized('/', 'es') → '/es' · localized('/about', 'en') → '/about'.
+// localized('/about', 'es') → '/about/' · localized('/', 'en') → '/en/' · localized('/about', 'en') → '/en/about/'.
+// always ends in '/' (trailingSlash: 'always'): github pages serves /path/ and 301s /path.
 export function localized(path: string, locale: Locale): string {
   const clean = path.startsWith('/') ? path : `/${path}`;
-  if (locale === defaultLocale) {
-    return clean === '/' ? '/' : clean;
-  }
-  return clean === '/' ? `/${locale}` : `/${locale}${clean}`;
+  const out = locale === defaultLocale ? clean : clean === '/' ? `/${locale}` : `/${locale}${clean}`;
+  return out.endsWith('/') ? out : `${out}/`;
 }
 
 // produce { en: '/about', es: '/es/about' } for the current page, used by the lang toggle.

@@ -7,7 +7,10 @@ import { lastmodForPath } from './src/lib/lastmod.mjs';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://entropica-lab.com',
-  trailingSlash: 'never',
+  // 'always' because github pages serves every page as /path/ and 301s /path to it.
+  // with 'never', canonical, og:url and the sitemap all pointed at a redirect, and
+  // linkedin's post inspector failed on the loop (fixed 2026-11-22).
+  trailingSlash: 'always',
   // wix-era urls that are still in google's index and 404 today (confirmed in the
   // 2026-07-15 search console export). github pages cannot issue real 301s, so a
   // static build emits a meta-refresh + canonical page here; google follows those.
@@ -15,14 +18,14 @@ export default defineConfig({
   //   /projects/casa-lo            → "casa los oliu", withdrawn, let it 404
   //   /project-dafts/retainer-model → internal draft that leaked, let it 404
   redirects: {
-    '/resources': '/blog',
-    '/resources/arctic-data-centers': '/blog/arctic-data-centers',
+    '/resources': '/blog/',
+    '/resources/arctic-data-centers': '/blog/arctic-data-centers/',
     // no los-cerros post was ever migrated, so send it to the index
-    '/resources/los-cerros': '/blog',
-    '/living-facade-elements': '/blog/living-facade-elements',
-    '/projects/ministerio-pblico': '/projects/ministerio-publico',
+    '/resources/los-cerros': '/blog/',
+    '/living-facade-elements': '/blog/living-facade-elements/',
+    '/projects/ministerio-pblico': '/projects/ministerio-publico/',
     // the manufacturer page was renamed; outbound emails may carry the old link
-    '/en/manufacturers': '/en/specification-studies',
+    '/en/manufacturers': '/en/specification-studies/',
   },
   integrations: [
     mdx(),

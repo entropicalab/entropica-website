@@ -64,4 +64,4 @@ less heat coming in allows smaller equipment, which lowers both the cost to inst
 
 glass can be part of tropical architecture if it's shaded and placed where it's needed. every square meter of facade is a decision you pay for over the life of the building.
 
-if you're designing or developing in panamá, we can simulate your project before it's built. [write to us.](/en/contact)
+if you're designing or developing in panamá, we can simulate your project before it's built. [write to us.](/en/contact/)

@@ -45,4 +45,4 @@ el emplazamiento ártico podría reducir el uso de energía a la mitad mientras 
 
 ---
 
-¿estás diseñando un edificio? [escríbenos.](/contact)
+¿estás diseñando un edificio? [escríbenos.](/contact/)

@@ -45,4 +45,4 @@ integrar la cosecha de agua en la arquitectura descentraliza el suministro, redu
 
 ---
 
-¿estás diseñando un edificio? [escríbenos.](/contact)
+¿estás diseñando un edificio? [escríbenos.](/contact/)

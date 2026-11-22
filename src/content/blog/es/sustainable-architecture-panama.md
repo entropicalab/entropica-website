@@ -64,4 +64,4 @@ menos calor que entra permite un equipo más pequeño, y eso baja tanto el costo
 
 el vidrio puede ser parte de la arquitectura tropical si tiene sombra y está donde hace falta. cada metro cuadrado de fachada es una decisión que se paga durante toda la vida del edificio.
 
-si estás diseñando o desarrollando en panamá, podemos simular tu proyecto antes de construir. [escríbenos.](/contact)
+si estás diseñando o desarrollando en panamá, podemos simular tu proyecto antes de construir. [escríbenos.](/contact/)

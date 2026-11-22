@@ -49,7 +49,7 @@ in northern europe or north america, the primary thermal challenge is heating. a
 
 architecture in the tropics must defend the interior from the sun, not surrender to it. the all-glass tower is a relic of a fossil-fuel era we can no longer afford. true tropical modernity is cool, shaded, and protected.
 
-want a review of your building's facade? [write to us.](/en/contact)
+want a review of your building's facade? [write to us.](/en/contact/)
 
 ---
 

@@ -34,7 +34,8 @@ const {
 } = Astro.props;
 
 const fullTitle = title.includes('entrópica') ? title : `${title} · entrópica`;
-const canonical = new URL(pathname, Astro.site).toString();
+// trailing slash: github pages serves /path/ and 301s /path, so canonical must match.
+const canonical = new URL(pathname.endsWith('/') ? pathname : `${pathname}/`, Astro.site).toString();
 // absolute url for the social-share image. default is the purpose-built
 // 1200×630 branded card; the dimensions below let whatsapp, facebook and
 // linkedin render the card without re-fetching.

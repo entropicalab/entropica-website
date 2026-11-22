@@ -45,4 +45,4 @@ las fachadas de algas podrían transformar los edificios en biofábricas urbanas
 
 ---
 
-¿estás diseñando un edificio? [escríbenos.](/contact)
+¿estás diseñando un edificio? [escríbenos.](/contact/)

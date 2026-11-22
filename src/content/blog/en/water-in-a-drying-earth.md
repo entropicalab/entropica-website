@@ -45,4 +45,4 @@ embedding water harvesting into architecture decentralises supply, reduces relia
 
 ---
 
-designing a building? [write to us.](/en/contact)
+designing a building? [write to us.](/en/contact/)
