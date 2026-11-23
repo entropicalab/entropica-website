@@ -1,35 +1,29 @@
 ---
+// /en/contact/ · rev 2 pivot (2026-11-23): the same intake as the modeling
+// support form, so every form on the site asks the same thing.
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { localized, tr } from '../../i18n/utils';
+import { tr } from '../../i18n/utils';
+import { LINKEDIN } from '../../data/business';
 
 const locale = 'en' as const;
 const t = tr(locale);
 
-// formspree form id for info@entropica-lab.com (same endpoint as /contact).
+// formspree form id for info@entropica-lab.com (same endpoint as modeling support).
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkoerobb';
-
-const typologies = [
-  { v: '', l: t('form.typology.placeholder') },
-  { v: 'residential', l: t('typology.residential') },
-  { v: 'commercial', l: t('typology.commercial') },
-  { v: 'institutional', l: t('typology.institutional') },
-  { v: 'mixed-use', l: t('typology.mixedUse') },
-  { v: 'other', l: 'other' },
-];
 ---
 
 <BaseLayout
-  title="contact · entrópica · tropical architecture studio in panamá"
-  description="tell us about your project. ph plaza mar, paitilla, ciudad de panamá, republic of panama. info@entropica-lab.com · +507 6200-6909."
+  title="contact · entrópica · building-performance modeling"
+  description="send a project or a question. energy, daylight and comfort simulations for consultancies and design teams. info@entropica-lab.com · +507 6200-6909."
   locale={locale}
 >
   <section class="contact-hero">
     <div class="site-wrap">
-      <div class="eyebrow">// 2026 ▸ open for new projects</div>
-      <h1 class="hero-h">tell us about your project.</h1>
+      <div class="eyebrow">// contact</div>
+      <h1 class="hero-h">send the project, or just the question.</h1>
       <p class="hero-lede">
-        where it is, what you want to build and what worries you about the heat. we
-        usually reply within one working day.
+        the drawings you have, what you need to know and the deadline. josé replies
+        with a fixed price and a schedule.
       </p>
     </div>
   </section>
@@ -40,47 +34,52 @@ const typologies = [
         <div class="form-col">
           <div class="sent" id="contact-sent" hidden tabindex="-1">
             <div class="eyebrow amber">// message received</div>
-            <h2>{t('form.sent.title')}</h2>
-            <p>{t('form.sent.body')}</p>
-            <a class="btn" href={localized('/', locale)}>← home</a>
+            <h2>thanks. josé will reply within one business day.</h2>
+            <a class="btn" href="/en/">← home</a>
           </div>
 
-          <form class="contact-form" action={FORMSPREE_ENDPOINT} method="POST" data-ajax data-sent="contact-sent" data-lead-type="architecture">
+          <form class="contact-form" action={FORMSPREE_ENDPOINT} method="POST" data-ajax data-sent="contact-sent" data-lead-type="modeling-support">
             <div class="field">
-              <label for="name">{t('form.name')}</label>
+              <label for="name">name</label>
               <input id="name" name="name" type="text" required autocomplete="name" />
             </div>
 
             <div class="field">
-              <label for="email">{t('form.email')}</label>
-              <input id="email" name="email" type="email" required autocomplete="email" />
-            </div>
-
-            <div class="field">
-              <label for="company">{t('form.company')}</label>
+              <label for="company">company</label>
               <input id="company" name="company" type="text" autocomplete="organization" />
             </div>
 
-            <div class="field">
-              <label for="location">{t('form.location')}</label>
-              <input id="location" name="location" type="text" placeholder="city, country" />
+            <div class="field full">
+              <label for="email">work email</label>
+              <input id="email" name="email" type="email" required autocomplete="email" />
             </div>
 
             <div class="field full">
-              <label for="typology">{t('form.typology')}</label>
-              <select id="typology" name="typology">
-                {typologies.map((tp) => (
-                  <option value={tp.v} disabled={tp.v === ''} selected={tp.v === ''}>{tp.l}</option>
-                ))}
+              <label for="project">project scope and question</label>
+              <textarea id="project" name="project" rows="6" required placeholder="building type and location, what you need to know, and your template if you have one"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="deadline">deadline</label>
+              <input id="deadline" name="deadline" type="text" placeholder="e.g. 12 december" />
+            </div>
+
+            <div class="field">
+              <label for="white_label">white-label?</label>
+              <select id="white_label" name="white_label">
+                <option value="not sure">not sure</option>
+                <option value="yes">yes</option>
+                <option value="no">no</option>
               </select>
             </div>
 
             <div class="field full">
-              <label for="brief">{t('form.brief')}</label>
-              <textarea id="brief" name="brief" rows="6" required></textarea>
+              <label for="files">link to drawings <span class="opt">(optional)</span></label>
+              <input id="files" name="files" type="url" placeholder="https://" />
             </div>
 
-            <input type="hidden" name="_subject" value="entropica-lab.com · new contact form submission" />
+            <input type="hidden" name="page" value="contact" />
+            <input type="hidden" name="_subject" value="entropica-lab.com · modeling support request (contact page)" />
 
             <div class="honeypot" aria-hidden="true">
               <label>do not fill this field</label>
@@ -93,7 +92,7 @@ const typologies = [
 
             <div class="actions">
               <button type="submit" class="btn amber">
-                {t('form.send')}
+                send for quote
                 <span class="arrow-tail" aria-hidden="true"></span>
               </button>
             </div>
@@ -102,12 +101,11 @@ const typologies = [
 
         <aside class="info-col">
           <div class="info-block">
-            <div class="eyebrow">// studio</div>
+            <div class="eyebrow">// entrópica</div>
             <p>
-              entrópica<br />
               ph plaza mar · paitilla<br />
-              ciudad de panamá · republic of panama<br />
-              <span class="muted">watts &amp; matter consulting, s. e.p.</span>
+              panamá city · republic of panama<br />
+              <span class="muted legal-name">Watts And Matter Consulting, S.EP.</span>
             </p>
           </div>
 
@@ -116,23 +114,15 @@ const typologies = [
             <ul>
               <li><a class="info-link" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a></li>
               <li><a class="info-link" href="https://wa.me/50762006909" target="_blank" rel="noopener">whatsapp · +507 6200-6909</a></li>
-              <li><a class="info-link" href="https://instagram.com/entropicalab" target="_blank" rel="noopener">@entropicalab</a></li>
+              <li><a class="info-link" href={LINKEDIN} target="_blank" rel="noopener">linkedin · josé barría</a></li>
             </ul>
           </div>
 
           <div class="info-block">
-            <div class="eyebrow">// office hours</div>
+            <div class="eyebrow">// hours</div>
             <p class="muted">
               monday to friday<br />
-              09:00 to 18:00 est (utc -5)
-            </p>
-          </div>
-
-          <div class="info-block">
-            <div class="eyebrow">// for press</div>
-            <p class="muted">
-              high-resolution images and project facts are available on request.<br />
-              write to <a class="info-link" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a> with "press" in the subject line.
+              09:00 to 18:00 <span class="caps">UTC−5</span>, all year
             </p>
           </div>
         </aside>
@@ -146,6 +136,8 @@ const typologies = [
 </script>
 
 <style>
+  .legal-name, .caps { text-transform: none; }
+  .opt { color: var(--mute-on-paper-2); }
   .contact-hero { padding: 96px 0 56px; }
   .contact-hero .eyebrow {
     font-size: 11px;

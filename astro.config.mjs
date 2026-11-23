@@ -3,6 +3,13 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { lastmodForPath } from './src/lib/lastmod.mjs';
+import { readdirSync, readFileSync } from 'node:fs';
+
+// design-only projects (no `study` block) stay live but leave the sitemap and
+// carry noindex (rev 2 pivot, 2026-11-23). simulation studies stay indexed.
+const designOnly = readdirSync('./src/content/projects/en')
+  .filter((f) => f.endsWith('.md') && !/^study:/m.test(readFileSync(`./src/content/projects/en/${f}`, 'utf8')))
+  .map((f) => `/en/projects/${f.replace(/\.md$/, '')}/`);
 
 // https://astro.build/config
 export default defineConfig({
@@ -76,7 +83,10 @@ export default defineConfig({
         !page.includes('/en/specification-studies') &&
         !page.includes('/en/manufacturers') &&
         !page.includes('/tools/cost-calculator') &&
-        !page.includes('/recursos/permisos-panama'),
+        !page.includes('/recursos/permisos-panama') &&
+        !page.includes('/en/faq/') &&
+        !page.includes('/en/architecture/') &&
+        !designOnly.includes(new URL(page).pathname),
       // stamp each url with its source file's last git-commit date
       serialize(item) {
         try {

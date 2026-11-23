@@ -1,0 +1,49 @@
+---
+// /en/architecture/ · the architecture archive. rev 2, B3/B4 (2026-11-23):
+// design-only projects, kept as a record and linked only from /en/about/.
+// noindex and out of the sitemap: the public site sells modeling. every
+// project url keeps working.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectGrid from '../../components/ProjectGrid.astro';
+import { getCollection } from 'astro:content';
+
+const locale = 'en' as const;
+// pages only: comingSoon placeholders wait for jose's "placeholder, no link" plan.
+const archive = (await getCollection('projects', ({ data }) => data.locale === locale && !data.hidden && !data.study && !data.comingSoon))
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+---
+
+<BaseLayout
+  title="architecture archive · entrópica"
+  description="buildings designed by josé barría and entrópica, kept as a record."
+  locale={locale}
+  noindex
+>
+  <section class="hero">
+    <div class="site-wrap">
+      <div class="eyebrow">// archive</div>
+      <h1 class="hero-h">architecture archive.</h1>
+      <p class="hero-lede">
+        buildings josé designed or helped design, in panamá and abroad, before modeling became the whole practice.
+        today entrópica works on <a class="inline-link" href="/en/modeling-support/">building-performance modeling</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="projects-section">
+    <div class="site-wrap">
+      <ProjectGrid projects={archive} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { padding: 96px 0 64px; }
+  .hero .eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 24px; font-weight: 400; }
+  .hero-h { font-size: clamp(34px, 5vw, 60px); line-height: 1.05; letter-spacing: -0.025em; margin: 0 0 28px; font-weight: 300; max-width: 24ch; text-wrap: balance; }
+  .hero-lede { font-size: clamp(17px, 1.4vw, 19px); line-height: 1.6; color: var(--mute-on-paper); max-width: 60ch; margin: 0; font-weight: 300; }
+  .projects-section { padding: 24px 0 96px; }
+  .after { margin: 48px 0 0; font-size: 15px; color: var(--mute-on-paper); }
+  .after a { color: var(--ink-on-paper); border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+  .after a:hover { color: var(--amber); }
+</style>

@@ -1,9 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { localized, tr } from '../../i18n/utils';
+import { LINKEDIN } from '../../data/business';
 
 const locale = 'en' as const;
-const t = tr(locale);
 
 const work = [
   {
@@ -16,7 +15,7 @@ const work = [
     role: 'founder',
     org: 'entrópica',
     period: '2020-present',
-    body: 'architectural design and simulations of sun, daylight and energy.',
+    body: 'building-performance modeling: energy, daylight, thermal comfort, facade solar and airflow studies for consultancies and design teams.',
   },
   {
     role: 'co-founder',
@@ -53,31 +52,32 @@ const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'josé barría',
-  url: 'https://entropica-lab.com/en/about',
-  jobTitle: 'architect · founder',
+  url: 'https://entropica-lab.com/en/about/',
+  jobTitle: 'founder, lead modeler',
+  sameAs: [LINKEDIN],
   hasCredential: { '@type': 'EducationalOccupationalCredential', credentialCategory: 'license', name: 'licensed architect (panamá)', identifier: '2015-001-042', recognizedBy: { '@type': 'Organization', name: 'junta técnica de ingeniería y arquitectura (JTIA)' } },
-  worksFor: { '@type': 'Organization', name: 'entrópica', url: 'https://entropica-lab.com' },
+  worksFor: { '@type': 'Organization', name: 'entrópica', url: 'https://entropica-lab.com/en/' },
   alumniOf: [
     { '@type': 'CollegeOrUniversity', name: 'university of pennsylvania' },
     { '@type': 'CollegeOrUniversity', name: 'isthmus', address: { '@type': 'PostalAddress', addressCountry: 'PA' } },
   ],
-  knowsAbout: ['tropical architecture', 'energy simulation', 'bioclimatic design', 'panamá'],
+  knowsAbout: ['building energy modeling', 'daylight analysis', 'thermal comfort', 'CFD', 'EnergyPlus', 'Radiance', 'Ladybug Tools'],
 };
 ---
 
 <BaseLayout
-  title="about us · entrópica · tropical climate architect in panamá"
-  description="entrópica is the work of josé barría, registered architect (jtia) and master of environmental building design (upenn). energy-led tropical architecture in panamá, republic of panama."
+  title="about · entrópica · building-performance modeling in panamá"
+  description="entrópica is a building-performance modeling practice in panamá, led by josé barría: architect licensed in panamá (JTIA) and master of environmental building design (upenn)."
   locale={locale}
 >
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <!-- ============ hero ============ -->
   <section class="hero">
     <div class="site-wrap">
-      <div class="eyebrow">// about us</div>
-      <h1 class="hero-h">a small studio in panamá city.</h1>
+      <div class="eyebrow">// about</div>
+      <h1 class="hero-h">entrópica is a building-performance modeling practice in panamá.</h1>
       <p class="hero-lede">
-        we design and simulate buildings for the tropical climate. josé barría runs it.
+        josé barría runs it, and builds or checks every model himself.
       </p>
     </div>
   </section>
@@ -91,13 +91,19 @@ const personSchema = {
           <div class="portrait-caption">
             <div class="eyebrow">// leadership</div>
             <div class="name">josé barría</div>
-            <div class="role">founder · architect</div>
+            <div class="role">founder · lead modeler</div>
           </div>
         </div>
         <div class="bio-text prose">
           <p class="lede">
-            josé is a licensed architect in panamá (JTIA, license 2015-001-042) and the founder of entrópica.
+            josé is an architect licensed in panamá (<span class="caps-in">JTIA</span>, license 2015-001-042) and the founder and lead modeler of entrópica.
           </p>
+          <ul class="creds">
+            <li>architect licensed in panamá</li>
+            <li><span class="caps-in">M.EBD</span>, university of pennsylvania, 2017</li>
+            <li>modeling building performance since 2020</li>
+            <li>nine cities on five continents</li>
+          </ul>
           <p>
             he has worked in panamá and the united states, and run studies for projects in
             asia, africa and europe. before entrópica he worked at erdy mchenry architecture
@@ -105,8 +111,10 @@ const personSchema = {
             green building council and taught at the urban sustainable lab.
           </p>
           <p>
-            he is also a partner at trimpacta, a water footprint and carbon consultancy, and
-            since 2026 part of mat, the tropical architecture movement.
+            he is also a partner at trimpacta, a water footprint and carbon consultancy.
+          </p>
+          <p>
+            <a class="inline-link" href={LINKEDIN} target="_blank" rel="noopener">josé on linkedin</a>
           </p>
 
           <h2>education</h2>
@@ -151,50 +159,13 @@ const personSchema = {
     </div>
   </section>
 
-  <!-- ============ why so much rain ============ -->
-  <section class="block">
+  <!-- ============ architecture archive (rev 2, B4: linked only from here) ============ -->
+  <section class="block archive-line">
     <div class="site-wrap">
-      <div class="two-col">
-        <div class="col-eb"><div class="eyebrow">// why so much rain?</div></div>
-        <div class="col-body">
-          <h2 class="block-h">we show our projects in the rain on purpose.</h2>
-          <div class="prose">
-            <p>
-              in panamá the climate is where the design starts, so we show it as it is:
-              rain and overcast skies. more in our guide to
-              <a class="inline-link" href={localized('/blog/sustainable-architecture-panama', locale)}>sustainable architecture in panamá</a>.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ philosophy strip ============ -->
-  <section class="block alt">
-    <div class="site-wrap">
-      <div class="philosophy-grid">
-        <div>
-          <div class="eyebrow">// principle 01</div>
-          <h3 class="phil-h">passive first.</h3>
-          <p class="phil-body">shade, orientation and good glass before choosing equipment.</p>
-        </div>
-        <div>
-          <div class="eyebrow">// principle 02</div>
-          <h3 class="phil-h">simulate before drawing.</h3>
-          <p class="phil-body">a small, early simulation is worth more than a big one at the end.</p>
-        </div>
-        <div>
-          <div class="eyebrow">// principle 03</div>
-          <h3 class="phil-h">say how much.</h3>
-          <p class="phil-body">every result with its number, in hours, degrees or dollars.</p>
-        </div>
-        <div>
-          <div class="eyebrow">// principle 04</div>
-          <h3 class="phil-h">design for here.</h3>
-          <p class="phil-body">what works in temperate climates does not always work in panamá.</p>
-        </div>
-      </div>
+      <p>
+        before modeling became the whole practice, josé designed buildings in panamá and abroad.
+        <a class="inline-link" href="/en/architecture/">see the architecture archive</a>.
+      </p>
     </div>
   </section>
 
@@ -202,10 +173,10 @@ const personSchema = {
   <section class="closing-cta">
     <div class="site-wrap">
       <div class="closing-inner">
-        <h2 class="closing-h">have a project in mind?</h2>
+        <h2 class="closing-h">more projects than modelers?</h2>
         <div class="closing-ctas">
-          <a class="btn amber" href={localized('/contact', locale)}>
-            tell us about your project
+          <a class="btn amber" href="/en/modeling-support/#start">
+            send a project
             <span class="arrow-tail" aria-hidden="true"></span>
           </a>
           <a class="contact-line" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a>
@@ -303,6 +274,10 @@ const personSchema = {
     margin-top: 40px;
     margin-bottom: 12px;
   }
+  .caps-in { text-transform: none; }
+  .creds { list-style: none; padding: 0; margin: 0 0 28px; display: flex; flex-direction: column; gap: 6px; font-size: 15px; }
+  .creds li::before { content: ''; display: inline-block; width: 8px; height: 8px; background: var(--amber); margin-right: 10px; }
+  .archive-line p { margin: 0; font-size: 15px; color: var(--mute-on-paper); max-width: 64ch; }
   .bio-text .muted {
     color: var(--mute-on-paper);
   }

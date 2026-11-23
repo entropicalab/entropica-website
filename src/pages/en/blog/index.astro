@@ -19,19 +19,16 @@ function getTopic(categories: string[] = []): string {
 ---
 
 <BaseLayout
-  title="resources · entrópica · tropical architecture in panamá"
-  description="tools, guides, and insights to help architects, developers, and consultants embed energy performance into their projects. climate futures, case studies, and bioclimatic design guides for panamá."
+  title="resources · entrópica · building-performance modeling"
+  description="studies, methods and the building physics behind them, in plain language. case studies, guides and climate futures from entrópica."
   locale={locale}
 >
   <section class="hero">
     <div class="site-wrap">
       <div class="eyebrow">// resources</div>
-      <h1 class="hero-h">knowledge helps us demand better buildings.</h1>
+      <h1 class="hero-h">notes on building performance.</h1>
       <p class="hero-lede">
-        knowledge should be open. this area gathers tools, guides, and insights
-        to help architects, developers and consultants embed energy performance into their
-        projects. from benchmarking templates and simulation workflows to plain-language
-        explainers. use them to learn, adapt, and demand better buildings.
+        studies, methods and the physics behind them, in plain language.
       </p>
       <div class="topics-line">
         <span class="topics-label">our topics:</span>
@@ -40,36 +37,7 @@ function getTopic(categories: string[] = []): string {
     </div>
   </section>
 
-  <section class="tool-callout">
-    <div class="site-wrap">
-      <div class="tool-grid">
-        <a class="tool-card" href={localized('/tools/cost-calculator', locale)}>
-          <div class="tool-card-body">
-            <div class="eyebrow amber">// interactive tool</div>
-            <h2 class="tool-card-h">construction + operating cost calculator.</h2>
-            <p class="tool-card-p">
-              estimate what it costs to build, renovate and operate a building in panamá,
-              and the difference, month after month, between a typical building and one built
-              to the sustainable code.
-            </p>
-          </div>
-          <span class="tool-card-cta">open the calculator <span class="arrow-tail" aria-hidden="true"></span></span>
-        </a>
-        <a class="tool-card" href={localized('/recursos/permisos-panama', locale)}>
-          <div class="tool-card-body">
-            <div class="eyebrow amber">// interactive tool</div>
-            <h2 class="tool-card-h">the building permit map for panamá.</h2>
-            <p class="tool-card-p">
-              the municipality of panamá process, step by step, by where you start, with the
-              taxes and fees each stage carries.
-            </p>
-          </div>
-          <span class="tool-card-cta">open the map <span class="arrow-tail" aria-hidden="true"></span></span>
-        </a>
-      </div>
-    </div>
-  </section>
-
+  <!-- the panamá tool cards were removed 2026-11-23 (rev 2, B4): the tools stay live, noindex. -->
   <section class="resources-section">
     <div class="site-wrap">
       <div class="filter-bar" role="group" aria-label="filter by topic">
