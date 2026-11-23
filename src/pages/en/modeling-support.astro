@@ -8,8 +8,10 @@
 // (D1-D4 answered 2026-11-21: D1 b, D2 off, D3 kept, D4 not mentioned.)
 //
 // hard rules (spec section 3): no saint-gobain, no "global glazing
-// manufacturer", no medford / orange county / nevada. no LEED, appendix g,
-// title 24, EDGE, BREEAM or compliance offered. no payback. no vyana. one
+// manufacturer", no medford / orange county / nevada. no appendix g,
+// title 24, EDGE or BREEAM. no payback. LEED and code compliance: offered
+// since 2026-11-23 as "can do, none delivered for a client yet" (jose), never
+// as past work. no vyana. one
 // modeler: never "our team". numbers only from src/data/studies.ts.
 // never "engineering" or "signed off" for our own work (claim rules).
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -56,6 +58,7 @@ const scope = [
   { k: 'comfort', v: 'indoor pmv (ashrae 55) and outdoor utci.', tool: 'energyplus, ladybug tools' },
   { k: 'airflow', v: 'wind around the building and air movement inside it, with CFD.', tool: 'butterfly, openfoam' },
   { k: 'facade options', v: 'glass types, louvers, screens and overhangs, compared against one fair baseline.', tool: '' },
+  { k: 'LEED and code compliance', v: 'energy and daylight models for LEED or code compliance. no client has asked us for one yet, but they are built from the same models we run on every study.', tool: '' },
 ];
 
 const steps = [
@@ -186,8 +189,8 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
       <dl class="scope">
         {scope.map((s) => (
           <div>
-            <dt>{s.k}</dt>
-            <dd>{s.v}{s.tool && <span class="sc-tool">{s.tool}</span>}</dd>
+            <dt set:html={s.k.replace('LEED', '<span class="caps-in">LEED</span>')} />
+            <dd><span set:html={s.v.replace('LEED', '<span class="caps-in">LEED</span>')} />{s.tool && <span class="sc-tool">{s.tool}</span>}</dd>
           </div>
         ))}
       </dl>
@@ -287,6 +290,7 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
             <p>josé reviews every inquiry personally.<br /><span>no obligation · fixed-fee quotes</span></p>
           </div>
           <ul class="direct">
+            <li><a href="/en/faq/">common questions</a></li>
             <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
           </ul>
         </div>

@@ -84,7 +84,6 @@ export default defineConfig({
         !page.includes('/en/manufacturers') &&
         !page.includes('/tools/cost-calculator') &&
         !page.includes('/recursos/permisos-panama') &&
-        !page.includes('/en/faq/') &&
         !page.includes('/en/architecture/') &&
         !designOnly.includes(new URL(page).pathname),
       // stamp each url with its source file's last git-commit date

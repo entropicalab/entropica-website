@@ -8,8 +8,8 @@ const locale = 'en' as const;
 // every fact matches /en/modeling-support/ or /en/about/. never "engineering".
 // LEED / compliance: jose can do them but has not delivered one for a client
 // yet (jose, 2026-11-23). say exactly that, never imply past LEED work.
-// noindex until jose approves the copy; then remove noindex, drop the faq
-// line from the sitemap filter in astro.config.mjs, and link it.
+// approved by jose 2026-11-23: indexed, in the sitemap, linked from the
+// footer and the modeling support page.
 const faqs = [
   {
     q: 'what does entrópica do?',
@@ -92,7 +92,6 @@ const faqSchema = {
   title="questions · entrópica · building-performance modeling"
   description="how entrópica's building simulations work: who does them, what they answer, what you send, what you get back, how long they take and what they cost."
   locale={locale}
-  noindex
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
