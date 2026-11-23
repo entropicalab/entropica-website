@@ -1,5 +1,5 @@
 ---
-import { tr, localized } from '../i18n/utils';
+import { tr } from '../i18n/utils';
 import type { Locale } from '../i18n/strings';
 import { analyticsConfigured } from '../config/analytics';
 
@@ -21,7 +21,7 @@ if (!analyticsConfigured) {
       <div class="consent-eb">{t('consent.eyebrow')}</div>
       <p class="consent-text">{t('consent.text')}</p>
       <div class="consent-actions">
-        <a class="consent-link" href={localized('/privacy', locale)}>{t('consent.more')} →</a>
+        <a class="consent-link" href="/en/privacy/">{t('consent.more')} →</a>
         <button class="consent-btn decline" data-consent="decline">{t('consent.decline')}</button>
         <button class="consent-btn accept" data-consent="accept">{t('consent.accept')}</button>
       </div>

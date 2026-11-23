@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CostCalculator from '../../components/CostCalculator.astro';
-import { localized, tr } from '../../i18n/utils';
+import { tr } from '../../i18n/utils';
 
 const locale = 'es' as const;
 const t = tr(locale);
@@ -11,6 +11,7 @@ const t = tr(locale);
   title="costo de construcción por metro cuadrado en panamá 2026"
   description="calculadora de costo de construcción por metro cuadrado en panamá, centroamérica: rangos por tipología y nivel de acabado, más lo que cuesta operar el edificio."
   locale={locale}
+  noindex
 >
   <section class="tool-hero">
     <div class="site-wrap">
@@ -39,7 +40,7 @@ const t = tr(locale);
       <div class="cta-inner">
         <div class="eyebrow">// del estimado al proyecto</div>
         <h2 class="cta-h">los números reales se ganan en el diseño.</h2>
-        <a class="btn amber" href={localized('/contact', locale)}>
+        <a class="btn amber" href="/en/contact/">
           agenda una llamada de 30 minutos para revisar tu proyecto
           <span class="arrow-tail" aria-hidden="true"></span>
         </a>

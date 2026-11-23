@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PermitFlowchart from '../../components/PermitFlowchart.astro';
-import { localized } from '../../i18n/utils';
 
 const locale = 'es' as const;
 ---
@@ -10,6 +9,7 @@ const locale = 'es' as const;
   title="permisos de construcción en panamá · el mapa del proceso"
   description="mapa interactivo del proceso de permisos de construcción en el municipio de panamá, centroamérica: anteproyecto, ventanilla única, construcción y ocupación, con impuestos y tasas estimadas por paso."
   locale={locale}
+  noindex
 >
   <section class="tool-hero">
     <div class="site-wrap">
@@ -82,7 +82,7 @@ const locale = 'es' as const;
       <div class="cta-inner">
         <div class="eyebrow">// aquí entramos nosotros</div>
         <h2 class="cta-h">¿se ve como un enredo? un poco lo es. lo hemos recorrido muchas veces, y con gusto te acompañamos.</h2>
-        <a class="btn amber" href={localized('/contact', locale)}>
+        <a class="btn amber" href="/en/contact/">
           hablemos de tu proyecto
           <span class="arrow-tail" aria-hidden="true"></span>
         </a>

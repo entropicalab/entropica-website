@@ -7,14 +7,15 @@ interface Props {
   locale: Locale;
 }
 const { locale } = Astro.props;
-const t = tr(locale);
+// english-only site: always english chrome.
+const t = tr('en');
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="inner">
     <div class="brand">
-      <a href={localized('/', locale)} aria-label="entrópica">
+      <a href={localized('/', 'en')} aria-label="entrópica">
         <img src="/entropica-dark.png" alt="entrópica" width="220" height="62" />
       </a>
       <div class="tag">{t('footer.bio')}</div>
@@ -24,9 +25,9 @@ const year = new Date().getFullYear();
       <h4>{t('footer.studio')}</h4>
       <ul>
         <li><a href="/en/modeling-support/">{t('nav.modeling')}</a></li>
-        <li><a href={localized('/projects', locale)}>{t('nav.work')}</a></li>
-        <li><a href={localized('/blog', locale)}>{t('nav.journal')}</a></li>
-        <li><a href={localized('/about', locale)}>{t('nav.about')}</a></li>
+        <li><a href={localized('/projects', 'en')}>{t('nav.work')}</a></li>
+        <li><a href={localized('/blog', 'en')}>{t('nav.journal')}</a></li>
+        <li><a href={localized('/about', 'en')}>{t('nav.about')}</a></li>
       </ul>
     </div>
 
@@ -44,7 +45,7 @@ const year = new Date().getFullYear();
   <div class="legal">
     <div>{t('footer.copyright')} · {year}</div>
     <div>
-      <a class="legal-link" href={localized('/privacy', locale)}>{t('consent.eyebrow').replace('// ', '')}</a>
+      <a class="legal-link" href={localized('/privacy', 'en')}>{t('consent.eyebrow').replace('// ', '')}</a>
       <span class="legal-sep">·</span>
       <span class="legal-name">Watts And Matter Consulting, S.EP.</span> · est. 2020
     </div>

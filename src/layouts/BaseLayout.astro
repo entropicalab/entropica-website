@@ -54,12 +54,8 @@ const lastmodLabel = new Intl.DateTimeFormat(locale === 'es' ? 'es-PA' : 'en-US'
 }).format(lastmod);
 const updatedText = locale === 'es' ? 'última actualización' : 'last updated';
 
-const alts = alternateUrls(pathname);
-const hreflang = [
-  { lang: 'es', href: new URL(alts.es, Astro.site).toString() },
-  { lang: 'en', href: new URL(alts.en, Astro.site).toString() },
-  { lang: 'x-default', href: new URL(alts.es, Astro.site).toString() },
-];
+// english-only since 2026-11-23 (rev 2, B4): no hreflang alternates. the two
+// spanish panamá tools keep lang="es" because their text is spanish.
 ---
 
 <!doctype html>
@@ -71,9 +67,6 @@ const hreflang = [
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
     <link rel="canonical" href={canonical} />
-    {!bare && hreflang.map((h) => (
-      <link rel="alternate" hreflang={h.lang} href={h.href} />
-    ))}
     <link rel="icon" type="image/png" href="/favicon.png" />
 
     {/* material symbols outlined — weight 300 to match brand's light feel */}

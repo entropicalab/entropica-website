@@ -1,5 +1,5 @@
 ---
-import { tr, alternateUrls, localized } from '../i18n/utils';
+import { tr, localized } from '../i18n/utils';
 import type { Locale } from '../i18n/strings';
 
 interface Props {
@@ -7,8 +7,9 @@ interface Props {
   pathname: string;
 }
 const { locale, pathname } = Astro.props;
-const t = tr(locale);
-const alts = alternateUrls(pathname);
+// english-only site: chrome links and labels are always english, also on the
+// two spanish panamá tools that stay live.
+const t = tr('en');
 
 // rev 2, part B2 (2026-11-23): services, faq and the cost calculator left the nav.
 // modeling support is english-only, so it always links to /en/.
@@ -22,7 +23,7 @@ const navItems = [
 
 const isActive = (path: string): boolean => {
   const here = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
-  const target = localized(path, locale).replace(/\/$/, '');
+  const target = localized(path, 'en').replace(/\/$/, '');
   if (target === '/' || target === `/${locale}`) {
     return here === target;
   }
@@ -32,20 +33,15 @@ const isActive = (path: string): boolean => {
 
 <header class="site-header">
   <div class="inner">
-    <a class="logo" href={localized('/', locale)} aria-label="entrópica">
+    <a class="logo" href="/en/" aria-label="entrópica">
       <img src="/entropica-dark.png" alt="entrópica" width="200" height="56" />
     </a>
     <nav class="primary" aria-label="primary">
       {navItems.map((item) => (
-        <a href={item.href ?? localized(item.path, locale)} aria-current={isActive(item.path) ? 'page' : undefined}>
+        <a href={item.href ?? localized(item.path, 'en')} aria-current={isActive(item.path) ? 'page' : undefined}>
           {t(item.key)}
         </a>
       ))}
     </nav>
-    <div class="lang-toggle" aria-label="language">
-      <a href={alts.en} class={locale === 'en' ? 'active' : ''} hreflang="en">en</a>
-      <span class="sep">/</span>
-      <a href={alts.es} class={locale === 'es' ? 'active' : ''} hreflang="es">es</a>
-    </div>
   </div>
 </header>
