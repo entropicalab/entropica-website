@@ -3,67 +3,69 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const locale = 'en' as const;
 
-// rewritten 2026-11-23 for the pivot: modeling support questions only.
-// every answer repeats a fact already on /en/modeling-support/ or /en/about/.
-// no LEED, compliance, certification, payback or "engineering" (claim rules).
+// rewritten 2026-11-23 for the pivot: modeling support questions only, in
+// plain words for a reader who has never seen the modeling support page.
+// every fact matches /en/modeling-support/ or /en/about/. never "engineering".
+// LEED / compliance: jose can do them but has not delivered one for a client
+// yet (jose, 2026-11-23). say exactly that, never imply past LEED work.
 // noindex until jose approves the copy; then remove noindex, drop the faq
 // line from the sitemap filter in astro.config.mjs, and link it.
 const faqs = [
   {
     q: 'what does entrópica do?',
-    a: 'it builds and runs energy, daylight, thermal comfort, facade solar and airflow simulations for consultancies, facade consultants and architecture firms, and delivers checked results in your format.',
+    a: 'we run computer simulations of buildings: how much energy they use, how much daylight gets in, and how comfortable people feel inside. design teams and consultancies send us their projects when they need those answers.',
   },
   {
-    q: 'who builds the models?',
-    a: 'josé barría, founder and lead modeler. he is an architect licensed in panamá, with a master’s in environmental building design from the university of pennsylvania (2017), and has modeled building performance since 2020. he builds or checks every model himself.',
+    q: 'who does the work?',
+    a: 'josé barría. he’s an architect licensed in panamá, with a master’s in environmental building design from the university of pennsylvania, and he has modeled buildings since 2020. he builds or checks every model himself.',
   },
   {
-    q: 'what can a study model?',
-    a: 'annual energy use, peak cooling load and chiller size. solar radiation on facades and roofs. annual illuminance, useful daylight hours, sDA and ASE. indoor pmv (ashrae 55) and outdoor utci. wind and air movement with CFD. and facade options (glass types, louvers, screens, overhangs) compared against one fair baseline.',
+    q: 'what kind of questions can you answer?',
+    a: 'which glass keeps the building cooler. how deep the shading should be. how big the cooling system needs to be. whether a room gets enough daylight, or a terrace is comfortable in the afternoon. we can also show how wind moves around and through a building.',
   },
   {
-    q: 'which software do you use?',
-    a: 'rhino and grasshopper, ladybug tools, energyplus (8,760 hours), radiance, climatestudio, and butterfly with openfoam for airflow.',
+    q: 'can you do LEED or code compliance models?',
+    a: 'yes. no client has asked us for one yet, but they are built from the same energy and daylight models we run on every study.',
   },
   {
-    q: 'what do you need from us to start?',
-    a: 'the drawings you have (plans, elevations or a massing model), the question, the deadline, and your report template if you have one.',
+    q: 'what software do you use?',
+    a: 'energyplus for energy, radiance for daylight and sun, ladybug tools inside rhino and grasshopper, climatestudio, and openfoam for wind. if your team works in ladybug tools, we can also fix or review your own models.',
+  },
+  {
+    q: 'what do you need from us?',
+    a: 'the drawings you have (a simple massing model is enough), the question you want answered, and your deadline. if you have a report template, send that too.',
   },
   {
     q: 'what do we get back?',
-    a: 'a results spreadsheet, charts at final size, a short method note, and the result in one plain sentence, in your format.',
+    a: 'the numbers in a spreadsheet, charts ready for your slides, a short note on how the model was set up, and the answer in one plain sentence.',
   },
   {
-    q: 'how long does a study take?',
-    a: 'typically 5 business days for a one-question study. larger scopes get their schedule with the quote.',
+    q: 'how long does it take?',
+    a: 'typically 5 business days for one question. bigger jobs get their schedule with the quote.',
   },
   {
-    q: 'how much does a study cost?',
-    a: 'from USD 800 for a one-question study: one building, one question, up to three options against one baseline. every study gets a fixed-fee quote before any work starts.',
+    q: 'how much does it cost?',
+    a: 'from USD 800 for one question on one building, comparing up to three options. you get a fixed price before any work starts.',
   },
   {
-    q: 'can you take ongoing work?',
-    a: 'yes. send the list of projects and deadlines for the month, and josé quotes a fixed fee for the block. if you are hiring an energy modeler, entrópica can cover your projects while you hire.',
+    q: 'we have more projects than people. can you help every month?',
+    a: 'yes. send the month’s projects and deadlines, and we quote one fixed price for all of them. if you’re hiring a modeler, we can cover your projects until that person starts.',
   },
   {
-    q: 'can you work under our name?',
-    a: 'yes, on request. entrópica works in your templates, report format and QA rules. you keep the client relationship.',
+    q: 'can the work go out under our name?',
+    a: 'yes, if you want. we use your templates and report format, and you keep the client.',
   },
   {
-    q: 'how do you handle confidential projects?',
-    a: 'NDA before file transfer, on request. models and data from one project are never reused for another.',
+    q: 'are our files safe with you?',
+    a: 'we sign an NDA before you send anything, if you need one. your models and data are never used on another project.',
   },
   {
-    q: 'how is every result checked?',
-    a: 'every result names its baseline. the weather file, schedules, set points and materials go in the method note. loads, temperatures and hours are checked against what the building can physically do before any chart is made. josé reviews every study before delivery.',
-  },
-  {
-    q: 'we run our own models. can you help with them?',
-    a: 'yes. entrópica builds, fixes and reviews grasshopper and honeybee definitions for teams that work in ladybug tools.',
+    q: 'how do you know the numbers are right?',
+    a: 'every result is compared with a clear starting point, so you know what it beats. before any chart is made, josé checks that the numbers make physical sense, and he reviews every study before it goes out.',
   },
   {
     q: 'do you work with teams outside panamá?',
-    a: 'yes. the work is remote. entrópica is on UTC−5 all year with no daylight saving change, so the day overlaps north and south american business hours. josé has modeled buildings in nine cities on five continents.',
+    a: 'yes, all the work is remote. panamá never changes its clocks: it’s on new york time in winter and chicago time in summer.',
   },
   {
     q: 'what languages do you work in?',
@@ -72,7 +74,7 @@ const faqs = [
 ];
 
 // acronyms keep their capitals (global css lowercases text).
-const ACR = /\b(sDA|ASE|CFD|USD|NDA|QA|UTC−5)/g;
+const ACR = /\b(LEED|USD|NDA)/g;
 const caps = (t: string) => t.replace(ACR, '<span class="caps-in">$1</span>');
 
 const faqSchema = {
@@ -88,7 +90,7 @@ const faqSchema = {
 
 <BaseLayout
   title="questions · entrópica · building-performance modeling"
-  description="how entrópica's modeling support works: what a study can model, the software, what you send, what you get back, turnaround, price, white-label and confidentiality."
+  description="how entrópica's building simulations work: who does them, what they answer, what you send, what you get back, how long they take and what they cost."
   locale={locale}
   noindex
 >
@@ -111,7 +113,7 @@ const faqSchema = {
           <article class="faq-row">
             <div class="faq-ix">{String(i + 1).padStart(2, '0')}</div>
             <div class="faq-content">
-              <h2 class="faq-q">{f.q}</h2>
+              <h2 class="faq-q" set:html={caps(f.q)} />
               <p class="faq-a" set:html={caps(f.a)} />
             </div>
           </article>
@@ -150,7 +152,7 @@ const faqSchema = {
   .faq-ix { font-size: 14px; color: var(--mute-on-paper-2); font-feature-settings: 'tnum' 1; letter-spacing: 0.10em; text-transform: uppercase; padding-top: 6px; }
   .faq-content { max-width: 64ch; display: flex; flex-direction: column; gap: 12px; }
   .faq-q { font-size: clamp(19px, 2vw, 23px); line-height: 1.2; letter-spacing: -0.015em; font-weight: 300; margin: 0; text-wrap: balance; }
-  .faq-a :global(.caps-in) { text-transform: none; }
+  .faq-q :global(.caps-in), .faq-a :global(.caps-in) { text-transform: none; }
   .faq-a { font-size: 15px; line-height: 1.65; color: var(--mute-on-paper); font-weight: 300; margin: 0; }
   @media (max-width: 900px) { .faq-row { grid-template-columns: 1fr; gap: 12px; } }
 
