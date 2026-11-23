@@ -1,72 +1,79 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { localized, tr } from '../../i18n/utils';
 
 const locale = 'en' as const;
-const t = tr(locale);
 
+// rewritten 2026-11-23 for the pivot: modeling support questions only.
+// every answer repeats a fact already on /en/modeling-support/ or /en/about/.
+// no LEED, compliance, certification, payback or "engineering" (claim rules).
+// noindex until jose approves the copy; then remove noindex, drop the faq
+// line from the sitemap filter in astro.config.mjs, and link it.
 const faqs = [
   {
-    q: "why not just install ac and be done with it?",
-    a: "you can, and almost everybody does. the cost arrives on the bill, every month. if the building takes in less heat, the equipment can be smaller and it works less. according to the un, keeping heat out of a building can lower indoor temperatures by 2 to 8 °C (unep, global cooling watch 2025).",
+    q: 'what does entrópica do?',
+    a: 'it builds and runs energy, daylight, thermal comfort, facade solar and airflow simulations for consultancies, facade consultants and architecture firms, and delivers checked results in your format.',
   },
   {
-    q: "why does the electricity bill climb so fast in panamá?",
-    a: "because the residential tariff is progressive: the more you use in a month, the more each kwh costs. the first 300 kwh run around USD 0.091; from 301 to 750, about 0.158; above 750, about 0.230. air-conditioning is usually what pushes you into the expensive block.",
+    q: 'who builds the models?',
+    a: 'josé barría, founder and lead modeler. he is an architect licensed in panamá, with a master’s in environmental building design from the university of pennsylvania (2017), and has modeled building performance since 2020. he builds or checks every model himself.',
   },
   {
-    q: "how much does it cost to build a house in panamá in 2026?",
-    a: "for a house we work with ranges of USD 370 to 500 per m² at a basic finish, 650 to 850 at standard and 1,300 to 2,200 at premium. add about 15% for design, permits and legal. it excludes land, furniture and itbms. you can try your own case in the cost calculator.",
+    q: 'what can a study model?',
+    a: 'annual energy use, peak cooling load and chiller size. solar radiation on facades and roofs. annual illuminance, useful daylight hours, sDA and ASE. indoor pmv (ashrae 55) and outdoor utci. wind and air movement with CFD. and facade options (glass types, louvers, screens, overhangs) compared against one fair baseline.',
   },
   {
-    q: "how much does passive design actually save?",
-    a: "it depends on the building, which is why we simulate each project. as a reference, the un reports average energy savings of 29% from passive cooling measures (unep, global cooling watch 2025). in panamá, the sustainable building guide asks new buildings to save 20%.",
+    q: 'which software do you use?',
+    a: 'rhino and grasshopper, ladybug tools, energyplus (8,760 hours), radiance, climatestudio, and butterfly with openfoam for airflow.',
   },
   {
-    q: "is it better to renovate or build from scratch?",
-    a: "it depends on the state of the structure. as a starting point, the municipality of panamá uses USD 250 to 500 per m² to renovate a house, against 650 to 850 for a standard new one. fees go the other way: coici sets a minimum of 2% for renovations and 1% for a new house, because working on what already exists carries more risk. the calculator has a renovation mode to compare.",
+    q: 'what do you need from us to start?',
+    a: 'the drawings you have (plans, elevations or a massing model), the question, the deadline, and your report template if you have one.',
   },
   {
-    q: "what do i need to start a project with entrópica?",
-    a: "a conversation about the place and what you want to build. that's enough to begin.",
+    q: 'what do we get back?',
+    a: 'a results spreadsheet, charts at final size, a short method note, and the result in one plain sentence, in your format.',
   },
   {
-    q: "where do you work?",
-    a: "we design for anywhere. permits we handle in panamá only.",
+    q: 'how long does a study take?',
+    a: 'typically 5 business days for a one-question study. larger scopes get their schedule with the quote.',
   },
   {
-    q: "do you handle building permits?",
-    a: "yes: preliminary designs, miscellaneous drawings and construction documents, in the municipality of panamá and the rest of the country.",
+    q: 'how much does a study cost?',
+    a: 'from USD 800 for a one-question study: one building, one question, up to three options against one baseline. every study gets a fixed-fee quote before any work starts.',
   },
   {
-    q: "how much does it cost to build a climate-led building?",
-    a: "it depends on the project. we go through everything that moves the construction cost with the client and the contractor, and we focus on lowering what the building spends every month. for a construction range, use the cost calculator.",
+    q: 'can you take ongoing work?',
+    a: 'yes. send the list of projects and deadlines for the month, and josé quotes a fixed fee for the block. if you are hiring an energy modeler, entrópica can cover your projects while you hire.',
   },
   {
-    q: "do you help with leed or edge certification?",
-    a: "we haven't taken a project through leed or edge certification yet. we know the process and we do the energy and daylight studies it relies on, so we can work alongside the team that handles it.",
+    q: 'can you work under our name?',
+    a: 'yes, on request. entrópica works in your templates, report format and QA rules. you keep the client relationship.',
   },
   {
-    q: "do you do interior projects, or only new builds?",
-    a: "both. in a new build the shape of the building is still open. in a renovation the facade already exists, and the work is rearranging the inside so it's more comfortable.",
+    q: 'how do you handle confidential projects?',
+    a: 'NDA before file transfer, on request. models and data from one project are never reused for another.',
   },
   {
-    q: "what is bioclimatic architecture, and why does it matter in panamá?",
-    a: "it means designing with the climate: using orientation, shade, ventilation and materials so the building stays cool before the ac goes on. in panamá, those decisions set how much energy the building uses for the rest of its life.",
+    q: 'how is every result checked?',
+    a: 'every result names its baseline. the weather file, schedules, set points and materials go in the method note. loads, temperatures and hours are checked against what the building can physically do before any chart is made. josé reviews every study before delivery.',
   },
   {
-    q: "do i need to own the land before talking to you?",
-    a: "no. if you already have it, we study the sun and wind on the real site. if you're still choosing, we help you compare how the climate would affect each option.",
+    q: 'we run our own models. can you help with them?',
+    a: 'yes. entrópica builds, fixes and reviews grasshopper and honeybee definitions for teams that work in ladybug tools.',
   },
   {
-    q: "do you work with other architecture firms?",
-    a: "yes. part of our work is advising other firms and manufacturers, with energy and daylight studies for projects that already have a design team.",
+    q: 'do you work with teams outside panamá?',
+    a: 'yes. the work is remote. entrópica is on UTC−5 all year with no daylight saving change, so the day overlaps north and south american business hours. josé has modeled buildings in nine cities on five continents.',
   },
   {
-    q: "what languages do you work in?",
-    a: "spanish and english, in documents and in meetings.",
+    q: 'what languages do you work in?',
+    a: 'english and spanish.',
   },
 ];
+
+// acronyms keep their capitals (global css lowercases text).
+const ACR = /\b(sDA|ASE|CFD|USD|NDA|QA|UTC−5)/g;
+const caps = (t: string) => t.replace(ACR, '<span class="caps-in">$1</span>');
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -80,8 +87,8 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="frequently asked questions · entrópica · architects in panamá"
-  description="frequently asked questions about entrópica: construction costs in panamá, the electricity bill, municipal permits, renovations and bioclimatic architecture."
+  title="questions · entrópica · building-performance modeling"
+  description="how entrópica's modeling support works: what a study can model, the software, what you send, what you get back, turnaround, price, white-label and confidentiality."
   locale={locale}
   noindex
 >
@@ -90,9 +97,9 @@ const faqSchema = {
   <section class="hero">
     <div class="site-wrap">
       <div class="eyebrow">// frequently asked</div>
-      <h1 class="hero-h">what people usually ask.</h1>
+      <h1 class="hero-h">questions about modeling support.</h1>
       <p class="hero-lede">
-        if your question isn't here, write to us.
+        if yours isn’t here, write to josé.
       </p>
     </div>
   </section>
@@ -105,7 +112,7 @@ const faqSchema = {
             <div class="faq-ix">{String(i + 1).padStart(2, '0')}</div>
             <div class="faq-content">
               <h2 class="faq-q">{f.q}</h2>
-              <p class="faq-a">{f.a}</p>
+              <p class="faq-a" set:html={caps(f.a)} />
             </div>
           </article>
         ))}
@@ -116,11 +123,11 @@ const faqSchema = {
   <section class="closing-cta">
     <div class="site-wrap">
       <div class="closing-inner">
-        <div class="eyebrow">// another question?</div>
-        <h2 class="closing-h">tell us about the project and the climate.</h2>
+        <div class="eyebrow">// start a project</div>
+        <h2 class="closing-h">send the project. get a fixed quote.</h2>
         <div class="closing-ctas">
-          <a class="btn amber" href={localized('/contact', locale)}>
-            {t('cta.contact')}
+          <a class="btn amber" href="/en/modeling-support/#start">
+            send a project
             <span class="arrow-tail" aria-hidden="true"></span>
           </a>
           <a class="contact-line" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a>
@@ -143,6 +150,7 @@ const faqSchema = {
   .faq-ix { font-size: 14px; color: var(--mute-on-paper-2); font-feature-settings: 'tnum' 1; letter-spacing: 0.10em; text-transform: uppercase; padding-top: 6px; }
   .faq-content { max-width: 64ch; display: flex; flex-direction: column; gap: 12px; }
   .faq-q { font-size: clamp(19px, 2vw, 23px); line-height: 1.2; letter-spacing: -0.015em; font-weight: 300; margin: 0; text-wrap: balance; }
+  .faq-a :global(.caps-in) { text-transform: none; }
   .faq-a { font-size: 15px; line-height: 1.65; color: var(--mute-on-paper); font-weight: 300; margin: 0; }
   @media (max-width: 900px) { .faq-row { grid-template-columns: 1fr; gap: 12px; } }
 
