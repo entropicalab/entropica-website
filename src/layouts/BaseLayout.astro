@@ -19,6 +19,9 @@ interface Props {
   // visitor stays on the page (used by /en/specification-studies).
   bare?: boolean;
   bareDark?: boolean; // bare header on an ink band, white logo
+  // where the bare header's logo goes. default: the page itself (a standalone
+  // landing page). modeling support links home, since /en/ now sells the same thing.
+  logoHref?: string;
 }
 
 const pathname = Astro.url.pathname;
@@ -31,6 +34,7 @@ const {
   noindex = false,
   bare = false,
   bareDark = false,
+  logoHref,
 } = Astro.props;
 
 const fullTitle = title.includes('entrópica') ? title : `${title} · entrópica`;
@@ -105,7 +109,7 @@ const updatedText = locale === 'es' ? 'última actualización' : 'last updated';
     {bare ? (
       <header class={bareDark ? 'bare-header dark' : 'bare-header'}>
         <div class="site-wrap">
-          <a href={pathname} aria-label="entrópica">
+          <a href={logoHref ?? pathname} aria-label="entrópica">
             <img src={bareDark ? '/entropica-white.png' : '/entropica-dark.png'} alt="entrópica" width="200" height="56" />
           </a>
         </div>
