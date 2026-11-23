@@ -21,6 +21,7 @@ import StudyDatasheet from '../../components/StudyDatasheet.astro';
 import WhoDoesTheWork from '../../components/WhoDoesTheWork.astro';
 import StudyFooter from '../../components/StudyFooter.astro';
 import { SCALING } from '../../data/studies';
+import { business } from '../../data/business';
 import '../../styles/study-page.css';
 
 const locale = 'en' as const;
@@ -98,6 +99,8 @@ const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'radiance',
   ogImage="/og-modeling-support.jpg"
 >
   <!-- 1 · hero -->
+  <script type="application/ld+json" set:html={JSON.stringify(business('https://entropica-lab.com/en/modeling-support/'))} />
+
   <section class="hero" id="hero">
     <div class="site-wrap hero-grid">
       <div class="hero-copy">

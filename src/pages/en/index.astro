@@ -1,743 +1,99 @@
 ---
+// /en/ · the front door. since the 2026-11-23 pivot (rev 2, part B1) the home
+// page sells one thing: building-performance modeling for consultancies and
+// design teams. it reuses the modeling-support blocks, so the email, the
+// landing page and the home page say the same thing.
+//
+// manufacturers: no link to /en/specification-studies/ until saint-gobain
+// gives written clearance. after that, add a second card "for building-product
+// manufacturers".
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-import { localized, tr } from '../../i18n/utils';
+import ClientBand from '../../components/ClientBand.astro';
+import TowerSheet from '../../components/TowerSheet.astro';
+import ResultCards from '../../components/ResultCards.astro';
+import WhoDoesTheWork from '../../components/WhoDoesTheWork.astro';
+import { results } from '../../data/studies';
+import { business } from '../../data/business';
+import '../../styles/study-page.css';
 
 const locale = 'en' as const;
-const t = tr(locale);
 
-const allProjects = await getCollection('projects', ({ data }) => data.locale === locale && !data.hidden);
-const featured = allProjects
-  .filter((p) => p.data.featured)
-  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+// three cards: the tower sample, and two real client projects (l12, casa castillo).
+const picks = ['glazing', 'glass selection', 'roof shading'];
+const homeResults = picks.map((c) => results.find((r) => r.cat === c)!);
 
-const services = [
-  { eyebrow: '// 01', title: 'concept design', icon: 'architecture', body: 'which way the building faces, how much glass it has and where the shade goes, decided with your site\'s climate.' },
-  { eyebrow: '// 02', title: 'full design', icon: 'dashboard_customize', body: 'the design from start to finish, coordinated with the engineers.' },
-  { eyebrow: '// 03', title: 'permits and drawings', icon: 'description', body: 'drawings that pass review and that the contractor can build.' },
-  { eyebrow: '// 04', title: 'energy studies', icon: 'monitoring', body: 'we simulate the sun, the daylight and the air-conditioning of your project, or your team\'s.' },
-];
-
-const problems = [
-  { p: 'high power bills', s: 'shade first, so the air-conditioning works less.', icon: 'bolt' },
-  { p: 'hot rooms', s: 'shade and moving air before more equipment.', icon: 'device_thermostat' },
-  { p: 'damp and mold', s: 'details that let walls and roofs dry out.', icon: 'humidity_mid' },
-  { p: 'salt and wear', s: 'materials and details made for the coast.', icon: 'waves' },
-];
-
-
-const businessSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'ArchitecturalService',
-  name: 'entrópica',
-  legalName: 'watts & matter consulting, s. e.p.',
-  description: 'energy-led tropical and bioclimatic architecture studio in panamá, central america.',
-  url: 'https://entropica-lab.com/en/',
-  email: 'info@entropica-lab.com',
-  telephone: '+507 6200-6909',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'ph plaza mar, paitilla',
-    addressLocality: 'panama city',
-    addressCountry: 'PA',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 8.974904602770444,
-    longitude: -79.51278964689152,
-  },
-  hasMap: 'https://maps.app.goo.gl/v1nWCHivFs7zPgrj9',
-  sameAs: ['https://maps.app.goo.gl/v1nWCHivFs7zPgrj9'],
-  areaServed: {
-    '@type': 'Country',
-    name: 'Panama',
-  },
-  knowsLanguage: ['es', 'en'],
-};
-
-const clients = [
-  {
-    cat: 'real estate',
-    items: ['promotora azul rubí', 'linton bay', 'regor assets'],
-  },
-  {
-    cat: 'commercial',
-    items: ['global bank', 'festieventos', 'jolly roger diving', 'atn polaris', 'servicios carlos', 'estrella azul', 'us pharmacy group', 'kart 21', 'eurostone', 'current technologies', 'agrupetrol'],
-  },
-  {
-    cat: 'hospitality',
-    items: ['donde josé', 'fonda lo que hay', 'durán coffee select', 'wall st. bar and lounge', 'lung fung', 'dainer 16', 'hostales selina', 'esa flaca rica'],
-  },
-  {
-    cat: 'institutional',
-    items: ['wirtschaftsuniversität wien', 'santuario nacional', 'anep', 'universidad de panamá', 'municipio de san miguelito', 'ministerio público'],
-  },
-  {
-    cat: 'consulting',
-    items: ['soba design', 'rancho grande', 'george moreno & partners', 'labhaus studio', 'forza creativa', 'sousa design architects boston'],
-  },
-];
+const MS = '/en/modeling-support/';
 ---
 
 <BaseLayout
-  title="entrópica · architecture for the heat of panamá"
-  description="an architecture studio in panamá city. we design houses and buildings that need less air-conditioning, and we check it with simulations before they are built."
+  title="building-performance modeling for consultancies and design teams · entrópica"
+  description="energy, daylight and comfort simulations for consultancies and design teams. entrópica builds and runs the models, checks every number, and delivers in your format."
   locale={locale}
+  ogImage="/og-modeling-support.jpg"
 >
-  <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
-  <!-- ============ hero ============ -->
-  <section class="hero">
-    <div class="site-wrap">
-      <div class="hero-grid">
-        <div class="hero-eb">// architecture studio · panamá city · since 2020</div>
-        <h1 class="hero-h">
-          architecture for the heat of panamá.
-        </h1>
-        <p class="hero-lede">
-          we design buildings that need less air-conditioning, and we check it with
-          simulations before they are built.
+  <script type="application/ld+json" set:html={JSON.stringify(business('https://entropica-lab.com/en/'))} />
+
+  <!-- 1 · hero -->
+  <section class="hero" id="hero">
+    <div class="site-wrap hero-grid">
+      <div class="hero-copy">
+        <p class="kicker">building-performance modeling · panamá · <span class="caps">UTC−5</span></p>
+        <h1>energy, daylight and comfort simulations for consultancies and design teams.</h1>
+        <p class="lede">
+          entrópica builds and runs the models, checks every number, and delivers in
+          your format, typically in 5 business days.
         </p>
-        <div class="hero-ctas">
-          <a class="btn amber" href={localized('/contact', locale)}>
-            tell us about your project
-            <span class="arrow-tail" aria-hidden="true"></span>
-          </a>
-          <a class="btn" href={localized('/projects', locale)}>{t('cta.viewWork')}</a>
+        <div class="ctas">
+          <a class="btn amber" href={`${MS}#start`}>send a project <span class="arrow-tail" aria-hidden="true"></span></a>
+          <a class="btn ghost" href={`${MS}#results`}>see sample results</a>
         </div>
       </div>
+      <TowerSheet />
     </div>
   </section>
 
+  <!-- 2 · clients -->
+  <section class="clients-band" aria-label="clients">
+    <div class="site-wrap"><ClientBand /></div>
+  </section>
 
-  <!-- ============ what does that mean? · measurable upside ============ -->
-  <section class="block measurable">
+  <!-- 3 · results -->
+  <section class="band tint">
     <div class="site-wrap">
-      <div class="measurable-head">
-        <div class="eyebrow">// projects</div>
-        <h2 class="block-h">what changed in recent projects.</h2>
-      </div>
-
-      <div class="measurable-grid">
-        {featured.map((p) => (
-          <a class="measurable-card" href={localized(`/projects/${p.data.slug}`, locale)}>
-            <div class="m-card-photo">
-              {p.data.heroImage && <img src={p.data.heroImage} alt={p.data.title} loading="lazy" />}
-            </div>
-            {p.data.metric && (
-              <div class="m-card-metric">
-                <span class="m-num">{p.data.metric.value}<span class="m-unit">{p.data.metric.unit}</span></span>
-                <span class="m-label">{p.data.metric.label}</span>
-              </div>
-            )}
-            <div class="m-card-info">
-              <div class="m-title">{p.data.title}</div>
-              <div class="m-meta">
-                <span>{p.data.area}</span><span class="sep">·</span>
-                <span>{p.data.typology}</span><span class="sep">·</span>
-                <span>{p.data.location}</span><span class="sep">·</span>
-                <span>{p.data.year}</span>
-              </div>
-            </div>
-          </a>
-        ))}
-      </div>
-
-      <p class="measurable-sub">figures simulated before construction. air-conditioning already takes about a fifth of the electricity used in buildings worldwide (<a href="https://www.iea.org/reports/the-future-of-cooling" target="_blank" rel="noopener">iea, 2018</a>).</p>
-      <div class="measurable-foot">
-        <a class="btn" href={localized('/projects', locale)}>
-          {t('cta.viewWork')}
-          <span class="arrow-tail" aria-hidden="true"></span>
-        </a>
-      </div>
+      <p class="kicker">results from past studies</p>
+      <h2>the kind of answer you get back.</h2>
+      <ResultCards results={homeResults} />
+      <p class="more"><a href={`${MS}#results`}>more results, and how a job works <span class="arrow-tail" aria-hidden="true"></span></a></p>
     </div>
   </section>
 
-
-  <!-- ============ how do we do it? ============ -->
-  <section class="block howdoit">
+  <!-- 4 · who does the work -->
+  <section class="band">
     <div class="site-wrap">
-      <div class="howdoit-head">
-        <div class="eyebrow">// how we work</div>
-        <h2 class="block-h">we test the design against the climate before it is built.</h2>
-      </div>
-      <div class="problems-grid">
-        {problems.map((p) => (
-          <div class="problem">
-            <span class="material-symbols-outlined icon-md icon-amber prob-icon">{p.icon}</span>
-            <div class="prob-name">{p.p}</div>
-            <div class="prob-soln">{p.s}</div>
-          </div>
-        ))}
-      </div>
-      <p class="howdoit-punch">
-        you wouldn't build without seeing a render first. <span class="amber-text">we do the same with the heat.</span>
-      </p>
-      <p class="howdoit-fact">
-        stopping the heat before it gets in can lower indoor temperatures by 2 to 8 °C.<sup>*</sup>
-        <span class="howdoit-src"><sup>*</sup> <a href="https://www.uncclearn.org/wp-content/uploads/library/Global_Cooling_Watch_2025.pdf" target="_blank" rel="noopener">unep · global cooling watch, 2025</a>.</span>
-      </p>
+      <WhoDoesTheWork />
     </div>
   </section>
 
-  <!-- ============ our offering ============ -->
-  <section class="block services alt">
+  <!-- 5 · close -->
+  <section class="band dark close-home">
     <div class="site-wrap">
-      <div class="services-head">
-        <div class="eyebrow">// services</div>
-        <h2 class="block-h">from the first sketch to the permit.</h2>
-      </div>
-
-      <div class="services-layout">
-        <div class="services-img">
-          <img src="/servicios-guiados.jpg" alt="drawings and a model of an entrópica project" loading="lazy" />
-        </div>
-        <div class="services-grid">
-          {services.map((s) => (
-            <div class="svc">
-              <span class="material-symbols-outlined icon-md icon-amber svc-icon">{s.icon}</span>
-              <div class="svc-eb">{s.eyebrow}</div>
-              <h3 class="svc-title">{s.title}</h3>
-              <p class="svc-body">{s.body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div class="services-foot">
-        <a class="btn" href={localized('/services', locale)}>see services</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ our experience ============ -->
-  <section class="block experience">
-    <div class="site-wrap">
-      <div class="experience-head">
-        <div class="eyebrow">// clients</div>
-        <h2 class="block-h">who we have worked with.</h2>
-      </div>
-      <div class="clients-grid">
-        {clients.map((c) => (
-          <div class="client-col">
-            <div class="client-cat">{c.cat}</div>
-            <ul class="client-list">
-              {c.items.map((name) => (<li>{name}</li>))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ founder ============ -->
-  <section class="block founder alt">
-    <div class="site-wrap">
-      <div class="founder-grid">
-        <div class="founder-portrait">
-          <img src="/jose.jpg" alt="josé barría" />
-        </div>
-        <div class="founder-body">
-          <div class="eyebrow">// founder</div>
-          <h2 class="block-h">josé barría.</h2>
-          <p class="founder-lede">
-            licensed architect in panamá (JTIA, license 2015-001-042) and founder of entrópica.
-          </p>
-          <p class="founder-body-p">
-            he studied environmental building design at the university of pennsylvania. he
-            co-founded pentagrama estudio de diseño and
-            <a class="inline-link" href="https://www.globalurban.net/panama-city-panama" target="_blank" rel="noopener">acta, the panamá
-            city sustainable innovation zone</a>. he is also a partner at trimpacta, a water
-            footprint and carbon consultancy.
-          </p>
-          <a class="btn" href={localized('/about', locale)}>
-            about josé and the studio
-            <span class="arrow-tail" aria-hidden="true"></span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ let's get to work ============ -->
-  <section class="closing-cta">
-    <div class="site-wrap">
-      <div class="closing-inner">
-        <h2 class="closing-h">building somewhere hot?</h2>
-        <div class="closing-ctas">
-          <a class="btn amber" href={localized('/contact', locale)}>
-            tell us about your project
-            <span class="arrow-tail" aria-hidden="true"></span>
-          </a>
-          <a class="contact-line" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a>
-          <a class="contact-line" href="https://wa.me/50762006909" target="_blank" rel="noopener">whatsapp · +507 6200-6909</a>
-        </div>
+      <h2>more projects than modelers?</h2>
+      <div class="ctas">
+        <a class="btn amber" href={`${MS}#start`}>send a project <span class="arrow-tail" aria-hidden="true"></span></a>
+        <a class="mail" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  /* ============ hero ============ */
-  .hero { padding: 120px 0; position: relative; background: #1c1c1c url('/arq-tropical.jpg') center / cover no-repeat; }
-  .hero-grid { display: grid; gap: 28px; max-width: 720px; background: rgba(28, 28, 28, 0.72); padding: 44px 48px; border: 1px solid rgba(255, 255, 255, 0.12); }
-  .hero-eb {
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.65);
-    font-weight: 400;
-  }
-  .hero-h {
-    font-size: clamp(40px, 6vw, 76px);
-    line-height: 0.98;
-    letter-spacing: -0.03em;
-    margin: 0;
-    font-weight: 300;
-    text-wrap: balance;
-    color: #fff;
-  }
-  .hero-lede {
-    font-size: clamp(17px, 1.6vw, 20px);
-    line-height: 1.55;
-    color: rgba(255, 255, 255, 0.85);
-    max-width: 56ch;
-    margin: 0;
-    font-weight: 400;
-  }
-  .hero-ctas {
-    display: flex;
-    gap: 12px;
-    margin-top: 8px;
-    flex-wrap: wrap;
-  }
-  .hero .btn:not(.amber) { border-color: rgba(255, 255, 255, 0.5); color: #fff; }
-  .hero .btn:not(.amber):hover { background: #fff; color: #1c1c1c; border-color: #fff; }
-  @media (max-width: 600px) { .hero { padding: 72px 0; } .hero-grid { padding: 28px 24px; } }
-  .hero-where {
-    margin-top: 32px;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--mute-on-paper-2);
-    font-weight: 400;
-  }
-
-  /* ============ manifesto strip ============ */
-  .manifesto-strip {
-    padding: 56px 0 72px;
-    border-top: 1px solid var(--line-on-paper);
-  }
-  .manifesto-eb {
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--mute-on-paper);
-    font-weight: 400;
-    margin-bottom: 24px;
-  }
-  .manifesto-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-top: 1px solid var(--line-on-paper);
-    border-bottom: 1px solid var(--line-on-paper);
-  }
-  .manifesto-cell {
-    padding: 22px 24px;
-    font-size: clamp(18px, 1.8vw, 22px);
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-    font-weight: 300;
-    border-right: 1px solid var(--line-on-paper);
-    border-bottom: 1px solid var(--line-on-paper);
-  }
-  .manifesto-cell:nth-child(3n) { border-right: none; }
-  .manifesto-cell:nth-last-child(-n+3) { border-bottom: none; }
-  .manifesto-cell .amber { color: var(--amber); }
-  .manifesto-note {
-    margin-top: 20px;
-    font-size: 14px;
-    line-height: 1.65;
-    color: var(--mute-on-paper);
-    font-weight: 400;
-    max-width: 64ch;
-  }
-  @media (max-width: 720px) {
-    .manifesto-grid { grid-template-columns: 1fr 1fr; }
-    .manifesto-cell:nth-child(3n) { border-right: 1px solid var(--line-on-paper); }
-    .manifesto-cell:nth-child(2n) { border-right: none; }
-    .manifesto-cell:nth-last-child(-n+3) { border-bottom: 1px solid var(--line-on-paper); }
-    .manifesto-cell:nth-last-child(-n+2) { border-bottom: none; }
-  }
-
-  /* ============ generic block ============ */
-  .block { padding: 80px 0; border-top: 1px solid var(--line-on-paper); }
-  .block.alt { background: var(--paper-2); }
-  .block-h {
-    font-size: clamp(28px, 3.4vw, 40px);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin: 0 0 24px;
-    font-weight: 300;
-    max-width: 26ch;
-    text-wrap: balance;
-  }
-  .block-sub {
-    font-size: 17px;
-    line-height: 1.55;
-    color: var(--mute-on-paper);
-    margin: 0;
-    max-width: 56ch;
-    font-weight: 400;
-  }
-
-  /* ============ measurable upside (3 metric cards) ============ */
-  .measurable-head { margin-bottom: 56px; }
-  .measurable-sub a { color: inherit; border-bottom: 1px solid currentColor; }
-  .measurable-sub { margin: 32px 0 0; font-size: 13px; color: var(--mute-on-paper-2); max-width: 60ch; }
-  .m-basis { display: block; margin-top: 6px; font-size: 11px; letter-spacing: 0.08em; color: var(--mute-on-paper-2); }
-  .measurable-head .eyebrow {
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    font-weight: 400; margin-bottom: 16px;
-  }
-  .measurable-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-  .measurable-card {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    color: inherit;
-    text-decoration: none;
-    transition: transform 0.2s;
-  }
-  .measurable-card:hover { transform: translateY(-2px); }
-  .m-card-photo {
-    aspect-ratio: 4 / 3;
-    background: var(--paper-2);
-    background-image: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 0 12px, transparent 12px 24px);
-    border: 1px solid var(--line-on-paper);
-    position: relative;
-    overflow: hidden;
-  }
-  .m-card-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-  .m-card-metric {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding-top: 4px;
-    border-top: 1px solid var(--line-on-paper);
-    padding-top: 16px;
-  }
-  .m-num {
-    font-size: clamp(40px, 4.5vw, 56px);
-    color: var(--amber);
-    font-feature-settings: 'tnum' 1, 'lnum' 1;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    font-weight: 300;
-  }
-  .m-unit { font-size: 0.55em; vertical-align: top; margin-left: 1px; }
-  .m-label {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--mute-on-paper);
-    font-weight: 400;
-  }
-  .m-card-info { display: flex; flex-direction: column; gap: 4px; }
-  .m-title {
-    font-size: 18px;
-    line-height: 1.2;
-    font-weight: 400;
-  }
-  .m-meta {
-    font-size: 11px;
-    color: var(--mute-on-paper);
-    font-weight: 400;
-    line-height: 1.55;
-  }
-  .m-meta .sep { color: var(--mute-on-paper-2); margin: 0 6px; }
-  .measurable-foot { margin-top: 48px; }
-
-  @media (max-width: 900px) {
-    .measurable-grid { grid-template-columns: 1fr; gap: 40px; }
-  }
-
-  /* ============ measurable downside (40-60% stat) ============ */
-  .downside-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 80px;
-    align-items: center;
-  }
-  .downside-left .eyebrow {
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    font-weight: 400; margin-bottom: 16px;
-  }
-  .big-stat { display: flex; flex-direction: column; gap: 18px; }
-  .big-num {
-    font-size: clamp(72px, 12vw, 160px);
-    color: var(--amber);
-    font-feature-settings: 'tnum' 1, 'lnum' 1;
-    letter-spacing: -0.04em;
-    line-height: 0.9;
-    font-weight: 300;
-    display: inline-block;
-  }
-  .big-num .dash {
-    font-size: 0.6em;
-    color: var(--amber);
-    margin: 0 0.05em;
-    vertical-align: middle;
-    font-weight: 400;
-  }
-  .big-num .big-unit { font-size: 0.4em; vertical-align: top; margin-left: 4px; }
-  .big-stat-line {
-    font-size: clamp(18px, 2vw, 24px);
-    line-height: 1.3;
-    margin: 0;
-    color: var(--ink-on-paper);
-    font-weight: 400;
-    max-width: 32ch;
-  }
-  .big-stat-prompt {
-    font-size: clamp(16px, 1.6vw, 19px);
-    line-height: 1.4;
-    margin: 0;
-    color: var(--mute-on-paper);
-    font-weight: 400;
-    font-style: italic;
-  }
-  .big-stat-source {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--mute-on-paper-2);
-    font-weight: 400;
-    margin: 8px 0 0;
-  }
-  @media (max-width: 900px) {
-    .downside-grid { grid-template-columns: 1fr; gap: 32px; }
-  }
-  /* downside = amber band, black text, bold figure */
-  .block.downside { background: var(--amber); border-top-color: rgba(28, 28, 28, 0.15); }
-  .block.downside .eyebrow,
-  .block.downside .block-h,
-  .block.downside .big-stat-line { color: #1c1c1c; }
-  .block.downside .big-num,
-  .block.downside .big-num .dash { color: #1c1c1c; font-weight: 500; }
-  .block.downside .big-stat-source { color: rgba(28, 28, 28, 0.6); }
-  .big-stat-source a { color: inherit; border-bottom: 1px solid currentColor; }
-
-  /* ============ how do we do it? ============ */
-  .howdoit-head { margin-bottom: 48px; }
-  .howdoit-head .eyebrow {
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    font-weight: 400; margin-bottom: 16px;
-  }
-  .howdoit-fact { text-transform: none; margin-top: 20px; font-size: 14px; line-height: 1.5; color: var(--mute-on-paper); max-width: 64ch; }
-  .howdoit-fact .howdoit-src { display: block; margin-top: 6px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper-2); }
-  .howdoit-fact .howdoit-src a { color: inherit; border-bottom: 1px solid currentColor; }
-  .howdoit-punch {
-    margin-top: 40px;
-    font-size: clamp(18px, 1.8vw, 22px);
-    line-height: 1.45;
-    font-weight: 300;
-    color: var(--ink-on-paper);
-    max-width: 64ch;
-  }
-  .howdoit-punch .amber-text { color: var(--amber); }
-
-  /* ============ problems strip ============ */
-  .problems-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-  .problem {
-    padding: 24px 28px;
-    background: var(--paper);
-    border: 1px solid var(--line-on-paper);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .prob-icon { margin-bottom: 6px; }
-  .prob-name {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--ink-on-paper);
-  }
-  .prob-soln {
-    font-size: 14px;
-    color: var(--mute-on-paper);
-    line-height: 1.6;
-    font-weight: 400;
-  }
-  @media (max-width: 900px) { .problems-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 540px) { .problems-grid { grid-template-columns: 1fr; } }
-
-  /* ============ services ============ */
-  .services-head { margin-bottom: 48px; }
-  .services-head .eyebrow {
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    font-weight: 400; margin-bottom: 16px;
-  }
-  .services-layout { display: grid; grid-template-columns: minmax(240px, 340px) 1fr; gap: 24px; align-items: stretch; }
-  .services-img { border: 1px solid var(--line-on-paper); overflow: hidden; background: var(--paper-2); }
-  .services-img img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 300px; }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-  .svc {
-    background: var(--paper);
-    border: 1px solid var(--line-on-paper);
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .svc-icon { margin-bottom: 4px; }
-  .svc-eb {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--mute-on-paper-2);
-    font-weight: 400;
-  }
-  .svc-title {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.2;
-    margin: 0;
-  }
-  .svc-body {
-    font-size: 13px;
-    line-height: 1.55;
-    color: var(--mute-on-paper);
-    font-weight: 400;
-    margin: 0;
-  }
-  .services-foot { margin-top: 40px; }
-  @media (max-width: 900px) { .services-layout { grid-template-columns: 1fr; } .services-img img { min-height: 200px; } }
-  @media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
-
-  /* ============ experience (client list) ============ */
-  .experience-head { margin-bottom: 48px; }
-  .experience-head .eyebrow {
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    font-weight: 400; margin-bottom: 16px;
-  }
-  .clients-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 32px;
-  }
-  .client-col { display: flex; flex-direction: column; gap: 16px; }
-  .client-cat {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--mute-on-paper-2);
-    font-weight: 400;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--line-on-paper);
-  }
-  .client-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 13px;
-    line-height: 1.55;
-    color: var(--ink-on-paper);
-    font-weight: 400;
-  }
-  @media (max-width: 1100px) {
-    .clients-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 540px) {
-    .clients-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ============ founder ============ */
-  .founder-grid {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 56px;
-    align-items: start;
-  }
-  .founder-portrait img {
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    background: var(--paper);
-    border: 1px solid var(--line-on-paper);
-    display: block;
-  }
-  .founder-body .eyebrow {
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    font-weight: 400; margin-bottom: 16px;
-  }
-  .founder-lede {
-    font-size: 19px;
-    line-height: 1.5;
-    font-weight: 400;
-    color: var(--ink-on-paper);
-    margin: 0 0 20px;
-    max-width: 56ch;
-  }
-  .founder-body-p {
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--mute-on-paper);
-    font-weight: 400;
-    max-width: 64ch;
-    margin: 0 0 28px;
-  }
-  @media (max-width: 900px) {
-    .founder-grid { grid-template-columns: 1fr; gap: 24px; }
-    .founder-portrait img { max-width: 280px; }
-  }
-
-  /* ============ closing CTA ============ */
-  .closing-cta {
-    padding: 120px 0;
-    border-top: 1px solid var(--line-on-paper);
-  }
-  .closing-inner { max-width: 800px; }
-  .closing-inner .eyebrow {
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    font-weight: 400; margin-bottom: 24px;
-  }
-  .closing-h {
-    font-size: clamp(36px, 5vw, 64px);
-    line-height: 1.0;
-    letter-spacing: -0.03em;
-    margin: 0 0 32px;
-    font-weight: 300;
-    text-wrap: balance;
-  }
-  .closing-ctas {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 16px 28px;
-  }
-  .contact-line {
-    font-size: 14px;
-    color: var(--mute-on-paper);
-    border-bottom: 1px solid transparent;
-    padding: 4px 0;
-  }
-  .contact-line:hover { color: var(--amber); border-bottom-color: var(--amber); }
-  @media (max-width: 900px) {
-    .closing-cta { padding: 64px 0; }
-  }
+  /* the home h1 is a full sentence, so it runs smaller than modeling support's */
+  .hero h1 { font-size: clamp(30px, 3.6vw, 50px); line-height: 1.08; max-width: 20ch; }
+  .more { margin: 32px 0 0; font-size: 15px; }
+  .more a { color: var(--ink-on-paper); border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+  .more a:hover { color: var(--amber); }
+  .close-home h2 { margin-bottom: 28px; }
+  .close-home .ctas { align-items: center; gap: 16px 28px; margin-bottom: 0; }
+  .mail { color: var(--mute); font-size: 14px; border-bottom: 1px solid transparent; }
+  .mail:hover { color: var(--amber); border-bottom-color: var(--amber); }
 </style>

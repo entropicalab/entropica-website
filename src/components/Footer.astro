@@ -1,6 +1,7 @@
 ---
 import { tr, localized } from '../i18n/utils';
 import type { Locale } from '../i18n/strings';
+import { LINKEDIN } from '../data/business';
 
 interface Props {
   locale: Locale;
@@ -22,11 +23,10 @@ const year = new Date().getFullYear();
     <div class="col">
       <h4>{t('footer.studio')}</h4>
       <ul>
-        <li><a href={localized('/about', locale)}>{t('nav.about')}</a></li>
-        <li><a href={localized('/services', locale)}>{t('nav.services')}</a></li>
+        <li><a href="/en/modeling-support/">{t('nav.modeling')}</a></li>
         <li><a href={localized('/projects', locale)}>{t('nav.work')}</a></li>
         <li><a href={localized('/blog', locale)}>{t('nav.journal')}</a></li>
-        <li><a href={localized('/faq', locale)}>{t('nav.faq')}</a></li>
+        <li><a href={localized('/about', locale)}>{t('nav.about')}</a></li>
       </ul>
     </div>
 
@@ -35,7 +35,7 @@ const year = new Date().getFullYear();
       <ul>
         <li><a href="mailto:info@entropica-lab.com">info@entropica-lab.com</a></li>
         <li><a href="https://wa.me/50762006909" target="_blank" rel="noopener">+507 6200-6909 · whatsapp</a></li>
-        <li><a href="https://instagram.com/entropicalab" rel="noopener" target="_blank">@entropicalab</a></li>
+        <li><a href={LINKEDIN} rel="noopener" target="_blank">linkedin · josé barría</a></li>
         <li>{t('footer.address')}</li>
       </ul>
     </div>
@@ -46,7 +46,7 @@ const year = new Date().getFullYear();
     <div>
       <a class="legal-link" href={localized('/privacy', locale)}>{t('consent.eyebrow').replace('// ', '')}</a>
       <span class="legal-sep">·</span>
-      {t('footer.legal')}
+      <span class="legal-name">Watts And Matter Consulting, S.EP.</span> · est. 2020
     </div>
   </div>
 </footer>
@@ -61,6 +61,7 @@ const year = new Date().getFullYear();
     color: var(--amber);
     border-bottom-color: var(--amber);
   }
+  .legal-name { text-transform: none; }
   .legal-sep {
     margin: 0 8px;
     color: var(--mute-on-paper-2);

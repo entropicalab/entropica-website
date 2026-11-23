@@ -10,9 +10,10 @@ export const defaultLocale: Locale = 'es';
 export const t = {
   en: {
     // nav
+    'nav.modeling': 'modeling support',
     'nav.work': 'work',
     'nav.services': 'services',
-    'nav.about': 'about us',
+    'nav.about': 'about',
     'nav.journal': 'resources',
     'nav.faq': 'faq',
     'nav.contact': 'contact',
@@ -32,9 +33,9 @@ export const t = {
     'cta.back': '← back',
 
     // footer
-    'footer.tagline': 'cool buildings in hot places.',
-    'footer.bio': 'entrópica is an energy-led tropical architecture studio in panamá, central america. we use climate science and building physics to design cool buildings in hot places.',
-    'footer.studio': 'studio',
+    'footer.tagline': 'building-performance modeling.',
+    'footer.bio': 'entrópica is a building-performance modeling practice in panamá. energy, daylight, comfort and airflow simulations for consultancies and design teams.',
+    'footer.studio': 'entrópica',
     'footer.work': 'work',
     'footer.contact': 'contact',
     'footer.address': 'ph plaza mar · paitilla · panamá',
@@ -82,6 +83,7 @@ export const t = {
   },
   es: {
     // nav
+    'nav.modeling': 'modeling support',
     'nav.work': 'proyectos',
     'nav.services': 'servicios',
     'nav.about': 'nosotros',

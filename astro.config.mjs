@@ -18,6 +18,9 @@ export default defineConfig({
   //   /projects/casa-lo            → "casa los oliu", withdrawn, let it 404
   //   /project-dafts/retainer-model → internal draft that leaked, let it 404
   redirects: {
+    // rev 2 pivot (2026-11-23): the site is english-only and the front door is /en/.
+    '/': '/en/',
+    '/en/services': '/en/modeling-support/',
     '/resources': '/blog/',
     '/resources/arctic-data-centers': '/blog/arctic-data-centers/',
     // no los-cerros post was ever migrated, so send it to the index
