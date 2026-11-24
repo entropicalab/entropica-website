@@ -3,7 +3,10 @@
 // saint-gobain or any client under a permission hold.
 // legal name spelled exactly as jose gave it (2026-11-23).
 
+// josé's own profile (about page, founder) and the company page (footer,
+// contact, the organization's sameAs). jose, 2026-11-24.
 export const LINKEDIN = 'https://www.linkedin.com/in/jose-barria-7572a4234';
+export const LINKEDIN_COMPANY = 'https://www.linkedin.com/company/entropica-lab/';
 
 export function business(url: string) {
   return {
@@ -43,6 +46,6 @@ export function business(url: string) {
       jobTitle: 'founder, lead modeler',
       sameAs: [LINKEDIN],
     },
-    sameAs: [LINKEDIN],
+    sameAs: [LINKEDIN_COMPANY],
   };
 }

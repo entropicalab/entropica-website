@@ -1,7 +1,7 @@
 ---
 import { tr, localized } from '../i18n/utils';
 import type { Locale } from '../i18n/strings';
-import { LINKEDIN } from '../data/business';
+import { LINKEDIN_COMPANY } from '../data/business';
 
 interface Props {
   locale: Locale;
@@ -36,7 +36,7 @@ const year = new Date().getFullYear();
       <ul>
         <li><a href="mailto:info@entropica-lab.com">info@entropica-lab.com</a></li>
         <li><a href="https://wa.me/50762006909" target="_blank" rel="noopener">+507 6200-6909 · whatsapp</a></li>
-        <li><a href={LINKEDIN} rel="noopener" target="_blank">linkedin · josé barría</a></li>
+        <li><a href={LINKEDIN_COMPANY} rel="noopener" target="_blank">linkedin · entrópica</a></li>
         <li>{t('footer.address')}</li>
       </ul>
     </div>

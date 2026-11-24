@@ -7,7 +7,10 @@
 // without javascript every step shows at once as a plain form (the tap groups
 // of step 2 stay hidden and the one-line box answers it instead). with
 // javascript the steps show one at a time; options are tap cards that answer
-// and move on. never "engineering" for our own work. one modeler: josé.
+// and move on. never "engineering" for our own work.
+// voice: see #tasks/261124 voice - entrópica, not a freelancer. the process
+// speaks as entrópica or "we"; josé is named only with his credentials; never
+// "our team", "our modelers" or a headcount.
 interface Props {
   page: 'home' | 'contact';
 }
@@ -20,7 +23,7 @@ const needs = [
   { k: 'project', label: 'answers on a building project', small: 'energy, daylight, comfort or facade options', short: 'project question' },
   { k: 'capacity', label: 'extra modeling hands', small: 'for a team with more projects than modelers', short: 'modeling capacity' },
   { k: 'product', label: 'a study for a building product', small: 'for manufacturers', short: 'product study' },
-  { k: 'other', label: 'something else', small: 'tell josé in one line', short: 'other' },
+  { k: 'other', label: 'something else', small: 'tell us in one line', short: 'other' },
 ];
 const step2 = [
   { k: 'project', q: 'what is the question about?', a: ['energy use and cooling', 'daylight and comfort', 'comparing facade or glass options', 'LEED or code compliance', 'not sure yet'] },
@@ -33,7 +36,7 @@ const caps = (t: string) => t.replace(/\b(LEED|NDA)\b/g, '<span class="caps-in">
 
 <div class="intake" data-intake id={id}>
   <div class="in-sent" id={`${id}-sent`} hidden tabindex="-1">
-    <p class="in-q">thanks. josé replies within one business day, monday to friday.</p>
+    <p class="in-q">thanks. we reply within one business day, monday to friday.</p>
   </div>
 
   <form class="in-form" action={FORMSPREE_ENDPOINT} method="POST" data-ajax data-sent={`${id}-sent`} data-lead-type="intake">
@@ -70,7 +73,7 @@ const caps = (t: string) => t.replace(/\b(LEED|NDA)\b/g, '<span class="caps-in">
     ))}
 
     <fieldset class="in-step" data-step="2" data-for="other">
-      <legend class="in-q" tabindex="-1">tell josé in one line.</legend>
+      <legend class="in-q" tabindex="-1">tell us in one line.</legend>
       <label class="in-f">
         your project or question
         <textarea name="detail" maxlength="300" rows="3" placeholder="e.g. a second opinion on a glare study for a school in bogotá" data-line></textarea>
@@ -94,7 +97,7 @@ const caps = (t: string) => t.replace(/\b(LEED|NDA)\b/g, '<span class="caps-in">
     </fieldset>
 
     <fieldset class="in-step" data-step="4">
-      <legend class="in-q" tabindex="-1">where should josé send the quote?</legend>
+      <legend class="in-q" tabindex="-1">where should we send the quote?</legend>
       <div class="in-fields">
         <label class="in-f full">work email<input type="email" name="email" required autocomplete="email" data-email /></label>
         <label class="in-f"><span>name <span class="in-o">(optional)</span></span><input type="text" name="name" autocomplete="name" /></label>
@@ -102,7 +105,7 @@ const caps = (t: string) => t.replace(/\b(LEED|NDA)\b/g, '<span class="caps-in">
         <label class="in-f full" data-building><span>one line about the building <span class="in-o">(optional)</span></span><input type="text" name="building" maxlength="200" placeholder="e.g. 12-storey office, miami, design development" /></label>
         <label class="in-check full"><input type="checkbox" name="white_label_nda" value="yes" /> <span>white-label or <span class="caps-in">NDA</span> needed</span></label>
       </div>
-      <p class="in-err" data-email-err hidden role="alert">add a work email so josé can reply.</p>
+      <p class="in-err" data-email-err hidden role="alert">add a work email so we can reply.</p>
       <p class="in-err" data-form-error hidden role="alert">
         the message didn't go through. write to <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
       </p>

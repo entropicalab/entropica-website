@@ -3,7 +3,7 @@
 // same one as on the home page, so every way in asks the same thing.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import IntakeFlow from '../../components/IntakeFlow.astro';
-import { LINKEDIN } from '../../data/business';
+import { LINKEDIN_COMPANY } from '../../data/business';
 
 const locale = 'en' as const;
 ---
@@ -18,8 +18,8 @@ const locale = 'en' as const;
       <div class="eyebrow">// contact</div>
       <h1 class="hero-h">send the project, or just the question.</h1>
       <p class="hero-lede">
-        tell josé what you need in four taps, then where to send the quote. he
-        replies within one business day, monday to friday.
+        tell us what you need in three taps, then where to send the quote. we
+        reply within one business day, monday to friday.
       </p>
     </div>
   </section>
@@ -46,7 +46,7 @@ const locale = 'en' as const;
             <ul>
               <li><a class="info-link" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a></li>
               <li><a class="info-link" href="https://wa.me/50762006909" target="_blank" rel="noopener">whatsapp · +507 6200-6909</a></li>
-              <li><a class="info-link" href={LINKEDIN} target="_blank" rel="noopener">linkedin · josé barría</a></li>
+              <li><a class="info-link" href={LINKEDIN_COMPANY} target="_blank" rel="noopener">linkedin · entrópica</a></li>
             </ul>
           </div>
 
