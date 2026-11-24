@@ -1,8 +1,8 @@
 ---
 // markup only: styles live in src/styles/study-page.css, which both study
-// pages import. shared by /en/specification-studies and /en/modeling-support.
+// pages import. used by /en/specification-studies (the home page uses the site footer).
 // the bare footer: address, contact, hours. `overflowLink` adds the line that
-// sends consultancies to the modeling support page (left off on that page).
+// sends consultancies to the home page.
 interface Props { overflowLink?: string }
 const { overflowLink } = Astro.props;
 const EMAIL = 'info@entropica-lab.com';
@@ -13,7 +13,7 @@ const EMAIL = 'info@entropica-lab.com';
     <div class="contact-info">
       <div>
         <div class="col-h">entrópica</div>
-        <p>building-performance studies</p>
+        <p>building-performance modeling</p>
         <p>ph plaza mar · paitilla · panamá</p>
       </div>
       <div>
@@ -23,7 +23,7 @@ const EMAIL = 'info@entropica-lab.com';
       </div>
       <div>
         <div class="col-h">hours</div>
-        <p>monday to friday, panamá time (<span class="caps">UTC−5</span>)</p>
+        <p>monday to friday, 09:00 to 17:00 panamá time (<span class="caps">UTC−5</span>), all year</p>
       </div>
     </div>
     {overflowLink && (

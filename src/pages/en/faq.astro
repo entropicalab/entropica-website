@@ -3,13 +3,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const locale = 'en' as const;
 
-// rewritten 2026-11-23 for the pivot: modeling support questions only, in
-// plain words for a reader who has never seen the modeling support page.
-// every fact matches /en/modeling-support/ or /en/about/. never "engineering".
+// rewritten 2026-11-23 for the pivot, in plain words for a reader who has
+// never seen the home page. every fact matches /en/ or /en/about/. never
+// "engineering". 2026-11-24: LEED answer, models stay with entrópica, and
+// white-label without "client", from the home page copy doc.
 // LEED / compliance: jose can do them but has not delivered one for a client
 // yet (jose, 2026-11-23). say exactly that, never imply past LEED work.
 // approved by jose 2026-11-23: indexed, in the sitemap, linked from the
-// footer and the modeling support page.
+// footer and the home page.
 const faqs = [
   {
     q: 'what does entrópica do?',
@@ -25,7 +26,7 @@ const faqs = [
   },
   {
     q: 'can you do LEED or code compliance models?',
-    a: 'yes. no client has asked us for one yet, but they are built from the same energy and daylight models we run on every study.',
+    a: 'yes. we build energy models to ASHRAE 90.1 Appendix G and LEED daylight models (sDA and ASE). we haven’t delivered one for a client yet, so we agree the rules and your review steps with you before we quote.',
   },
   {
     q: 'what software do you use?',
@@ -53,11 +54,11 @@ const faqs = [
   },
   {
     q: 'can the work go out under our name?',
-    a: 'yes, if you want. we use your templates and report format, and you keep the client.',
+    a: 'yes, if you want. we use your templates and report format.',
   },
   {
     q: 'are our files safe with you?',
-    a: 'we sign an NDA before you send anything, if you need one. your models and data are never used on another project.',
+    a: 'we sign an NDA before you send anything, if you need one. your models and data are never used on another project. the models stay with entrópica; you review them with josé on a call.',
   },
   {
     q: 'how do you know the numbers are right?',
@@ -74,7 +75,7 @@ const faqs = [
 ];
 
 // acronyms keep their capitals (global css lowercases text).
-const ACR = /\b(LEED|USD|NDA)/g;
+const ACR = /\b(LEED|USD|NDA|ASHRAE 90\.1 Appendix G|sDA|ASE)\b/g;
 const caps = (t: string) => t.replace(ACR, '<span class="caps-in">$1</span>');
 
 const faqSchema = {
@@ -98,7 +99,7 @@ const faqSchema = {
   <section class="hero">
     <div class="site-wrap">
       <div class="eyebrow">// frequently asked</div>
-      <h1 class="hero-h">questions about modeling support.</h1>
+      <h1 class="hero-h">common questions.</h1>
       <p class="hero-lede">
         if yours isn’t here, write to josé.
       </p>
@@ -127,7 +128,7 @@ const faqSchema = {
         <div class="eyebrow">// start a project</div>
         <h2 class="closing-h">send the project. get a fixed quote.</h2>
         <div class="closing-ctas">
-          <a class="btn amber" href="/en/modeling-support/#start">
+          <a class="btn amber" href="/en/contact/">
             send a project
             <span class="arrow-tail" aria-hidden="true"></span>
           </a>

@@ -1,0 +1,273 @@
+---
+// the intake flow: one question at a time, then the email. copy word for word
+// from jose's "contact widget · preview (rev 2)" (2026-11-24). it replaces the
+// forms on the home page and the contact page.
+//
+// how it works: one real <form> posted to formspree by scripts/ajax-form.
+// without javascript every step shows at once as a plain form (the tap groups
+// of step 2 stay hidden and the one-line box answers it instead). with
+// javascript the steps show one at a time; options are tap cards that answer
+// and move on. never "engineering" for our own work. one modeler: josé.
+interface Props {
+  page: 'home' | 'contact';
+}
+const { page } = Astro.props;
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkoerobb';
+const EMAIL = 'info@entropica-lab.com';
+const id = `intake-${page}`;
+
+const needs = [
+  { k: 'project', label: 'answers on a building project', small: 'energy, daylight, comfort or facade options', short: 'project question' },
+  { k: 'capacity', label: 'extra modeling hands', small: 'for a team with more projects than modelers', short: 'modeling capacity' },
+  { k: 'product', label: 'a study for a building product', small: 'for manufacturers', short: 'product study' },
+  { k: 'other', label: 'something else', small: 'tell josé in one line', short: 'other' },
+];
+const step2 = [
+  { k: 'project', q: 'what is the question about?', a: ['energy use and cooling', 'daylight and comfort', 'comparing facade or glass options', 'LEED or code compliance', 'not sure yet'] },
+  { k: 'capacity', q: 'how much help?', a: ['one project', 'a few projects in a row', 'ongoing, month to month', 'while we hire a modeler'] },
+  { k: 'product', q: 'what is the product?', a: ['glass or glazing', 'shading or facade systems', 'insulation or roofing', 'something else'] },
+];
+const when = ['this week', 'this month', 'this quarter'];
+const caps = (t: string) => t.replace(/\b(LEED|NDA)\b/g, '<span class="caps-in">$1</span>');
+---
+
+<div class="intake" data-intake id={id}>
+  <div class="in-sent" id={`${id}-sent`} hidden tabindex="-1">
+    <p class="in-q">thanks. josé replies within one business day, monday to friday.</p>
+  </div>
+
+  <form class="in-form" action={FORMSPREE_ENDPOINT} method="POST" data-ajax data-sent={`${id}-sent`} data-lead-type="intake">
+    <div class="in-top" data-js hidden>
+      <span data-count>1 / 4</span>
+      <span class="in-bar" aria-hidden="true"><i data-bar></i></span>
+    </div>
+
+    <fieldset class="in-step" data-step="1">
+      <legend class="in-q" tabindex="-1">what do you need?</legend>
+      <div class="in-opts">
+        {needs.map((n, i) => (
+          <label class="in-opt">
+            <input type="radio" name="need" value={n.label} data-key={n.k} data-short={n.short} required={i === 0} />
+            <span>{n.label}</span>
+            <small>{n.small}</small>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    {step2.map((s) => (
+      <fieldset class="in-step" data-step="2" data-for={s.k} hidden>
+        <legend class="in-q" tabindex="-1">{s.q}</legend>
+        <div class="in-opts">
+          {s.a.map((a) => (
+            <label class="in-opt">
+              <input type="radio" name="detail" value={a} />
+              <span set:html={caps(a)} />
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    ))}
+
+    <fieldset class="in-step" data-step="2" data-for="other">
+      <legend class="in-q" tabindex="-1">tell josé in one line.</legend>
+      <label class="in-f">
+        your project or question
+        <textarea name="detail" maxlength="300" rows="3" placeholder="e.g. a second opinion on a glare study for a school in bogotá" data-line></textarea>
+      </label>
+      <p class="in-err" data-line-err hidden role="alert">one line is enough.</p>
+      <div class="in-row" data-js hidden>
+        <button class="btn ghost in-btn" type="button" data-continue>continue <span class="arrow-tail" aria-hidden="true"></span></button>
+      </div>
+    </fieldset>
+
+    <fieldset class="in-step" data-step="3">
+      <legend class="in-q" tabindex="-1">when do you need it?</legend>
+      <div class="in-opts">
+        {when.map((w) => (
+          <label class="in-opt">
+            <input type="radio" name="timing" value={w} />
+            <span>{w}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    <fieldset class="in-step" data-step="4">
+      <legend class="in-q" tabindex="-1">where should josé send the quote?</legend>
+      <div class="in-fields">
+        <label class="in-f full">work email<input type="email" name="email" required autocomplete="email" data-email /></label>
+        <label class="in-f"><span>name <span class="in-o">(optional)</span></span><input type="text" name="name" autocomplete="name" /></label>
+        <label class="in-f"><span>company <span class="in-o">(optional)</span></span><input type="text" name="company" autocomplete="organization" /></label>
+        <label class="in-f full" data-building><span>one line about the building <span class="in-o">(optional)</span></span><input type="text" name="building" maxlength="200" placeholder="e.g. 12-storey office, miami, design development" /></label>
+        <label class="in-check full"><input type="checkbox" name="white_label_nda" value="yes" /> <span>white-label or <span class="caps-in">NDA</span> needed</span></label>
+      </div>
+      <p class="in-err" data-email-err hidden role="alert">add a work email so josé can reply.</p>
+      <p class="in-err" data-form-error hidden role="alert">
+        the message didn't go through. write to <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+      </p>
+      <div class="in-row">
+        <button type="submit" class="btn amber" data-send>send for quote <span class="arrow-tail" aria-hidden="true"></span></button>
+      </div>
+    </fieldset>
+
+    <input type="hidden" name="page" value={page} />
+    <input type="hidden" name="_subject" value="entropica-lab.com · new inquiry" data-subject />
+    <div class="honeypot" aria-hidden="true">
+      <label>do not fill this field</label>
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="in-foot">
+      <button class="in-link" type="button" data-back data-js hidden>← back</button>
+      <span>rather write? <a class="in-link" href={`mailto:${EMAIL}`}>{EMAIL}</a></span>
+    </div>
+  </form>
+</div>
+
+<script>
+  import '../scripts/ajax-form';
+
+  document.querySelectorAll<HTMLElement>('[data-intake]').forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>('form')!;
+    const steps = [...form.querySelectorAll<HTMLFieldSetElement>('.in-step')];
+    const count = form.querySelector<HTMLElement>('[data-count]')!;
+    const bar = form.querySelector<HTMLElement>('[data-bar]')!;
+    const back = form.querySelector<HTMLButtonElement>('[data-back]')!;
+    const line = form.querySelector<HTMLTextAreaElement>('[data-line]')!;
+    const lineErr = form.querySelector<HTMLElement>('[data-line-err]')!;
+    const email = form.querySelector<HTMLInputElement>('[data-email]')!;
+    const emailErr = form.querySelector<HTMLElement>('[data-email-err]')!;
+    const building = form.querySelector<HTMLElement>('[data-building]')!;
+    const subject = form.querySelector<HTMLInputElement>('[data-subject]')!;
+
+    root.classList.add('js');
+    form.noValidate = true;
+    form.querySelectorAll<HTMLElement>('[data-js]').forEach((el) => { el.hidden = false; });
+
+    let n = 1; // step number, 1 to 4
+    const need = () => form.querySelector<HTMLInputElement>('input[name="need"]:checked');
+    const current = () =>
+      n === 2 ? steps.find((s) => s.dataset.step === '2' && s.dataset.for === need()?.dataset.key)! : steps.find((s) => s.dataset.step === String(n))!;
+
+    function show(focus: boolean) {
+      const cur = current();
+      steps.forEach((s) => {
+        s.hidden = s !== cur;
+        // only the chosen step-2 group is sent
+        if (s.dataset.step === '2') s.disabled = !!need() && s.dataset.for !== need()!.dataset.key;
+      });
+      building.hidden = need()?.dataset.key === 'other';
+      building.querySelector('input')!.disabled = building.hidden;
+      count.textContent = `${n} / 4`;
+      bar.style.width = `${n * 25}%`;
+      back.hidden = n === 1;
+      if (focus) cur.querySelector<HTMLElement>('.in-q')?.focus();
+    }
+
+    function choose(input: HTMLInputElement) {
+      const was = need();
+      input.checked = true;
+      input.closest('.in-opts')!.querySelectorAll('.in-opt').forEach((l) => {
+        l.setAttribute('aria-pressed', String(l.contains(input)));
+      });
+      if (input.name === 'need' && was !== input) {
+        // a new answer on step 1 clears step 2
+        form.querySelectorAll<HTMLInputElement>('input[name="detail"]').forEach((r) => { r.checked = false; });
+        form.querySelectorAll('[data-step="2"] .in-opt').forEach((l) => l.setAttribute('aria-pressed', 'false'));
+      }
+      n = Math.min(4, n + 1);
+      show(true);
+    }
+
+    form.querySelectorAll<HTMLLabelElement>('.in-opt').forEach((label) => {
+      const input = label.querySelector('input')!;
+      input.tabIndex = -1;
+      label.tabIndex = 0;
+      label.setAttribute('role', 'button');
+      label.setAttribute('aria-pressed', 'false');
+      label.addEventListener('click', (e) => { e.preventDefault(); choose(input); });
+      label.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(input); }
+      });
+    });
+
+    form.querySelector('[data-continue]')!.addEventListener('click', () => {
+      if (!line.value.trim()) { lineErr.hidden = false; line.focus(); return; }
+      lineErr.hidden = true;
+      n = 3;
+      show(true);
+    });
+
+    back.addEventListener('click', () => { n = Math.max(1, n - 1); show(true); });
+
+    // runs before ajax-form's submit handler: check the email, set the subject.
+    form.querySelector('[data-send]')!.addEventListener('click', (e) => {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+        e.preventDefault();
+        emailErr.hidden = false;
+        email.focus();
+        return;
+      }
+      emailErr.hidden = true;
+      const timing = form.querySelector<HTMLInputElement>('input[name="timing"]:checked')?.value;
+      subject.value = `entropica-lab.com · ${need()?.dataset.short ?? 'new inquiry'}${timing ? ` · ${timing}` : ''}`;
+    });
+
+    show(false);
+  });
+</script>
+
+<style is:global>
+  .intake { background: var(--ink); color: var(--text); padding: clamp(22px, 3vw, 36px); max-width: 640px; }
+  .intake .in-form { display: flex; flex-direction: column; min-height: 420px; }
+  .intake fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+  .intake .in-step + .in-step { margin-top: 36px; }
+  .intake.js .in-step + .in-step { margin-top: 0; }
+  .intake .in-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 13px; color: var(--mute); margin-bottom: 22px; font-feature-settings: 'tnum' 1; }
+  .intake .in-top[hidden] { display: none; }
+  .intake .in-bar { flex: 1; max-width: 160px; height: 2px; background: rgba(255, 255, 255, 0.18); position: relative; }
+  .intake .in-bar i { position: absolute; inset: 0 auto 0 0; width: 25%; background: var(--text); transition: width 0.25s ease; }
+  .intake .in-q { display: block; padding: 0; color: var(--amber); font-size: clamp(22px, 2.6vw, 30px); line-height: 1.12; letter-spacing: -0.015em; font-weight: 300; margin: 0 0 20px; outline: none; text-wrap: balance; }
+  .intake .in-sent .in-q { margin: 0; }
+  .intake .in-opts { display: grid; gap: 10px; }
+  .intake .in-opt { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 52px; padding: 13px 16px; border: 1px solid rgba(255, 255, 255, 0.18); font-size: 16px; font-weight: 300; line-height: 1.4; cursor: pointer; transition: background 0.15s, border-color 0.15s; }
+  .intake .in-opt small { font-size: 13px; color: var(--mute); }
+  .intake .in-opt:hover { border-color: var(--text); }
+  .intake .in-opt:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+  .intake .in-opt[aria-pressed='true'] { background: var(--text); color: var(--ink); border-color: var(--text); }
+  .intake .in-opt[aria-pressed='true'] small { color: inherit; opacity: 0.75; }
+  /* without js the radios show; with js the whole card is the control */
+  .intake:not(.js) .in-opt { flex-direction: row; flex-wrap: wrap; align-items: baseline; column-gap: 10px; }
+  .intake:not(.js) .in-opt small { flex-basis: 100%; padding-left: 26px; }
+  .intake.js .in-opt input { position: absolute; opacity: 0; pointer-events: none; width: 1px; height: 1px; }
+  .intake .in-fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+  .intake .in-fields .full { grid-column: 1 / -1; }
+  .intake .in-f { display: flex; flex-direction: column; gap: 5px; font-size: 13px; color: var(--mute); }
+  .intake .in-f[hidden] { display: none; }
+  .intake .in-o { color: rgba(255, 255, 255, 0.42); }
+  .intake input[type='email'], .intake input[type='text'], .intake textarea {
+    font: inherit; font-size: 16px; color: var(--text); background: transparent; border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 11px 12px; min-height: 46px; border-radius: 0; text-transform: none;
+  }
+  .intake textarea { resize: vertical; min-height: 76px; }
+  .intake input:focus-visible, .intake textarea:focus-visible, .intake .in-link:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+  .intake .in-check { display: flex; gap: 10px; align-items: center; font-size: 14px; min-height: 44px; cursor: pointer; }
+  .intake .in-check input { width: 20px; height: 20px; accent-color: var(--amber); }
+  .intake .in-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 18px; }
+  .intake .in-row[hidden] { display: none; }
+  .intake .btn.ghost { color: var(--text); border-color: rgba(255, 255, 255, 0.4); }
+  .intake .btn.ghost:hover { border-color: var(--amber); color: var(--amber); }
+  .intake .in-err { color: #ff8a73; font-size: 13px; margin: 10px 0 0; }
+  .intake .in-err a { color: inherit; border-bottom: 1px solid currentColor; }
+  .intake .in-foot { margin-top: auto; padding-top: 22px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--mute); }
+  .intake .in-link { background: none; border: 0; padding: 10px 0; font: inherit; font-size: 13px; color: var(--mute); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .intake .in-link:hover { color: var(--text); }
+  .intake .in-link[hidden] { display: none; }
+  .intake .in-foot > span { margin-left: auto; }
+  .intake .caps-in { text-transform: none; }
+  .intake .honeypot { position: absolute; left: -9999px; }
+  .intake { position: relative; }
+  @media (max-width: 520px) { .intake .in-fields { grid-template-columns: minmax(0, 1fr); } }
+  @media (prefers-reduced-motion: reduce) { .intake .in-bar i { transition: none; } }
+</style>

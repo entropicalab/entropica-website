@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { localized, tr } from '../../../i18n/utils';
 import ProjectStudy from '../../../components/ProjectStudy.astro';
+import ProductCutaway from '../../../components/ProductCutaway.astro';
 
 const locale = 'en' as const;
 const t = tr(locale);
@@ -160,6 +161,18 @@ const projectSchema = {
 
     <!-- simulation study (key numbers, annotated graphics, method) -->
     {data.study && <ProjectStudy study={data.study} locale={locale} />}
+
+    <!-- the bank-branch cutaway moved here from the home page (2026-11-24,
+         home page copy doc): it is this building. copy unchanged. -->
+    {data.slug === 'private-bank-offices' && (
+      <section class="cs-cutaway">
+        <div class="site-wrap">
+          <div class="cut-eb">one study, up close</div>
+          <h2 class="cut-h">four envelope questions tested on a single building.</h2>
+          <ProductCutaway />
+        </div>
+      </section>
+    )}
 
     <!-- gallery -->
     {data.gallery && data.gallery.length > 0 && (
@@ -358,6 +371,9 @@ const projectSchema = {
   }
 
   .cs-narrative { padding: 56px 0; border-top: 1px solid var(--line-on-paper); }
+  .cs-cutaway { padding: 72px 0; border-top: 1px solid var(--line-on-paper); }
+  .cut-eb { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute-on-paper-2); font-weight: 400; margin-bottom: 12px; }
+  .cut-h { font-size: clamp(24px, 2.8vw, 34px); line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 32px; font-weight: 300; max-width: 26ch; text-wrap: balance; }
   .narr-grid { display: grid; grid-template-columns: 220px 1fr; gap: 64px; }
   .narr-side .eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 400; margin-bottom: 12px; }
   .narr-h { font-size: clamp(20px, 2.2vw, 26px); line-height: 1.18; letter-spacing: -0.015em; margin: 0; font-weight: 400; max-width: 18ch; text-wrap: balance; }

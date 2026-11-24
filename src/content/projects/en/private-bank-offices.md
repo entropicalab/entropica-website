@@ -55,8 +55,8 @@ study:
           - { label: + roof }
           - { label: + roof and breezeblock, note: 'any breezeblock open share from 15% to 55% works: 22 to 30 kWh/m²' }
         bars:
-          - { label: 'street glass, nne', values: [252, 104, 21] }
-          - { label: 'plaza glass, wnw', values: [466, 22, 22] }
+          - { label: 'street glass, NNE', values: [252, 104, 21] }
+          - { label: 'plaza glass, WNW', values: [466, 22, 22] }
       width: 2160
       height: 2200
       alt: 'bar chart of the sun on the new glass in three steps. street glass: 252, 104, 21 kWh/m². plaza glass: 466, 22, 22 kWh/m².'
@@ -94,11 +94,11 @@ study:
         - { value: '−9', unit: '%', label: 'with the white coating' }
   method:
     - 'status: simulated, design stage. nothing was measured.'
-    - 'model: rebuilt in 2026 from the 2021 competition drawings (rhino). site at 7.96° n; the street facade faces nne (19°), the plaza glass faces wnw (289°). neighbor on the wnw side: 7 m (assumed).'
+    - 'model: rebuilt in 2026 from the 2021 competition drawings (rhino). site at 7.96° N; the street facade faces NNE (19°), the plaza glass faces WNW (289°). neighbor on the WNW side: 7 m (assumed).'
     - 'weather: chitré tmyx (climate.onebuilding.org). rain: imhpa station los santos (128-001), 3 km away, mean since 1964.'
     - 'outdoor comfort: utci (pythermalcomfort) every 0.5 m at 1.25 m height, 8:00–17:00. shade and sky view from radiance 5.3, radiant temperature from ladybug solarcal, wind from the weather file (no shelter credit under the roof). strong heat stress: utci 32 °C or more.'
     - 'sun on surfaces: radiance 5.3, 145 sky patches, sky only (ladybug incident-radiation method), 0.25 m grid.'
     - 'daylight: radiance 5.3, 2-phase, 5 bounces, 0.6 m grid at desk height, 8:00–17:00, glass tvis 0.88, no blinds. useful daylight: 100–3,000 lx. sDA: 300 lx for half of the hours (not an lm-83 compliance result).'
-    - 'energy: energyplus 24.2 through honeybee-energy 1.128, ideal loads, a/c 24 °C in bank hours, electricity = cooling / cop 3.2 (assumed). hollow-block walls, 200 mm concrete roof without insulation, single clear glass. floor: 537.4 m² before, 705.1 m² after.'
+    - 'energy: energyplus 24.2 through honeybee-energy 1.128, ideal loads, a/c 24 °C in bank hours, electricity = cooling / COP 3.2 (assumed). hollow-block walls, 200 mm concrete roof without insulation, single clear glass. floor: 537.4 m² before, 705.1 m² after.'
   credits: 'competition entry 2021: entrópica. simulation and graphics: entrópica, 2026. tools: radiance, energyplus, ladybug tools (honeybee, ladybug), pythermalcomfort, python.'
 ---

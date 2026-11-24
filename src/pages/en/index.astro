@@ -1,33 +1,106 @@
 ---
-// /en/ · the front door. since the 2026-11-23 pivot (rev 2, part B1) the home
-// page sells one thing: building-performance modeling for consultancies and
-// design teams. it reuses the modeling-support blocks, so the email, the
-// landing page and the home page say the same thing.
+// /en/ · the front door. since 2026-11-24 the modeling support page IS the
+// home page: the site sells one thing, building-performance modeling for
+// consultancies and design teams. /en/modeling-support/ forwards here.
+// copy: "home page copy — current vs proposed (rev 1)", approved by jose
+// 2026-11-24 with his replies (white-label without "client", openstudio ok,
+// hours 09:00 to 17:00, "neighbor"). place copy word for word; never rewrite.
 //
-// manufacturers: no link to /en/specification-studies/ until saint-gobain
-// gives written clearance. after that, add a second card "for building-product
-// manufacturers".
+// hard rules: no saint-gobain, no "global glazing manufacturer", no medford /
+// orange county / nevada. no title 24, EDGE or BREEAM. no payback. LEED and
+// code compliance: "can do, none delivered for a client yet" (jose,
+// 2026-11-23), never as past work. no vyana. one modeler: never "our team".
+// numbers only from src/data/studies.ts. never "engineering" or "signed off"
+// for our own work (claim rules). models never leave entrópica.
+//
+// manufacturers: after saint-gobain gives written clearance, add a section
+// "for building-product manufacturers" here (jose, 2026-11-24: same pitch).
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ClientBand from '../../components/ClientBand.astro';
 import TowerSheet from '../../components/TowerSheet.astro';
 import ResultCards from '../../components/ResultCards.astro';
+import StudyDatasheet from '../../components/StudyDatasheet.astro';
 import WhoDoesTheWork from '../../components/WhoDoesTheWork.astro';
-import { results } from '../../data/studies';
+import IntakeFlow from '../../components/IntakeFlow.astro';
+import { results, SCALING } from '../../data/studies';
 import { business } from '../../data/business';
 import '../../styles/study-page.css';
 
 const locale = 'en' as const;
+const EMAIL = 'info@entropica-lab.com';
 
-// three cards: the tower sample, and two real client projects (l12, casa castillo).
-const picks = ['glazing', 'glass selection', 'roof shading'];
+// three buyers, in the spec's order: consultancies lead.
+const lanes = [
+  {
+    who: 'energy and sustainability consultancies',
+    h: 'overflow and white-label modeling.',
+    p: 'your templates, your report format, your QA rules. we model in energyplus and openstudio (through ladybug tools) and radiance, so you know before you send that our results will fit your review.',
+  },
+  {
+    who: 'facade and enclosure consultants',
+    h: 'glazing, shading and solar studies.',
+    p: 'we quantify solar radiation on the facade, compare glass types, test shading depths, and trace how each choice affects peak cooling, chiller size and comfort at the desk next to the glass.',
+  },
+  {
+    who: 'architecture firms',
+    h: 'answers while the design can still change.',
+    p: 'we run massing, window-to-wall ratio, shading, daylight analysis and thermal comfort studies during concept and schematic design, so you have numbers while the options are still open.',
+  },
+];
+
+// what a study can model. the dd text is not lowercased (study-page.css),
+// so abbreviations are written in capitals here.
+const scope = [
+  { k: 'energy', v: 'annual energy use, peak cooling load and chiller size.', tool: 'energyplus, 8,760 hours' },
+  { k: 'sun', v: 'solar radiation on facades and roofs.', tool: 'radiance' },
+  { k: 'daylight', v: 'annual illuminance, useful daylight hours, sDA and ASE.', tool: 'radiance' },
+  { k: 'comfort', v: 'indoor PMV (ASHRAE 55) and outdoor UTCI.', tool: 'energyplus, ladybug tools' },
+  { k: 'airflow', v: 'wind around the building and air movement inside it, with CFD.', tool: 'butterfly, openfoam' },
+  { k: 'facade options', v: 'glass types, louvers, screens and overhangs, compared against one fair baseline.', tool: '' },
+  { k: 'LEED and code compliance', v: 'energy models to ASHRAE 90.1 Appendix G, and LEED daylight models (sDA and ASE). entrópica has not delivered one for a client yet, so we agree the rules and your review steps with you before we quote.', tool: '' },
+];
+
+const steps = [
+  { b: 'you send', t: 'the drawings you have (plans, elevations or a massing model), the question, the deadline, and your template if you have one.' },
+  { b: 'josé replies', t: 'with a fixed price and a schedule. NDA first, if you need one.' },
+  { b: 'entrópica builds the geometry,', t: 'sets up the thermal zones and schedules, runs the simulations and checks every output against the physics.' },
+  { b: 'you receive', t: 'the deliverables in your format: a results spreadsheet, slide-ready charts, a short method note, and the takeaway in one plain sentence. the models stay with entrópica; josé walks your team through them on a call whenever you want to check an input.' },
+];
+
+const checks = [
+  { b: 'one fair baseline.', t: 'every result names what it is compared with.' },
+  { b: 'inputs written down.', t: 'weather file, schedules, set points and materials go in the method note.' },
+  { b: 'physics checks.', t: 'loads, temperatures and hours are checked against what the building can physically do before any chart is made.' },
+  { b: 'one person reviews every study.', t: 'josé barría checks every model and its results before delivery. if a number doesn’t hold up, it doesn’t go out.' },
+];
+
+// USD 800 for a one-question study (jose, 2026-11-21). the overflow block has
+// no public price yet.
+const datasheet = [
+  { k: 'you send', v: ['drawings or a massing model · the question · the deadline · your template, if any', 'a list of projects and deadlines for the month'] },
+  { k: 'you receive', v: ['results spreadsheet · charts at final size · method note · the result in one sentence', 'the same, per project, in your format'] },
+  { k: 'turnaround', v: ['typically 5 business days', 'agreed per project'] },
+  { k: 'scope', v: ['one building · one question · up to three options against one baseline', 'agreed per project'] },
+  { k: 'price', v: ['from USD 800 for a one-question study · fixed-fee quote', 'fixed fee per block'] },
+  { k: 'white-label', v: ['yes, on request', 'yes, on request'] },
+  { k: 'confidentiality', v: ['NDA on request · models stay with entrópica and are never reused', 'the same'] },
+  { k: 'reviewed by', v: ['josé barría, founder and lead modeler', 'josé barría, founder and lead modeler'] },
+];
+
+const tools = ['rhino / grasshopper', 'ladybug tools', 'energyplus', 'openstudio', 'radiance', 'climatestudio', 'butterfly / openfoam'];
+
+// three cards: one per kind of study a consultancy buys. the cut cards stay
+// on the work page.
+const picks = ['glazing', 'dynamic glass', 'louvers and shading'];
 const homeResults = picks.map((c) => results.find((r) => r.cat === c)!);
 
-const MS = '/en/modeling-support/';
+const ACR = /\b(LEED|QA|NDA)\b/g;
+const caps = (t: string) => t.replace(ACR, '<span class="caps-in">$1</span>');
 ---
 
 <BaseLayout
-  title="building-performance modeling for consultancies and design teams · entrópica"
-  description="energy, daylight and comfort simulations for consultancies and design teams. entrópica builds and runs the models, checks every number, and delivers in your format."
+  title="outsourced energy, daylight and comfort modeling · entrópica"
+  description="simulation capacity for consultancies, facade consultants and architects. energyplus and radiance studies, built and checked by a person, in your format. fixed quote in one business day."
   locale={locale}
   ogImage="/og-modeling-support.jpg"
 >
@@ -37,16 +110,31 @@ const MS = '/en/modeling-support/';
   <section class="hero" id="hero">
     <div class="site-wrap hero-grid">
       <div class="hero-copy">
-        <p class="kicker">building-performance modeling · panamá · <span class="caps">UTC−5</span></p>
-        <h1>energy, daylight and comfort simulations for consultancies and design teams.</h1>
+        <p class="kicker">simulation capacity for consultancies and design teams</p>
+        <h1>your deadline. our modeler.</h1>
         <p class="lede">
-          entrópica builds and runs the models, checks every number, and delivers in
-          your format, typically in 5 business days.
+          entrópica runs the energy, daylight, comfort and facade studies your team has
+          no time for, in your report format and under your name if you want it. fixed
+          quote in one business day.
         </p>
         <div class="ctas">
-          <a class="btn amber" href={`${MS}#start`}>send a project <span class="arrow-tail" aria-hidden="true"></span></a>
-          <a class="btn ghost" href={`${MS}#results`}>see sample results</a>
+          <a class="btn amber" href="#start">send a project <span class="arrow-tail" aria-hidden="true"></span></a>
+          <a class="btn ghost" href="#results">see sample results</a>
         </div>
+        <p class="ask-first"><a href="#start">not ready to send files? ask a question first →</a></p>
+        <!-- credential line. a client credential goes in front of this
+             sentence only after written clearance. -->
+        <p class="proof">
+          led by josé barría, master’s in environmental building design, university of
+          pennsylvania. modeling building performance since 2020, in nine cities on five
+          continents.
+        </p>
+        <ul class="strip" aria-label="in short">
+          <li>modeled and checked by a person</li>
+          <li>white-label on request</li>
+          <li><span><span class="caps">NDA</span> before you send files</span></li>
+          <li>fixed fee, typically 5 business days</li>
+        </ul>
       </div>
       <TowerSheet />
     </div>
@@ -57,43 +145,207 @@ const MS = '/en/modeling-support/';
     <div class="site-wrap"><ClientBand /></div>
   </section>
 
-  <!-- 3 · results -->
-  <section class="band tint">
+  <!-- 3 · the problem -->
+  <section class="core">
     <div class="site-wrap">
-      <p class="kicker">results from past studies</p>
-      <h2>the kind of answer you get back.</h2>
-      <ResultCards results={homeResults} />
-      <p class="more"><a href={`${MS}#results`}>more results, and how a job works <span class="arrow-tail" aria-hidden="true"></span></a></p>
+      <p class="core-p">
+        a good modeler is hard to hire and hard to keep busy. when three projects
+        land in the same month, the models wait or the checks get skipped.
+      </p>
+      <p class="core-p core-2">
+        entrópica <b>takes the peak</b>. you pay per study, not for a modeler between projects.
+      </p>
+      <p class="core-hook">
+        hiring an energy modeler? <a href="#start">entrópica covers your projects</a> while you hire.
+      </p>
     </div>
   </section>
 
-  <!-- 4 · who does the work -->
+  <!-- 4 · three kinds of practice -->
   <section class="band">
     <div class="site-wrap">
+      <p class="kicker">who we work with</p>
+      <h2>modeling support for three kinds of practice.</h2>
+      <ol class="three">
+        {lanes.map((l) => (
+          <li>
+            <span class="three-n">for {l.who}</span>
+            <h3 class="h3">{l.h}</h3>
+            <p set:html={caps(l.p)} />
+          </li>
+        ))}
+      </ol>
+      <p class="lbt">
+        already working in ladybug tools? entrópica builds, fixes and reviews
+        grasshopper / honeybee definitions for teams that run their own models.
+      </p>
+    </div>
+  </section>
+
+  <!-- 5 · what a study can model -->
+  <section class="band tint">
+    <div class="site-wrap">
+      <p class="kicker">what a study can model</p>
+      <h2>the simulations and metrics we deliver.</h2>
+      <dl class="scope">
+        {scope.map((s) => (
+          <div>
+            <dt set:html={caps(s.k)} />
+            <dd><span>{s.v}</span>{s.tool && <span class="sc-tool">{s.tool}</span>}</dd>
+          </div>
+        ))}
+      </dl>
+      <ul class="tools" aria-label="tools">
+        {tools.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 · how a job works, and how every study is checked -->
+  <section class="band">
+    <div class="site-wrap">
+      <div class="job">
+        <div>
+          <p class="kicker">how a job works</p>
+          <h2>from your files to checked results.</h2>
+          <ol class="next steps4">
+            {steps.map((s, i) => (
+              <li><span>0{i + 1}</span><span><b>{s.b}</b> <span set:html={caps(s.t)} /></span></li>
+            ))}
+          </ol>
+          <div class="tz">
+            <span class="material-symbols-outlined" aria-hidden="true">schedule</span>
+            <p>
+              we work from panamá on <span class="caps">UTC−5</span> all year: new york time in
+              winter, chicago time in summer.
+            </p>
+          </div>
+        </div>
+        <div class="qa">
+          <p class="kicker">how every study is checked</p>
+          <ul>
+            {checks.map((c) => <li><b>{c.b}</b> {c.t}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · results: three cards -->
+  <section class="band tint" id="results">
+    <div class="site-wrap">
+      <p class="kicker">results from past studies</p>
+      <h2>the kind of answer you get back.</h2>
+      <ResultCards results={homeResults}>
+        <li class="result ask">
+          <div class="r-cat">your project</div>
+          <p class="r-say">working on a different envelope or load question? send the drawings you have and your deadline, and we’ll scope the study.</p>
+          <a class="btn amber" href="#start">send a project <span class="arrow-tail" aria-hidden="true"></span></a>
+        </li>
+      </ResultCards>
+      <p class="more"><a href="/en/projects/">more studies, and how each was set up → work</a></p>
+      <p class="fine-note">simulated by entrópica against clear baselines. glass is named by generic type, never by brand. office tower: {SCALING}</p>
+    </div>
+  </section>
+
+  <!-- 8 · who does the work -->
+  <section class="band">
+    <div class="site-wrap">
+      <p class="kicker">who does the work</p>
+      <h2>you talk directly to the person behind the numbers.</h2>
       <WhoDoesTheWork />
     </div>
   </section>
 
-  <!-- 5 · close -->
-  <section class="band dark close-home">
+  <!-- 9 · the offer -->
+  <section class="band tint">
     <div class="site-wrap">
-      <h2>more projects than modelers?</h2>
-      <div class="ctas">
-        <a class="btn amber" href={`${MS}#start`}>send a project <span class="arrow-tail" aria-hidden="true"></span></a>
-        <a class="mail" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a>
+      <p class="kicker">the offer</p>
+      <h2>one study, or a block of them.</h2>
+      <StudyDatasheet caption="modeling support · datasheet" head={['single study', 'overflow block']} rows={datasheet} />
+      <p class="fine-note">larger scopes get a fixed quote.</p>
+    </div>
+  </section>
+
+  <!-- 10 · start a project -->
+  <section class="band close" id="start">
+    <div class="site-wrap">
+      <div class="close-grid">
+        <div>
+          <p class="kicker">start a project</p>
+          <h2>send the project, or just the question.</h2>
+          <p class="close-sub">for a project, a fixed quote in one business day.</p>
+          <ol class="next">
+            <li><span>01</span><span>send the drawings you have, the question and the deadline.</span></li>
+            <li><span>02</span><span>josé reviews the scope and sends a fixed price and a schedule. <span class="caps-in">NDA</span> first, if needed.</span></li>
+            <li><span>03</span><span>we run the model and deliver checked results in your format, typically in 5 business days.</span></li>
+          </ol>
+          <div class="replier">
+            <img src="/jose.jpg" alt="josé barría" width="1500" height="1500" loading="lazy" />
+            <p>josé reviews every inquiry personally.<br /><span>no obligation · fixed-fee quotes</span></p>
+          </div>
+          <ul class="direct">
+            <li><a href="/en/faq/">common questions</a></li>
+            <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
+          </ul>
+        </div>
+
+        <IntakeFlow page="home" />
       </div>
     </div>
   </section>
+
+  <a class="sticky-cta" href="#start" data-sticky hidden>send a project <span aria-hidden="true">→</span></a>
 </BaseLayout>
 
+<script>
+  const sticky = document.querySelector<HTMLElement>('[data-sticky]');
+  const hero = document.getElementById('hero');
+  const start = document.getElementById('start');
+  if (sticky && hero && start && 'IntersectionObserver' in window) {
+    let heroOn = true;
+    let startOn = false;
+    const update = () => { sticky.hidden = heroOn || startOn; };
+    new IntersectionObserver(([e]) => { heroOn = e.isIntersecting; update(); }).observe(hero);
+    new IntersectionObserver(([e]) => { startOn = e.isIntersecting; update(); }, { threshold: 0.15 }).observe(start);
+  }
+</script>
+
 <style>
-  /* the home h1 is a full sentence, so it runs smaller than modeling support's */
-  .hero h1 { font-size: clamp(30px, 3.6vw, 50px); line-height: 1.08; max-width: 20ch; }
-  .more { margin: 32px 0 0; font-size: 15px; }
+  .ask-first { margin: -8px 0 28px; font-size: 14px; }
+  .ask-first a { color: var(--ink-on-paper); border-bottom: 1px solid var(--line-on-paper-2); padding-bottom: 1px; }
+  .ask-first a:hover { color: var(--amber); border-bottom-color: var(--amber); }
+
+  .core-2 { margin-top: 18px; }
+  .core-hook { margin: 28px 0 0; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.5; color: var(--text); }
+  .core-hook a { color: var(--amber); text-decoration: underline; text-underline-offset: 3px; }
+  .core-hook a:hover { text-decoration-thickness: 2px; }
+  .lbt { margin: 40px 0 0; padding: 16px 20px; border: 1px dashed var(--line-on-paper-2); font-size: 15px; line-height: 1.55; color: var(--ink-on-paper); max-width: 80ch; }
+  .three :global(.caps-in), .scope :global(.caps-in), .steps4 :global(.caps-in) { text-transform: none; }
+
+  .scope { margin: 0 0 32px; border-top: 1px solid var(--line-on-paper); max-width: 960px; }
+  .scope > div { display: grid; grid-template-columns: 11em 1fr; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--line-on-paper); }
+  .scope dt { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute-on-paper); padding-top: 3px; }
+  .scope dd { text-transform: none; margin: 0; font-size: 17px; line-height: 1.5; color: var(--ink-on-paper); }
+  .sc-tool { display: block; margin-top: 4px; font-size: 12px; color: var(--mute-on-paper-2); }
+
+  .job { display: grid; grid-template-columns: 1.3fr 1fr; gap: 72px; align-items: start; }
+  .steps4 { max-width: 56ch; }
+  .steps4 b { font-weight: 500; }
+  .qa { background: var(--ink); color: var(--text); padding: 32px; }
+  .qa .kicker { color: var(--amber); }
+  .qa ul { list-style: none; margin: 0; padding: 0; }
+  .qa li { padding: 14px 0; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 15px; line-height: 1.55; color: var(--mute); }
+  .qa li b { display: block; font-weight: 400; color: var(--text); margin-bottom: 2px; }
+
+  .more { margin: 28px 0 0; font-size: 15px; }
   .more a { color: var(--ink-on-paper); border-bottom: 1px solid currentColor; padding-bottom: 2px; }
   .more a:hover { color: var(--amber); }
-  .close-home h2 { margin-bottom: 28px; }
-  .close-home .ctas { align-items: center; gap: 16px 28px; margin-bottom: 0; }
-  .mail { color: var(--mute); font-size: 14px; border-bottom: 1px solid transparent; }
-  .mail:hover { color: var(--amber); border-bottom-color: var(--amber); }
+
+  .close-sub { margin: -8px 0 24px; font-size: 16px; color: var(--mute-on-paper); }
+
+  @media (max-width: 900px) {
+    .job { grid-template-columns: 1fr; gap: 48px; }
+    .scope > div { grid-template-columns: 1fr; gap: 4px; }
+  }
 </style>

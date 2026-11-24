@@ -1,15 +1,11 @@
 ---
-// /en/contact/ · rev 2 pivot (2026-11-23): the same intake as the modeling
-// support form, so every form on the site asks the same thing.
+// /en/contact/ · 2026-11-24: the intake flow (jose's widget, rev 2), the
+// same one as on the home page, so every way in asks the same thing.
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { tr } from '../../i18n/utils';
+import IntakeFlow from '../../components/IntakeFlow.astro';
 import { LINKEDIN } from '../../data/business';
 
 const locale = 'en' as const;
-const t = tr(locale);
-
-// formspree form id for info@entropica-lab.com (same endpoint as modeling support).
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkoerobb';
 ---
 
 <BaseLayout
@@ -32,71 +28,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkoerobb';
     <div class="site-wrap">
       <div class="contact-grid">
         <div class="form-col">
-          <div class="sent" id="contact-sent" hidden tabindex="-1">
-            <div class="eyebrow amber">// message received</div>
-            <h2>thanks. josé will reply within one business day.</h2>
-            <a class="btn" href="/en/">← home</a>
-          </div>
-
-          <form class="contact-form" action={FORMSPREE_ENDPOINT} method="POST" data-ajax data-sent="contact-sent" data-lead-type="modeling-support">
-            <div class="field">
-              <label for="name">name</label>
-              <input id="name" name="name" type="text" required autocomplete="name" />
-            </div>
-
-            <div class="field">
-              <label for="company">company</label>
-              <input id="company" name="company" type="text" autocomplete="organization" />
-            </div>
-
-            <div class="field full">
-              <label for="email">work email</label>
-              <input id="email" name="email" type="email" required autocomplete="email" />
-            </div>
-
-            <div class="field full">
-              <label for="project">project scope and question</label>
-              <textarea id="project" name="project" rows="6" required placeholder="building type and location, what you need to know, and your template if you have one"></textarea>
-            </div>
-
-            <div class="field">
-              <label for="deadline">deadline</label>
-              <input id="deadline" name="deadline" type="text" placeholder="e.g. 12 december" />
-            </div>
-
-            <div class="field">
-              <label for="white_label">white-label?</label>
-              <select id="white_label" name="white_label">
-                <option value="not sure">not sure</option>
-                <option value="yes">yes</option>
-                <option value="no">no</option>
-              </select>
-            </div>
-
-            <div class="field full">
-              <label for="files">link to drawings <span class="opt">(optional)</span></label>
-              <input id="files" name="files" type="url" placeholder="https://" />
-            </div>
-
-            <input type="hidden" name="page" value="contact" />
-            <input type="hidden" name="_subject" value="entropica-lab.com · modeling support request (contact page)" />
-
-            <div class="honeypot" aria-hidden="true">
-              <label>do not fill this field</label>
-              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
-            </div>
-
-            <p class="form-error" data-form-error hidden role="alert">
-              {t('form.error')} <a class="info-link" href="mailto:info@entropica-lab.com">info@entropica-lab.com</a>.
-            </p>
-
-            <div class="actions">
-              <button type="submit" class="btn amber">
-                send for quote
-                <span class="arrow-tail" aria-hidden="true"></span>
-              </button>
-            </div>
-          </form>
+          <IntakeFlow page="contact" />
         </div>
 
         <aside class="info-col">
@@ -122,7 +54,7 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkoerobb';
             <div class="eyebrow">// hours</div>
             <p class="muted">
               monday to friday<br />
-              09:00 to 18:00 <span class="caps">UTC−5</span>, all year
+              09:00 to 17:00 <span class="caps">UTC−5</span>, all year
             </p>
           </div>
         </aside>
@@ -131,13 +63,8 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkoerobb';
   </section>
 </BaseLayout>
 
-<script>
-  import '../../scripts/ajax-form';
-</script>
-
 <style>
   .legal-name, .caps { text-transform: none; }
-  .opt { color: var(--mute-on-paper-2); }
   .contact-hero { padding: 96px 0 56px; }
   .contact-hero .eyebrow {
     font-size: 11px;
@@ -175,17 +102,6 @@ const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xkoerobb';
 
   .form-col { max-width: 640px; }
 
-  .sent {
-    padding: 32px;
-    border: 1px solid var(--line-on-paper);
-    background: var(--paper-2);
-  }
-  .sent .eyebrow {
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    font-weight: 400; margin-bottom: 16px; display: inline-block;
-  }
-  .sent h2 { font-size: 26px; font-weight: 300; letter-spacing: -0.015em; margin: 0 0 12px; }
-  .sent p { font-size: 16px; color: var(--mute-on-paper); font-weight: 300; margin: 0 0 24px; line-height: 1.6; }
 
   .info-col {
     display: flex;

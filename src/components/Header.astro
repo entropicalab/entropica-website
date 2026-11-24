@@ -11,13 +11,13 @@ const { locale, pathname } = Astro.props;
 // two spanish panamá tools that stay live.
 const t = tr('en');
 
-// rev 2, part B2 (2026-11-23): services, faq and the cost calculator left the nav.
-// modeling support is english-only, so it always links to /en/.
+// 2026-11-24: modeling support became the home page, so it left the menu
+// (the logo goes home) and the faq came back.
 const navItems = [
-  { key: 'nav.modeling' as const, path: '/modeling-support', href: '/en/modeling-support/' },
   { key: 'nav.work' as const, path: '/projects' },
   { key: 'nav.journal' as const, path: '/blog' },
   { key: 'nav.about' as const, path: '/about' },
+  { key: 'nav.faq' as const, path: '/faq' },
   { key: 'nav.contact' as const, path: '/contact' },
 ];
 

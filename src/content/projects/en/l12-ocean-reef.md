@@ -121,7 +121,7 @@ study:
     - 'model: the house as designed in 2023: 30 rooms, 173 m² of glass in 29 real windows, the louvers and celosías. energyplus 24.2 through honeybee (2026 rerun).'
     - 'glass: supplier sheet values (profil 2000 / metra) at the center of the glass (sets 1 and 2: ug 1.1 W/m²K, g 0.40; set 3: ug 5.6 W/m²K, g 0.84). frames are not modeled.'
     - 'walls: hollow block with a ventilated facade (ground floor) or eifs (upper floors). roof: concrete slab, no insulation. ground at the weather-file ground temperature.'
-    - 'a/c: family of two, a/c at 24 °C only where and when they are. electricity = cooling load / cop 3.2 (assumed, same for all cases). full house (10 people) as a check.'
+    - 'a/c: family of two, a/c at 24 °C only where and when they are. electricity = cooling load / COP 3.2 (assumed, same for all cases). full house (10 people) as a check.'
     - 'comfort: the same house with no a/c and half of each window open when inside > 24 °C and outside < 32 °C. ashrae 55 adaptive, 80% limits (± 3.5 °C), still air.'
     - 'weather: tocumen 787920 typical year.'
     - 'check: in 2026 we reviewed the 2023 study. the 2023 model used library glass, generic windows and the airport wind as indoor air speed, so we rebuilt it.'

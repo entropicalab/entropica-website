@@ -24,8 +24,8 @@ export default defineConfig({
     // the spanish page files are kept in archive/es-pages/ and at git tag
     // archive/spanish-site-2026-11-23. nothing was deleted.
     '/': '/en/',
-    '/en/services': '/en/modeling-support/',
-    '/services': '/en/modeling-support/',
+    '/en/services': '/en/',
+    '/services': '/en/',
     '/about': '/en/about/',
     '/contact': '/en/contact/',
     '/faq': '/en/faq/',
@@ -81,6 +81,7 @@ export default defineConfig({
       filter: (page) =>
         new URL(page).pathname.startsWith('/en/') &&
         !page.includes('/en/specification-studies') &&
+        !page.includes('/en/modeling-support/') &&
         !page.includes('/en/manufacturers') &&
         !page.includes('/tools/cost-calculator') &&
         !page.includes('/recursos/permisos-panama') &&
